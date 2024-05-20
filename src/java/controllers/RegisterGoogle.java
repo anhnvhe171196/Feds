@@ -6,14 +6,8 @@ package controllers;
 
 import dals.Customer_DAO;
 import entities.GoogleAcount;
-import jakarta.mail.Authenticator;
-import jakarta.mail.Message;
-import jakarta.mail.MessagingException;
-import jakarta.mail.PasswordAuthentication;
-import jakarta.mail.Session;
-import jakarta.mail.Transport;
-import jakarta.mail.internet.InternetAddress;
-import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -70,6 +64,7 @@ public class RegisterGoogle extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String code = request.getParameter("code");
+        System.out.println("sssssss");
         String accesToken = GoogleLogin.getToken(code);
         GoogleAcount account = GoogleLogin.getUserInfo(accesToken);
         Customer_DAO d = new Customer_DAO();
@@ -78,7 +73,8 @@ public class RegisterGoogle extends HttpServlet {
             request.getRequestDispatcher("register.jsp").forward(request, response);
         } else {
             String pass = randomPassword(8);
-            d.insertCustomerByGoogleAccount(account, pass, "9-anh-dai-dien-trang-inkythuatso-03-15-27-03.jpg");
+
+            // Cấu hình thông tin email
             String host = "smtp.gmail.com";
             String port = "587";
             String username = "hungnmhe171373@fpt.edu.vn";
@@ -116,9 +112,9 @@ public class RegisterGoogle extends HttpServlet {
                 // Thiết lập tiêu đề và nội dung email
                 message.setSubject(subject);
                 message.setText(messageContent);
-
                 // Gửi email
                 Transport.send(message);
+                d.insertCustomerByGoogleAccount(account, pass, "9-anh-dai-dien-trang-inkythuatso-03-15-27-03.jpg");
 
                 // Chuyển hướng người dùng sau khi gửi email thành công
                 response.sendRedirect("login");
