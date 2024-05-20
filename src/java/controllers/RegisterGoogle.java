@@ -6,6 +6,14 @@ package controllers;
 
 import dals.Customer_DAO;
 import entities.GoogleAcount;
+import jakarta.mail.Authenticator;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.PasswordAuthentication;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,6 +22,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.security.SecureRandom;
+import java.util.Properties;
 
 /**
  *
@@ -68,8 +77,56 @@ public class RegisterGoogle extends HttpServlet {
             request.setAttribute("error", "Email đã được sử dụng!!!");
             request.getRequestDispatcher("register.jsp").forward(request, response);
         } else {
-            d.insertCustomerByGoogleAccount(account, randomPassword(6), "9-anh-dai-dien-trang-inkythuatso-03-15-27-03.jpg");
-            response.sendRedirect("login");
+            String pass = randomPassword(8);
+            d.insertCustomerByGoogleAccount(account, pass, "9-anh-dai-dien-trang-inkythuatso-03-15-27-03.jpg");
+            String host = "smtp.gmail.com";
+            String port = "587";
+            String username = "hungnmhe171373@fpt.edu.vn";
+            String password = "cvypvoutvvjolota";
+            String fromAddress = "hungnmhe171373@fpt.edu.vn";
+            String toAddress = account.getEmail();
+            String subject = "Subject of the email";
+            String messageContent = pass;
+
+            // Cấu hình Jakarta Mail
+            Properties properties = new Properties();
+            properties.put("mail.smtp.host", host);
+            properties.put("mail.smtp.port", port);
+            properties.put("mail.smtp.auth", "true");
+            properties.put("mail.smtp.starttls.enable", "true");
+            properties.put("mail.smtp.starttls.required", "true");
+
+            // Xây dựng đối tượng Session để xác thực và kết nối đến SMTP server
+            Session session = Session.getInstance(properties, new Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(username, password);
+                }
+            });
+
+            try {
+                // Tạo đối tượng MimeMessage
+                MimeMessage message = new MimeMessage(session);
+
+                // Thiết lập thông tin người gửi
+                message.setFrom(new InternetAddress(fromAddress));
+
+                // Thiết lập thông tin người nhận
+                message.addRecipient(Message.RecipientType.TO, new InternetAddress(toAddress));
+
+                // Thiết lập tiêu đề và nội dung email
+                message.setSubject(subject);
+                message.setText(messageContent);
+
+                // Gửi email
+                Transport.send(message);
+
+                // Chuyển hướng người dùng sau khi gửi email thành công
+                response.sendRedirect("login");
+            } catch (MessagingException mex) {
+                // Xử lý lỗi nếu có
+                mex.printStackTrace();
+                response.sendRedirect("register");
+            }
         }
     }
 
