@@ -57,16 +57,22 @@
                         <!-- SEARCH BAR -->
                         <div class="col-md-6">
                             <div class="header-search">
-
-                                <form>                                 
-                                    <ul>
+                               
+                                    <form type="submit">
+                                    <select class="input-select" name="cateid">
+                                        <option value="" selected>Loại Sản Phẩm</option>
                                         <c:forEach items="${sessionScope.cates}" var="cate">
-                                            <li><a class="dropdown-item" href="FilterPostList?cateid=${cate.category_id}">${cate.category_name}</a></li>
-                                            </c:forEach>
-                                    </ul>
+                                            
+                                            <option value="${cate.category_id}">${cate.category_name}</option>
+                                        </c:forEach>
+                                    </select>
+                                </form>                                    
+                                    <form method="get" action="PostList">
                                     <input class="input" placeholder="Search here">
-                                    <button class="search-btn">Search</button>
+                                    <button type="submit" class="search-btn">Search</button>
                                 </form>
+                                
+                                
                             </div>
                         </div>
                         <!-- /SEARCH BAR -->
