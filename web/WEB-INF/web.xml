@@ -4,8 +4,32 @@
         <servlet-name>Sale</servlet-name>
         <servlet-class>controllers.Sale</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HomePage</servlet-name>
+        <servlet-class>controllers.HomePage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FilterPostList</servlet-name>
+        <servlet-class>controllers.FilterPostList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PostList</servlet-name>
+        <servlet-class>controllers.PostList</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Sale</servlet-name>
         <url-pattern>/sale</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomePage</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FilterPostList</servlet-name>
+        <url-pattern>/FilterPostList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostList</servlet-name>
+        <url-pattern>/PostList</url-pattern>
     </servlet-mapping>
 </web-app>
