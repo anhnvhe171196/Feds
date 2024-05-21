@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,7 +43,9 @@
                         <span class="login100-form-title p-b-43">
                             Welcome to FedShop
                         </span>
-
+                        <c:if test="${requestScope.error != null}">
+                            <h2 style="color: red; text-align: center; margin-bottom: 20px">${requestScope.error}</h2>
+                        </c:if>
                         <!--Logo-->
 
                         <div class="form-group">
