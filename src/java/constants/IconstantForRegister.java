@@ -8,7 +8,7 @@ package constants;
  *
  * @author admin
  */
-public class Iconstant {
+public class IconstantForRegister {
 
     public static String GOOGLE_CLIENT_ID = "110538104080-crjqoltjgupbigij7mm6mdi8imco1k14.apps.googleusercontent.com";
 

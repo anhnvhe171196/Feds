@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,9 +43,11 @@
                         <span class="login100-form-title p-b-43">
                             Welcome to FedShop
                         </span>
-
+                        <c:if test="${requestScope.error != null}">
+                            <h2 style="color: red; text-align: center; margin-bottom: 20px">${requestScope.error}</h2>
+                        </c:if>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="email" required>
+                            <input type="email" class="form-control" name="email" required>
                             <label for="email" class="form-label">Email</label>
                         </div>
 
@@ -75,12 +78,12 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="form-control btn btn-primary submit px-3">Sign In</button>
+                            <input type="submit" class="form-control btn btn-primary submit px-3">
                         </div>
 
                         <p class="w-100 text-center">&mdash; Do not have account? &mdash;</p>
-                        <div class="form-group">
-                            <button id="registerButton" class="form-control btn btn-primary1 submit px-3" style="border: 2px solid #00000034;">Register</button>
+                        <div class="form-group" style="text-align: center;background-color: white; border-radius: 100px; border: 1px black groove;">
+                            <a href="register"><div style="display: inline-block;font-weight: 400;white-space: nowrap;vertical-align: middle; padding: 10px 0px "> Register</div></a>
                         </div>
 
                         <div class="text-center p-t-10 p-b-20">
@@ -95,7 +98,7 @@
                             </a>
                             <p>&nbsp;&nbsp;&nbsp;</p>
 
-                            <a href="https://accounts.google.com/o/oauth2/auth?scope=email profile openid&redirect_uri=http://localhost:9999/Feds/login&response_type=code&client_id=110538104080-crjqoltjgupbigij7mm6mdi8imco1k14.apps.googleusercontent.com&approval_prompt=force" class="login100-form-social-item1 flex-c-m m-r-5" style="background-image: url('images/Glogo.png');">
+                            <a href="https://accounts.google.com/o/oauth2/auth?scope=email profile openid&redirect_uri=http://localhost:9999/Feds/loginGoogle&response_type=code&client_id=110538104080-crjqoltjgupbigij7mm6mdi8imco1k14.apps.googleusercontent.com&approval_prompt=force" class="login100-form-social-item1 flex-c-m m-r-5" style="background-image: url('images/Glogo.png');">
                                 <i aria-hidden="true"></i>
                             </a>
                         </div>
@@ -157,6 +160,7 @@
                         error.innerHTML = "Please check";
                     }
                 });
+            }
         </script>
     </body>
 

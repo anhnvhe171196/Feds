@@ -4,6 +4,8 @@
  */
 package controllers;
 
+import dals.Customer_DAO;
+import entities.Customer;
 import entities.GoogleAcount;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,6 +14,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -72,7 +75,23 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String user = request.getParameter("email");
+        String pass = request.getParameter("password");
+        Customer_DAO d = new Customer_DAO();
+        Customer u = d.getCustomerByEmail(user);
+        if (u == null) {
+            request.setAttribute("error", "Tài khoản hoặc mật khẩu không đúng!!!");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
+        if (pass.equals(u.getPass())) {
+            HttpSession session = request.getSession();
+            session.setAttribute("user", u);
+            response.sendRedirect("home");
+        } else {
+            request.setAttribute("error", "Tài khoản hoặc mật khẩu không đúng!!!");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+
+        }
     }
 
     /**

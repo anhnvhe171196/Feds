@@ -35,7 +35,7 @@
         <div class="limiter">
             <div class="container-login100">
                 <div class="wrap-login100">
-                    <form class="login100-form validate-form" action="${pageContext.request.contextPath}/forgotpass" method="post">
+                    <form class="login100-form validate-form" action="${pageContext.request.contextPath}/forgotpass" method="post" id="form">
                         <div>
                             <img src="${pageContext.request.contextPath}/images/FedsLogo.png" alt="Feds Logo" style="max-width: 100px; max-height: 100px; display: block; margin: 0 auto; border-radius: 30%;">
                         </div>

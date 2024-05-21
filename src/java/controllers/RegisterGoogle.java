@@ -65,8 +65,8 @@ public class RegisterGoogle extends HttpServlet {
             throws ServletException, IOException {
         String code = request.getParameter("code");
         System.out.println("sssssss");
-        String accesToken = GoogleLogin.getToken(code);
-        GoogleAcount account = GoogleLogin.getUserInfo(accesToken);
+        String accesToken = RegisterToken.getToken(code);
+        GoogleAcount account = RegisterToken.getUserInfo(accesToken);
         Customer_DAO d = new Customer_DAO();
         if (d.getCustomerByEmail(account.getEmail()) != null) {
             request.setAttribute("error", "Email đã được sử dụng!!!");
@@ -77,12 +77,30 @@ public class RegisterGoogle extends HttpServlet {
             // Cấu hình thông tin email
             String host = "smtp.gmail.com";
             String port = "587";
-            String username = "hungnmhe171373@fpt.edu.vn";
-            String password = "cvypvoutvvjolota";
-            String fromAddress = "hungnmhe171373@fpt.edu.vn";
+            String username = "anhnvhe171196@fpt.edu.vn";
+            String password = "cpautzrmivqsxoiu";
+            String fromAddress = "anhnvhe171196@fpt.edu.vn";
             String toAddress = account.getEmail();
             String subject = "Subject of the email";
-            String messageContent = pass;
+            String messageContent = "<!DOCTYPE html>\n"
+                    + "<html lang=\"en\">\n"
+                    + "\n"
+                    + "<head>\n"
+                    + "  <meta charset=\"utf-8\">\n"
+                    + "  <meta content=\"width=device-width, initial-scale=1.0\" name=\"viewport\">\n"
+                    + "\n"
+                    + "</head>\n"
+                    + "\n"
+                    + "<body>\n"
+                    + "\n"
+                    + "    <h1>Feds</h1>\n"
+                    + "  <div>\n"
+                    + "    <h1>Cảm ơn ban đã đăng kí tài khoản Fed Shop</h1>\n"
+                    + "    <h2>Đây là mật khẩu tạm thời của bạn: </h2>" + pass +"\n"
+                    + "\n"
+                    + "</body>\n"
+                    + "\n"
+                    + "</html>";
 
             // Cấu hình Jakarta Mail
             Properties properties = new Properties();
@@ -111,7 +129,7 @@ public class RegisterGoogle extends HttpServlet {
 
                 // Thiết lập tiêu đề và nội dung email
                 message.setSubject(subject);
-                message.setText(messageContent);
+                message.setContent(messageContent, "text/html");
                 // Gửi email
                 Transport.send(message);
                 d.insertCustomerByGoogleAccount(account, pass, "9-anh-dai-dien-trang-inkythuatso-03-15-27-03.jpg");
