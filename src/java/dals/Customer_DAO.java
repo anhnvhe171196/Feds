@@ -4,7 +4,7 @@
  */
 package dals;
 
-import entities.Customer;
+import entities.User;
 import entities.GoogleAcount;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,20 +18,22 @@ import java.util.List;
  */
 public class Customer_DAO extends DBContext {
 
-    public List<Customer> getCustomerAll() {
-        List<Customer> list = new ArrayList<>();
-        String sql = "SELECT [User_name]\n"
-                + "	  ,[Password]\n"
-                + "      ,[Email]\n"
-                + "      ,[Phone_number]\n"
-                + "      ,[Role_id]\n"
-                + "      ,[Avarta]\n"
-                + "  FROM [Feds].[dbo].[User]\n";
+    public List<User> getCustomerAll() {
+        List<User> list = new ArrayList<>();
+        String sql = "	SELECT [User_Id]\n"
+                + "		  ,[Password]\n"
+                + "		  ,[User_name]\n"
+                + "		  ,[Email]\n"
+                + "		  ,[Phone_number]\n"
+                + "		  ,[Role_id]\n"
+                + "		  ,[Avarta]\n"
+                + "	  FROM [dbo].[User]\n"
+                + "	  where Role_id = 5";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Customer u = new Customer(rs.getString("User_name"), rs.getString("Password"), rs.getString("Email"), rs.getString("Phone_number"), rs.getInt("Role_id"), rs.getString("Avarta"));
+                User u = new User(rs.getInt("User_Id"), rs.getString("User_name"), rs.getString("Password"), rs.getString("Email"), rs.getString("Phone_number"), rs.getInt("Role_id"), rs.getString("Avarta"));
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -40,7 +42,7 @@ public class Customer_DAO extends DBContext {
         return list;
     }
 
-    public void insertCustomer(Customer u) {
+    public void insertCustomer(User u) {
         String sql = "INSERT INTO [dbo].[User]\n"
                 + "           ([Password]\n"
                 + "           ,[User_name]\n"
@@ -52,10 +54,10 @@ public class Customer_DAO extends DBContext {
                 + "           (?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, u.getPass());
-            st.setString(2, u.getUser());
+            st.setString(1, u.getPassword());
+            st.setString(2, u.getUser_name());
             st.setString(3, u.getEmail());
-            st.setString(4, u.getPhone());
+            st.setString(4, u.getPhone_number());
             st.setInt(5, 5);
             st.setString(6, u.getAvarta());
             st.executeUpdate();
@@ -88,21 +90,22 @@ public class Customer_DAO extends DBContext {
         }
     }
 
-    public Customer getCustomerByID(int id) {
-        String spl = "SELECT [User_name]\n"
-                + "	  ,[Password]\n"
-                + "      ,[Email]\n"
-                + "      ,[Phone_number]\n"
-                + "      ,[Role_id]\n"
-                + "      ,[Avarta]\n"
-                + "  FROM [Feds].[dbo].[User]\n"
+    public User getCustomerByID(int id) {
+        String spl = "	SELECT [User_Id]\n"
+                + "		  ,[Password]\n"
+                + "		  ,[User_name]\n"
+                + "		  ,[Email]\n"
+                + "		  ,[Phone_number]\n"
+                + "		  ,[Role_id]\n"
+                + "		  ,[Avarta]\n"
+                + "	  FROM [dbo].[User]\n"
                 + "  where User_Id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(spl);
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                Customer u = new Customer(rs.getString("User_name"), rs.getString("Password"), rs.getString("Email"), rs.getString("Phone_number"), rs.getInt("Role_id"), rs.getString("Avarta"));
+                User u = new User(rs.getInt("User_Id"), rs.getString("User_name"), rs.getString("Password"), rs.getString("Email"), rs.getString("Phone_number"), rs.getInt("Role_id"), rs.getString("Avarta"));
                 return u;
             }
         } catch (SQLException e) {
@@ -110,26 +113,43 @@ public class Customer_DAO extends DBContext {
         }
         return null;
     }
-    public Customer getCustomerByEmail(String email) {
-        String spl = "SELECT [User_name]\n"
-                + "	  ,[Password]\n"
-                + "      ,[Email]\n"
-                + "      ,[Phone_number]\n"
-                + "      ,[Role_id]\n"
-                + "      ,[Avarta]\n"
-                + "  FROM [Feds].[dbo].[User]\n"
+
+    public User getCustomerByEmail(String email) {
+        String spl = "SELECT [User_Id]\n"
+                + "		  ,[Password]\n"
+                + "		  ,[User_name]\n"
+                + "		  ,[Email]\n"
+                + "		  ,[Phone_number]\n"
+                + "		  ,[Role_id]\n"
+                + "		  ,[Avarta]\n"
+                + "	  FROM [dbo].[User]\n"
                 + "  where Email = ?";
         try {
             PreparedStatement st = connection.prepareStatement(spl);
             st.setString(1, email);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                Customer u = new Customer(rs.getString("User_name"), rs.getString("Password"), rs.getString("Email"), rs.getString("Phone_number"), rs.getInt("Role_id"), rs.getString("Avarta"));
+                User u = new User(rs.getInt("User_Id"), rs.getString("User_name"), rs.getString("Password"), rs.getString("Email"), rs.getString("Phone_number"), rs.getInt("Role_id"), rs.getString("Avarta"));
                 return u;
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
         return null;
+    }
+
+    public void chagePassword(String pass, String email) {
+        String sql = "UPDATE [dbo].[User]\n"
+                + "   SET [Password] = ?\n"
+                + "      \n"
+                + " WHERE Email = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, pass);
+            st.setString(2, email);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
     }
 }
