@@ -53,6 +53,8 @@
             }
         }
     }
+    
+    
 
     function showValidate(input) {
         var thisAlert = $(input).parent();
@@ -130,7 +132,7 @@
     var myChart1 = new Chart(ctx1, {
         type: "bar",
         data: {
-            labels: ["2016", "2017", "2018", "2019", "2020", "2021", "2022"],
+                labels: ["2016", "2017", "2018", "2019", "2020", "2021", "2022"],
             datasets: [{
                     label: "USA",
                     data: [15, 30, 55, 65, 60, 80, 95],
@@ -267,5 +269,11 @@
             responsive: true
         }
     });
+    
+    
+      
+      
+        
+
 
 })(jQuery);

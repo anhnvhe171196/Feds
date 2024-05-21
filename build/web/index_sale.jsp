@@ -3,14 +3,14 @@
     Created on : May 20, 2024, 9:14:06 PM
     Author     : Trong
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
     <head>
         <meta charset="utf-8">
-        <title>DASHMIN - Bootstrap Admin Template</title>
+        <title>SALE DASHBOARD</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
@@ -36,6 +36,7 @@
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
+
     </head>
 
     <body>
@@ -57,16 +58,16 @@
                     </a>
                     <div class="d-flex align-items-center ms-4 mb-4">
                         <div class="position-relative">
-                            <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                            <!--                            <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">-->
                             <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                         </div>
                         <div class="ms-3">
                             <h6 class="mb-0">Trong</h6>
-                            <span>Sale Dashboard</span>
+                            <span>Sale Man</span>
                         </div>
                     </div>
                     <div class="navbar-nav w-100">
-                        <a href="index.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                        <a href="index_sale.jsp" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Elements</a>
                             <div class="dropdown-menu bg-transparent border-0">
@@ -126,7 +127,7 @@
                         </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                <!--                                <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">-->
                                 <span class="d-none d-lg-inline-flex">John Doe</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
@@ -168,19 +169,36 @@
                         <div class="col-sm-6 col-xl-4">
                             <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                                 <i class="fa fa-chart-line fa-3x text-primary"></i>
-                                <div class="ms-3">
-                                    <p class="mb-2">Tổng thu nhập tháng này</p>
-                                    <h6 class="mb-0">${numOfBills}</h6>
+                                <div class="ms-3 w-100">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <p class="mb-0 xl-1">Tổng thu nhập</p>
+                                        
+                                            <select id="monthSelect" onchange="sendSelectedMonth()">
+                                                <option ${requestScope.month==1?"selected":""} value="1">Tháng 1</option>
+                                                <option ${requestScope.month==2?"selected":""} value="2">Tháng 2</option>
+                                                <option ${requestScope.month==3?"selected":""} value="3">Tháng 3</option>
+                                                <option ${requestScope.month==4?"selected":""} value="4">Tháng 4</option>
+                                                <option ${requestScope.month==5?"selected":""} value="5">Tháng 5</option>
+                                                <option ${requestScope.month==6?"selected":""} value="6">Tháng 6</option>
+                                                <option ${requestScope.month==7?"selected":""} value="7">Tháng 7</option>
+                                                <option ${requestScope.month==8?"selected":""} value="8">Tháng 8</option>
+                                                <option ${requestScope.month==9?"selected":""} value="9">Tháng 9</option>
+                                                <option ${requestScope.month==10?"selected":""} value="10">Tháng 10</option>
+                                                <option ${requestScope.month==11?"selected":""} value="11">Tháng 11</option>
+                                                <option ${requestScope.month==12?"selected":""} value="12">Tháng 12</option>
+                                            </select>
+                                        
+                                    </div>
+                                    <h6 class="mb-0" id="incomeDisplay">${sumOfBillByMonth}</h6>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <!-- Sale & Revenue End -->
 
 
-                <!-- Sales Chart Start -->
+                <!-- Top Trends & Product Prioritize Start -->
                 <div class="container-fluid pt-4 px-4">
                     <div class="row g-4">
                         <div class="col-sm-12 col-xl-6">
@@ -203,14 +221,39 @@
                         </div>
                     </div>
                 </div>
-                <!-- Sales Chart End -->
+                <!-- Top Trends & Product Prioritize Start -->
+                
+                <!-- Product Prioritize Chart Start -->
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row g-4">
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-light text-center rounded p-4">
+                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                    <h6 class="mb-0">Sản phẩm bán chạy</h6>
+                                    <a href="">Tất cả</a>
+                                </div>
+                                <canvas id="worldwide-sales"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-light text-center rounded p-4">
+                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                    <h6 class="mb-0">Khách hàng thân </h6>
+                                    <a href="">Tất cả</a>
+                                </div>
+                                <canvas id="salse-revenue"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product Prioritize Chart End -->
 
 
                 <!-- Recent Sales Start -->
                 <div class="container-fluid pt-4 px-4">
                     <div class="bg-light text-center rounded p-4">
                         <div class="d-flex align-items-center justify-content-between mb-4">
-                            <h6 class="mb-0">Đơn hàng hôm nay</h6>
+                            <h6 class="mb-0">Đơn hàng mới</h6>
                             <a href="">Tất cả</a>
                         </div>
                         <div class="table-responsive">
@@ -227,27 +270,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach var="bill" items="${billList}">
-                                    <tr>
-                                        <td><input class="form-check-input" type="checkbox"></td>
-                                        <td>${bill.getDate}</td>
-                                        <td>${bill.getBill_id}</td>
-                                        <td>${bill.getUser_name}</td>
-                                        <td>${bill.getTotal_price}</td>
-                                        <td>${bill.getStatus}</td>
-                                        <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                                    </tr>
-                                </c:forEach>
-                                <tr>
-                                    <td><input class="form-check-input" type="checkbox"></td>
-                                    <td>01 Jan 2045</td>
-                                    <td>INV-0123</td>
-                                    <td>Jhon Doe</td>
-                                    <td>$123</td>
-                                    <td>Paid</td>
-                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                                </tr>
-                                
+                                    <c:forEach items="${billList}" var="b"> 
+                                        <tr>
+                                            <td><input class="form-check-input" type="checkbox"></td>
+                                            <td>${b.date}</td>
+                                            <td>${b.bill_id}</td>
+                                            <td>${b.user_name}</td>
+                                            <td>${b.total_price}</td>
+                                            <td>${b.status}</td>
+                                            <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+                                        </tr>
+                                    </c:forEach>
+
+
                                 </tbody>
                             </table>
                         </div>
@@ -256,79 +291,7 @@
                 <!-- Recent Sales End -->
 
 
-                <!-- Widgets Start -->
-                <div class="container-fluid pt-4 px-4">
-                    <div class="row g-4">
-
-                        <div class="col-sm-12 col-md-6 col-xl-6">
-                            <div class="h-100 bg-light rounded p-4">
-                                <div class="d-flex align-items-center justify-content-between mb-4">
-                                    <h6 class="mb-0">Calender</h6>
-                                    <a href="">Show All</a>
-                                </div>
-                                <div id="calender"></div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6 col-xl-6">
-                            <div class="h-100 bg-light rounded p-4">
-                                <div class="d-flex align-items-center justify-content-between mb-4">
-                                    <h6 class="mb-0">To Do List</h6>
-                                    <a href="">Show All</a>
-                                </div>
-                                <div class="d-flex mb-2">
-                                    <input class="form-control bg-transparent" type="text" placeholder="Enter task">
-                                    <button type="button" class="btn btn-primary ms-2">Add</button>
-                                </div>
-                                <div class="d-flex align-items-center border-bottom py-2">
-                                    <input class="form-check-input m-0" type="checkbox">
-                                    <div class="w-100 ms-3">
-                                        <div class="d-flex w-100 align-items-center justify-content-between">
-                                            <span>Short task goes here...</span>
-                                            <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center border-bottom py-2">
-                                    <input class="form-check-input m-0" type="checkbox">
-                                    <div class="w-100 ms-3">
-                                        <div class="d-flex w-100 align-items-center justify-content-between">
-                                            <span>Short task goes here...</span>
-                                            <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center border-bottom py-2">
-                                    <input class="form-check-input m-0" type="checkbox" checked>
-                                    <div class="w-100 ms-3">
-                                        <div class="d-flex w-100 align-items-center justify-content-between">
-                                            <span><del>Short task goes here...</del></span>
-                                            <button class="btn btn-sm text-primary"><i class="fa fa-times"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center border-bottom py-2">
-                                    <input class="form-check-input m-0" type="checkbox">
-                                    <div class="w-100 ms-3">
-                                        <div class="d-flex w-100 align-items-center justify-content-between">
-                                            <span>Short task goes here...</span>
-                                            <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center pt-2">
-                                    <input class="form-check-input m-0" type="checkbox">
-                                    <div class="w-100 ms-3">
-                                        <div class="d-flex w-100 align-items-center justify-content-between">
-                                            <span>Short task goes here...</span>
-                                            <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Widgets End -->
+                
 
 
                 <!-- Footer Start -->
@@ -369,6 +332,16 @@
 
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
+        <script>
+
+
+                                                function sendSelectedMonth() {
+                                                    const selectedMonth = document.getElementById("monthSelect").value;
+                                                    window.location.href = `/Feds/saleDashboard?action=sumByMonth&month=` + selectedMonth;
+                                                }
+
+                                                
+        </script>
     </body>
 
 </html>

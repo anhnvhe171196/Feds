@@ -4,16 +4,8 @@
         <servlet-name>Sale</servlet-name>
         <servlet-class>controllers.Sale</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>SaleDashboard</servlet-name>
-        <servlet-class>controllers.SaleDashboard</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>Sale</servlet-name>
         <url-pattern>/sale</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SaleDashboard</servlet-name>
-        <url-pattern>/saledashboard</url-pattern>
     </servlet-mapping>
 </web-app>

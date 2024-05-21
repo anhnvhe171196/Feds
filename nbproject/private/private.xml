@@ -2,6 +2,11 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/E:/Feds/src/java/dals/Bill_DAO.java</file>
+            <file>file:/E:/Feds/src/java/entities/Bill.java</file>
+            <file>file:/E:/Feds/src/java/controllers/SaleDashboard.java</file>
+            <file>file:/E:/Feds/web/index_sale.jsp</file>
+        </group>
     </open-files>
 </project-private>

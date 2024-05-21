@@ -13,7 +13,7 @@ import java.util.Date;
 public class Bill {
     private int Bill_id;
     private double Total_price;
-    private Date Date;
+    private String Date;
     private int User_id;
     private String Address;
     private String Status;
@@ -21,16 +21,9 @@ public class Bill {
     public Bill() {
     }
 
-    public Bill(int Bill_id, double Total_price, Date Date, int User_id, String Address, String Status) {
-        this.Bill_id = Bill_id;
-        this.Total_price = Total_price;
-        this.Date = Date;
-        this.User_id = User_id;
-        this.Address = Address;
-        this.Status = Status;
-    }
+    
 
-    public Bill(int Bill_id, double Total_price, Date Date, int User_id, String Address, String Status, String User_name) {
+    public Bill(int Bill_id, double Total_price, String Date, int User_id, String Address, String Status, String User_name) {
         this.Bill_id = Bill_id;
         this.Total_price = Total_price;
         this.Date = Date;
@@ -56,11 +49,11 @@ public class Bill {
         this.Total_price = Total_price;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return Date;
     }
 
-    public void setDate(Date Date) {
+    public void setDate(String Date) {
         this.Date = Date;
     }
 
