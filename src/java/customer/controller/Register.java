@@ -8,6 +8,7 @@ package customer.controller;
 
 import dals.Customer_DAO;
 import entities.Customer;
+import entities.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -80,7 +81,7 @@ public class Register extends HttpServlet {
             request.getRequestDispatcher("register.jsp").forward(request, response);
         } else {
             String phoneNumber = request.getParameter("phoneNumber");
-            Customer c = new Customer(username, pass, email, phoneNumber, 5, "9-anh-dai-dien-trang-inkythuatso-03-15-27-03.jpg");
+            User c = new User(0,username, pass, email, phoneNumber, 5, "9-anh-dai-dien-trang-inkythuatso-03-15-27-03.jpg");
             cd.insertCustomer(c);
             response.sendRedirect("login");
         }

@@ -7,6 +7,7 @@ package customer.controller;
 import dals.Customer_DAO;
 import entities.Customer;
 import entities.GoogleAcount;
+import entities.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -78,12 +79,12 @@ public class Login extends HttpServlet {
         String user = request.getParameter("email");
         String pass = request.getParameter("password");
         Customer_DAO d = new Customer_DAO();
-        Customer u = d.getCustomerByEmail(user);
+        User u = d.getCustomerByEmail(user);
         if (u == null) {
             request.setAttribute("error", "Tài khoản hoặc mật khẩu không đúng!!!");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
-        if (pass.equals(u.getPass())) {
+        if (pass.equals(u.getPassword())) {
             HttpSession session = request.getSession();
             session.setAttribute("user", u);
             response.sendRedirect("home");

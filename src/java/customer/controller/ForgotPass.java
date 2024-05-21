@@ -6,7 +6,7 @@ package customer.controller;
 
 import static customer.controller.RegisterGoogle.randomPassword;
 import dals.Customer_DAO;
-import entities.Customer;
+import entities.User;
 import jakarta.mail.Authenticator;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
@@ -86,7 +86,7 @@ public class ForgotPass extends HttpServlet {
         String email = request.getParameter("email");
         Customer_DAO d = new Customer_DAO();
         if (d.getCustomerByEmail(email) != null) {
-            Customer account = d.getCustomerByEmail(email);
+            User account = d.getCustomerByEmail(email);
             String pass = randomPassword(8);
             // Cấu hình thông tin email
             String host = "smtp.gmail.com";
