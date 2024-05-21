@@ -4,7 +4,6 @@
 <html lang="en">
 
     <head>
-        <title>Login V18</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!--===============================================================================================-->
@@ -137,7 +136,7 @@
 
                             // Sign in button redirect
                             document.getElementById('signInButton').addEventListener('click', function () {
-                                window.location.href = 'Login.jsp';
+                                window.location.href = 'login.jsp';
                             });
                         });
 
