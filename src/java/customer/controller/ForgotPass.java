@@ -7,7 +7,6 @@ package customer.controller;
 import static customer.controller.RegisterGoogle.randomPassword;
 import dals.Customer_DAO;
 import entities.Customer;
-import entities.GoogleAcount;
 import jakarta.mail.Authenticator;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
@@ -145,6 +144,7 @@ public class ForgotPass extends HttpServlet {
                 message.setContent(messageContent, "text/html");
                 // Gửi email
                 Transport.send(message);
+                d.chagePassword(pass, email);
 
                 // Chuyển hướng người dùng sau khi gửi email thành công
                 response.sendRedirect("login");

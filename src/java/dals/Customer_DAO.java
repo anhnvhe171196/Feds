@@ -110,6 +110,7 @@ public class Customer_DAO extends DBContext {
         }
         return null;
     }
+
     public Customer getCustomerByEmail(String email) {
         String spl = "SELECT [User_name]\n"
                 + "	  ,[Password]\n"
@@ -131,5 +132,20 @@ public class Customer_DAO extends DBContext {
             System.out.println(e);
         }
         return null;
+    }
+
+    public void chagePassword(String pass, String email) {
+        String sql = "UPDATE [dbo].[User]\n"
+                + "   SET [Password] = ?\n"
+                + "      \n"
+                + " WHERE Email = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, pass);
+            st.setString(2, email);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
     }
 }
