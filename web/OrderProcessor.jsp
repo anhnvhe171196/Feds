@@ -38,11 +38,6 @@
     </head>
     <body>
         <div class="container-xxl position-relative bg-white d-flex p-0">
-            <!-- Spinner Start -->
-           
-            <!-- Spinner End -->
-
-
             <!-- Sidebar Start -->
             <div class="sidebar pe-4 pb-3">
                 <nav class="navbar bg-light navbar-light">
