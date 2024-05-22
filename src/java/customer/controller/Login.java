@@ -5,7 +5,6 @@
 package customer.controller;
 
 import dals.Customer_DAO;
-import entities.Customer;
 import entities.GoogleAcount;
 import entities.User;
 import java.io.IOException;

@@ -7,7 +7,6 @@ package customer.controller;
 
 
 import dals.Customer_DAO;
-import entities.Customer;
 import entities.User;
 import java.io.IOException;
 import java.io.PrintWriter;
