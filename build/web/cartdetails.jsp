@@ -185,7 +185,7 @@
         <section>
             <div class="container my-5">
                 <header class="mb-4">
-                    <h3>Recommended items</h3>
+                    <h3>Sản phẩm liên quan</h3>
                 </header>
 
                 <div class="row">
@@ -203,7 +203,7 @@
                             <div class="card-body d-flex flex-column pt-3 border-top">
                                 <a href="#" class="nav-link">Gaming Headset with Mic</a>
                                 <div class="price-wrap mb-2">
-                                    <strong class=""> $18.95</strong>
+                                    <strong class="">$18.95</strong>
                                     <del class="">$24.99</del>
                                 </div>
                                 <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
