@@ -10,15 +10,21 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900&display=swap"
+              rel="stylesheet">
         <link href="${pageContext.request.contextPath}/https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css"/>
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/slick.css"/>
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/slick-theme.css"/>
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/nouislider.min.css"/>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
+        <!-- /HEADER -->
+
+        <!-- NAVIGATION -->
         <header>
             <!-- TOP HEADER -->
             <div id="top-header">
@@ -30,7 +36,22 @@
                     </ul>
                     <ul class="header-links pull-right">
                         <!--<li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>-->
-                        <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+                        <li><a href="#">
+                                <i class="fa fa-user-o"></i>
+                                <li>
+                                    <div class="menu-container">
+                                        <button class="menu-button" style="background-color: red">My Account</button>
+                                        <div class="menu">
+                                            <ul>
+                                                <li><a href="#">Hồ sơ cá nhân</a></li>
+                                                <li><a href="#">Change Password</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -149,5 +170,13 @@
             </div>
             <!-- /MAIN HEADER -->
         </header>
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.magnific-popup.min.js"></script>
+        <script src="js/jquery.slicknav.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/jquery.nice-select.min.js"></script>
+        <script src="js/mixitup.min.js"></script>
+        <script src="js/home.js"></script>
     </body>
 </html>

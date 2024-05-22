@@ -18,7 +18,7 @@
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/nouislider.min.css"/>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/home.css" type="text/css">
 
     </head>
     <body>
@@ -731,12 +731,13 @@
         <!-- /FOOTER -->
 
         <!-- jQuery Plugins -->
-<!--        <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
         <script src="${pageContext.request.contextPath}js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}js/slick.min.js"></script>
         <script src="${pageContext.request.contextPath}js/nouislider.min.js"></script>
         <script src="${pageContext.request.contextPath}js/jquery.zoom.min.js"></script>
-        <script src="${pageContext.request.contextPath}js/main.js"></script>-->
+        <script src="${pageContext.request.contextPath}js/main.js"></script>
+        
 
     </body>
 </html>
