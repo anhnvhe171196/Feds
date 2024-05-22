@@ -70,33 +70,21 @@ public class Bill_DAO extends DBContext {
     }
 
     public double getSumOfBillByMonth(int month) {
-    double sumOfDoneBill = 0;
-    String sql = "SELECT SUM(Total_price) AS TongTienBanDuoc\n"
-            + "FROM Bill\n"
-            + "WHERE MONTH(Date) = ?;";
-    try {
-        PreparedStatement st = connection.prepareStatement(sql);
-        st.setInt(1, month);
-        ResultSet rs = st.executeQuery();
-        while (rs.next()) {
-            sumOfDoneBill = rs.getDouble("TongTienBanDuoc");
+        double sumOfDoneBill = 0;
+        String sql = "SELECT SUM(Total_price) AS TongTienBanDuoc\n"
+                + "FROM Bill\n"
+                + "WHERE MONTH(Date) = ?;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, month);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                sumOfDoneBill = rs.getDouble("TongTienBanDuoc");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
         }
-    } catch (SQLException e) {
-        System.out.println(e);
+        return sumOfDoneBill;
     }
-    return sumOfDoneBill;
+
 }
-
-
-    public static void main(String[] args) {
-        // Tạo một đối tượng Bill_DAO
-        Bill_DAO billDAO = new Bill_DAO();
-        double a = billDAO.getSumOfBillByMonth(5);
-        List<Bill> billList = billDAO.getBillAllWithUser();
-
-        // In ra danh sách các Bill đã lấy được
-        System.out.println(a);
-
-        }
-    }
-
