@@ -1,27 +1,26 @@
-package customer.controller;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
+package homepage.controller;
 
-import dals.Customer_DAO;
-import entities.User;
+import dals.Category_DAO;
+import entities.Category;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
- * @author rimok
+ * @author admin
  */
-@WebServlet(urlPatterns={"/register"})
-public class Register extends HttpServlet {
+public class HomePage extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,18 +32,11 @@ public class Register extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Register</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Register at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        HttpSession session = request.getSession();
+        Category_DAO categoryDAO = new Category_DAO();
+        List<Category> cates = categoryDAO.getAllCate();
+        session.setAttribute("cates", cates);
+        request.getRequestDispatcher("home.jsp").forward(request, response);
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -58,7 +50,12 @@ public class Register extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("register.jsp").forward(request, response);
+        processRequest(request, response);
+        HttpSession session = request.getSession();
+        String done = request.getParameter("do");
+        if(request.getParameter("search") != null && request.getParameter("search") != "") { 
+            request.getRequestDispatcher("FilterPostList").forward(request, response);
+        }
     } 
 
     /** 
@@ -71,19 +68,7 @@ public class Register extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String pass = request.getParameter("password");
-        String email = request.getParameter("email");
-        Customer_DAO cd = new Customer_DAO();
-        if (cd.getCustomerByEmail(email) != null) {
-            request.setAttribute("error", "Email đã được sử dụng!!!");
-            request.getRequestDispatcher("register.jsp").forward(request, response);
-        } else {
-            String phoneNumber = request.getParameter("phoneNumber");
-            User c = new User(0,username, pass, email, phoneNumber, 5, "9-anh-dai-dien-trang-inkythuatso-03-15-27-03.jpg");
-            cd.insertCustomer(c);
-            response.sendRedirect("login");
-        }
+        processRequest(request, response);
     }
 
     /** 
