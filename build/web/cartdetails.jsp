@@ -12,21 +12,16 @@
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
         <link href="/https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css"/>
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/slick.css"/>
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/slick-theme.css"/>
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/nouislider.min.css"/>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
-        
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/cartdetails.css"/>
+
         <title>JSP Page</title>
     </head>
-    
+
     <body>
         <!--        Header-->
         <%@include file="component/header.jsp" %>
         <!--        Header-->
-        
+
         <!-- cart + summary -->
         <section class="bg-light my-5">
             <div class="container">
@@ -35,7 +30,7 @@
                     <div class="col-lg-9">
                         <div class="card border shadow-0">
                             <div class="m-4">
-                                <h4 class="card-title mb-4">Your shopping cart</h4>
+                                <h4 class="card-title mb-4">ĐƠN HÀNG CỦA BẠN</h4>
                                 <div class="row gy-3 mb-4">
                                     <div class="col-lg-5">
                                         <div class="me-lg-5">
@@ -43,19 +38,16 @@
                                                 <img src="${pageContext.request.contextPath}/./images/10.jpg" class="border rounded me-3" style="width: 96px; height: 96px;" />
                                                 <div class="">
                                                     <a href="#" class="nav-link">Winter jacket for men and lady</a>
-                                                    <p class="text-muted">Yellow, Jeans</p>
+                                                    <p class="text-muted nav-link">Yellow, Jeans</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-sm-6 col-6 d-flex flex-row flex-lg-column flex-xl-row text-nowrap">
                                         <div class="">
-                                            <select style="width: 100px;" class="form-select me-4">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                            </select>
+                                            <div class="col">
+                                                <a href="#">-</a><a href="#" style="width: 100px;" class="border">1</a><a href="#">+</a>
+                                            </div>
                                         </div>
                                         <div class="">
                                             <text class="h6">$1156.00</text> <br />
@@ -77,19 +69,16 @@
                                                 <img src="${pageContext.request.contextPath}/./images/11.webp" class="border rounded me-3" style="width: 96px; height: 96px;" />
                                                 <div class="">
                                                     <a href="#" class="nav-link">Mens T-shirt Cotton Base</a>
-                                                    <p class="text-muted">Blue, Medium</p>
+                                                    <p class="text-muted nav-link">Blue, Medium</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-sm-6 col-6 d-flex flex-row flex-lg-column flex-xl-row text-nowrap">
                                         <div class="">
-                                            <select style="width: 100px;" class="form-select me-4">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                            </select>
+                                            <div class="col">
+                                                <a href="#">-</a><a href="#" style="width: 100px;" class="border">1</a><a href="#">+</a>
+                                            </div>
                                         </div>
                                         <div class="">
                                             <text class="h6">$44.80</text> <br />
@@ -111,19 +100,16 @@
                                                 <img src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/13.webp" class="border rounded me-3" style="width: 96px; height: 96px;" />
                                                 <div class="">
                                                     <a href="#" class="nav-link">Blazer Suit Dress Jacket for Men</a>
-                                                    <p class="text-muted">XL size, Jeans, Blue</p>
+                                                    <p class="text-muted nav-link">XL size, Jeans, Blue</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-sm-6 col-6 d-flex flex-row flex-lg-column flex-xl-row text-nowrap">
                                         <div class="">
-                                            <select style="width: 100px;" class="form-select me-4">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                            </select>
+                                            <div class="col">
+                                                <a href="#">-</a><a href="#" style="width: 100px;" class="border">1</a><a href="#">+</a>
+                                            </div>
                                         </div>
                                         <div class="">
                                             <text class="h6">$1156.00</text> <br />
@@ -185,8 +171,8 @@
                                 </div>
 
                                 <div class="mt-3">
-                                    <a href="#" class="btn btn-success w-100 shadow-0 mb-2"> Make Purchase </a>
-                                    <a href="#" class="btn btn-light w-100 border mt-2"> Back to shop </a>
+                                    <a href="#" class="btn btn-success w-100 shadow-0 mb-2" "> Mua Hàng </a>
+                                    <a href="#" class="btn btn-light w-100 border mt-2"> Trở lại trang chủ </a>
                                 </div>
                             </div>
                         </div>
@@ -217,7 +203,7 @@
                             <div class="card-body d-flex flex-column pt-3 border-top">
                                 <a href="#" class="nav-link">Gaming Headset with Mic</a>
                                 <div class="price-wrap mb-2">
-                                    <strong class="">$18.95</strong>
+                                    <strong class=""> $18.95</strong>
                                     <del class="">$24.99</del>
                                 </div>
                                 <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
