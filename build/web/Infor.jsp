@@ -1,12 +1,10 @@
 <%-- 
-    Document   : Infor
-    Created on : May 17, 2024, 12:14:39 PM
-    Author     : admin
+    Document   : infor
+    Created on : May 24, 2024, 1:43:53 AM
+    Author     : rimok
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>${requestScope.account}</h1>
+        <h1>${sessionScope.account.getRole_id()}</h1>
     </body>
 </html>
