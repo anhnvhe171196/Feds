@@ -80,7 +80,7 @@ public class Register extends HttpServlet {
             request.getRequestDispatcher("register.jsp").forward(request, response);
         } else {
             String phoneNumber = request.getParameter("phoneNumber");
-            User c = new User(0,username, pass, email, phoneNumber, 5, "9-anh-dai-dien-trang-inkythuatso-03-15-27-03.jpg");
+            User c = new User(0,pass, username, email, phoneNumber, 5, "9-anh-dai-dien-trang-inkythuatso-03-15-27-03.jpg");
             cd.insertCustomer(c);
             response.sendRedirect("login");
         }
