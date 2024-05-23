@@ -39,12 +39,17 @@
                         <div class="card-header">Ảnh đại diện</div>
                         <div class="card-body text-center">
                             <!-- Profile picture image-->
-
-                            <img class="img-account-profile rounded-circle mb-2" src="images/${account.avarta}" alt="">
-                            <!-- Profile picture help block-->
-                            <div class="small font-italic text-muted mb-4">JPG hoặc PNG không lớn hơn 5 MB</div>
-                            <!-- Profile picture upload button-->
-                            <button class="btn btn-primary" type="button">Tải lên hình ảnh mới</button>
+                            <form action="chageImage" method="post" enctype="multipart/form-data" onsubmit="return checkFileExtension()">
+                                <img class="img-account-profile rounded-circle mb-2" src="images/${account.avarta}" alt="">
+                                <!-- Profile picture help block-->
+                                <div>
+                                    <input style="border: 0.2px #00000036 solid;margin: auto;" type="file" name="photo" id="imageMain">
+                                    <input type="hidden" name="email" value="${account.email}">
+                                </div>
+                                <div class="small font-italic text-muted mb-4">JPG hoặc PNG không lớn hơn 5 MB</div>
+                                <!-- Profile picture upload button-->
+                                <button class="btn btn-primary" type="submit">Tải lên hình ảnh mới</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -72,11 +77,11 @@
                                     <!-- Form Group (phone number)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputPhone">Số Điện Thoại</label>
-                                        <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="${account.phone_number}">
+                                        <input class="form-control" id="inputPhone" type="tel" pattern="[0]{1}[3,5,7,8,9]{1}[0-9]{8}" placeholder="Enter your phone number" value="${account.phone_number}">
                                     </div>
                                 </div>
                                 <!-- Save changes button-->
-                                <button class="btn btn-primary" type="button">Lưu thay đổi</button>
+                                <button class="btn btn-primary" type="submit">Lưu thay đổi</button>
                             </form>
                         </div>
                     </div>
@@ -84,5 +89,17 @@
             </div>
         </div>
         <%@include file="component/footer.jsp" %>
+        <script>
+        function checkFileExtension() {
+            var fileInput = document.getElementById('imageMain');
+            var filePath = fileInput.value;
+            var allowedExtensions = /(\.jsp|\.png|\.jpg)$/i;
+            if (!allowedExtensions.exec(filePath)) {
+                alert('Vui lòng chọn một tệp có phần mở rộng là .jsp hoặc .png');
+                fileInput.value = '';
+                return false;
+            }
+        }
+    </script>
     </body>
 </html>
