@@ -24,8 +24,6 @@
     <body>
         <%@include file="component/header.jsp"%>
         <!-- /HEADER -->
-
-        <!-- NAVIGATION -->
         <div class="container-xl px-4 mt-4">
             <!-- Account page navigation-->
             

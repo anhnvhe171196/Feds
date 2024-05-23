@@ -4,6 +4,7 @@
     Author     : admin
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -27,16 +28,9 @@
                     <!-- NAV -->
                     <ul class="main-nav nav navbar-nav">
                         <li class="active"><a href="#">Home</a></li>
-                        <li><a href="FilterPostList?cate">Điện Thoại</a></li>
-                        <li><a href="FilterPostList">Laptops</a></li>
-                        <li><a href="#">Máy Lạnh</a></li>
-                        <li><a href="#">Tivi</a></li>
-                        <li><a href="#">Đồng Hồ Thông Minh</a></li>
-                        <li><a href="#">Phụ Kiện</a></li>
-                        <li><a href="#">PC</a></li>
-                        <li><a href="#">Máy Tính Bảng</a></li>
-                        <li><a href="#">Hàng Gia Dụng</a></li>                       
-                        <li><a href="#">Hàng Cũ</a></li>
+                        <c:forEach items="${sessionScope.cates}" var="cate">
+                            <li><a href="*">${cate.category_name}</a></li>
+                        </c:forEach>
                     </ul>
                     <!-- /NAV -->
                 </div>

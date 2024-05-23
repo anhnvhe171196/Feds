@@ -85,7 +85,7 @@ public class Login extends HttpServlet {
         }
         if (pass.equals(u.getPassword())) {
             HttpSession session = request.getSession();
-            session.setAttribute("user", u);
+            session.setAttribute("account", u);
             response.sendRedirect("home");
         } else {
             request.setAttribute("error", "Tài khoản hoặc mật khẩu không đúng!!!");

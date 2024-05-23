@@ -4,6 +4,7 @@
     Author     : admin
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -67,7 +68,7 @@
                         <div class="col-md-2">
                             <div class="header-logo">
                                 <a href="#" class="logo">
-                                    <img src="./img/logo.png" alt="">
+                                    <img src="../images/logo.jpg" alt="alt"/>
                                 </a>
                             </div>
                         </div>
@@ -78,16 +79,15 @@
                             <div class="header-search">
 
                                 <form type="submit" class="col-md-4">
-                                    <select class="input-select" name="cateid">
+                                    <select class="input-select" name="cateid"  style="    width: 216px;">
                                         <option value="" selected>Loại Sản Phẩm</option>
                                         <c:forEach items="${sessionScope.cates}" var="cate">
-
                                             <option value="${cate.category_id}">${cate.category_name}</option>
                                         </c:forEach>
                                     </select>
                                 </form>                                    
                                 <form method="get" class="col-md-8" action="PostList">
-                                    <input class="input" placeholder="Search here">
+                                    <input class="input" placeholder="Search here" style="width: 200px">
                                     <button type="submit" class="search-btn">Search</button>
                                 </form>
 
