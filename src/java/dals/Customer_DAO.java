@@ -166,4 +166,20 @@ public class Customer_DAO extends DBContext {
             System.out.println(e);
         }
     }
+
+    public void changeInfor(String username,String email, String phone) {
+        String spl = "UPDATE [dbo].[User]\n"
+                + "   SET [User_name] = ?\n"
+                + "      ,[Phone_number] = ?\n"
+                + " WHERE Email = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(spl);
+            st.setString(1, username);
+            st.setString(2, phone);
+            st.setString(3, email);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
 }

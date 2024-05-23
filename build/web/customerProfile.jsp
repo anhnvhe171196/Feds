@@ -58,11 +58,11 @@
                     <div class="card mb-4">
                         <div class="card-header">Account Details</div>
                         <div class="card-body">
-                            <form>
+                            <form action="customerProfile" method="post">
                                 <!-- Form Group (username)-->
                                 <div class="mb-3">
                                     <label class="small mb-1" for="inputUsername">Tên người dùng (tên của bạn sẽ xuất hiện như thế nào với những người dùng khác trên trang web)</label>
-                                    <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="${account.user_name}">
+                                    <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" name="username" value="${account.user_name}">
                                 </div>
 
                                 <!-- Form Row        -->
@@ -70,14 +70,14 @@
                                 <!-- Form Group (email address)-->
                                 <div class="mb-3">
                                     <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                                    <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="${account.email}">
+                                    <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" name="email" value="${account.email}" readonly="">
                                 </div>
                                 <!-- Form Row-->
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (phone number)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputPhone">Số Điện Thoại</label>
-                                        <input class="form-control" id="inputPhone" type="tel" pattern="[0]{1}[3,5,7,8,9]{1}[0-9]{8}" placeholder="Enter your phone number" value="${account.phone_number}">
+                                        <input class="form-control" id="inputPhone" type="tel" pattern="[0]{1}[3,5,7,8,9]{1}[0-9]{8}" placeholder="Enter your phone number" name="phone" value="${account.phone_number}">
                                     </div>
                                 </div>
                                 <!-- Save changes button-->
