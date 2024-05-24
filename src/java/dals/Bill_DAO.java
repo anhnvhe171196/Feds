@@ -4,7 +4,7 @@
  */
 package dals;
 
-import entities.Bill;
+import vn.fpt.edu.models.Bill;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

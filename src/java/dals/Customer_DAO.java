@@ -4,8 +4,8 @@
  */
 package dals;
 
-import entities.User;
-import entities.GoogleAcount;
+import vn.fpt.edu.models.User;
+import vn.fpt.edu.models.GoogleAcount;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

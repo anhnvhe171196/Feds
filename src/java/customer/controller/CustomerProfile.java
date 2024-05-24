@@ -5,7 +5,7 @@
 package customer.controller;
 
 import dals.Customer_DAO;
-import entities.User;
+import vn.fpt.edu.models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;

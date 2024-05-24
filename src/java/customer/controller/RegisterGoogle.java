@@ -5,7 +5,7 @@
 package customer.controller;
 
 import dals.Customer_DAO;
-import entities.GoogleAcount;
+import vn.fpt.edu.models.GoogleAcount;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
 import java.io.IOException;

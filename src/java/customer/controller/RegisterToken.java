@@ -8,7 +8,7 @@ package customer.controller;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import google.constants.IconstantForRegister;
-import entities.GoogleAcount;
+import vn.fpt.edu.models.GoogleAcount;
 import java.io.IOException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.fluent.Form;

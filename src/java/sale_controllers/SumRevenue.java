@@ -6,7 +6,7 @@
 package sale_controllers;
 
 import dals.Data_SaleDashboard_DAO;
-import entities.Bill;
+import vn.fpt.edu.models.Bill;
 
 import java.io.IOException;
 import java.io.PrintWriter;

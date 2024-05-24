@@ -6,7 +6,7 @@
 package sale_controllers;
 
 import dals.Data_SaleDashboard_DAO;
-import entities.Product;
+import vn.fpt.edu.models.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
