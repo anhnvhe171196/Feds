@@ -7,7 +7,7 @@ package customer.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import google.constants.IconstantForLogin;
+import vn.fpt.edu.googleconstants.IconstantForLogin;
 import vn.fpt.edu.models.GoogleAcount;
 import java.io.IOException;
 import org.apache.http.client.ClientProtocolException;
