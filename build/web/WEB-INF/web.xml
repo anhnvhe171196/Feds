@@ -8,6 +8,10 @@
         <servlet-name>UserRegisterGoogleController</servlet-name>
         <servlet-class>vn.fpt.edu.controller.UserRegisterGoogleController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CustomerHomeController</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.CustomerHomeController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserRegisterController</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>UserRegisterGoogleController</servlet-name>
         <url-pattern>/registerGoogle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerHomeController</servlet-name>
+        <url-pattern>/home</url-pattern>
     </servlet-mapping>
     <error-page>
         <error-code>404</error-code>
