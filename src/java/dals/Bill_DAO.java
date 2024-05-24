@@ -55,7 +55,8 @@ public class Bill_DAO extends DBContext {
         List<Bill> list = new ArrayList<>();
         String sql = "SELECT Bill.*, U.User_name\n"
                 + "FROM Bill\n"
-                + "JOIN [User] AS U ON Bill.User_Id = U.User_Id;";
+                + "JOIN [User] AS U ON Bill.User_Id = U.User_Id\n"
+                + "WHERE CONVERT(date, Bill.Date) = CONVERT(date, GETDATE());"; // Sử dụng GETDATE() để lấy ngày hiện tại
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -70,33 +71,36 @@ public class Bill_DAO extends DBContext {
     }
 
     public double getSumOfBillByMonth(int month) {
-    double sumOfDoneBill = 0;
-    String sql = "SELECT SUM(Total_price) AS TongTienBanDuoc\n"
-            + "FROM Bill\n"
-            + "WHERE MONTH(Date) = ?;";
-    try {
-        PreparedStatement st = connection.prepareStatement(sql);
-        st.setInt(1, month);
-        ResultSet rs = st.executeQuery();
-        while (rs.next()) {
-            sumOfDoneBill = rs.getDouble("TongTienBanDuoc");
+        double sumOfDoneBill = 0;
+        String sql = "SELECT SUM(Total_price) AS TongTienBanDuoc\n"
+                + "FROM Bill\n"
+                + "WHERE MONTH(Date) = ?;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, month);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                sumOfDoneBill = rs.getDouble("TongTienBanDuoc");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
         }
-    } catch (SQLException e) {
-        System.out.println(e);
+        return sumOfDoneBill;
     }
-    return sumOfDoneBill;
-}
-
 
     public static void main(String[] args) {
-        // Tạo một đối tượng Bill_DAO
-        Bill_DAO billDAO = new Bill_DAO();
-        double a = billDAO.getSumOfBillByMonth(5);
-        List<Bill> billList = billDAO.getBillAllWithUser();
+        // Tạo một đối tượng DAO để gọi phương thức getBillAllWithUser
+        Bill_DAO dao = new Bill_DAO(); // Thay YourDAO bằng tên lớp DAO của bạn
 
-        // In ra danh sách các Bill đã lấy được
-        System.out.println(a);
+        // Gọi phương thức getBillAllWithUser từ DAO để lấy danh sách hóa đơn
+        List<Bill> billList = dao.getBillAllWithUser();
 
+        // In ra danh sách hóa đơn lấy được
+        for (Bill bill : billList) {
+            System.out.println("Date: " + bill.getDate());
+            System.out.println("Address: " + bill.getAddress());
+            System.out.println("Status: " + bill.getStatus());
+            System.out.println("-------------------------");
         }
     }
-
+}
