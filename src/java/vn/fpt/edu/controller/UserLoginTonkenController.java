@@ -18,7 +18,7 @@ import org.apache.http.client.fluent.Request;
  * @author admin
  */
 
-public class LoginTonken {
+public class UserLoginTonkenController {
     public static String getToken(String code) throws ClientProtocolException, IOException {
         String response = Request.Post(IconstantForLogin.GOOGLE_LINK_GET_TOKEN)
                 .bodyForm(Form.form()

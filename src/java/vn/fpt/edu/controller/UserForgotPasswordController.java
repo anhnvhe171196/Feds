@@ -2,11 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package vn.fpt.edu.controller;
 
-import static vn.fpt.edu.controller.RegisterGoogle.randomPassword;
-import vn.fpt.edu.dals.Customer_DAO;
-import vn.fpt.edu.models.User;
 import jakarta.mail.Authenticator;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
@@ -18,68 +16,26 @@ import jakarta.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.Properties;
+import vn.fpt.edu.dals.Customer_DAO;
+import vn.fpt.edu.models.User;
 
 /**
  *
- * @author rimok
+ * @author admin
  */
-@WebServlet(name = "ForgotPass", urlPatterns = {"/forgotpass"})
-public class ForgotPass extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ForgotPass</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ForgotPass at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+public class UserForgotPasswordController extends HttpServlet {
+   
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("forgotpass.jsp").forward(request, response);
+        request.getRequestDispatcher("UserForgotPassword.jsp").forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -87,7 +43,7 @@ public class ForgotPass extends HttpServlet {
         Customer_DAO d = new Customer_DAO();
         if (d.getCustomerByEmail(email) != null) {
             User account = d.getCustomerByEmail(email);
-            String pass = randomPassword(8);
+            String pass = UserRegisterGoogleController.randomPassword(8);
             // Cấu hình thông tin email
             String host = "smtp.gmail.com";
             String port = "587";
@@ -148,7 +104,7 @@ public class ForgotPass extends HttpServlet {
 
                 // Chuyển hướng người dùng sau khi gửi email thành công
                 request.setAttribute("error", "Bạn đã thay đổi mật khẩu thành công!!!");
-            request.getRequestDispatcher("forgotpass.jsp").forward(request, response);
+            request.getRequestDispatcher("UserLogin.jsp").forward(request, response);
             } catch (MessagingException mex) {
                 // Xử lý lỗi nếu có
                 mex.printStackTrace();
@@ -157,18 +113,7 @@ public class ForgotPass extends HttpServlet {
 
         } else {
             request.setAttribute("error", "Email chưa được đăng kí!!!");
-            request.getRequestDispatcher("forgotpass.jsp").forward(request, response);
+            request.getRequestDispatcher("UserForgotPassword.jsp").forward(request, response);
         }
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

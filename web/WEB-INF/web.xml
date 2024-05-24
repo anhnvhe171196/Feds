@@ -12,6 +12,18 @@
         <servlet-name>CustomerHomeController</servlet-name>
         <servlet-class>vn.fpt.edu.controller.CustomerHomeController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UserLogin</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.UserLoginController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserLoginGoogleController</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.UserLoginGoogleController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserForgotPasswordController</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.UserForgotPasswordController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserRegisterController</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -23,6 +35,18 @@
     <servlet-mapping>
         <servlet-name>CustomerHomeController</servlet-name>
         <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserLogin</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserLoginGoogleController</servlet-name>
+        <url-pattern>/loginGoogle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserForgotPasswordController</servlet-name>
+        <url-pattern>/forgotpass</url-pattern>
     </servlet-mapping>
     <error-page>
         <error-code>404</error-code>
