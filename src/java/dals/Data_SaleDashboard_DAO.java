@@ -139,15 +139,4 @@ public class Data_SaleDashboard_DAO extends DBContext {
         }
         return list;
     }
-
-    public static void main(String[] args) {
-
-        Data_SaleDashboard_DAO dao = new Data_SaleDashboard_DAO();
-
-        List<Product> productList = dao.getTrendCategory("2024-04-01", "2024-05-30");
-
-        for (Product product : productList) {
-            System.out.println("Product Date: " + product.getCategory_name()+ ", Quantity: " + product.getQuantity());
-        }
-    }
 }
