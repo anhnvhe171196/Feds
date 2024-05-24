@@ -33,51 +33,44 @@
             <!-- Account page navigation-->
             <c:set value="${sessionScope.account}" var="account"/>
             <div class="row" >
-                <div class="col-xl-4">
+                <div class="col-xl-3">
                     <!-- Profile picture card-->
                     <div class="card mb-4 mb-xl-0">
                         <div class="card-header">Ảnh đại diện</div>
                         <div class="card-body text-center">
                             <!-- Profile picture image-->
-                            <form action="chageImage" method="post" enctype="multipart/form-data" onsubmit="return checkFileExtension()">
-                                <img class="img-account-profile rounded-circle mb-2" src="images/${account.avarta}" alt="">
-                                <!-- Profile picture help block-->
-                                <div>
-                                    <input style="border: 0.2px #00000036 solid;margin: auto;" type="file" name="photo" id="imageMain">
-                                    <input type="hidden" name="email" value="${account.email}">
-                                </div>
-                                <div class="small font-italic text-muted mb-4">JPG hoặc PNG không lớn hơn 5 MB</div>
-                                <!-- Profile picture upload button-->
-                                <button class="btn btn-primary" type="submit">Tải lên hình ảnh mới</button>
-                            </form>
+                            <img class="img-account-profile rounded-circle mb-2" src="images/${account.avarta}" alt="">
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-8">
+                <div class="col-xl-9">
                     <!-- Account details card-->
                     <div class="card mb-4">
                         <div class="card-header">Account Details</div>
+                        <c:if test="${requestScope.error != null}">
+                            <h2 style="color: red; text-align: center; margin-top: 30px;">${requestScope.error}</h2>
+                        </c:if>
                         <div class="card-body">
-                            <form action="customerProfile" method="post">
+                            <form action="changePassword" method="post">
                                 <!-- Form Group (username)-->
-                                <div class="mb-3">
-                                    <label class="small mb-1" for="inputUsername">Tên người dùng (tên của bạn sẽ xuất hiện như thế nào với những người dùng khác trên trang web)</label>
-                                    <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" name="username" value="${account.user_name}">
-                                </div>
-
-                                <!-- Form Row        -->
-
-                                <!-- Form Group (email address)-->
                                 <div class="mb-3">
                                     <label class="small mb-1" for="inputEmailAddress">Email address</label>
                                     <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" name="email" value="${account.email}" readonly="">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="small mb-1" for="inputEmailAddress">Old Password</label>
+                                    <input class="form-control" id="inputEmailAddress" type="password" placeholder="Nhập mật khẩu cũ" name="oldPassword" required>
                                 </div>
                                 <!-- Form Row-->
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (phone number)-->
                                     <div class="col-md-6">
-                                        <label class="small mb-1" for="inputPhone">Số Điện Thoại</label>
-                                        <input class="form-control" id="inputPhone" type="tel" pattern="[0]{1}[3,5,7,8,9]{1}[0-9]{8}" placeholder="Enter your phone number" name="phone" value="${account.phone_number}">
+                                        <label class="small mb-1" for="inputPhone">New Password</label>
+                                        <input id="password-field" type="password" class="form-control" minlength="8" maxlength="20" name="password" placeholder="Nhập mật khẩu mới" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputPhone">Xác nhận Password</label>
+                                        <input id="confirm-password-field" type="password" class="form-control" name="confirmPassword" placeholder="Xác nhận mật khẩu mới" required>
                                     </div>
                                 </div>
                                 <!-- Save changes button-->
@@ -89,16 +82,6 @@
             </div>
         </div>
         <%@include file="component/footer.jsp" %>
-        <script>
-        function checkFileExtension() {
-            var fileInput = document.getElementById('imageMain');
-            var filePath = fileInput.value;
-            var allowedExtensions = /(\.jsp|\.png|\.jpg)$/i;
-            if (!allowedExtensions.exec(filePath)) {
-                alert('Vui lòng chọn một tệp có phần mở rộng là .jsp hoặc .png');
-                fileInput.value = '';
-                return false;
-            }
-        }
+        
     </body>
 </html>
