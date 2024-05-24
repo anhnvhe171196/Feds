@@ -36,6 +36,15 @@
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
+        <style>
+            #trendcategory-canvas {
+                width: 100%;
+                display: block;
+                max-width: 70%; 
+                height: 50%; 
+                margin: auto;
+            }
+        </style>
 
     </head>
 
@@ -195,20 +204,16 @@
                 </div>
                 <!-- Top Trends Product  End -->
 
-                
+
                 <!-- Top Trend Category -->
                 <div class="container-fluid pt-4 px-4">
                     <div class="row g-4">
-                        <form action="trendingCategory" method="get" >
+                        <form action="trendingCategory" method="get">
                             <div class="col-sm-12 col-xl-12">
                                 <div class="bg-light text-center rounded p-4">
                                     <div class="d-flex align-items-center justify-content-between mb-4">
                                         <h6 class="mb-0">Top danh mục bán chạy</h6>
                                         <div class="d-flex">
-                                            <div class="me-2">
-                                                <label for="quantity" class="form-label">Số lượng danh mục</label>
-                                                <input type="number" id="quantity" class="form-control" name="quantity" value="10" min="1">
-                                            </div>
                                             <div class="me-2">
                                                 <label for="start-date-sales" class="form-label">Ngày bắt đầu:</label>
                                                 <input type="date" id="start-date-sales" class="form-control" name="startdate">
@@ -223,13 +228,14 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <canvas id="1"></canvas>
+                                        <canvas id="trendcategory-canvas"></canvas>
                                     </div>
                                 </div>
                             </div>
-                        </form>    
+                        </form>
                     </div>
                 </div>
+
                 <!-- Top Trend Category End-->
 
                 <!-- Sum Revenue By Day Start -->
@@ -293,7 +299,7 @@
                                             <td>${b.user_name}</td>
                                             <td>${b.total_price}</td>
                                             <td>${b.status}</td>
-                                            <td><a class="btn btn-sm btn-primary" href="">Xem đơn</a></td>
+                                            <td><a class="btn btn-sm btn-primary" href="/orderDetail?action=&bill_id=">Xem đơn</a></td>
                                         </tr>
                                     </c:forEach>
 
@@ -304,7 +310,7 @@
                     </div>
                 </div>
                 <!-- Bill Today End -->
-                
+
                 <!-- Footer Start -->
                 <div class="container-fluid pt-4 px-4">
                     <div class="bg-light rounded-top p-4">
@@ -407,6 +413,37 @@
                     datasets: [{
                             label: 'Tổng thu nhập(VND)',
                             data: sums1,
+                            borderWidth: 1
+                        }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        </script>
+
+        <script>
+            var names2 = [];
+            var sums2 = [];
+            <c:forEach items="${sessionScope.name2}" var="val" varStatus="loop">
+            names2.push("${val}");
+            </c:forEach>
+
+            <c:forEach items="${sessionScope.sum2}" var="val" varStatus="loop">
+            sums2.push(${val});
+            </c:forEach>
+            var ctx = document.getElementById('trendcategory-canvas').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: names2,
+                    datasets: [{
+                            label: 'Số lượng bán được:',
+                            data: sums2,
                             borderWidth: 1
                         }]
                 },
