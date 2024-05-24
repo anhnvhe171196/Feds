@@ -4,7 +4,7 @@
  */
 package sale_controllers;
 
-import dals.Data_SaleDashboard_DAO;
+import vn.fpt.edu.dals.Data_SaleDashboard_DAO;
 import vn.fpt.edu.models.Product;
 import java.io.IOException;
 import java.io.PrintWriter;

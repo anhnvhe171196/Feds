@@ -5,7 +5,7 @@
 package customer.controller;
 
 import static customer.controller.RegisterGoogle.randomPassword;
-import dals.Customer_DAO;
+import vn.fpt.edu.dals.Customer_DAO;
 import vn.fpt.edu.models.User;
 import jakarta.mail.Authenticator;
 import jakarta.mail.Message;

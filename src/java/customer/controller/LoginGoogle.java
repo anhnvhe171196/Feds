@@ -4,7 +4,7 @@
  */
 package customer.controller;
 
-import dals.Customer_DAO;
+import vn.fpt.edu.dals.Customer_DAO;
 import vn.fpt.edu.models.GoogleAcount;
 import java.io.IOException;
 import java.io.PrintWriter;

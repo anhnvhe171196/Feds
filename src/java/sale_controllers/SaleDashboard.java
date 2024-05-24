@@ -4,7 +4,7 @@
  */
 package sale_controllers;
 
-import dals.Bill_DAO;
+import vn.fpt.edu.dals.Bill_DAO;
 import vn.fpt.edu.models.Bill;
 import java.io.IOException;
 import jakarta.servlet.ServletException;

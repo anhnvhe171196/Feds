@@ -5,7 +5,7 @@
 
 package homepage.controller;
 
-import dals.Category_DAO;
+import vn.fpt.edu.dals.Category_DAO;
 import vn.fpt.edu.models.Category;
 import java.io.IOException;
 import java.io.PrintWriter;
