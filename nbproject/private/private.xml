@@ -3,12 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Desktop/SWP391/Feds/web/WEB-INF/web.xml</file>
-            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/controller/Register.java</file>
-            <file>file:/D:/Desktop/SWP391/Feds/web/CustomerProfile.jsp</file>
-            <file>file:/D:/Desktop/SWP391/Feds/src/java/sale_controllers/SaleDashboard.java</file>
-            <file>file:/D:/Desktop/SWP391/Feds/web/UserForgotPassword.jsp</file>
-            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/controller/UseRegisterController.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/controller/UserChangeImageController.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/controller/CustomerProfileController.java</file>
         </group>
     </open-files>
 </project-private>
