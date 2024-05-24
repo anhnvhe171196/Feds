@@ -1,4 +1,3 @@
-
 <%-- 
     Document   : home
     Created on : May 20, 2024, 9:40:45 PM
@@ -7,7 +6,6 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="entities.User" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -739,7 +737,7 @@
         <script src="${pageContext.request.contextPath}js/nouislider.min.js"></script>
         <script src="${pageContext.request.contextPath}js/jquery.zoom.min.js"></script>
         <script src="${pageContext.request.contextPath}js/main.js"></script>
-
+        
 
     </body>
 </html>

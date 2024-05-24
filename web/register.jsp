@@ -4,6 +4,7 @@
 <html lang="en">
 
     <head>
+        <title>Login V18</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!--===============================================================================================-->
@@ -53,7 +54,7 @@
 
                         <div class="form-group password-group">
                             <div class="form-group">
-                                <input id="password-field" type="password" class="form-control" name="password" required>
+                                <input id="password-field" type="password" class="form-control" minlength="8" maxlength="20" name="password" required>
                                 <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                 <label for="password" class="form-label">Password</label>
                             </div>
@@ -64,19 +65,19 @@
                                 <label for="confirmPassword" class="form-label">Confirm Password</label>
                             </div>
                         </div>
-
+                        <div style="color: #00000063 ;margin-bottom: 20px; margin-top: -25px; font-size: 13px;">Mật khẩu từ 8 - 20 kí tự</div>
                         <div id="error-container" class="error-container"></div>
 
                         <div class="form-group">
-                            <input id="email" class="form-control" name="email" required>
+                            <input id="email" type="email" class="form-control" name="email" required>
                             <label for="email" class="form-label">Email</label>
                         </div>
 
                         <div class="form-group">
-                            <input id="phone-number" class="form-control" name="phoneNumber" required>
+                            <input id="phone-number" class="form-control" name="phoneNumber" pattern="[0]{1}[3,5,7,8,9]{1}[0-9]{8}" required>
                             <label for="phoneNumber" class="form-label">Phone Number</label>
+                            <small style="color: #00000063">Format: 09XXXXXXXX</small>
                         </div>
-
                         <div class="form-group">
                             <button type="submit" class="form-control btn btn-primary submit px-3">Register</button>
                         </div>
@@ -136,7 +137,7 @@
 
                             // Sign in button redirect
                             document.getElementById('signInButton').addEventListener('click', function () {
-                                window.location.href = 'login.jsp';
+                                window.location.href = 'login';
                             });
                         });
 
