@@ -55,9 +55,13 @@
                                                     <li><a href="customerProfile">Hồ sơ cá nhân</a></li>
                                                     </c:if>
                                                     <c:if test="${sessionScope.account.role_id != 5}">
-                                                    <li><a href="roleProfile">Hồ sơ cá nhân</a></li>
+                                                    <li><a href="roleProfile.jsp">Hồ sơ cá nhân</a></li>
+                                                        <c:if test="${sessionScope.account.role_id == 2}">
+                                                        <li><a href="OrderProcessor.jsp">Management</a></li>
+                                                        </c:if>
                                                     </c:if>
                                                 <li><a href="changePassword">Thay đổi mật khẩu</a></li>
+                                                <li><a href="login">Logout</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -84,7 +88,7 @@
                         <!-- LOGO -->
                         <div class="col-md-2">
                             <div class="header-logo">
-                                <a href="#" class="logo">
+                                <a href="home" class="logo">
                                     <img src="../images/logo.jpg" alt="alt"/>
                                 </a>
                             </div>
