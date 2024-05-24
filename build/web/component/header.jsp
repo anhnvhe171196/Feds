@@ -82,10 +82,10 @@
                     <!-- row -->
                     <div class="row">
                         <!-- LOGO -->
-                        <div class="col-md-2">
+                        <div class="col-md-2">  
                             <div class="header-logo">
-                                <a href="#" class="logo">
-                                    <img src="../images/logo.jpg" alt="alt"/>
+                                <a href="home" class="logo">
+                                    <img style="width: 50%;border-radius: 100px;" src="images/logo.jpg" alt="alt"/>
                                 </a>
                             </div>
                         </div>
