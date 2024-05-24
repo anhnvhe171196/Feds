@@ -147,7 +147,8 @@ public class ForgotPass extends HttpServlet {
                 d.chagePassword(pass, email);
 
                 // Chuyển hướng người dùng sau khi gửi email thành công
-                response.sendRedirect("login");
+                request.setAttribute("error", "Bạn đã thay đổi mật khẩu thành công!!!");
+            request.getRequestDispatcher("forgotpass.jsp").forward(request, response);
             } catch (MessagingException mex) {
                 // Xử lý lỗi nếu có
                 mex.printStackTrace();

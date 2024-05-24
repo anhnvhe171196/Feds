@@ -5,7 +5,6 @@
 package customer.controller;
 
 import dals.Customer_DAO;
-import entities.Customer;
 import entities.GoogleAcount;
 import entities.User;
 import java.io.IOException;
@@ -86,7 +85,7 @@ public class Login extends HttpServlet {
         }
         if (pass.equals(u.getPassword())) {
             HttpSession session = request.getSession();
-            session.setAttribute("user", u);
+            session.setAttribute("account", u);
             response.sendRedirect("home");
         } else {
             request.setAttribute("error", "Tài khoản hoặc mật khẩu không đúng!!!");

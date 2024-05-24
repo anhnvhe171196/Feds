@@ -93,7 +93,7 @@ public class RegisterGoogle extends HttpServlet {
                     + "      <h1 style=\"color: red;\">Fed Shop</h1>\n"
                     + "      <h2>Thank you for registering for a Fed Shop account</h2>\n"
                     + "      <div style=\"font-size: 20px;\">That is your password : </div>\n"
-                    + "      <h2>"+pass+"</h2>\n"
+                    + "      <h2>" + pass + "</h2>\n"
                     + "  </div>\n"
                     + "</body>\n"
                     + "\n"
@@ -132,7 +132,8 @@ public class RegisterGoogle extends HttpServlet {
                 d.insertCustomerByGoogleAccount(account, pass, "9-anh-dai-dien-trang-inkythuatso-03-15-27-03.jpg");
 
                 // Chuyển hướng người dùng sau khi gửi email thành công
-                response.sendRedirect("login");
+                request.setAttribute("error", "Đã đăng kí thành công!!!");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
             } catch (MessagingException mex) {
                 // Xử lý lỗi nếu có
                 mex.printStackTrace();

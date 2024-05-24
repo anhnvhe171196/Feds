@@ -33,7 +33,7 @@ public class Customer_DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                User u = new User(rs.getInt("User_Id"), rs.getString("User_name"), rs.getString("Password"), rs.getString("Email"), rs.getString("Phone_number"), rs.getInt("Role_id"), rs.getString("Avarta"));
+                User u = new User(rs.getInt("User_Id"), rs.getString("Password"), rs.getString("User_name"), rs.getString("Email"), rs.getString("Phone_number"), rs.getInt("Role_id"), rs.getString("Avarta"));
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -105,7 +105,7 @@ public class Customer_DAO extends DBContext {
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                User u = new User(rs.getInt("User_Id"), rs.getString("User_name"), rs.getString("Password"), rs.getString("Email"), rs.getString("Phone_number"), rs.getInt("Role_id"), rs.getString("Avarta"));
+                User u = new User(rs.getInt("User_Id"), rs.getString("Password"), rs.getString("User_name"), rs.getString("Email"), rs.getString("Phone_number"), rs.getInt("Role_id"), rs.getString("Avarta"));
                 return u;
             }
         } catch (SQLException e) {
@@ -129,7 +129,7 @@ public class Customer_DAO extends DBContext {
             st.setString(1, email);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                User u = new User(rs.getInt("User_Id"), rs.getString("User_name"), rs.getString("Password"), rs.getString("Email"), rs.getString("Phone_number"), rs.getInt("Role_id"), rs.getString("Avarta"));
+                User u = new User(rs.getInt("User_Id"), rs.getString("Password"), rs.getString("User_name"), rs.getString("Email"), rs.getString("Phone_number"), rs.getInt("Role_id"), rs.getString("Avarta"));
                 return u;
             }
         } catch (SQLException e) {
@@ -147,6 +147,36 @@ public class Customer_DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, pass);
             st.setString(2, email);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void changeImg(String email, String img) {
+        String spl = "UPDATE [dbo].[User]\n"
+                + "   SET [Avarta] = ?\n"
+                + " WHERE Email = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(spl);
+            st.setString(1, img);
+            st.setString(2, email);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void changeInfor(String username,String email, String phone) {
+        String spl = "UPDATE [dbo].[User]\n"
+                + "   SET [User_name] = ?\n"
+                + "      ,[Phone_number] = ?\n"
+                + " WHERE Email = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(spl);
+            st.setString(1, username);
+            st.setString(2, phone);
+            st.setString(3, email);
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);

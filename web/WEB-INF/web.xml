@@ -8,4 +8,8 @@
         <servlet-name>Sale</servlet-name>
         <url-pattern>/sale</url-pattern>
     </servlet-mapping>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/loi404.jsp</location>
+    </error-page>
 </web-app>
