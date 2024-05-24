@@ -24,6 +24,14 @@
         <servlet-name>UserForgotPasswordController</servlet-name>
         <servlet-class>vn.fpt.edu.controller.UserForgotPasswordController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CustomerProfileController</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.CustomerProfileController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerChangePasswordController</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.UserChangePasswordController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserRegisterController</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -47,6 +55,14 @@
     <servlet-mapping>
         <servlet-name>UserForgotPasswordController</servlet-name>
         <url-pattern>/forgotpass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerProfileController</servlet-name>
+        <url-pattern>/customerProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerChangePasswordController</servlet-name>
+        <url-pattern>/changePassword</url-pattern>
     </servlet-mapping>
     <error-page>
         <error-code>404</error-code>

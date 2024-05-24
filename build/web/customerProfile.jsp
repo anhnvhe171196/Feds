@@ -87,6 +87,7 @@
                     </div>
                 </div>
             </div>
+                                    <input type="hidden" name="name">
         </div>
         <%@include file="component/footer.jsp" %>
         <script>
