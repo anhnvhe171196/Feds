@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+    <servlet>
+        <servlet-name>UserRegisterController</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.UserRegisterController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserRegisterGoogleController</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.UserRegisterGoogleController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserRegisterController</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserRegisterGoogleController</servlet-name>
+        <url-pattern>/registerGoogle</url-pattern>
+    </servlet-mapping>
     <error-page>
         <error-code>404</error-code>
         <location>/Page404.jsp</location>
