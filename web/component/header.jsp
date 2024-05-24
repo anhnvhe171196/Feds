@@ -37,21 +37,38 @@
                     </ul>
                     <ul class="header-links pull-right">
                         <!--<li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>-->
-                        <li><a href="#">
-                                <i class="fa fa-user-o"></i>
+                        <div class="menu-container">
+                            <c:if test="${sessionScope.account == null}">
+                                <a href="login">
+                                    <i class="fa fa-user-o"></i>
+                                </a>
+                                <a href="login"><button class="menu-button" style="background-color: red">Login</button></a>
+                            </c:if>
+                            <c:if test="${sessionScope.account != null}">
+                                <a class="fa" href="customerProfile"><img style="width: 23px;border-radius: 20px;" src="images/${sessionScope.account.avarta}" alt="alt"/></a>
                                 <li>
                                     <div class="menu-container">
                                         <button class="menu-button" style="background-color: red">My Account</button>
                                         <div class="menu">
                                             <ul>
-                                                <li><a href="#">Hồ sơ cá nhân</a></li>
-                                                <li><a href="#">Change Password</a></li>
+                                                <c:if test="${sessionScope.account.role_id  == 5}">
+                                                    <li><a href="customerProfile">Hồ sơ cá nhân</a></li>
+                                                    </c:if>
+                                                    <c:if test="${sessionScope.account.role_id != 5}">
+                                                    <li><a href="roleProfile">Hồ sơ cá nhân</a></li>
+                                                    </c:if>
+                                                <li><a href="changePassword">Thay đổi mật khẩu</a></li>
                                             </ul>
                                         </div>
                                     </div>
                                 </li>
 
-                            </a>
+                            </c:if>
+
+                        </div>
+                        </li>
+
+                        </a>
                         </li>
                     </ul>
                 </div>
