@@ -36,6 +36,10 @@
         <servlet-name>UserChangeImageController</servlet-name>
         <servlet-class>vn.fpt.edu.controller.UserChangeImageController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListCategoryController</servlet-name>
+        <servlet-class>homepage.controller.ListProductController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserRegisterController</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>UserChangeImageController</servlet-name>
         <url-pattern>/chageImage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListCategoryController</servlet-name>
+        <url-pattern>/ListCategory</url-pattern>
     </servlet-mapping>
     <error-page>
         <error-code>404</error-code>
