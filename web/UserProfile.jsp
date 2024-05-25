@@ -70,6 +70,7 @@
                                 <th>Mua</th>
                                 <th>FeedBack</th>
                                 <th>Bán</th>
+                                <th>Sửa</th>
                                 <th>Xóa</th>
                                 <th>Tạo</th>
                             </tr>

@@ -81,7 +81,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <form action="customerProfile" method="post">
+                            <form action="userChangeProfile" method="post">
                                 <!-- Form Group (username)-->
                                 <div class="mb-3">
                                     <label class="small mb-1" for="inputUsername">Tên người dùng (tên của bạn sẽ xuất hiện như thế nào với những người dùng khác trên trang web)</label>

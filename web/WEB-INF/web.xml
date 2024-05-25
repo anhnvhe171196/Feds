@@ -25,8 +25,8 @@
         <servlet-class>vn.fpt.edu.controller.UserForgotPasswordController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CustomerProfileController</servlet-name>
-        <servlet-class>vn.fpt.edu.controller.CustomerProfileController</servlet-class>
+        <servlet-name>UserChangeProfileController</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.UserChangeProfileController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CustomerChangePasswordController</servlet-name>
@@ -39,6 +39,10 @@
     <servlet>
         <servlet-name>ListCategoryController</servlet-name>
         <servlet-class>homepage.controller.ListProductController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserLogoutController</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.UserLogoutController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserRegisterController</servlet-name>
@@ -65,8 +69,8 @@
         <url-pattern>/forgotpass</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CustomerProfileController</servlet-name>
-        <url-pattern>/customerProfile</url-pattern>
+        <servlet-name>UserChangeProfileController</servlet-name>
+        <url-pattern>/userChangeProfile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CustomerChangePasswordController</servlet-name>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>ListCategoryController</servlet-name>
         <url-pattern>/ListCategory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserLogoutController</servlet-name>
+        <url-pattern>/userLogout</url-pattern>
     </servlet-mapping>
     <error-page>
         <error-code>404</error-code>

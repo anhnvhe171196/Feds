@@ -48,7 +48,7 @@ public class UserChangeImageController extends HttpServlet {
             HttpSession session = request.getSession();
             session.removeAttribute("account");
             session.setAttribute("account", u);
-            response.sendRedirect("customerProfile");
+            response.sendRedirect("userChangeProfile");
         } catch (Exception e) {
         }
     }

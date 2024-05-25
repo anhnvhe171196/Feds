@@ -20,7 +20,7 @@ import vn.fpt.edu.models.User;
  *
  * @author admin
  */
-public class CustomerProfileController extends HttpServlet {
+public class UserChangeProfileController extends HttpServlet {
    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -34,7 +34,7 @@ public class CustomerProfileController extends HttpServlet {
         request.setAttribute("totolBill", totolBill);
         request.setAttribute("numberBillDone", numberBillDone);
         request.setAttribute("total", totalPrice);
-        request.getRequestDispatcher("CustomerProfile.jsp").forward(request, response);
+        request.getRequestDispatcher("UserChangeProfile.jsp").forward(request, response);
     }
 
     /**
@@ -57,6 +57,6 @@ public class CustomerProfileController extends HttpServlet {
         User u = d.getCustomerByEmail(email);
         session.removeAttribute("account");
         session.setAttribute("account", u);
-        response.sendRedirect("customerProfile");
+        response.sendRedirect("userChangeProfile");
     }
 }
