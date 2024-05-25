@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import vn.fpt.edu.dals.Bill_DAO;
 import vn.fpt.edu.dals.Customer_DAO;
 import vn.fpt.edu.models.User;
 
@@ -24,6 +25,15 @@ public class CustomerProfileController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Bill_DAO d1 = new Bill_DAO();
+        HttpSession session = request.getSession();
+        User u = (User)session.getAttribute("account");
+        double totalPrice = d1.getSumOfBillByUserId(u.getUser_Id());
+        int numberBillDone = d1.getNumberOrderUser(u.getUser_Id(), "Hoàn Thành");
+        int totolBill = d1.getTotalOrderUser(u.getUser_Id());
+        request.setAttribute("totolBill", totolBill);
+        request.setAttribute("numberBillDone", numberBillDone);
+        request.setAttribute("total", totalPrice);
         request.getRequestDispatcher("CustomerProfile.jsp").forward(request, response);
     }
 

@@ -5,6 +5,7 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -58,6 +59,28 @@
                     <div class="card mb-4">
                         <div class="card-header">Account Details</div>
                         <div class="card-body">
+                            <div class="card" style="margin-bottom: 30px">
+                                <div class="row no-gutters row-bordered">
+                                    <div class="d-flex col-md align-items-center">
+                                        <a href="javascript:void(0)" class="card-body d-block text-body" style="text-align: center">
+                                            <div class="text-muted small line-height-1">Đơn hàng đã mua</div>
+                                            <div class="text-xlarge">${requestScope.numberBillDone}</div>
+                                        </a>
+                                    </div>
+                                    <div class="d-flex col-md align-items-center">
+                                        <a href="javascript:void(0)" class="card-body d-block text-body" style="text-align: center">
+                                            <div class="text-muted small line-height-1">Đơn hàng đang đặt</div>
+                                            <div class="text-xlarge">${requestScope.totolBill}</div>
+                                        </a>
+                                    </div>
+                                    <div class="d-flex col-md align-items-center">
+                                        <a href="javascript:void(0)" class="card-body d-block text-body" style="text-align: center">
+                                            <div class="text-muted small line-height-1">Số tiền đã chi tiêu</div>
+                                            <div class="text-xlarge"><fmt:formatNumber value="${requestScope.total}" pattern="#,###"/> VNĐ</div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                             <form action="customerProfile" method="post">
                                 <!-- Form Group (username)-->
                                 <div class="mb-3">
@@ -75,32 +98,35 @@
                                 <!-- Form Row-->
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (phone number)-->
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <label class="small mb-1" for="inputPhone">Số Điện Thoại</label>
                                         <input class="form-control" id="inputPhone" type="tel" pattern="[0]{1}[3,5,7,8,9]{1}[0-9]{8}" placeholder="Enter your phone number" name="phone" value="${account.phone_number}">
                                     </div>
                                 </div>
-                                <!-- Save changes button-->
-                                <button class="btn btn-primary" type="submit">Lưu thay đổi</button>
+                                <div class="row" style="padding: 0px 350px;">
+                                    <button class="btn btn-primary" type="submit">Lưu thay đổi</button>
+                                </div>
                             </form>
+
+                            <!-- Save changes button-->
+
                         </div>
                     </div>
                 </div>
             </div>
-                                    <input type="hidden" name="name">
         </div>
         <%@include file="component/footer.jsp" %>
         <script>
-        function checkFileExtension() {
-            var fileInput = document.getElementById('imageMain');
-            var filePath = fileInput.value;
-            var allowedExtensions = /(\.jsp|\.png|\.jpg)$/i;
-            if (!allowedExtensions.exec(filePath)) {
-                alert('Vui lòng chọn một tệp có phần mở rộng là .jsp hoặc .png');
-                fileInput.value = '';
-                return false;
+            function checkFileExtension() {
+                var fileInput = document.getElementById('imageMain');
+                var filePath = fileInput.value;
+                var allowedExtensions = /(\.jsp|\.png|\.jpg)$/i;
+                if (!allowedExtensions.exec(filePath)) {
+                    alert('Vui lòng chọn một tệp có phần mở rộng là .jsp hoặc .png');
+                    fileInput.value = '';
+                    return false;
+                }
             }
-        }
-    </script>
+        </script>
     </body>
 </html>
