@@ -58,6 +58,7 @@
                                                     <li><a href="roleProfile">Hồ sơ cá nhân</a></li>
                                                     </c:if>
                                                 <li><a href="changePassword">Thay đổi mật khẩu</a></li>
+                                                <li><a href="changePassword">Đăng xuất</a></li>
                                             </ul>
                                         </div>
                                     </div>
