@@ -4,33 +4,28 @@
  */
 package vn.fpt.edu.dals;
 
-import vn.fpt.edu.models.Category;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import vn.fpt.edu.models.Product;
 
 /**
  *
  * @author admin
  */
-public class Category_DAO extends DBContext {
+public class Product_DAO extends DBContext{
 
-    
-
-    public Category_DAO() {
-    }
-
-    public List<Category> getAllCate() {
-        List<Category> list = new ArrayList<>();
-        String sql = "Select Category_id, Category_name\n"
-                + "From Product_Category";
+    public List<Product> getProductByTittle(String strSearch) {
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT * FROM Product WHERE Product_name LIKE ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, "%" + strSearch + "%");
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Category u = new Category(rs.getInt(1), rs.getString(2));
+                Product u = new Product(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getInt(6), strSearch);
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -38,5 +33,5 @@ public class Category_DAO extends DBContext {
         }
         return list;
     }
-   
+    
 }

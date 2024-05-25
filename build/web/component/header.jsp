@@ -96,16 +96,17 @@
                         <div class="row col-md-7">
                             <div class="header-search">
 
-                                <form type="submit" class="col-md-4">
+                                <form class="col-md-4">
                                     <select class="input-select" name="cateid"  style="    width: 216px;">
                                         <option value="" selected>Loại Sản Phẩm</option>
                                         <c:forEach items="${sessionScope.cates}" var="cate">
-                                            <option value="${cate.category_id}">${cate.category_name}</option>
+                                           
+                                            <option type ="submit" href="PostList?cateid=${cate.getCategory_id()}">${cate.getCategory_name()}</option>
                                         </c:forEach>
                                     </select>
                                 </form>                                    
-                                <form method="get" class="col-md-8" action="PostList">
-                                    <input class="input" placeholder="Search here" style="width: 200px">
+                                <form method="get" class="col-md-8" action="ListCategory">
+                                    <input name="search" class="input" placeholder="Search here" style="width: 200px">
                                     <button type="submit" class="search-btn">Search</button>
                                 </form>
 
@@ -138,7 +139,7 @@
                                         <div class="cart-list">
                                             <div class="product-widget">
                                                 <div class="product-img">
-                                                    <img src="./img/product01.png" alt="">
+                                                    <img src="${pageContext.request.contextPath}/./img/product01.png" alt="">
                                                 </div>
                                                 <div class="product-body">
                                                     <h3 class="product-name"><a href="#">product name goes here</a></h3>
@@ -187,14 +188,15 @@
                 <!-- container -->
             </div>
             <!-- /MAIN HEADER -->
+            <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
+            <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+            <script src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
+            <script src="${pageContext.request.contextPath}/js/jquery.slicknav.js"></script>
+            <script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
+            <script src="${pageContext.request.contextPath}/js/jquery.nice-select.min.js"></script>
+            <script src="${pageContext.request.contextPath}/js/mixitup.min.js"></script>
+            <script src="${pageContext.request.contextPath}/js/home.js"></script>
         </header>
-        <script src="js/jquery-3.3.1.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery.magnific-popup.min.js"></script>
-        <script src="js/jquery.slicknav.js"></script>
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/jquery.nice-select.min.js"></script>
-        <script src="js/mixitup.min.js"></script>
-        <script src="js/home.js"></script>
+
     </body>
 </html>
