@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import vn.fpt.edu.dals.Bill_DAO;
-import vn.fpt.edu.dals.Customer_DAO;
+import vn.fpt.edu.dals.User_DAO;
 import vn.fpt.edu.models.User;
 
 /**
@@ -51,7 +51,7 @@ public class UserChangeProfileController extends HttpServlet {
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
-        Customer_DAO d = new Customer_DAO();
+        User_DAO d = new User_DAO();
         d.changeInfor(username, email, phone);
         HttpSession session = request.getSession();
         User u = d.getCustomerByEmail(email);

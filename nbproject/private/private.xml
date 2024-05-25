@@ -3,10 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Desktop/SWP391/Feds/web/CustomerProfile.jsp</file>
-            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/dals/Bill_DAO.java</file>
-            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/controller/CustomerProfileController.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/controller/UserChangeImageController.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/controller/UserChangeProfileController.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/web/UserChangePassword.jsp</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/controller/UserProfileController.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/dals/User_DAO.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/web/component/header.jsp</file>
+            <file>file:/D:/Desktop/SWP391/Feds/web/UserChangeProfile.jsp</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/models/User.java</file>
             <file>file:/D:/Desktop/SWP391/Feds/web/UserProfile.jsp</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/controller/UserLoginController.java</file>
         </group>
     </open-files>
 </project-private>

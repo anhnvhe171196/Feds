@@ -26,9 +26,10 @@
         <!-- /HEADER -->
 
         <div class="container-xl px-4 mt-4" style="margin-bottom: 60px; margin-top: 60px !important;">
-            <nav class="nav nav-borders">
-                <a class="nav-link" href="customerProfile" target="__blank">Hồ sơ</a>
-                <a class="nav-link" href="changePassword" target="__blank">Thay đổi mật khẩu</a>
+            <nav class="nav nav-borders" style="font-size: 15px">
+                <a class="nav-link" href="userProfile" target="__blank">Hồ sơ cá nhân</a>
+                <a class="nav-link" href="userChangeProfile" target="__blank">Thay đổi hồ sơ cá nhân</a>
+                <a class="nav-link active" href="changePassword" target="__blank">Thay đổi mật khẩu</a>
             </nav>
             <!-- Account page navigation-->
             <c:set value="${sessionScope.account}" var="account"/>

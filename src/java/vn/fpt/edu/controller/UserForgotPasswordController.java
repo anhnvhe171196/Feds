@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.Properties;
-import vn.fpt.edu.dals.Customer_DAO;
+import vn.fpt.edu.dals.User_DAO;
 import vn.fpt.edu.models.User;
 
 /**
@@ -39,7 +39,7 @@ public class UserForgotPasswordController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String email = request.getParameter("email");
-        Customer_DAO d = new Customer_DAO();
+        User_DAO d = new User_DAO();
         if (d.getCustomerByEmail(email) != null) {
             User account = d.getCustomerByEmail(email);
             String pass = UserRegisterGoogleController.randomPassword(8);
