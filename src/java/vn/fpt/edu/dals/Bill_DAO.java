@@ -88,19 +88,56 @@ public class Bill_DAO extends DBContext {
         return sumOfDoneBill;
     }
 
-    public static void main(String[] args) {
-        // Tạo một đối tượng DAO để gọi phương thức getBillAllWithUser
-        Bill_DAO dao = new Bill_DAO(); // Thay YourDAO bằng tên lớp DAO của bạn
-
-        // Gọi phương thức getBillAllWithUser từ DAO để lấy danh sách hóa đơn
-        List<Bill> billList = dao.getBillAllWithUser();
-
-        // In ra danh sách hóa đơn lấy được
-        for (Bill bill : billList) {
-            System.out.println("Date: " + bill.getDate());
-            System.out.println("Address: " + bill.getAddress());
-            System.out.println("Status: " + bill.getStatus());
-            System.out.println("-------------------------");
+    public int getNumberOrderUser(int id, String status) {
+        int numberOrder = 0;
+        String sql = "select count(b.Bill_Id)\n"
+                + "from Bill as b \n"
+                + "where b.Status = ? and b.User_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, status);
+            st.setInt(2, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                numberOrder = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
         }
+        return numberOrder;
+    }
+    public int getTotalOrderUser(int id) {
+        int numberOrder = 0;
+        String sql = "select count(b.Bill_Id)\n"
+                + "from Bill as b \n"
+                + "where b.User_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                numberOrder = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return numberOrder;
+    }
+    public double getSumOfBillByUserId(int id) {
+        double sumOfDoneBill = 0;
+        String sql = "SELECT SUM(Total_price)\n"
+                + "FROM Bill\n"
+                + "WHERE User_id = ?;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                sumOfDoneBill = rs.getDouble(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return sumOfDoneBill;
     }
 }
