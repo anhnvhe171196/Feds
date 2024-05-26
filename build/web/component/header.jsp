@@ -188,10 +188,7 @@
                 <!-- container -->
             </div>
             <!-- /MAIN HEADER -->
-<<<<<<< Updated upstream
 
-
-=======
             <script src="js/jquery.min.js"></script>
             <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
             <script src="${pageContext.request.contextPath}/js/slick.min.js"></script>
@@ -204,14 +201,8 @@
             <script src="${pageContext.request.contextPath}/js/jquery.nice-select.min.js"></script>
             <script src="${pageContext.request.contextPath}/js/mixitup.min.js"></script>
             <script src="${pageContext.request.contextPath}/js/home.js"></script>
->>>>>>> Stashed changes
+
         </header>
-        <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/slick.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/nouislider.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/jquery.zoom.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/main.js"></script>
 
     </body>
 </html>
