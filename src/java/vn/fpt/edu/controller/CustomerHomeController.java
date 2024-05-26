@@ -36,6 +36,7 @@ public class CustomerHomeController extends HttpServlet {
         session.setAttribute("cates", d.getAllCate());
         session.setAttribute("list", data.getSellingProduct());
         session.setAttribute("phone", data.getProductByPrice());
+        session.setAttribute("tivi", data.getTiviByPrice());
         request.getRequestDispatcher("UserHome.jsp").forward(request, response);
     }
 

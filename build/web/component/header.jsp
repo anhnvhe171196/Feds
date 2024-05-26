@@ -12,15 +12,15 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link href="${pageContext.request.contextPath}/https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css"/>
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/slick.css"/>
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/slick-theme.css"/>
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/nouislider.min.css"/>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
-        
-        
+
+
     </head>
     <body>
         <!-- /HEADER -->
@@ -184,19 +184,15 @@
                 <!-- container -->
             </div>
             <!-- /MAIN HEADER -->
-            <script src="js/jquery.min.js"></script>
-		<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-		<script src="${pageContext.request.contextPath}/js/slick.min.js"></script>
-		<script src="${pageContext.request.contextPath}/js/nouislider.min.js"></script>
-		<script src="${pageContext.request.contextPath}/js/jquery.zoom.min.js"></script>
-		<script src="${pageContext.request.contextPath}/js/main.js"></script>
-            <script src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/jquery.slicknav.js"></script>
-            <script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/jquery.nice-select.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/mixitup.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/home.js"></script>
+
+
         </header>
+        <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/slick.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/nouislider.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/jquery.zoom.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/main.js"></script>
 
     </body>
 </html>
