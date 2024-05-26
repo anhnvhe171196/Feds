@@ -22,7 +22,7 @@ import java.util.List;
  * @author Trong
  */
 @WebServlet(name = "SellingProduct", urlPatterns = {"/sellingProduct"})
-public class SellingProduct extends HttpServlet {
+public class ProductOrderController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -82,7 +82,7 @@ public class SellingProduct extends HttpServlet {
 
         session.setAttribute("name", productNames);
         session.setAttribute("sum", quantities);
-        request.getRequestDispatcher("index_sale.jsp").forward(request, response);
+        request.getRequestDispatcher("SaleHome.jsp").forward(request, response);
     }
 
     /**

@@ -78,7 +78,7 @@ public class SumRevenue extends HttpServlet {
 
         session.setAttribute("name1", billDate);
         session.setAttribute("sum1", sumByDay);
-        request.getRequestDispatcher("index_sale.jsp").forward(request, response);
+        request.getRequestDispatcher("SaleHome.jsp").forward(request, response);
     } 
 
     /** 

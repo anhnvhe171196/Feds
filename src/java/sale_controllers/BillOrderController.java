@@ -22,7 +22,7 @@ import java.util.List;
  */
 @WebServlet(name = "SaleDashboard", urlPatterns = {"/saleDashboard"})
 
-public class SaleDashboard extends HttpServlet {
+public class BillOrderController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -58,7 +58,7 @@ public class SaleDashboard extends HttpServlet {
 
             List<Bill> billList = bd.getBillAllWithUser();
             session.setAttribute("billList", billList);
-            request.getRequestDispatcher("index_sale.jsp").forward(request, response);
+            request.getRequestDispatcher("SaleHome.jsp").forward(request, response);
         }
 
         else if(action.equals("sumByMonth")){ 
@@ -74,7 +74,7 @@ public class SaleDashboard extends HttpServlet {
             session.setAttribute("billList", billList);
             session.setAttribute("month", month);
             
-            request.getRequestDispatcher("index_sale.jsp").forward(request, response);
+            request.getRequestDispatcher("SaleHome.jsp").forward(request, response);
         }
        
             

@@ -77,7 +77,7 @@ public class TrendingCategory extends HttpServlet {
 
         session.setAttribute("name2", productcate);
         session.setAttribute("sum2", quantities);
-        request.getRequestDispatcher("index_sale.jsp").forward(request, response);
+        request.getRequestDispatcher("SaleHome.jsp").forward(request, response);
     } 
 
     /** 
