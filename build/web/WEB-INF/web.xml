@@ -52,6 +52,10 @@
         <servlet-name>MarketingProductController</servlet-name>
         <servlet-class>vn.fpt.edu.controller.MarketingProductController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MarketingSumIncomeController</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.MarketingSumIncomeController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserRegisterController</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -107,6 +111,10 @@
     <servlet-mapping>
         <servlet-name>MarketingProductController</servlet-name>
         <url-pattern>/marketingProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarketingSumIncomeController</servlet-name>
+        <url-pattern>/sum</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home</welcome-file>
