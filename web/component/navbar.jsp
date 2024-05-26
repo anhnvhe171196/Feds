@@ -29,7 +29,7 @@
                     <ul class="main-nav nav navbar-nav">
                         <li class="active"><a href="#">Home</a></li>
                         <c:forEach items="${sessionScope.cates}" var="cate">
-                            <li><a href="*">${cate.category_name}</a></li>
+                            <li><a href="ListCategory?cateid=${cate.category_id}">${cate.category_name}</a></li>
                         </c:forEach>
                     </ul>
                     <!-- /NAV -->
