@@ -61,17 +61,45 @@ public class Product_DAO extends DBContext {
         }
         return list;
     }
-    
-    public static void main(String[]args) { 
-       
-            Product_DAO data = new Product_DAO();
-            // Gọi phương thức getSellingProduct
-            List<Product> products = data.getSellingProduct();
-            
-            // In ra kết quả để kiểm tra
-            for (Product product : products) {
-                System.out.println(product.getProduct_img() + "/ " + product.getCategory_name() + "/ " + product.getProduct_name() + "/ " +product.getPrice());
+
+    public static void main(String[] args) {
+
+        Product_DAO data = new Product_DAO();
+        // Gọi phương thức getSellingProduct
+        List<Product> products = data.getSellingProduct();
+
+        // In ra kết quả để kiểm tra
+        for (Product product : products) {
+            System.out.println(product.getProduct_img() + "/ " + product.getCategory_name() + "/ " + product.getProduct_name() + "/ " + product.getPrice());
+        }
+    }
+
+    public List<Product> getProductByPrice() {
+        List<Product> list = new ArrayList<>();
+        String sql = "select p.Product_name, p.Product_img, pc.Category_name, pr.Price\n"
+                + "From Product p\n"
+                + "Inner join Brandd b on b.Brand_Id = p.Brand_id\n"
+                + "Inner Join Product_Category pc on pc.Category_id = b.Category_id\n"
+                + "Join Price pr on p.Product_id = pr.Product_id\n"
+                + "where pr.Price between 1000000 AND 5000000\n"
+                + "and pc.Category_id = 1\n"
+                + "Order by Price ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setProduct_name(rs.getString(1));
+                product.setProduct_img(rs.getString(2));
+                product.setCategory_name(rs.getString(3));
+                product.setPrice(rs.getFloat(4));
+                list.add(product);
+
             }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
     }
 
 }
