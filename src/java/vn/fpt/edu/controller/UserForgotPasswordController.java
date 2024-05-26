@@ -6,7 +6,6 @@
 package vn.fpt.edu.controller;
 
 import jakarta.mail.Authenticator;
-import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
 import jakarta.mail.PasswordAuthentication;
 import jakarta.mail.Session;

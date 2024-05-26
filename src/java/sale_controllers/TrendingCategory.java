@@ -5,8 +5,6 @@
 
 package sale_controllers;
 
-import vn.fpt.edu.dals.Data_SaleDashboard_DAO;
-import vn.fpt.edu.models.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -17,6 +15,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import vn.fpt.edu.dals.Data_SaleDashboard_DAO;
+import vn.fpt.edu.models.Product;
 
 /**
  *
@@ -61,10 +61,11 @@ public class TrendingCategory extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String startdate = request.getParameter("startdate");
-        String enddate = request.getParameter("enddate");
+        PrintWriter o = response.getWriter();
+        String month1 = request.getParameter("month1");
+        String year = request.getParameter("year");
         Data_SaleDashboard_DAO data = new Data_SaleDashboard_DAO();
-        List<Product> productSellingList = data.getTrendCategory(startdate, enddate);
+        List<Product> productSellingList = data.getTrendCategory(month1, year);
 
         List<String> productcate = new ArrayList<>();
         List<Integer> quantities = new ArrayList<>();
@@ -74,7 +75,9 @@ public class TrendingCategory extends HttpServlet {
             
             quantities.add(product.getQuantity());
         }
-
+//        o.print(productcate); o.print(quantities);
+//        request.setAttribute("monthtrend", month1);
+        session.setAttribute("year", year);
         session.setAttribute("name2", productcate);
         session.setAttribute("sum2", quantities);
         request.getRequestDispatcher("SaleHome.jsp").forward(request, response);

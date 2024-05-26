@@ -32,16 +32,16 @@
         <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
         <!-- Customized Bootstrap Stylesheet -->
-        <link href="css/bootstrap.min1.css" rel="stylesheet">
+        <link href="css/bootstrap.minsale.css" rel="stylesheet">
 
         <!-- Template Stylesheet -->
-        <link href="css/style.css" rel="stylesheet">
+        <link href="css/stylesale.css" rel="stylesheet">
         <style>
             #trendcategory-canvas {
                 width: 100%;
                 display: block;
-                max-width: 70%; 
-                height: 50%; 
+                max-width: 70%;
+                height: 50%;
                 margin: auto;
             }
         </style>
@@ -142,22 +142,22 @@
                                 <div class="ms-3 w-100">
                                     <div class="d-flex justify-content-between align-items-center mb-2">
                                         <p class="mb-0 xl-1">Tổng thu nhập</p>
-
-                                        <select id="monthSelect" onchange="sendSelectedMonth()">
-                                            <option ${sessionScope.month==1?"selected":""} value="1">Tháng 1</option>
-                                            <option ${sessionScope.month==2?"selected":""} value="2">Tháng 2</option>
-                                            <option ${sessionScope.month==3?"selected":""} value="3">Tháng 3</option>
-                                            <option ${sessionScope.month==4?"selected":""} value="4">Tháng 4</option>
-                                            <option ${sessionScope.month==5?"selected":""} value="5">Tháng 5</option>
-                                            <option ${sessionScope.month==6?"selected":""} value="6">Tháng 6</option>
-                                            <option ${sessionScope.month==7?"selected":""} value="7">Tháng 7</option>
-                                            <option ${sessionScope.month==8?"selected":""} value="8">Tháng 8</option>
-                                            <option ${sessionScope.month==9?"selected":""} value="9">Tháng 9</option>
-                                            <option ${sessionScope.month==10?"selected":""} value="10">Tháng 10</option>
-                                            <option ${sessionScope.month==11?"selected":""} value="11">Tháng 11</option>
-                                            <option ${sessionScope.month==12?"selected":""} value="12">Tháng 12</option>
-                                        </select>
-
+                                        <div class="mb-0 xl-1">
+                                            <select id="monthSelect" onchange="sendSelectedMonth()">
+                                                <option ${sessionScope.month==1?"selected":""} value="1">Tháng 1</option>
+                                                <option ${sessionScope.month==2?"selected":""} value="2">Tháng 2</option>
+                                                <option ${sessionScope.month==3?"selected":""} value="3">Tháng 3</option>
+                                                <option ${sessionScope.month==4?"selected":""} value="4">Tháng 4</option>
+                                                <option ${sessionScope.month==5?"selected":""} value="5">Tháng 5</option>
+                                                <option ${sessionScope.month==6?"selected":""} value="6">Tháng 6</option>
+                                                <option ${sessionScope.month==7?"selected":""} value="7">Tháng 7</option>
+                                                <option ${sessionScope.month==8?"selected":""} value="8">Tháng 8</option>
+                                                <option ${sessionScope.month==9?"selected":""} value="9">Tháng 9</option>
+                                                <option ${sessionScope.month==10?"selected":""} value="10">Tháng 10</option>
+                                                <option ${sessionScope.month==11?"selected":""} value="11">Tháng 11</option>
+                                                <option ${sessionScope.month==12?"selected":""} value="12">Tháng 12</option>
+                                            </select>   
+                                        </div>
                                     </div>
                                     <h6 class="mb-0" id="incomeDisplay">${sessionScope.sumOfBillByMonth}</h6>
                                 </div>
@@ -166,6 +166,7 @@
                     </div>
                 </div>
                 <!-- Sale & Revenue End -->
+
 
 
                 <!-- Top Trends Product  Start -->
@@ -195,7 +196,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <canvas id="1"></canvas>
+                                        <canvas id="sellingProduct"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -203,6 +204,7 @@
                     </div>
                 </div>
                 <!-- Top Trends Product  End -->
+
 
 
                 <!-- Top Trend Category -->
@@ -215,12 +217,31 @@
                                         <h6 class="mb-0">Top danh mục bán chạy</h6>
                                         <div class="d-flex">
                                             <div class="me-2">
-                                                <label for="start-date-sales" class="form-label">Ngày bắt đầu:</label>
-                                                <input type="date" id="start-date-sales" class="form-control" name="startdate">
+                                                <label for="month-sales" class="form-label">Chọn tháng:</label>
+                                                <select id="month-sales" class="form-select" name="month1">
+                                                    <option ${requestScope.monthtrend==all?"selected":""} value="all">Cả năm</option>
+                                                    <option ${requestScope.monthtrend==1?"selected":""} value="1">Tháng 1</option>
+                                                    <option ${requestScope.monthtrend==2?"selected":""} value="2">Tháng 2</option>
+                                                    <option ${requestScope.monthtrend==3?"selected":""} value="3">Tháng 3</option>
+                                                    <option ${requestScope.monthtrend==4?"selected":""} value="4">Tháng 4</option>
+                                                    <option ${requestScope.monthtrend==5?"selected":""} value="5">Tháng 5</option>
+                                                    <option ${requestScope.monthtrend==6?"selected":""} value="6">Tháng 6</option>
+                                                    <option ${requestScope.monthtrend==7?"selected":""} value="7">Tháng 7</option>
+                                                    <option ${requestScope.monthtrend==8?"selected":""} value="8">Tháng 8</option>
+                                                    <option ${requestScope.monthtrend==9?"selected":""} value="9">Tháng 9</option>
+                                                    <option ${requestScope.monthtrend==10?"selected":""} value="10">Tháng 10</option>
+                                                    <option ${requestScope.monthtrend==11?"selected":""} value="11">Tháng 11</option>
+                                                    <option ${requestScope.monthtrend==12?"selected":""} value="12">Tháng 12</option>
+                                                </select>
                                             </div>
                                             <div class="me-2">
-                                                <label for="end-date-sales" class="form-label">Ngày kết thúc:</label>
-                                                <input type="date" id="end-date-sales" class="form-control" name="enddate">
+                                                <label for="year-sales" class="form-label">Chọn năm:</label>
+                                                <select id="year-sales" class="form-select" name="year">
+                                                    <option ${sessionScope.year==2023?"selected":""} value="2023">2023</option>
+                                                    <option ${sessionScope.year==2024?"selected":""} value="2024">2024</option>
+                                                    <option ${sessionScope.year==2025?"selected":""} value="2025">2025</option>
+                                                    <!-- Add more years as needed -->
+                                                </select>
                                             </div>
                                             <div>
                                                 <button id="show-sales" class="btn btn-primary mt-4">Xem</button>
@@ -235,7 +256,6 @@
                         </form>
                     </div>
                 </div>
-
                 <!-- Top Trend Category End-->
 
                 <!-- Sum Revenue By Day Start -->
@@ -354,46 +374,34 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
 
         <script>
-                                            var names = [];
-                                            var sums = [];
+                                                var names = [];
+                                                var data = [];
             <c:forEach items="${sessionScope.name}" var="val" varStatus="loop">
-                                            names.push("${val}");
+                                                names.push("${val}");
             </c:forEach>
 
             <c:forEach items="${sessionScope.sum}" var="val" varStatus="loop">
-                                            sums.push(${val});
+                                                data.push(${val});
             </c:forEach>
-                                            var ctx = document.getElementById('1').getContext('2d');
-                                            var myChart = new Chart(ctx, {
-                                                type: 'bar',
-                                                data: {
-                                                    labels: names,
-                                                    datasets: [{
-                                                            label: 'Số sản phẩm bán được',
-                                                            data: sums,
-                                                            borderWidth: 1
-                                                        }]
-                                                },
-                                                options: {
-                                                    scales: {
-                                                        y: {
-                                                            beginAtZero: true
-                                                        }
+                                                var ctx = document.getElementById('sellingProduct').getContext('2d');
+                                                var myChart = new Chart(ctx, {
+                                                    type: 'bar',
+                                                    data: {
+                                                        labels: names,
+                                                        datasets: [{
+                                                                label: 'Số sản phẩm bán được',
+                                                                data: data,
+                                                                borderWidth: 1
+                                                            }]
                                                     },
-                                                    plugins: {
-                                                        legend: {
-                                                            display: false // Ẩn legend
-                                                        }
-                                                    },
-                                                    text: {
-                                                        color: 'black', // Màu chữ
-                                                        align: 'center', // Căn chỉnh chữ
-                                                        font: {
-                                                            size: 12, // Kích thước chữ
+                                                    options: {
+                                                        scales: {
+                                                            y: {
+                                                                beginAtZero: true
+                                                            }
                                                         }
                                                     }
-                                                }
-                                            });
+                                                });
         </script>
         <script>
             var names1 = [];
@@ -438,7 +446,7 @@
             </c:forEach>
             var ctx = document.getElementById('trendcategory-canvas').getContext('2d');
             var myChart = new Chart(ctx, {
-                type: 'doughnut',
+                type: 'pie',
                 data: {
                     labels: names2,
                     datasets: [{
@@ -460,7 +468,7 @@
         <script>
             function sendSelectedMonth() {
                 const selectedMonth = document.getElementById("monthSelect").value;
-                window.location.href = `/WebApplication1/saleDashboard?action=sumByMonth&month=` + selectedMonth;
+                window.location.href = `/Feds/saleDashboard?action=sumByMonth&month=` + selectedMonth;
             }
 
             document.getElementById('show-sales').addEventListener('click', function () {
@@ -472,7 +480,7 @@
             document.getElementById('show-sales').addEventListener('click', function () {
                 var startDate = document.getElementById('start-date-sales').value;
                 var endDate = document.getElementById('end-date-sales').value;
-                var url = `/WebApplication1/saleDashboard?action=chart1&startdate=${startDate}&enddate=${endDate}`;
+                var url = `/Feds/saleDashboard?action=chart1&startdate=${startDate}&enddate=${endDate}`;
                 window.location.href = url;
             });
         </script>

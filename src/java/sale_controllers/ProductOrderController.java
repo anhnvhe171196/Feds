@@ -79,7 +79,8 @@ public class ProductOrderController extends HttpServlet {
             productNames.add(product.getProduct_name());
             quantities.add(product.getQuantity());
         }
-
+//        out.print(productNames);
+//        out.print(quantities);
         session.setAttribute("name", productNames);
         session.setAttribute("sum", quantities);
         request.getRequestDispatcher("SaleHome.jsp").forward(request, response);
