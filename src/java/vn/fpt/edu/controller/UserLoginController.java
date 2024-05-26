@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import vn.fpt.edu.dals.Customer_DAO;
+import vn.fpt.edu.dals.User_DAO;
 import vn.fpt.edu.models.User;
 
 /**
@@ -40,7 +40,7 @@ public class UserLoginController extends HttpServlet {
             throws ServletException, IOException {
         String user = request.getParameter("email");
         String pass = request.getParameter("password");
-        Customer_DAO d = new Customer_DAO();
+        User_DAO d = new User_DAO();
         User u = d.getCustomerByEmail(user);
         if (u == null) {
             request.setAttribute("error", "Tài khoản hoặc mật khẩu không đúng!!!");

@@ -10,7 +10,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import vn.fpt.edu.dals.Customer_DAO;
+import vn.fpt.edu.dals.User_DAO;
 import vn.fpt.edu.models.User;
 
 /**
@@ -31,7 +31,7 @@ public class UserRegisterController extends HttpServlet {
         String username = request.getParameter("username");
         String pass = request.getParameter("password");
         String email = request.getParameter("email");
-        Customer_DAO cd = new Customer_DAO();
+        User_DAO cd = new User_DAO();
         if (cd.getCustomerByEmail(email) != null) {
             request.setAttribute("error", "Email đã được sử dụng!!!");
             request.getRequestDispatcher("UserRegister.jsp").forward(request, response);

@@ -20,7 +20,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.security.SecureRandom;
 import java.util.Properties;
-import vn.fpt.edu.dals.Customer_DAO;
+import vn.fpt.edu.dals.User_DAO;
 import vn.fpt.edu.models.GoogleAcount;
 
 /**
@@ -35,7 +35,7 @@ public class UserRegisterGoogleController extends HttpServlet {
         String code = request.getParameter("code");
         String accesToken = UserRegisterTokenController.getToken(code);
         GoogleAcount account = UserRegisterTokenController.getUserInfo(accesToken);
-        Customer_DAO d = new Customer_DAO();
+        User_DAO d = new User_DAO();
         if (d.getCustomerByEmail(account.getEmail()) != null) {
             request.setAttribute("error", "Email đã được sử dụng!!!");
             request.getRequestDispatcher("UserRegister.jsp").forward(request, response);

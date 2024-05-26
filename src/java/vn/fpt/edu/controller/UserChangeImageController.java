@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import vn.fpt.edu.dals.Customer_DAO;
+import vn.fpt.edu.dals.User_DAO;
 import vn.fpt.edu.models.User;
 
 /**
@@ -42,13 +42,13 @@ public class UserChangeImageController extends HttpServlet {
             }
             part.write(readpath + "/" + filename);
             String img = filename;
-            Customer_DAO d = new Customer_DAO();
+            User_DAO d = new User_DAO();
             d.changeImg(email, img);
             User u = d.getCustomerByEmail(email);
             HttpSession session = request.getSession();
             session.removeAttribute("account");
             session.setAttribute("account", u);
-            response.sendRedirect("customerProfile");
+            response.sendRedirect("userChangeProfile");
         } catch (Exception e) {
         }
     }

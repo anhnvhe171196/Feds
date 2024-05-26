@@ -10,7 +10,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import vn.fpt.edu.dals.Customer_DAO;
+import vn.fpt.edu.dals.User_DAO;
 import vn.fpt.edu.models.User;
 
 /**
@@ -29,7 +29,7 @@ public class UserChangePasswordController extends HttpServlet {
             throws ServletException, IOException {
         String email = request.getParameter("email");
         String oldPassword = request.getParameter("oldPassword");
-        Customer_DAO d = new Customer_DAO();
+        User_DAO d = new User_DAO();
         User u = d.getCustomerByEmail(email);
         if (!u.getPassword().equals(oldPassword)) {
             request.setAttribute("error", "Bạn đã nhập sai mật khẩu cũ");

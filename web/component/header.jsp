@@ -45,19 +45,16 @@
                                 <a href="login"><button class="menu-button" style="background-color: red">Login</button></a>
                             </c:if>
                             <c:if test="${sessionScope.account != null}">
-                                <a class="fa" href="customerProfile"><img style="width: 23px;border-radius: 20px;" src="images/${sessionScope.account.avarta}" alt="alt"/></a>
+                                <a class="fa" href="userProfile"><img style="width: 23px;border-radius: 20px;" src="images/${sessionScope.account.avarta}" alt="alt"/></a>
                                 <li>
                                     <div class="menu-container">
                                         <button class="menu-button" style="background-color: red">My Account</button>
                                         <div class="menu">
                                             <ul>
-                                                <c:if test="${sessionScope.account.role_id  == 5}">
-                                                    <li><a href="customerProfile">Hồ sơ cá nhân</a></li>
-                                                    </c:if>
-                                                    <c:if test="${sessionScope.account.role_id != 5}">
-                                                    <li><a href="roleProfile">Hồ sơ cá nhân</a></li>
-                                                    </c:if>
+                                                <li><a href="userProfile">Hồ sơ cá nhân</a></li>
+                                                <li><a href="userChangeProfile">Thay đổi hồ sơ cá nhân</a></li>
                                                 <li><a href="changePassword">Thay đổi mật khẩu</a></li>
+                                                <li><a href="userLogout">Đăng xuất</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -99,7 +96,7 @@
                                     <select class="input-select" name="cateid"  style="    width: 216px;">
                                         <option value="" selected>Loại Sản Phẩm</option>
                                         <c:forEach items="${sessionScope.cates}" var="cate">
-                                           
+
                                             <option type ="submit" href="PostList?cateid=${cate.getCategory_id()}">${cate.getCategory_name()}</option>
                                         </c:forEach>
                                     </select>

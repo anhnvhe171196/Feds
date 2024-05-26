@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import vn.fpt.edu.dals.Customer_DAO;
+import vn.fpt.edu.dals.User_DAO;
 import vn.fpt.edu.models.GoogleAcount;
 
 /**
@@ -26,7 +26,7 @@ public class UserLoginGoogleController extends HttpServlet {
         String code = request.getParameter("code");
         String accesToken = UserLoginTonkenController.getToken(code);
         GoogleAcount account = UserRegisterTokenController.getUserInfo(accesToken);
-        Customer_DAO d = new Customer_DAO();
+        User_DAO d = new User_DAO();
         if (d.getCustomerByEmail(account.getEmail()) != null && account.isVerified_email()) {
             HttpSession session = request.getSession();
             session.setAttribute("account", d.getCustomerByEmail(account.getEmail()));

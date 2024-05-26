@@ -27,8 +27,9 @@
         <!-- /HEADER -->
 
         <div class="container-xl px-4 mt-4" style="margin-bottom: 60px; margin-top: 60px !important;">
-            <nav class="nav nav-borders">
-                <a class="nav-link" href="customerProfile" target="__blank">Hồ sơ</a>
+            <nav class="nav nav-borders" style="font-size: 15px">
+                <a class="nav-link" href="userProfile" target="__blank">Hồ sơ cá nhân</a>
+                <a class="nav-link active" href="userChangeProfile" target="__blank">Thay đổi hồ sơ cá nhân</a>
                 <a class="nav-link" href="changePassword" target="__blank">Thay đổi mật khẩu</a>
             </nav>
             <!-- Account page navigation-->
@@ -57,7 +58,7 @@
                 <div class="col-xl-8">
                     <!-- Account details card-->
                     <div class="card mb-4">
-                        <div class="card-header">Account Details</div>
+                        <div class="card-header">Chi tiết tài khoản</div>
                         <div class="card-body">
                             <div class="card" style="margin-bottom: 30px">
                                 <div class="row no-gutters row-bordered">
@@ -81,7 +82,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <form action="customerProfile" method="post">
+                            <form action="userChangeProfile" method="post">
                                 <!-- Form Group (username)-->
                                 <div class="mb-3">
                                     <label class="small mb-1" for="inputUsername">Tên người dùng (tên của bạn sẽ xuất hiện như thế nào với những người dùng khác trên trang web)</label>

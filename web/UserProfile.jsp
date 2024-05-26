@@ -26,40 +26,34 @@
         <!-- /HEADER -->
         <%@include file="component/header.jsp"%>
         <!-- /HEADER -->
-
-        <div class="container bootdey flex-grow-1 container-p-y">
+        <div class="container bootdey flex-grow-1 container-p-y" style="margin-top: 20px">
 
             <div class="media align-items-center py-3 mb-3">
-                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="d-block ui-w-100 rounded-circle">
+                <img src="images/${sessionScope.account.avarta}" style="margin-left: 15px;" alt="" class="d-block ui-w-100 rounded-circle">
                 <div class="media-body ml-4">
-                    <h4 class="font-weight-bold mb-0">John Doe <span class="text-muted font-weight-normal">@johndoe</span></h4>
-                    <div class="text-muted mb-2">ID: 3425433</div>
-                    
+                    <h4 class="font-weight-bold mb-0">${sessionScope.account.user_name}</h4>
                 </div>
             </div>
-
+            <nav class="nav nav-borders" style="font-size: 15px">
+                <a class="nav-link active" href="userProfile" target="__blank">Hồ sơ cá nhân</a>
+                <a class="nav-link" href="userChangeProfile" target="__blank">Thay đổi hồ sơ cá nhân</a>
+                <a class="nav-link" href="changePassword" target="__blank">Thay đổi mật khẩu</a>
+            </nav>
             <div class="card mb-4">
                 <div class="card-body">
+                    <h6 class="mt-4 mb-3">Vai trò</h6>
                     <table class="table user-view-table m-0">
                         <tbody>
                             <tr>
-                                <td>Registered:</td>
-                                <td>01/23/2017</td>
+                                <td>Role:</td>
+                                <td>${requestScope.roleName}</td>
                             </tr>
                             <tr>
-                                <td>Latest activity:</td>
-                                <td>01/23/2018 (14 days ago)</td>
-                            </tr>
-                            <tr>
-                                <td>Verified:</td>
+                                <td>Xác Minh:</td>
                                 <td><span class="fa fa-check text-primary"></span>&nbsp; Yes</td>
                             </tr>
                             <tr>
-                                <td>Role:</td>
-                                <td>User</td>
-                            </tr>
-                            <tr>
-                                <td>Status:</td>
+                                <td>Trạng thái:</td>
                                 <td><span class="badge badge-outline-success">Active</span></td>
                             </tr>
                         </tbody>
@@ -67,161 +61,119 @@
                 </div>
                 <hr class="border-light m-0">
                 <div class="table-responsive">
-                    <table class="table card-table m-0">
+                    <table class="table card-table m-0" style="text-align: center">
                         <tbody>
                             <tr>
-                                <th>Module Permission</th>
-                                <th>Read</th>
-                                <th>Write</th>
-                                <th>Create</th>
-                                <th>Delete</th>
+                                <th style="text-align: center">Chức Năng</th>
+                                <th style="text-align: center">Xem</th>
+                                <th style="text-align: center">Mua</th>
+                                <th style="text-align: center">FeedBack</th>
+                                <th style="text-align: center">Bán</th>
+                                <th style="text-align: center">Sửa</th>
+                                <th style="text-align: center">Xóa</th>
+                                <th style="text-align: center">Tạo</th>
                             </tr>
-                            <tr>
-                                <td>Users</td>
-                                <td><span class="fa fa-check text-primary"></span></td>
-                                <td><span class="fa fa-times text-light"></span></td>
-                                <td><span class="fa fa-times text-light"></span></td>
-                                <td><span class="fa fa-times text-light"></span></td>
-                            </tr>
-                            <tr>
-                                <td>Articles</td>
-                                <td><span class="fa fa-check text-primary"></span></td>
-                                <td><span class="fa fa-check text-primary"></span></td>
-                                <td><span class="fa fa-check text-primary"></span></td>
-                                <td><span class="fa fa-times text-light"></span></td>
-                            </tr>
-                            <tr>
-                                <td>Staff</td>
-                                <td><span class="fa fa-times text-light"></span></td>
-                                <td><span class="fa fa-times text-light"></span></td>
-                                <td><span class="fa fa-times text-light"></span></td>
-                                <td><span class="fa fa-times text-light"></span></td>
-                            </tr>
+                            <c:if test="${account.role_id == 1}">
+                                <tr>
+                                    <td>Admin</td>
+                                    <td><span class="fa fa-check text-primary"></span></td>
+                                    <td><span class="fa fa-check text-primary"></span></td>
+                                    <td><span class="fa fa-check text-primary"></span></td>
+                                    <td><span class="fa fa-check text-primary"></span></td>
+                                    <td><span class="fa fa-check text-primary"></span></td>
+                                    <td><span class="fa fa-check text-primary"></span></td>
+                                    <td><span class="fa fa-check text-primary"></span></td>
+                                </tr>
+                            </c:if> 
+                            <c:if test="${account.role_id == 2}">
+                                <tr>
+                                    <td>Sale Manager</td>
+                                    <td><span class="fa fa-check text-primary"></span></td>
+                                    <td><span class="fa fa-check text-primary"></span></td>
+                                    <td><span class="fa fa-check text-primary"></span></td>
+                                    <td><span class="fa fa-check text-primary"></span></td>
+                                    <td><span class="fa fa-check text-primary"></span></td>
+                                    <td><span class="fa fa-check text-primary"></span></td>
+                                    <td><span class="fa fa-check text-primary"></span></td>
+                                </tr>
+                            </c:if> 
+                            <c:if test="${account.role_id == 3}">
+                                <tr>
+                                    <td>Sale</td>
+                                    <td><span class="fa fa-check text-primary"></span></td>
+                                    <td><span class="fa fa-check text-primary"></span></td>
+                                    <td><span class="fa fa-check text-primary"></span></td>
+                                    <td><span class="fa fa-check text-primary"></span></td>
+                                    <td><span class="fa fa-check text-primary"></span></td>
+                                    <td><span class="fa fa-check text-primary"></span></td>
+                                    <td><span class="fa fa-times text-light"></span></td>
+                                </tr>
+                            </c:if> 
+                            <c:if test="${account.role_id == 4}">
+                                <tr>
+                                    <td>Order Processor</td>
+                                    <td><span class="fa fa-check text-primary"></span></td>
+                                    <td><span class="fa fa-check text-primary"></span></td>
+                                    <td><span class="fa fa-check text-primary"></span></td>
+                                    <td><span class="fa fa-check text-primary"></span></td>
+                                    <td><span class="fa fa-check text-primary"></span></td>
+                                    <td><span class="fa fa-times text-light"></span></td>
+                                    <td><span class="fa fa-times text-light"></span></td>
+                                </tr>
+                            </c:if> 
+                            <c:if test="${account.role_id == 5}">
+                                <tr>
+                                    <td>Customer</td>
+                                    <td><span class="fa fa-check text-primary"></span></td>
+                                    <td><span class="fa fa-check text-primary"></span></td>
+                                    <td><span class="fa fa-check text-primary"></span></td>
+                                    <td><span class="fa fa-times text-light"></span></td>
+                                    <td><span class="fa fa-times text-light"></span></td>
+                                    <td><span class="fa fa-times text-light"></span></td>
+                                    <td><span class="fa fa-times text-light"></span></td>
+                                </tr>
+                            </c:if> 
                         </tbody>
                     </table>
                 </div>
-            </div>
 
-            <div class="card">
-                <div class="row no-gutters row-bordered">
-                    <div class="d-flex col-md align-items-center">
-                        <a href="javascript:void(0)" class="card-body d-block text-body">
-                            <div class="text-muted small line-height-1">Posts</div>
-                            <div class="text-xlarge">125</div>
-                        </a>
-                    </div>
-                    <div class="d-flex col-md align-items-center">
-                        <a href="javascript:void(0)" class="card-body d-block text-body">
-                            <div class="text-muted small line-height-1">Followers</div>
-                            <div class="text-xlarge">534</div>
-                        </a>
-                    </div>
-                    <div class="d-flex col-md align-items-center">
-                        <a href="javascript:void(0)" class="card-body d-block text-body">
-                            <div class="text-muted small line-height-1">Following</div>
-                            <div class="text-xlarge">236</div>
-                        </a>
-                    </div>
-                </div>
-                <hr class="border-light m-0">
+
                 <div class="card-body">
+                    <h6 class="mt-4 mb-3">Thông tin</h6>
 
                     <table class="table user-view-table m-0">
                         <tbody>
                             <tr>
                                 <td>Username:</td>
-                                <td>nmaxwell</td>
-                            </tr>
-                            <tr>
-                                <td>Name:</td>
-                                <td>Nelle Maxwell</td>
+                                <td>${sessionScope.account.user_name}</td>
                             </tr>
                             <tr>
                                 <td>E-mail:</td>
-                                <td>nmaxwell@mail.com</td>
+                                <td>${sessionScope.account.email}</td>
                             </tr>
                             <tr>
-                                <td>Company:</td>
-                                <td>Company Ltd.</td>
+                                <td>Công ty: </td>
+                                <td>Fed Shop</td>
                             </tr>
                         </tbody>
                     </table>
-
-                    <h6 class="mt-4 mb-3">Social links</h6>
+                    <h6 class="mt-4 mb-3">Số điện thoại</h6>
 
                     <table class="table user-view-table m-0">
                         <tbody>
                             <tr>
-                                <td>Twitter:</td>
-                                <td><a href="javascript:void(0)">https://twitter.com/user</a></td>
-                            </tr>
-                            <tr>
-                                <td>Facebook:</td>
-                                <td><a href="javascript:void(0)">https://www.facebook.com/user</a></td>
-                            </tr>
-                            <tr>
-                                <td>Instagram:</td>
-                                <td><a href="javascript:void(0)">https://www.instagram.com/user</a></td>
+                                <td>Số điện thoại:</td>
+                                <td>${sessionScope.account.phone_number}</td>
                             </tr>
                         </tbody>
                     </table>
-
-                    <h6 class="mt-4 mb-3">Personal info</h6>
+                    <h6 class="mt-4 mb-3">Thông tin Shop</h6>
 
                     <table class="table user-view-table m-0">
                         <tbody>
                             <tr>
-                                <td>Birthday:</td>
-                                <td>May 3, 1995</td>
-                            </tr>
-                            <tr>
-                                <td>Country:</td>
-                                <td>Canada</td>
-                            </tr>
-                            <tr>
-                                <td>Languages:</td>
-                                <td>English</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <h6 class="mt-4 mb-3">Contacts</h6>
-
-                    <table class="table user-view-table m-0">
-                        <tbody>
-                            <tr>
-                                <td>Phone:</td>
-                                <td>+0 (123) 456 7891</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <h6 class="mt-4 mb-3">Interests</h6>
-
-                    <table class="table user-view-table m-0">
-                        <tbody>
-                            <tr>
-                                <td>Favorite music:</td>
-                                <td>
-                                    Rock,
-                                    Alternative,
-                                    Electro,
-                                    Drum &amp; Bass,
-                                    Dance
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Favorite movies:</td>
-                                <td>
-                                    The Green Mile,
-                                    Pulp Fiction,
-                                    Back to the Future,
-                                    WALL·E,
-                                    Django Unchained,
-                                    The Truman Show,
-                                    Home Alone,
-                                    Seven Pounds
-                                </td>
+                                <td>Email:</td>
+                                <td>fedshop320@gmail.com</td>
                             </tr>
                         </tbody>
                     </table>
