@@ -53,6 +53,10 @@
                                             <ul>
                                                 <li><a href="userProfile">Hồ sơ cá nhân</a></li>
                                                 <li><a href="userChangeProfile">Thay đổi hồ sơ cá nhân</a></li>
+                                                    <c:if test="${sessionScope.account != null && sessionScope.account.getRole_id() == 4}">
+                                                    <li><a href="MarketingDashBoard">Marketing Management</a></li>
+                                                    </c:if>
+
                                                 <li><a href="changePassword">Thay đổi mật khẩu</a></li>
                                                 <li><a href="userLogout">Đăng xuất</a></li>
                                             </ul>
@@ -184,8 +188,23 @@
                 <!-- container -->
             </div>
             <!-- /MAIN HEADER -->
+<<<<<<< Updated upstream
 
 
+=======
+            <script src="js/jquery.min.js"></script>
+            <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+            <script src="${pageContext.request.contextPath}/js/slick.min.js"></script>
+            <script src="${pageContext.request.contextPath}/js/nouislider.min.js"></script>
+            <script src="${pageContext.request.contextPath}/js/jquery.zoom.min.js"></script>
+            <script src="${pageContext.request.contextPath}/js/main.js"></script>
+            <script src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
+            <script src="${pageContext.request.contextPath}/js/jquery.slicknav.js"></script>
+            <script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
+            <script src="${pageContext.request.contextPath}/js/jquery.nice-select.min.js"></script>
+            <script src="${pageContext.request.contextPath}/js/mixitup.min.js"></script>
+            <script src="${pageContext.request.contextPath}/js/home.js"></script>
+>>>>>>> Stashed changes
         </header>
         <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
