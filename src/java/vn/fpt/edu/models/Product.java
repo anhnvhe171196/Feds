@@ -17,11 +17,12 @@ public class Product {
     private int User_Id;
     private int Brand_id;
     private String Category_name;
+    private float Price;
 
     public Product() {
     }
 
-    public Product(int Product_id, int Quantity, String Product_name, String Product_img, int User_Id, int Brand_id, String Category_name) {
+    public Product(int Product_id, int Quantity, String Product_name, String Product_img, int User_Id, int Brand_id, String Category_name, float Price) {
         this.Product_id = Product_id;
         this.Quantity = Quantity;
         this.Product_name = Product_name;
@@ -29,6 +30,7 @@ public class Product {
         this.User_Id = User_Id;
         this.Brand_id = Brand_id;
         this.Category_name = Category_name;
+        this.Price = Price;
     }
 
     public String getCategory_name() {
@@ -87,4 +89,13 @@ public class Product {
         this.Brand_id = Brand_id;
     }
 
+    public float getPrice() {
+        return Price;
+    }
+
+    public void setPrice(float Price) {
+        this.Price = Price;
+    }
+
+    
 }
