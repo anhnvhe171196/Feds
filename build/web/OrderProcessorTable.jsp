@@ -69,7 +69,7 @@
                                 </div>
                             </div>
                             <div class="navbar-nav w-100">
-                                <a href="MarketingDashBoard" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                                <a href="marketingDashBoard" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                                 <a href="#" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>Order List</a>
                                 
                             </div>

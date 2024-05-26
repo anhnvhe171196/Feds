@@ -72,7 +72,7 @@
                                 </div>
                             </div>
                             <div class="navbar-nav w-100">
-                                <a href="#" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                                <a href="marketingDashBoard" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                                 <a href="OrderProcessorTable.jsp" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Order List</a></div>
                         </nav>
                     </div>
@@ -526,7 +526,7 @@
         <script>
             function sendSelectedMonth() {
                 const selectedMonth = document.getElementById("monthSelect").value;
-                window.location.href = `/Feds/MarketingDashBoard?action=sumByMonth&month=` + selectedMonth;
+                window.location.href = `/Feds/marketingDashBoard?action=sumByMonth&month=` + selectedMonth;
             }
 
             document.getElementById('show-sales').addEventListener('click', function () {
@@ -538,7 +538,7 @@
             document.getElementById('show-sales').addEventListener('click', function () {
                 var startDate = document.getElementById('start-date-sales').value;
                 var endDate = document.getElementById('end-date-sales').value;
-                var url = `/Feds/MarketingDashBoard?action=chart1&startdate=${startDate}&enddate=${endDate}`;
+                var url = `/Feds/marketingDashBoard?action=chart1&startdate=${startDate}&enddate=${endDate}`;
                 window.location.href = url;
             });
         </script>
