@@ -66,11 +66,11 @@ public class Product_DAO extends DBContext {
 
         Product_DAO data = new Product_DAO();
         // Gọi phương thức getSellingProduct
-        List<Product> products = data.getSellingProduct();
+        List<Product> products = data.getTiviByPrice();
 
         // In ra kết quả để kiểm tra
         for (Product product : products) {
-            System.out.println(product.getProduct_img() + "/ " + product.getCategory_name() + "/ " + product.getProduct_name() + "/ " + product.getPrice());
+            System.out.println(product.getProduct_name() + "/ "+ product.getProduct_img() + "/ " + product.getCategory_name() + "/ " + product.getPrice() + "/ " + product.getSize());
         }
     }
 
@@ -95,6 +95,33 @@ public class Product_DAO extends DBContext {
                 product.setPrice(rs.getFloat(4));
                 list.add(product);
 
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public List<Product> getTiviByPrice() {
+        List<Product> list = new ArrayList<>();
+        String sql = " select p.Product_name, p.Product_img, pc.Category_name, pr.Price, pd.Size\n"
+                + "From Product p\n"
+                + "Inner Join Brandd b on b.Brand_Id = p.Brand_id\n"
+                + "Inner Join Product_Category pc on pc.Category_id = b.Category_id\n"
+                + "Join Product_Detail pd on pd.Product_id = p.Product_id\n"
+                + "Join Price pr on pr.Product_id = p.Product_id\n"
+                + "where pc.Category_id = 4 and pr.Price between 12000000 and 30000000 Order by Price";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setProduct_name(rs.getString(1));
+                product.setProduct_img(rs.getString(2));
+                product.setCategory_name(rs.getString(3));
+                product.setPrice(rs.getFloat(4));
+                product.setSize(rs.getString(5));
+                list.add(product);
             }
         } catch (SQLException e) {
             System.out.println(e);

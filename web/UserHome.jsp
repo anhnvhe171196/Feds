@@ -364,7 +364,7 @@
                         <div class="products-widget-slick" data-nav="#slick-nav-3">      
                             <div>
                                 <c:forEach items="${sessionScope.list}" var="l" varStatus="status">
-                                    <c:if test="${status.index < 5}">
+                                    <c:if test="${status.index < 4}">
                                         <!-- product widget -->
                                         <div class="product-widget">
                                             <div class="product-img">
@@ -394,7 +394,7 @@
                         <div class="products-widget-slick" data-nav="#slick-nav-4">
                             <div>
                                 <c:forEach items="${sessionScope.phone}" var="p" varStatus="status">
-                                    <c:if test="${status.index < 5}">
+                                    <c:if test="${status.index < 4}">
                                 <!-- product widget -->
                                 <div class="product-widget">
                                     <div class="product-img">
@@ -424,20 +424,22 @@
 
                         <div class="products-widget-slick" data-nav="#slick-nav-5">
                             <div>
+                                <c:forEach items="${sessionScope.tivi}" var="t" varStatus="status">
+                                    <c:if test="${status.index < 4}">
                                 <!-- product widget -->
                                 <div class="product-widget">
                                     <div class="product-img">
-                                        <img src="./img/product01.png" alt="">
+                                        <img src="${pageContext.request.contextPath}/./images/${t.getProduct_img()}" alt="">
                                     </div>
                                     <div class="product-body">
-                                        <p class="product-category">Category</p>
-                                        <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                        <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+                                        <p class="product-category">${t.getCategory_name()}</p>
+                                        <h3 class="product-name"><a href="#">${t.getProduct_name()}</a></h3>
+                                        <h4 class="product-price">${t.getPrice()} <del class="product-old-price">$990.00</del></h4>
                                     </div>
                                 </div>
                                 <!-- /product widget -->
-
-                                
+                                </c:if>
+                                </c:forEach>
                             </div>
                         </div>
                     </div>
