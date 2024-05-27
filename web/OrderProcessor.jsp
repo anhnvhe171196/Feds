@@ -245,7 +245,7 @@
                                     <div class="col-sm-12 col-xl-12">
                                         <div class="bg-light text-center rounded p-4">
                                             <div class="d-flex align-items-center justify-content-between mb-4">
-                                                <h6 class="mb-0">Top danh mục bán chạy</h6>
+                                                <h6 class="mb-0">Doanh thu</h6>
                                                 <div class="d-flex">
                                                     <div class="me-2">
                                                         <label for="start-date-sales" class="form-label">Ngày bắt đầu:</label>
@@ -261,7 +261,7 @@
                                                 </div>
                                             </div>
                                             <div>
-                                                <canvas id="trendcategory-canvas"></canvas>
+                                                <canvas id="trending"></canvas>
                                             </div>
                                         </div>
                                     </div>
@@ -483,25 +483,37 @@
             <c:forEach items="${sessionScope.sum1}" var="val" varStatus="loop">
             sums1.push(${val});
             </c:forEach>
-            var ctx = document.getElementById('marketingProduct').getContext('2d');
-            var myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: names1,
-                    datasets: [{
-                            label: 'Tổng thu nhập(VND)',
-                            data: sums1,
-                            borderWidth: 1
-                        }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
+                                                    var ctx = document.getElementById('trending').getContext('2d');
+                                                    var myChart = new Chart(ctx, {
+                                                        type: 'bar',
+                                                        data: {
+                                                            labels: names1,
+                                                            datasets: [{
+                                                                    label: 'Số tiền thu được',
+                                                                    data: sums1,
+                                                                    borderWidth: 1
+                                                                }]
+                                                        },
+                                                        options: {
+                                                            scales: {
+                                                                y: {
+                                                                    beginAtZero: true
+                                                                }
+                                                            },
+                                                            plugins: {
+                                                                legend: {
+                                                                    display: false // Ẩn legend
+                                                                }
+                                                            },
+                                                            text: {
+                                                                color: 'black', // Màu chữ
+                                                                align: 'center', // Căn chỉnh chữ
+                                                                font: {
+                                                                    size: 12, // Kích thước chữ
+                                                                }
+                                                            }
+                                                        }
+                                                    });
         </script>
 
         <script>
@@ -514,9 +526,9 @@
             <c:forEach items="${sessionScope.sum2}" var="val" varStatus="loop">
             sums2.push(${val});
             </c:forEach>
-            var ctx = document.getElementById('trendcategory-canvas').getContext('2d');
+            var ctx = document.getElementById('trending').getContext('2d');
             var myChart = new Chart(ctx, {
-                type: 'doughnut',
+                type: 'bar',
                 data: {
                     labels: names2,
                     datasets: [{
