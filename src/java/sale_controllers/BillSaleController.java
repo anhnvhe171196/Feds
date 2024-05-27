@@ -24,7 +24,7 @@ import java.util.List;
  * @author Trong
  */
 @WebServlet(name="SumRevenue", urlPatterns={"/sumRevenue"})
-public class SumRevenue extends HttpServlet {
+public class BillSaleController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.

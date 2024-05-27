@@ -23,7 +23,7 @@ import vn.fpt.edu.models.Product;
  * @author Trong
  */
 @WebServlet(name="TrendingCategory", urlPatterns={"/trendingCategory"})
-public class TrendingCategory extends HttpServlet {
+public class ProductSaleController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -75,12 +75,12 @@ public class TrendingCategory extends HttpServlet {
             
             quantities.add(product.getQuantity());
         }
-        o.print(productcate); o.print(quantities);
-//        request.setAttribute("monthtrend", month1);
-//        session.setAttribute("year", year);
-//        session.setAttribute("name2", productcate);
-//        session.setAttribute("sum2", quantities);
-//        request.getRequestDispatcher("SaleHome.jsp").forward(request, response);
+//        o.print(productcate); o.print(quantities);
+        session.setAttribute("monthtrend", month1);
+        session.setAttribute("year", year);
+        session.setAttribute("name2", productcate);
+        session.setAttribute("sum2", quantities);
+        request.getRequestDispatcher("SaleHome.jsp").forward(request, response);
     } 
 
     /** 

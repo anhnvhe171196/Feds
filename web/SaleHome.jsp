@@ -5,6 +5,7 @@
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -130,7 +131,7 @@
                                 <i class="fa fa-chart-pie fa-3x text-primary"></i>
                                 <div class="ms-3">
                                     <p class="mb-2">Tổng thu nhập hôm nay</p>
-                                    <h6 class="mb-0">${sessionScope.sumOfDoneBills} VND</h6>
+                                    <h6 class="mb-0"><fmt:formatNumber value="${sessionScope.sumOfDoneBills}" pattern="#,###"/> VNĐ</h6>
                                 </div>
                             </div>
                         </div>
@@ -159,7 +160,7 @@
                                             </select>   
                                         </div>
                                     </div>
-                                    <h6 class="mb-0" id="incomeDisplay">${sessionScope.sumOfBillByMonth}</h6>
+                                    <h6 class="mb-0" id="incomeDisplay"> <fmt:formatNumber value="${sessionScope.sumOfBillByMonth}" pattern="#,###"/> VNĐ</h6>
                                 </div>
                             </div>
                         </div>
@@ -297,7 +298,7 @@
                     <div class="bg-light text-center rounded p-4">
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <h6 class="mb-0">Đơn hàng hôm nay</h6>
-                            <a href="/order_list.jsp">Tất cả</a>
+                            <a href="/Feds/OrderList.jsp">Tất cả</a>
                         </div>
                         <div class="table-responsive">
                             <table class="table text-start align-middle table-bordered table-hover mb-0">
@@ -317,7 +318,7 @@
                                             <td>${b.date}</td>
                                             <td>${b.bill_id}</td>
                                             <td>${b.user_name}</td>
-                                            <td>${b.total_price}</td>
+                                            <td> <fmt:formatNumber value="${b.total_price}" pattern="#,###"/> VNĐ</td>
                                             <td>${b.status}</td>
                                             <td><a class="btn btn-sm btn-primary" href="/orderDetail?action=&bill_id=">Xem đơn</a></td>
                                         </tr>

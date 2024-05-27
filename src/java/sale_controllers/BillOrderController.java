@@ -56,10 +56,12 @@ public class BillOrderController extends HttpServlet {
         if (action == null) {
             int numOfBills = bd.getNumOfBillCurrentDate();
             int sumOfDoneBills = bd.getSumOfDoneBill();
-
+            double sumOfBillByMonth = bd.getSumOfBillByMonth(1);
+            
+            
             session.setAttribute("numOfBills", numOfBills);
             session.setAttribute("sumOfDoneBills", sumOfDoneBills);
-
+            session.setAttribute("sumOfBillByMonth", sumOfBillByMonth);
             List<Bill> billList = bd.getBillAllWithUser();
             session.setAttribute("billList", billList);
             request.getRequestDispatcher("SaleHome.jsp").forward(request, response);
