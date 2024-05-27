@@ -5,9 +5,6 @@
 
 package sale_controllers;
 
-import vn.fpt.edu.dals.Data_SaleDashboard_DAO;
-import vn.fpt.edu.models.Bill;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -18,13 +15,15 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import vn.fpt.edu.dals.Data_SaleDashboard_DAO;
+import vn.fpt.edu.models.Product;
 
 /**
  *
  * @author Trong
  */
-@WebServlet(name="SumRevenue", urlPatterns={"/sumRevenue"})
-public class SumRevenue extends HttpServlet {
+@WebServlet(name="TrendingCategory", urlPatterns={"/trendingCategory"})
+public class ProductSaleController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -41,10 +40,10 @@ public class SumRevenue extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SumRevenue</title>");  
+            out.println("<title>Servlet TrendingCategory</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SumRevenue at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet TrendingCategory at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,22 +61,25 @@ public class SumRevenue extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         HttpSession session = request.getSession();
-        
-        String startdate = request.getParameter("startdate");
-        String enddate = request.getParameter("enddate");
+        PrintWriter o = response.getWriter();
+        String month1 = request.getParameter("month1");
+        String year = request.getParameter("year");
         Data_SaleDashboard_DAO data = new Data_SaleDashboard_DAO();
-        List<Bill> sum = data.getSumRevenueByDay(startdate, enddate);
+        List<Product> productSellingList = data.getTrendCategory(month1, year);
 
-        List<String> billDate = new ArrayList<>();
-        List<Double>sumByDay = new ArrayList<>();
-
-        for (Bill s : sum) {
-            billDate.add(s.getDate());
-            sumByDay.add(s.getTotal_price());
+        List<String> productcate = new ArrayList<>();
+        List<Integer> quantities = new ArrayList<>();
+        PrintWriter out = response.getWriter();
+        for (Product product : productSellingList) {
+            productcate.add(product.getCategory_name());
+            
+            quantities.add(product.getQuantity());
         }
-
-        session.setAttribute("name1", billDate);
-        session.setAttribute("sum1", sumByDay);
+//        o.print(productcate); o.print(quantities);
+        session.setAttribute("monthtrend", month1);
+        session.setAttribute("year", year);
+        session.setAttribute("name2", productcate);
+        session.setAttribute("sum2", quantities);
         request.getRequestDispatcher("SaleHome.jsp").forward(request, response);
     } 
 
