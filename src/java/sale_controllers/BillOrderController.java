@@ -14,7 +14,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
+import vn.fpt.edu.dals.Data_SaleDashboard_DAO;
+import vn.fpt.edu.models.Product;
 
 /**
  *
@@ -46,9 +49,10 @@ public class BillOrderController extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8");
         HttpSession session = request.getSession(true);
         String action = request.getParameter("action");
+        String quantity = request.getParameter("quantity");
         PrintWriter out = response.getWriter();
         Bill_DAO bd = new Bill_DAO();
-        
+
         if (action == null) {
             int numOfBills = bd.getNumOfBillCurrentDate();
             int sumOfDoneBills = bd.getSumOfDoneBill();
@@ -59,28 +63,21 @@ public class BillOrderController extends HttpServlet {
             List<Bill> billList = bd.getBillAllWithUser();
             session.setAttribute("billList", billList);
             request.getRequestDispatcher("SaleHome.jsp").forward(request, response);
-        }
-
-        else if(action.equals("sumByMonth")){ 
+        } else if (action.equals("sumByMonth")) {
             int numOfBills = bd.getNumOfBillCurrentDate();
             int sumOfDoneBills = bd.getSumOfDoneBill();
             int month = Integer.parseInt(request.getParameter("month"));
             double sumOfBillByMonth = bd.getSumOfBillByMonth(month);
-            
+
             session.setAttribute("numOfBills", numOfBills);
             session.setAttribute("sumOfDoneBills", sumOfDoneBills);
             session.setAttribute("sumOfBillByMonth", sumOfBillByMonth);
             List<Bill> billList = bd.getBillAllWithUser();
             session.setAttribute("billList", billList);
             session.setAttribute("month", month);
-            
+
             request.getRequestDispatcher("SaleHome.jsp").forward(request, response);
         }
-       
-            
-            
-        
-       
 
     }
 
@@ -95,7 +92,32 @@ public class BillOrderController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+        HttpSession session = request.getSession(true);
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        String startdate = request.getParameter("startdate");
+        String enddate = request.getParameter("enddate");
+        PrintWriter o = response.getWriter();
+        Data_SaleDashboard_DAO data = new Data_SaleDashboard_DAO();
+        List<Product> productSellingList = data.getSellingProduct(startdate, enddate, quantity);
+
+        List<String> productNames = new ArrayList<>();
+        List<Integer> quantities = new ArrayList<>();
+
+        for (Product product : productSellingList) {
+            productNames.add(product.getProduct_name());
+            quantities.add(product.getQuantity());
+        }
+//        out.print(productNames);
+//        out.print(quantities);
+        session.setAttribute("startdate", startdate);
+        session.setAttribute("enddate", enddate);
+        session.setAttribute("quantity", quantity);
+        session.setAttribute("name", productNames);
+        session.setAttribute("sum", quantities);
+        request.getRequestDispatcher("SaleHome.jsp").forward(request, response);
     }
 
     /**

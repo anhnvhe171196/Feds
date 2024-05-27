@@ -75,12 +75,12 @@ public class TrendingCategory extends HttpServlet {
             
             quantities.add(product.getQuantity());
         }
-//        o.print(productcate); o.print(quantities);
+        o.print(productcate); o.print(quantities);
 //        request.setAttribute("monthtrend", month1);
-        session.setAttribute("year", year);
-        session.setAttribute("name2", productcate);
-        session.setAttribute("sum2", quantities);
-        request.getRequestDispatcher("SaleHome.jsp").forward(request, response);
+//        session.setAttribute("year", year);
+//        session.setAttribute("name2", productcate);
+//        session.setAttribute("sum2", quantities);
+//        request.getRequestDispatcher("SaleHome.jsp").forward(request, response);
     } 
 
     /** 

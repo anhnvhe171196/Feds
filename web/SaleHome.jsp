@@ -62,7 +62,7 @@
             <!-- Sidebar Start -->
             <div class="sidebar pe-4 pb-3">
                 <nav class="navbar bg-light navbar-light">
-                    <a href="index.html" class="navbar-brand mx-4 mb-3">
+                    <a href="/Feds/saleDashboard" class="navbar-brand mx-4 mb-3">
                         <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>SALE</h3>
                     </a>
                     <div class="d-flex align-items-center ms-4 mb-4">
@@ -76,8 +76,8 @@
                         </div>
                     </div>
                     <div class="navbar-nav w-100">
-                        <a href="index_sale.jsp" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                        <a href="order_list.jsp" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Order List</a></div>
+                        <a href="/Feds/saleDashboard" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                        <a href="OrderList.jsp" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Order List</a></div>
                 </nav>
             </div>
             <!-- Sidebar End -->
@@ -477,12 +477,8 @@
             document.getElementById('show-priority').addEventListener('click', function () {
                 sendData('start-date-priority', 'end-date-priority', 'priority');
             });
-            document.getElementById('show-sales').addEventListener('click', function () {
-                var startDate = document.getElementById('start-date-sales').value;
-                var endDate = document.getElementById('end-date-sales').value;
-                var url = `/Feds/saleDashboard?action=chart1&startdate=${startDate}&enddate=${endDate}`;
-                window.location.href = url;
-            });
+            
+
         </script>
     </body>
 
