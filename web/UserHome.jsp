@@ -415,7 +415,7 @@
 
                     <div class="col-md-4 col-xs-6">
                         <div class="section-title">
-                            <h4 class="title">Máy Tính bảng</h4>
+                            <h4 class="title">Hàng Gia Dụng & Hàng Cũ</h4>
                             <div class="section-nav">
                                 <div id="slick-nav-5" class="products-slick-nav"></div>
                             </div>
@@ -423,17 +423,17 @@
 
                         <div class="products-widget-slick" data-nav="#slick-nav-5">
                             <div>
-                                <c:forEach items="${sessionScope.mtb}" var="mtb" varStatus="status">
-                                    <c:if test="${status.index< 5}">
+                                <c:forEach items="${sessionScope.hdd}" var="hdd" varStatus="status">
+                                    <c:if test="${status.index < 5}">
                                 <!-- product widget -->
                                 <div class="product-widget">
                                     <div class="product-img">
-                                        <img src="images/${mtb.getProduct_img()}" alt="">
+                                        <img src="images/${hdd.getProduct_img()}" alt="">
                                     </div>
                                     <div class="product-body">
-                                        <p class="product-category">Category</p>
-                                        <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                        <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+                                        <p class="product-category">${hdd.getCategory_name()}</p>
+                                        <h3 class="product-name"><a href="#">${hdd.getProduct_name()}</a></h3>
+                                        <h4 class="product-price">${hdd.getPrice()} <del class="product-old-price">$990.00</del></h4>
                                     </div>
                                 </div>
                                 <!-- /product widget -->  
@@ -442,44 +442,22 @@
                             </div>
 
                             <div>
+                                <c:forEach items="${sessionScope.hc}" var="hc" varStatus="status">
+                                    <c:if test="${status.index < 5}">
                                 <!-- product widget -->
                                 <div class="product-widget">
                                     <div class="product-img">
-                                        <img src="./img/product04.png" alt="">
+                                        <img src="images/${hc.getProduct_img()}" alt="">
                                     </div>
                                     <div class="product-body">
-                                        <p class="product-category">Category</p>
-                                        <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                        <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+                                        <p class="product-category">${hc.getCategory_name()}</p>
+                                        <h3 class="product-name"><a href="#">${hc.getProduct_name()}</a></h3>
+                                        <h4 class="product-price">${hc.getPrice()} <del class="product-old-price">$990.00</del></h4>
                                     </div>
                                 </div>
                                 <!-- /product widget -->
-
-                                <!-- product widget -->
-                                <div class="product-widget">
-                                    <div class="product-img">
-                                        <img src="./img/product05.png" alt="">
-                                    </div>
-                                    <div class="product-body">
-                                        <p class="product-category">Category</p>
-                                        <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                        <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-                                    </div>
-                                </div>
-                                <!-- /product widget -->
-
-                                <!-- product widget -->
-                                <div class="product-widget">
-                                    <div class="product-img">
-                                        <img src="./img/product06.png" alt="">
-                                    </div>
-                                    <div class="product-body">
-                                        <p class="product-category">Category</p>
-                                        <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                        <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-                                    </div>
-                                </div>
-                                <!-- product widget -->
+                                </c:if>
+                                </c:forEach>
                             </div>
                         </div>
                     </div>

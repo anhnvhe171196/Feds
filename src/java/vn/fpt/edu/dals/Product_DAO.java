@@ -207,4 +207,57 @@ public class Product_DAO extends DBContext {
         return list;
     }
 
+    public List<Product> getHDD() {
+        List<Product> list = new ArrayList<>();
+        String sql = "select p.Product_name, p.Product_img, pc.Category_name, pr.Price, p.Quantity\n"
+                + "From Product p\n"
+                + "Inner Join Brandd b on b.Brand_Id = p.Brand_id\n"
+                + "Inner Join Product_Category pc on pc.Category_id = b.Category_id\n"
+                + "Join Price pr on pr.Product_id = p.Product_id\n"
+                + "WHERE pc.Category_id = 8 and pr.Price between 1000000 and 4000000\n"
+                + "Order by pr.Price desc";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setProduct_name(rs.getString(1));
+                product.setProduct_img(rs.getString(2));
+                product.setCategory_name(rs.getString(3));
+                product.setPrice(rs.getFloat(4));
+                list.add(product);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public List<Product> getHC() {
+        List<Product> list = new ArrayList<>();
+        String sql = "select p.Product_name, p.Product_img, pc.Category_name, pr.Price, p.Quantity\n"
+                + "From Product p\n"
+                + "Inner Join Brandd b on b.Brand_Id = p.Brand_id\n"
+                + "Inner Join Product_Category pc on pc.Category_id = b.Category_id\n"
+                + "Join Price pr on pr.Product_id = p.Product_id\n"
+                + "WHERE pc.Category_id = 9 \n"
+                + "Order by pr.Price";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setProduct_name(rs.getString(1));
+                product.setProduct_img(rs.getString(2));
+                product.setCategory_name(rs.getString(3));
+                product.setPrice(rs.getFloat(4));
+                product.setQuantity(rs.getInt(5));
+                list.add(product);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
 }
