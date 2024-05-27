@@ -29,6 +29,7 @@
 
         <!-- Custom stlylesheet -->
         <link type="text/css" rel="stylesheet" href="css/style.css"/>
+        <link rel="stylesheet" href="css/home.css" type="text/css">
 
     </head>
     <body>
