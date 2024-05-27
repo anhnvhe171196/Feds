@@ -6,6 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib  prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,12 +14,22 @@
         <title>JSP Page</title>
 
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css"/>
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/slick.css"/>
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/slick-theme.css"/>
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/nouislider.min.css"/>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
+
+        <!-- Bootstrap -->
+        <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
+
+        <!-- Slick -->
+        <link type="text/css" rel="stylesheet" href="css/slick.css"/>
+        <link type="text/css" rel="stylesheet" href="css/slick-theme.css"/>
+
+        <!-- nouislider -->
+        <link type="text/css" rel="stylesheet" href="css/nouislider.min.css"/>
+
+        <!-- Font Awesome Icon -->
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+
+        <!-- Custom stlylesheet -->
+        <link type="text/css" rel="stylesheet" href="css/style.css"/>
         <link rel="stylesheet" href="css/home.css" type="text/css">
 
     </head>
@@ -38,14 +49,13 @@
                 <!-- row -->
                 <div class="row">
                     <!-- shop -->
-                    <div
-                        <!--                    <div class="col-md-4 col-xs-6">
+                    <div class="col-md-4 col-xs-6">
                         <div class="shop">
                             <div class="shop-img">
-                                <img src="${pageContext.request.contextPath}/./images/shop01.png" alt="">
+                                <img src="images/shop01.png" alt="">
                             </div>
                             <div class="shop-body">
-                                <h3>Laptop<br>Mới nhất</h3>
+                                <h3>Laptop<br>Mới nhất </h3>
                                 <a href="#" class="cta-btn">Mua ngay <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
@@ -56,11 +66,11 @@
                     <div class="col-md-4 col-xs-6">
                         <div class="shop">
                             <div class="shop-img">
-                                <img src="${pageContext.request.contextPath}/./images/shop03.png" alt="">
+                                <img src="images/shop03.png" alt="">
                             </div>
                             <div class="shop-body">
-                                <h3>Phụ Kiện<br>Nổi bật</h3>
-                                <a href="#" class="cta-btn">Mua ngay<i class="fa fa-arrow-circle-right"></i></a>
+                                <h3>Phụ Kiện<br>Đa dạng</h3>
+                                <a href="#" class="cta-btn">Mua ngay <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -70,10 +80,10 @@
                     <div class="col-md-4 col-xs-6">
                         <div class="shop">
                             <div class="shop-img">
-                                <img src="${pageContext.request.contextPath}/./images/shop02.png" alt="">
+                                <img src="images/shop02.png" alt="">
                             </div>
                             <div class="shop-body">
-                                <h3>Hàng Cũ<br>Giá tốt</h3>
+                                <h3>Hàng Cũ<br>Giá rẻ</h3>
                                 <a href="#" class="cta-btn">Mua ngay <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
@@ -96,14 +106,13 @@
                     <!-- section title -->
                     <div class="col-md-12">
                         <div class="section-title">
-                            <h3 class="title">Sản phẩm mới</h3>
+                            <h3 class="title">Sản Phẩm Mới</h3>
                             <div class="section-nav">
                                 <ul class="section-tab-nav tab-nav">
-
                                     <li class="active"><a data-toggle="tab" href="#tab1">Laptops</a></li>
                                     <li><a data-toggle="tab" href="#tab1">Điện Thoại</a></li>
-                                    <li><a data-toggle="tab" href="#tab2">Máy Tính Bảng</a></li>
-                                    <li><a data-toggle="tab" href="#tab3">PC</a></li>
+                                    <li><a data-toggle="tab" href="#tab1">Tivi</a></li>
+                                    <li><a data-toggle="tab" href="#tab1">PC</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -118,136 +127,41 @@
                                 <div id="tab1" class="tab-pane active">
                                     <div class="products-slick" data-nav="#slick-nav-1">
                                         <!-- product -->
-                                        <div class="product col-md-3">
-                                            <div class="product-img">
-                                                <img src="${pageContext.request.contextPath}/./images/product01.png" alt="">
-                                                <div class="product-label">
-                                                    <span class="sale">-30%</span>
-                                                    <span class="new">Mới</span>
+                                        <c:forEach items="${sessionScope.newproduct}" var="np" varStatus="status">
+                                            <c:if test="${status.index < 10}">
+                                            <div class="product">
+                                                <div class="product-img" style="height: 250px">
+                                                    <img src="images/${np.getProduct_img()}" alt="">
+                                                    <div class="product-label">
+                                                        <span class="new">Mới</span>
+                                                    </div>
+                                                </div>
+                                                <div class="product-body">
+                                                    <p class="product-category">${np.getCategory_name()}</p>
+                                                    <h3 class="product-name" style="height: 50px"><a href="#">${np.getProduct_name()}</a></h3>
+                                                    <h4 class="product-price"><fmt:formatNumber value="${np.getPrice()}" pattern="#,###" />VNĐ <del class="product-old-price"> </del></h4>
+                                                    <div class="product-rating">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                    </div>
+                                                    <div class="product-btns">
+                                                        <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">Yêu thích</span></button>
+                                                        <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">Xem ngay</span></button>
+                                                    </div>
+                                                </div>
+                                                <div class="add-to-cart">
+                                                    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Thêm Vào giỏ hàng</button>
                                                 </div>
                                             </div>
-                                            <div class="product-body ">
-                                                <p class="product-category">Laptops</p>
-                                                <h3 class="product-name"><a href="#">Laptop ASUS VivoBook</a></h3>
-                                                <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-                                                <div class="product-rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product-btns">
-                                                    <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">Yêu Thích</span></button>
-                                                    <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-                                                    <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">Xem ngay</span></button>
-                                                </div>
-                                            </div>
-                                            <div class="add-to-cart">
-                                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</button>
-                                            </div>
-                                        </div>
-                                        <!-- /product -->
-
-                                        <!-- product -->
-                                        <div class="product col-md-3">
-                                            <div class="product-img">
-                                                <img src="${pageContext.request.contextPath}/./images/product06.png" alt="">
-                                                <div class="product-label">
-                                                    <span class="sale">-30%</span>
-                                                    <span class="new">Mới</span>
-                                                </div>
-                                            </div>
-                                            <div class="product-body">
-                                                <p class="product-category">Phụ Kiện</p>
-                                                <h3 class="product-name"><a href="#">Tên sản phẩm</a></h3>
-                                                <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-                                                <div class="product-rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                </div>
-                                                <div class="product-btns">
-                                                    <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">Yêu Thích</span></button>
-                                                    <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-                                                    <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">Xem ngay</span></button>
-                                                </div>
-                                            </div>
-                                            <div class="add-to-cart">
-                                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
-                                            </div>
-                                        </div>
-                                        <!-- /product -->
-
-                                        <!-- product -->
-                                        <div class="product col-md-3">
-                                            <div class="product-img">
-                                                <img src="${pageContext.request.contextPath}/./images/product03.png" alt="">
-                                                <div class="product-label">
-                                                    <span class="sale">-30%</span>
-                                                    <span class="new">Mới</span>
-                                                </div>
-                                            </div>
-                                            <div class="product-body">
-                                                <p class="product-category">Category</p>
-                                                <h3 class="product-name"><a href="#">Tên sản phẩm</a></h3>
-                                                <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-                                                <div class="product-rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o"></i>
-
-                                                </div>
-                                                <div class="product-btns">
-                                                    <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">Yêu thích</span></button>
-                                                    <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-                                                    <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">XEM ngay</span></button>
-                                                </div>
-                                            </div>
-                                            <div class="add-to-cart">
-                                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</button>
-                                            </div>
-                                        </div>
-                                        <!-- /product -->
-
-                                        <!-- product -->
-                                        <div class="product col-md-3">
-                                            <div class="product-img">
-                                                <img src="${pageContext.request.contextPath}/./images/product08.png" alt="">
-                                                <div class="product-label">
-                                                    <span class="sale">-30%</span>
-                                                    <span class="new">Mới</span>
-                                                </div>
-                                            </div>
-                                            <div class="product-body">
-                                                <p class="product-category">LAPTOPS</p>
-                                                <h3 class="product-name"><a href="#">TÊN SẢN PHẨM</a></h3>
-                                                <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-                                                <div class="product-rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product-btns">
-                                                    <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">Yêu thích</span></button>
-                                                    <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-                                                    <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">xem ngay</span></button>
-                                                </div>
-                                            </div>
-                                            <div class="add-to-cart">
-                                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> thêm vào giỏ hàng</button>
-                                            </div>
-                                        </div>
-                                        <!-- /product -->
+                                            <!-- /product -->
+                                            </c:if>
+                                        </c:forEach>
 
 
-                                        <!-- /product -->
+
                                     </div>
                                     <div id="slick-nav-1" class="products-slick-nav"></div>
                                 </div>
@@ -264,7 +178,49 @@
         <!-- /SECTION -->
 
         <!-- HOT DEAL SECTION -->
-
+        <div id="hot-deal" class="section">
+            <!-- container -->
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="hot-deal">
+                            <ul class="hot-deal-countdown">
+                                <li>
+                                    <div>
+                                        <h3>02</h3>
+                                        <span>Ngày</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                        <h3>10</h3>
+                                        <span>Giờ</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                        <h3>34</h3>
+                                        <span>Phút</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                        <h3>60</h3>
+                                        <span>Giây</span>
+                                    </div>
+                                </li>
+                            </ul>
+                            <h2 class="text-uppercase">Sản phẩm ưu đãi lớn</h2>
+                            <p>Bộ sưu tập mới giảm đến 50%</p>
+                            <a class="primary-btn cta-btn" href="#">Mua ngay</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
         <!-- /HOT DEAL SECTION -->
 
         <!-- SECTION -->
@@ -277,16 +233,15 @@
                     <!-- section title -->
                     <div class="col-md-12">
                         <div class="section-title">
-                            <h3 class="title">SẢN PHẨM BÁN CHẠY NHẤT</h3>
-                            <!--                            <div class="section-nav">
-                                                            <ul class="section-tab-nav tab-nav">
-                                                                <li class="active"><a data-toggle="tab" href="#tab2">Tất cả</a></li>
-                                                                <li><a data-toggle="tab" href="#tab2">Laptops</a></li>
-                                                                <li><a data-toggle="tab" href="#tab2">Điện Thoại</a></li>
-                                                                <li><a data-toggle="tab" href="#tab2">Máy tính bảng</a></li>
-                                                                <li><a data-toggle="tab" href="#tab2">PC</a></li>
-                                                            </ul>
-                                                        </div>-->
+                            <h3 class="title">Sản phẩm bán chạy nhất</h3>
+                            <div class="section-nav">
+                                <ul class="section-tab-nav tab-nav">
+                                    <!--                                    <li class="active"><a data-toggle="tab" href="#tab2">Laptops</a></li>
+                                                                        <li><a data-toggle="tab" href="#tab2">Smartphones</a></li>
+                                                                        <li><a data-toggle="tab" href="#tab2">Cameras</a></li>
+                                                                        <li><a data-toggle="tab" href="#tab2">Accessories</a></li>-->
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <!-- /section title -->
@@ -297,22 +252,23 @@
                             <div class="products-tabs">
                                 <!-- tab -->
                                 <div id="tab2" class="tab-pane fade in active">
-                                    <div class="products-slick" data-nav="#slick-nav-2">                                           
+                                    <div class="products-slick" data-nav="#slick-nav-2">
+                                        <!-- product -->
                                         <c:forEach items="${sessionScope.list}" var="l" varStatus="status">
-                                            <c:if test="${status.index < 4}"> 
-                                                <!-- product -->
-                                                <div class="product col-md-3">
-                                                    <div class="product-img" style="height: 250px;">
-                                                        <img src="${pageContext.request.contextPath}/./images/${l.getProduct_img()}" alt="">
+                                            <c:if test="${status.index < 10}">
+                                                <div class="product">
+
+                                                    <div class="product-img" style="height: 270px">
+                                                        <img src="images/${l.getProduct_img()}" alt="">
                                                         <div class="product-label">
-                                                            <span class="sale">-30%</span>
-                                                            <span class="new">Mới</span>
+<!--                                                            <span class="sale">-30%</span>-->
+                                                            <span class="new">HOT</span>
                                                         </div>
                                                     </div>
-                                                    <div class="product-body ">
+                                                    <div class="product-body">
                                                         <p class="product-category">${l.getCategory_name()}</p>
                                                         <h3 class="product-name"><a href="#">${l.getProduct_name()}</a></h3>
-                                                        <h4 class="product-price">${l.getPrice()}<del class="product-old-price">$990.00</del></h4>
+                                                        <h4 class="product-price"> <fmt:formatNumber value="${l.getPrice()}" pattern="#,###"/> VNĐ <del class="product-old-price">$990.00</del></h4>
                                                         <div class="product-rating">
                                                             <i class="fa fa-star"></i>
                                                             <i class="fa fa-star"></i>
@@ -321,17 +277,23 @@
                                                             <i class="fa fa-star"></i>
                                                         </div>
                                                         <div class="product-btns">
-                                                            <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">yêu thích </span></button>
-                                                            <!--                                                    <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>-->
-                                                            <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">xem ngay</span></button>
+                                                            <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">Yêu Thích</span></button>
+                                                            <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">Xem Ngay</span></button>
                                                         </div>
                                                     </div>
                                                     <div class="add-to-cart">
                                                         <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</button>
                                                     </div>
+
+
                                                 </div>
                                             </c:if>
+
                                         </c:forEach>
+                                        <!-- /product -->
+
+
+                                        <!-- /product -->
                                     </div>
                                     <div id="slick-nav-2" class="products-slick-nav"></div>
                                 </div>
@@ -355,37 +317,55 @@
                 <div class="row">
                     <div class="col-md-4 col-xs-6">
                         <div class="section-title">
-                            <h4 class="title">Sản phẩm bán chạy</h4>
+                            <h4 class="title">Điện Thoại & Máy tính bảng</h4>
                             <div class="section-nav">
                                 <div id="slick-nav-3" class="products-slick-nav"></div>
                             </div>
                         </div>
 
-                        <div class="products-widget-slick" data-nav="#slick-nav-3">      
+                        <div class="products-widget-slick" data-nav="#slick-nav-3">
                             <div>
-                                <c:forEach items="${sessionScope.list}" var="l" varStatus="status">
-                                    <c:if test="${status.index < 4}">
+                                <c:forEach items="${sessionScope.phone}" var="p" varStatus="status">
+                                    <c:if test="${status.index < 5}">
                                         <!-- product widget -->
                                         <div class="product-widget">
                                             <div class="product-img">
-                                                <img src="${pageContext.request.contextPath}/./images/${l.getProduct_img()}" alt="">
+                                                <img src="images/${p.getProduct_img()}" alt="">
                                             </div>
                                             <div class="product-body">
-                                                <p class="product-category">${l.getCategory_name()}</p>
-                                                <h3 class="product-name"><a href="#">${l.getProduct_name()}</a></h3>
-                                                <h4 class="product-price">${l.getPrice()} <del class="product-old-price">$990.00</del></h4>
+                                                <p class="product-category">${p.getCategory_name()}</p>
+                                                <h3 class="product-name"><a href="#">${p.getProduct_name()}</a></h3>
+                                                <h4 class="product-price"><fmt:formatNumber value="${p.getPrice()}" pattern="#,###"/> VNĐ <del class="product-old-price">$990.00</del></h4>
+                                            </div>
+                                        </div>
+                                        <!-- /product widget -->
+                                    </c:if>
+                                </c:forEach>                               
+                            </div>
+
+                            <div>
+                                <c:forEach items="${sessionScope.mtb}" var="mtb" varStatus="status">
+                                    <c:if test="${status.index< 5}">
+                                        <!-- product widget -->
+                                        <div class="product-widget">
+                                            <div class="product-img">
+                                                <img src="images/${mtb.getProduct_img()}" alt="">
+                                            </div>
+                                            <div class="product-body">
+                                                <p class="product-category">${mtb.getCategory_name()}</p>
+                                                <h3 class="product-name"><a href="#">${mtb.getProduct_name()}</a></h3>
+                                                <h4 class="product-price">${mtb.getPrice()} <del class="product-old-price">$990.00</del></h4>
                                             </div>
                                         </div>
                                     </c:if>
                                 </c:forEach>
                             </div>
-
                         </div>
                     </div>
 
                     <div class="col-md-4 col-xs-6">
                         <div class="section-title">
-                            <h4 class="title">Điện Thoại giá rẻ</h4>
+                            <h4 class="title">TiVi & Máy LẠNH</h4>
                             <div class="section-nav">
                                 <div id="slick-nav-4" class="products-slick-nav"></div>
                             </div>
@@ -393,19 +373,39 @@
 
                         <div class="products-widget-slick" data-nav="#slick-nav-4">
                             <div>
-                                <c:forEach items="${sessionScope.phone}" var="p" varStatus="status">
-                                    <c:if test="${status.index < 4}">
+                                <c:forEach items="${sessionScope.tivi}" var="t" varStatus="status">
+                                    <c:if test="${status.index< 5}">
+                                    <!-- product widget -->
+                                    <div class="product-widget">
+                                        <div class="product-img">
+                                            <img src="images/${t.getProduct_img()}" alt="">
+                                        </div>
+                                        <div class="product-body">
+                                            <p class="product-category">${t.getCategory_name()}</p>
+                                            <h3 class="product-name"><a href="#"></a>${t.getProduct_name()}</h3>
+                                            <h4 class="product-price"><fmt:formatNumber value="${t.getPrice()}" pattern="#,###"/> VNĐ<del class="product-old-price">$990.00</del></h4>
+                                        </div>
+                                    </div>
+                                    <!-- /product widget -->  
+                                    </c:if>
+                                </c:forEach>
+                            </div>
+
+                            <div>
+                                <c:forEach items="${sessionScope.ml}" var="ml" varStatus="status">
+                                    <c:if test="${status.index< 5}">
                                 <!-- product widget -->
                                 <div class="product-widget">
                                     <div class="product-img">
-                                        <img src="${pageContext.request.contextPath}/./images/${p.getProduct_img()}" alt="">
+                                        <img src="images/${ml.getProduct_img()}" alt="">
                                     </div>
                                     <div class="product-body">
-                                        <p class="product-category">${p.getCategory_name()}</p>
-                                        <h3 class="product-name"><a href="#">${p.getProduct_name()}</a></h3>
-                                        <h4 class="product-price">${p.getPrice()} <del class="product-old-price">$990.00</del></h4>
+                                        <p class="product-category">${ml.getCategory_name()}</p>
+                                        <h3 class="product-name"><a href="#">${ml.getProduct_name()}</a></h3>
+                                        <h4 class="product-price">${ml.getPrice()} <del class="product-old-price">$990.00</del></h4>
                                     </div>
                                 </div>
+                                <!-- /product widget -->   
                                 </c:if>
                                 </c:forEach>
                             </div>
@@ -416,7 +416,7 @@
 
                     <div class="col-md-4 col-xs-6">
                         <div class="section-title">
-                            <h4 class="title">TIvi Cấu hình cao</h4>
+                            <h4 class="title">Hàng Gia Dụng & Hàng Cũ</h4>
                             <div class="section-nav">
                                 <div id="slick-nav-5" class="products-slick-nav"></div>
                             </div>
@@ -424,17 +424,36 @@
 
                         <div class="products-widget-slick" data-nav="#slick-nav-5">
                             <div>
-                                <c:forEach items="${sessionScope.tivi}" var="t" varStatus="status">
-                                    <c:if test="${status.index < 4}">
+                                <c:forEach items="${sessionScope.hdd}" var="hdd" varStatus="status">
+                                    <c:if test="${status.index < 5}">
                                 <!-- product widget -->
                                 <div class="product-widget">
                                     <div class="product-img">
-                                        <img src="${pageContext.request.contextPath}/./images/${t.getProduct_img()}" alt="">
+                                        <img src="images/${hdd.getProduct_img()}" alt="">
                                     </div>
                                     <div class="product-body">
-                                        <p class="product-category">${t.getCategory_name()}</p>
-                                        <h3 class="product-name"><a href="#">${t.getProduct_name()}</a></h3>
-                                        <h4 class="product-price">${t.getPrice()} <del class="product-old-price">$990.00</del></h4>
+                                        <p class="product-category">${hdd.getCategory_name()}</p>
+                                        <h3 class="product-name"><a href="#">${hdd.getProduct_name()}</a></h3>
+                                        <h4 class="product-price"><fmt:formatNumber value="${hdd.getPrice()}" pattern="#,###"/>VNĐ <del class="product-old-price">$990.00</del></h4>
+                                    </div>
+                                </div>
+                                <!-- /product widget -->  
+                                </c:if>
+                                </c:forEach>
+                            </div>
+
+                            <div>
+                                <c:forEach items="${sessionScope.hc}" var="hc" varStatus="status">
+                                    <c:if test="${status.index < 5}">
+                                <!-- product widget -->
+                                <div class="product-widget">
+                                    <div class="product-img">
+                                        <img src="images/${hc.getProduct_img()}" alt="">
+                                    </div>
+                                    <div class="product-body">
+                                        <p class="product-category">${hc.getCategory_name()}</p>
+                                        <h3 class="product-name"><a href="#">${hc.getProduct_name()}</a></h3>
+                                        <h4 class="product-price">${hc.getPrice()} <del class="product-old-price">$990.00</del></h4>
                                     </div>
                                 </div>
                                 <!-- /product widget -->
@@ -452,21 +471,29 @@
         <!-- /SECTION -->
 
         <!-- NEWSLETTER -->
-
+        
         <!-- /NEWSLETTER -->
 
         <!-- FOOTER -->
-        <%@include file="component/footer.jsp" %>
-        <!-- /FOOTER -->
+        
+    <!-- /SECTION -->
 
-        <!-- jQuery Plugins -->
-        <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/slick.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/nouislider.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/jquery.zoom.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/main.js"></script>
+    <!-- NEWSLETTER -->
+
+    <!-- /NEWSLETTER -->
+
+    <!-- FOOTER -->
+    <%@include file="component/footer.jsp" %>
+    <!-- /FOOTER -->
+
+    <!-- jQuery Plugins -->
+    <script src="js1/jquery.min.js"></script>
+    <script src="js1/bootstrap.min.js"></script>
+    <script src="js1/slick.min.js"></script>
+    <script src="js1/nouislider.min.js"></script>
+    <script src="js1/jquery.zoom.min.js"></script>
+    <script src="js1/main.js"></script>
 
 
-    </body>
+</body>
 </html>

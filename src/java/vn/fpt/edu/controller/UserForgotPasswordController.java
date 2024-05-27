@@ -6,6 +6,7 @@
 package vn.fpt.edu.controller;
 
 import jakarta.mail.Authenticator;
+import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
 import jakarta.mail.PasswordAuthentication;
 import jakarta.mail.Session;
@@ -41,7 +42,6 @@ public class UserForgotPasswordController extends HttpServlet {
         User_DAO d = new User_DAO();
         if (d.getCustomerByEmail(email) != null) {
             User account = d.getCustomerByEmail(email);
-            String pass = UserRegisterGoogleController.randomPassword(8);
             // Cấu hình thông tin email
             String host = "smtp.gmail.com";
             String port = "587";
@@ -62,8 +62,8 @@ public class UserForgotPasswordController extends HttpServlet {
                     + "  <div style=\"text-align: center;\">\n"
                     + "      <h1 style=\"color: red;\">Fed Shop</h1>\n"
                     + "      <h2>Confirmed password change</h2>\n"
-                    + "      <div style=\"font-size: 20px;\">That is your new password : </div>\n"
-                    + "      <h2>" + pass + "</h2>\n"
+                    + "      <div style=\"font-size: 20px;\">Please click here to change password : </div>\n"
+                    + "      <h2><a href=\"http://localhost:9999/Feds/userRandomPassword?email="+email+"\">Click here</a></h2>\n"
                     + "  </div>\n"
                     + "</body>\n"
                     + "\n"
@@ -98,10 +98,9 @@ public class UserForgotPasswordController extends HttpServlet {
                 message.setContent(messageContent, "text/html");
                 // Gửi email
                 Transport.send(message);
-                d.chagePassword(pass, email);
 
                 // Chuyển hướng người dùng sau khi gửi email thành công
-                request.setAttribute("error", "Bạn đã thay đổi mật khẩu thành công!!!");
+                request.setAttribute("error", "Vui lòng check lại email để xác nhận thay đổi mật khẩu !!!");
             request.getRequestDispatcher("UserLogin.jsp").forward(request, response);
             } catch (MessagingException mex) {
                 // Xử lý lỗi nếu có

@@ -44,6 +44,26 @@
         <servlet-name>UserLogoutController</servlet-name>
         <servlet-class>vn.fpt.edu.controller.UserLogoutController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MarketingDashBoardController</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.MarketingDashBoardController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MarketingProductController</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.MarketingProductController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MarketingSumIncomeController</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.MarketingSumIncomeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MaketingTrendingController</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.MaketingTrendingController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserRandomPassword</servlet-name>
+        <servlet-class>vn.fpt.edu.common.UserRandomPassword</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserRegisterController</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -91,6 +111,26 @@
     <servlet-mapping>
         <servlet-name>TrendingCategory</servlet-name>
         <url-pattern>/trendingCategory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarketingDashBoardController</servlet-name>
+        <url-pattern>/marketingDashBoard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarketingProductController</servlet-name>
+        <url-pattern>/marketingProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarketingSumIncomeController</servlet-name>
+        <url-pattern>/sum</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MaketingTrendingController</servlet-name>
+        <url-pattern>/trending</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserRandomPassword</servlet-name>
+        <url-pattern>/userRandomPassword</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home</welcome-file>

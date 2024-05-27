@@ -53,6 +53,10 @@
                                             <ul>
                                                 <li><a href="userProfile">Hồ sơ cá nhân</a></li>
                                                 <li><a href="userChangeProfile">Thay đổi hồ sơ cá nhân</a></li>
+                                                    <c:if test="${sessionScope.account != null && sessionScope.account.getRole_id() == 4}">
+                                                    <li><a href="marketingDashBoard">Marketing Management</a></li>
+                                                    </c:if>
+
                                                 <li><a href="changePassword">Thay đổi mật khẩu</a></li>
                                                 <li><a href="userLogout">Đăng xuất</a></li>
                                             </ul>
@@ -93,7 +97,7 @@
                             <div class="header-search">
 
                                 <form class="col-md-4">
-                                    <select class="input-select" name="cateid"  style="    width: 216px;">
+                                    <select class="input-select" name="cateid"  style="width: 216px;">
                                         <option value="" selected>Loại Sản Phẩm</option>
                                         <c:forEach items="${sessionScope.cates}" var="cate">
 
@@ -184,15 +188,14 @@
                 <!-- container -->
             </div>
             <!-- /MAIN HEADER -->
-
+            <script src="../js1/jquery.min.js"></script>
+            <script src="../js1/bootstrap.min.js"></script>
+            <script src="../js1/slick.min.js"></script>
+            <script src="../js1/nouislider.min.js"></script>
+            <script src="../js1/jquery.zoom.min.js"></script>
+            <script src="../js1/main.js"></script>
 
         </header>
-        <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/slick.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/nouislider.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/jquery.zoom.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/main.js"></script>
 
     </body>
 </html>
