@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
-import vn.fpt.edu.dals.Data_SaleDashboard_DAO;
+import vn.fpt.edu.dals.Data_MarketingDashboard_DAO;
 import vn.fpt.edu.models.Bill;
 
 /**
@@ -30,7 +30,7 @@ public class MarketingSumIncomeController extends HttpServlet {
         
         String startdate = request.getParameter("startdate");
         String enddate = request.getParameter("enddate");
-        Data_SaleDashboard_DAO data = new Data_SaleDashboard_DAO();
+        Data_MarketingDashboard_DAO data = new Data_MarketingDashboard_DAO();
         List<Bill> sum = data.getSumRevenueByDay(startdate, enddate);
 
         List<String> billDate = new ArrayList<>();
