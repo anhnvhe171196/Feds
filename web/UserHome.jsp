@@ -3,7 +3,7 @@
     Created on : May 20, 2024, 9:40:45 PM
     Author     : admin
 --%>
-
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib  prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -139,7 +139,11 @@
                                                 <div class="product-body">
                                                     <p class="product-category">${np.getCategory_name()}</p>
                                                     <h3 class="product-name" style="height: 50px"><a href="#">${np.getProduct_name()}</a></h3>
+
+                                                    
+
                                                     <h4 class="product-price"><fmt:formatNumber value="${np.getPrice()}" pattern="#,###" />VNĐ <del class="product-old-price"> </del></h4>
+
                                                     <div class="product-rating">
                                                         <i class="fa fa-star"></i>
                                                         <i class="fa fa-star"></i>
@@ -268,7 +272,10 @@
                                                     <div class="product-body">
                                                         <p class="product-category">${l.getCategory_name()}</p>
                                                         <h3 class="product-name"><a href="#">${l.getProduct_name()}</a></h3>
+
+
                                                         <h4 class="product-price"> <fmt:formatNumber value="${l.getPrice()}" pattern="#,###"/> VNĐ <del class="product-old-price">$990.00</del></h4>
+
                                                         <div class="product-rating">
                                                             <i class="fa fa-star"></i>
                                                             <i class="fa fa-star"></i>
@@ -335,7 +342,11 @@
                                             <div class="product-body">
                                                 <p class="product-category">${p.getCategory_name()}</p>
                                                 <h3 class="product-name"><a href="#">${p.getProduct_name()}</a></h3>
+
+                                                
+
                                                 <h4 class="product-price"><fmt:formatNumber value="${p.getPrice()}" pattern="#,###"/> VNĐ <del class="product-old-price">$990.00</del></h4>
+
                                             </div>
                                         </div>
                                         <!-- /product widget -->
@@ -354,7 +365,7 @@
                                             <div class="product-body">
                                                 <p class="product-category">${mtb.getCategory_name()}</p>
                                                 <h3 class="product-name"><a href="#">${mtb.getProduct_name()}</a></h3>
-                                                <h4 class="product-price">${mtb.getPrice()} <del class="product-old-price">$990.00</del></h4>
+                                                <h4 class="product-price"><fmt:formatNumber value="${mtb.getPrice()}" pattern="#,###"/>VNĐ <del class="product-old-price">$990.00</del></h4>
                                             </div>
                                         </div>
                                     </c:if>
@@ -383,7 +394,11 @@
                                         <div class="product-body">
                                             <p class="product-category">${t.getCategory_name()}</p>
                                             <h3 class="product-name"><a href="#"></a>${t.getProduct_name()}</h3>
+
+                                            
+
                                             <h4 class="product-price"><fmt:formatNumber value="${t.getPrice()}" pattern="#,###"/> VNĐ<del class="product-old-price">$990.00</del></h4>
+
                                         </div>
                                     </div>
                                     <!-- /product widget -->  
@@ -402,7 +417,7 @@
                                     <div class="product-body">
                                         <p class="product-category">${ml.getCategory_name()}</p>
                                         <h3 class="product-name"><a href="#">${ml.getProduct_name()}</a></h3>
-                                        <h4 class="product-price">${ml.getPrice()} <del class="product-old-price">$990.00</del></h4>
+                                        <h4 class="product-price"><fmt:formatNumber value="${ml.getPrice()}" pattern="#,###"/>VNĐ <del class="product-old-price">$990.00</del></h4>
                                     </div>
                                 </div>
                                 <!-- /product widget -->   
@@ -453,7 +468,7 @@
                                     <div class="product-body">
                                         <p class="product-category">${hc.getCategory_name()}</p>
                                         <h3 class="product-name"><a href="#">${hc.getProduct_name()}</a></h3>
-                                        <h4 class="product-price">${hc.getPrice()} <del class="product-old-price">$990.00</del></h4>
+                                        <h4 class="product-price"><fmt:formatNumber value="${hc.getPrice()}" pattern="#,###"/>VNĐ <del class="product-old-price">$990.00</del></h4>
                                     </div>
                                 </div>
                                 <!-- /product widget -->
