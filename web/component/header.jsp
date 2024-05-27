@@ -54,7 +54,7 @@
                                                 <li><a href="userProfile">Hồ sơ cá nhân</a></li>
                                                 <li><a href="userChangeProfile">Thay đổi hồ sơ cá nhân</a></li>
                                                     <c:if test="${sessionScope.account != null && sessionScope.account.getRole_id() == 4}">
-                                                    <li><a href="MarketingDashBoard">Marketing Management</a></li>
+                                                    <li><a href="marketingDashBoard">Marketing Management</a></li>
                                                     </c:if>
 
                                                 <li><a href="changePassword">Thay đổi mật khẩu</a></li>
