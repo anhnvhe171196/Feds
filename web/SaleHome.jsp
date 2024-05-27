@@ -24,7 +24,6 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-        <!-- Icon Font Stylesheet -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
@@ -46,7 +45,6 @@
                 margin: auto;
             }
         </style>
-
     </head>
 
     <body>
@@ -181,15 +179,15 @@
                                         <div class="d-flex">
                                             <div class="me-2">
                                                 <label for="quantity" class="form-label">Số lượng sản phẩm:</label>
-                                                <input type="number" id="quantity" class="form-control" name="quantity" value="10" min="1">
+                                                <input type="number" id="quantity" class="form-control" name="quantity" placeholder="10" value="${sessionScope.quantity}"  min="1">
                                             </div>
                                             <div class="me-2">
                                                 <label for="start-date-sales" class="form-label">Ngày bắt đầu:</label>
-                                                <input type="date" id="start-date-sales" class="form-control" name="startdate">
+                                                <input type="date" id="start-date-sales" class="form-control" value="${sessionScope.startDate}" name="startdate">
                                             </div>
                                             <div class="me-2">
                                                 <label for="end-date-sales" class="form-label">Ngày kết thúc:</label>
-                                                <input type="date" id="end-date-sales" class="form-control" name="enddate">
+                                                <input type="date" id="end-date-sales" value="${sessionScope.endDate}" class="form-control" name="enddate">
                                             </div>
                                             <div>
                                                 <button id="show-sales" class="btn btn-primary mt-4">Xem</button>
@@ -220,19 +218,19 @@
                                             <div class="me-2">
                                                 <label for="month-sales" class="form-label">Chọn tháng:</label>
                                                 <select id="month-sales" class="form-select" name="month1">
-                                                    <option ${requestScope.monthtrend==all?"selected":""} value="all">Cả năm</option>
-                                                    <option ${requestScope.monthtrend==1?"selected":""} value="1">Tháng 1</option>
-                                                    <option ${requestScope.monthtrend==2?"selected":""} value="2">Tháng 2</option>
-                                                    <option ${requestScope.monthtrend==3?"selected":""} value="3">Tháng 3</option>
-                                                    <option ${requestScope.monthtrend==4?"selected":""} value="4">Tháng 4</option>
-                                                    <option ${requestScope.monthtrend==5?"selected":""} value="5">Tháng 5</option>
-                                                    <option ${requestScope.monthtrend==6?"selected":""} value="6">Tháng 6</option>
-                                                    <option ${requestScope.monthtrend==7?"selected":""} value="7">Tháng 7</option>
-                                                    <option ${requestScope.monthtrend==8?"selected":""} value="8">Tháng 8</option>
-                                                    <option ${requestScope.monthtrend==9?"selected":""} value="9">Tháng 9</option>
-                                                    <option ${requestScope.monthtrend==10?"selected":""} value="10">Tháng 10</option>
-                                                    <option ${requestScope.monthtrend==11?"selected":""} value="11">Tháng 11</option>
-                                                    <option ${requestScope.monthtrend==12?"selected":""} value="12">Tháng 12</option>
+                                                    <option ${sessionScope.monthtrend==all?"selected":""} value="all">Cả năm</option>
+                                                    <option ${sessionScope.monthtrend==1?"selected":""} value="1">Tháng 1</option>
+                                                    <option ${sessionScope.monthtrend==2?"selected":""} value="2">Tháng 2</option>
+                                                    <option ${sessionScope.monthtrend==3?"selected":""} value="3">Tháng 3</option>
+                                                    <option ${sessionScope.monthtrend==4?"selected":""} value="4">Tháng 4</option>
+                                                    <option ${sessionScope.monthtrend==5?"selected":""} value="5">Tháng 5</option>
+                                                    <option ${sessionScope.monthtrend==6?"selected":""} value="6">Tháng 6</option>
+                                                    <option ${sessionScope.monthtrend==7?"selected":""} value="7">Tháng 7</option>
+                                                    <option ${sessionScope.monthtrend==8?"selected":""} value="8">Tháng 8</option>
+                                                    <option ${sessionScope.monthtrend==9?"selected":""} value="9">Tháng 9</option>
+                                                    <option ${sessionScope.monthtrend==10?"selected":""} value="10">Tháng 10</option>
+                                                    <option ${sessionScope.monthtrend==11?"selected":""} value="11">Tháng 11</option>
+                                                    <option ${sessionScope.monthtrend==12?"selected":""} value="12">Tháng 12</option>
                                                 </select>
                                             </div>
                                             <div class="me-2">
@@ -271,11 +269,11 @@
 
                                             <div class="me-2">
                                                 <label for="start-date-priority" class="form-label">Ngày bắt đầu:</label>
-                                                <input type="date" id="start-date-priority" value="${requestScope.start}" class="form-control" name="startdate">
+                                                <input type="date" id="start-date-priority" value="${sessionScope.start}" class="form-control" name="startdate">
                                             </div>
                                             <div class="me-2">
                                                 <label for="end-date-priority" class="form-label">Ngày kết thúc:</label>
-                                                <input type="date" id="end-date-priority" value="${requestScope.end}" class="form-control" name="enddate">
+                                                <input type="date" id="end-date-priority" value="${sessionScope.end}" class="form-control" name="enddate">
                                             </div>
                                             <div>
                                                 <button id="show-priority" class="btn btn-primary mt-4">Xem</button>
@@ -478,8 +476,6 @@
             document.getElementById('show-priority').addEventListener('click', function () {
                 sendData('start-date-priority', 'end-date-priority', 'priority');
             });
-            
-
         </script>
     </body>
 
