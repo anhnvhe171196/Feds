@@ -29,7 +29,7 @@ public class MaketingTrendingController extends HttpServlet {
     throws ServletException, IOException {
         HttpSession session = request.getSession();
         String startmonth = request.getParameter("startmonth");
-        String startYear = request.getParameter("startYear");
+        String startYear = request.getParameter("startyear");
 
         Data_MarketingDashboard_DAO data = new Data_MarketingDashboard_DAO();
         List<Product> trend = data.getTrendCategory(startmonth, startYear);
