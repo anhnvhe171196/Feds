@@ -93,11 +93,6 @@
                         </div>
 
                         <div class="login100-form-social flex-c-m">
-                            <a href="#" class="login100-form-social-item flex-c-m bg1 m-r-5">
-                                <i class="fa fa-facebook-f" aria-hidden="true"></i>
-                            </a>
-                            <p>&nbsp;&nbsp;&nbsp;</p>
-
                             <a href="https://accounts.google.com/o/oauth2/auth?scope=email profile openid&redirect_uri=http://localhost:9999/Feds/loginGoogle&response_type=code&client_id=110538104080-crjqoltjgupbigij7mm6mdi8imco1k14.apps.googleusercontent.com&approval_prompt=force" class="login100-form-social-item1 flex-c-m m-r-5" style="background-image: url('images/Glogo.png');">
                                 <i aria-hidden="true"></i>
                             </a>

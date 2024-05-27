@@ -103,7 +103,7 @@ public class Data_MarketingDashboard_DAO extends DBContext {
         List<Product> list = new ArrayList<>();
         String sql;
 
-        if ("all".equalsIgnoreCase(month)) {
+        if ("0".equalsIgnoreCase(month)) {
             sql = "SELECT\n"
                     + "    pc.Category_name,\n"
                     + "    COUNT(DISTINCT b.Bill_id) AS Bill_Count\n"
@@ -145,13 +145,13 @@ public class Data_MarketingDashboard_DAO extends DBContext {
                     + "    pc.Category_name\n"
                     + "ORDER BY\n"
                     + "    pc.Category_name ASC;";
-        }
+        } 
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
 
             st.setString(1, year);
-            if (!"all".equalsIgnoreCase(month)) {
+            if (!"0".equalsIgnoreCase(month)) {
                 st.setString(2, month);
             }
 
@@ -171,11 +171,11 @@ public class Data_MarketingDashboard_DAO extends DBContext {
 
         Data_MarketingDashboard_DAO data = new Data_MarketingDashboard_DAO();
         // Gọi phương thức getSellingProduct
-        List<Product> products = data.getTrendCategory("5", "2024");
+        List<Product> products = data.getTrendCategory("0", "2024");
 
         // In ra kết quả để kiểm tra
         for (Product product : products) {
-            System.out.println(product.getProduct_name() + "/ "+ product.getProduct_img() + "/ " + product.getCategory_name() + "/ " + product.getPrice() + "/ " + product.getSize()+ "/ " + product.getQuantity());
+            System.out.println(product.getCategory_name() + "/ " + product.getQuantity());
         }
     }
 

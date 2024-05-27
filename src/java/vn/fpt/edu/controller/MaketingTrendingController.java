@@ -28,22 +28,24 @@ public class MaketingTrendingController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String startdate = request.getParameter("startdate");
-        String enddate = request.getParameter("enddate");
+        String startmonth = request.getParameter("startmonth");
+        String startYear = request.getParameter("startyear");
+
         Data_MarketingDashboard_DAO data = new Data_MarketingDashboard_DAO();
-        List<Product> productSellingList = data.getTrendCategory(startdate, enddate);
+        List<Product> trend = data.getTrendCategory(startmonth, startYear);
 
         List<String> productcate = new ArrayList<>();
         List<Integer> quantities = new ArrayList<>();
-        PrintWriter out = response.getWriter();
-        for (Product product : productSellingList) {
-            productcate.add(product.getCategory_name());
-            
+
+        for (Product product : trend) {
+            productcate.add(product.getCategory_name());  
             quantities.add(product.getQuantity());
         }
-
-        session.setAttribute("name2", productcate);
-        session.setAttribute("sum2", quantities);
+        
+        session.setAttribute("startmonth", startmonth);
+        session.setAttribute("startYear", startYear);   
+        session.setAttribute("ProductCategory", productcate);
+        session.setAttribute("Quan", quantities);
         request.getRequestDispatcher("OrderProcessor.jsp").forward(request, response);
     } 
 

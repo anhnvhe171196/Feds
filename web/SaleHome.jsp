@@ -5,6 +5,7 @@
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,7 +24,6 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-        <!-- Icon Font Stylesheet -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
@@ -45,7 +45,6 @@
                 margin: auto;
             }
         </style>
-
     </head>
 
     <body>
@@ -62,7 +61,7 @@
             <!-- Sidebar Start -->
             <div class="sidebar pe-4 pb-3">
                 <nav class="navbar bg-light navbar-light">
-                    <a href="index.html" class="navbar-brand mx-4 mb-3">
+                    <a href="/Feds/saleDashboard" class="navbar-brand mx-4 mb-3">
                         <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>SALE</h3>
                     </a>
                     <div class="d-flex align-items-center ms-4 mb-4">
@@ -76,8 +75,8 @@
                         </div>
                     </div>
                     <div class="navbar-nav w-100">
-                        <a href="index_sale.jsp" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                        <a href="order_list.jsp" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Order List</a></div>
+                        <a href="/Feds/saleDashboard" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                        <a href="OrderList.jsp" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Order List</a></div>
                 </nav>
             </div>
             <!-- Sidebar End -->
@@ -130,7 +129,7 @@
                                 <i class="fa fa-chart-pie fa-3x text-primary"></i>
                                 <div class="ms-3">
                                     <p class="mb-2">Tổng thu nhập hôm nay</p>
-                                    <h6 class="mb-0">${sessionScope.sumOfDoneBills} VND</h6>
+                                    <h6 class="mb-0"><fmt:formatNumber value="${sessionScope.sumOfDoneBills}" pattern="#,###"/> VNĐ</h6>
                                 </div>
                             </div>
                         </div>
@@ -159,7 +158,7 @@
                                             </select>   
                                         </div>
                                     </div>
-                                    <h6 class="mb-0" id="incomeDisplay">${sessionScope.sumOfBillByMonth}</h6>
+                                    <h6 class="mb-0" id="incomeDisplay"> <fmt:formatNumber value="${sessionScope.sumOfBillByMonth}" pattern="#,###"/> VNĐ</h6>
                                 </div>
                             </div>
                         </div>
@@ -180,15 +179,15 @@
                                         <div class="d-flex">
                                             <div class="me-2">
                                                 <label for="quantity" class="form-label">Số lượng sản phẩm:</label>
-                                                <input type="number" id="quantity" class="form-control" name="quantity" value="10" min="1">
+                                                <input type="number" id="quantity" class="form-control" name="quantity" placeholder="10" value="${sessionScope.quantity}"  min="1">
                                             </div>
                                             <div class="me-2">
                                                 <label for="start-date-sales" class="form-label">Ngày bắt đầu:</label>
-                                                <input type="date" id="start-date-sales" class="form-control" name="startdate">
+                                                <input type="date" id="start-date-sales" class="form-control" value="${sessionScope.startDate}" name="startdate">
                                             </div>
                                             <div class="me-2">
                                                 <label for="end-date-sales" class="form-label">Ngày kết thúc:</label>
-                                                <input type="date" id="end-date-sales" class="form-control" name="enddate">
+                                                <input type="date" id="end-date-sales" value="${sessionScope.endDate}" class="form-control" name="enddate">
                                             </div>
                                             <div>
                                                 <button id="show-sales" class="btn btn-primary mt-4">Xem</button>
@@ -219,19 +218,19 @@
                                             <div class="me-2">
                                                 <label for="month-sales" class="form-label">Chọn tháng:</label>
                                                 <select id="month-sales" class="form-select" name="month1">
-                                                    <option ${requestScope.monthtrend==all?"selected":""} value="all">Cả năm</option>
-                                                    <option ${requestScope.monthtrend==1?"selected":""} value="1">Tháng 1</option>
-                                                    <option ${requestScope.monthtrend==2?"selected":""} value="2">Tháng 2</option>
-                                                    <option ${requestScope.monthtrend==3?"selected":""} value="3">Tháng 3</option>
-                                                    <option ${requestScope.monthtrend==4?"selected":""} value="4">Tháng 4</option>
-                                                    <option ${requestScope.monthtrend==5?"selected":""} value="5">Tháng 5</option>
-                                                    <option ${requestScope.monthtrend==6?"selected":""} value="6">Tháng 6</option>
-                                                    <option ${requestScope.monthtrend==7?"selected":""} value="7">Tháng 7</option>
-                                                    <option ${requestScope.monthtrend==8?"selected":""} value="8">Tháng 8</option>
-                                                    <option ${requestScope.monthtrend==9?"selected":""} value="9">Tháng 9</option>
-                                                    <option ${requestScope.monthtrend==10?"selected":""} value="10">Tháng 10</option>
-                                                    <option ${requestScope.monthtrend==11?"selected":""} value="11">Tháng 11</option>
-                                                    <option ${requestScope.monthtrend==12?"selected":""} value="12">Tháng 12</option>
+                                                    <option ${sessionScope.monthtrend==all?"selected":""} value="all">Cả năm</option>
+                                                    <option ${sessionScope.monthtrend==1?"selected":""} value="1">Tháng 1</option>
+                                                    <option ${sessionScope.monthtrend==2?"selected":""} value="2">Tháng 2</option>
+                                                    <option ${sessionScope.monthtrend==3?"selected":""} value="3">Tháng 3</option>
+                                                    <option ${sessionScope.monthtrend==4?"selected":""} value="4">Tháng 4</option>
+                                                    <option ${sessionScope.monthtrend==5?"selected":""} value="5">Tháng 5</option>
+                                                    <option ${sessionScope.monthtrend==6?"selected":""} value="6">Tháng 6</option>
+                                                    <option ${sessionScope.monthtrend==7?"selected":""} value="7">Tháng 7</option>
+                                                    <option ${sessionScope.monthtrend==8?"selected":""} value="8">Tháng 8</option>
+                                                    <option ${sessionScope.monthtrend==9?"selected":""} value="9">Tháng 9</option>
+                                                    <option ${sessionScope.monthtrend==10?"selected":""} value="10">Tháng 10</option>
+                                                    <option ${sessionScope.monthtrend==11?"selected":""} value="11">Tháng 11</option>
+                                                    <option ${sessionScope.monthtrend==12?"selected":""} value="12">Tháng 12</option>
                                                 </select>
                                             </div>
                                             <div class="me-2">
@@ -270,11 +269,11 @@
 
                                             <div class="me-2">
                                                 <label for="start-date-priority" class="form-label">Ngày bắt đầu:</label>
-                                                <input type="date" id="start-date-priority" class="form-control" name="startdate">
+                                                <input type="date" id="start-date-priority" value="${sessionScope.start}" class="form-control" name="startdate">
                                             </div>
                                             <div class="me-2">
                                                 <label for="end-date-priority" class="form-label">Ngày kết thúc:</label>
-                                                <input type="date" id="end-date-priority" class="form-control" name="enddate">
+                                                <input type="date" id="end-date-priority" value="${sessionScope.end}" class="form-control" name="enddate">
                                             </div>
                                             <div>
                                                 <button id="show-priority" class="btn btn-primary mt-4">Xem</button>
@@ -297,7 +296,7 @@
                     <div class="bg-light text-center rounded p-4">
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <h6 class="mb-0">Đơn hàng hôm nay</h6>
-                            <a href="/order_list.jsp">Tất cả</a>
+                            <a href="/Feds/OrderList.jsp">Tất cả</a>
                         </div>
                         <div class="table-responsive">
                             <table class="table text-start align-middle table-bordered table-hover mb-0">
@@ -317,7 +316,7 @@
                                             <td>${b.date}</td>
                                             <td>${b.bill_id}</td>
                                             <td>${b.user_name}</td>
-                                            <td>${b.total_price}</td>
+                                            <td> <fmt:formatNumber value="${b.total_price}" pattern="#,###"/> VNĐ</td>
                                             <td>${b.status}</td>
                                             <td><a class="btn btn-sm btn-primary" href="/orderDetail?action=&bill_id=">Xem đơn</a></td>
                                         </tr>
@@ -476,12 +475,6 @@
             });
             document.getElementById('show-priority').addEventListener('click', function () {
                 sendData('start-date-priority', 'end-date-priority', 'priority');
-            });
-            document.getElementById('show-sales').addEventListener('click', function () {
-                var startDate = document.getElementById('start-date-sales').value;
-                var endDate = document.getElementById('end-date-sales').value;
-                var url = `/Feds/saleDashboard?action=chart1&startdate=${startDate}&enddate=${endDate}`;
-                window.location.href = url;
             });
         </script>
     </body>
