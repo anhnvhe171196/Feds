@@ -75,7 +75,7 @@
                             </a>
                             <div class="d-flex align-items-center ms-4 mb-4">
                                 <div class="position-relative">
-                                    <!--                            <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">-->
+                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
                                     <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                                 </div>
                                 <div class="ms-3">
@@ -176,7 +176,7 @@
                                             <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <p class="mb-0 xl-1">Tổng thu nhập</p>
 
-                                                <select id="monthSelect" onchange="sendSelectedMonth()" class="form-label">
+                                                <select id="monthSelect" onchange="sendSelectedMonth()" value="" class="form-label">
                                                     <option ${sessionScope.month==1?"selected":""} value="1">Tháng 1</option>
                                                     <option ${sessionScope.month==2?"selected":""} value="2">Tháng 2</option>
                                                     <option ${sessionScope.month==3?"selected":""} value="3">Tháng 3</option>
@@ -212,15 +212,15 @@
                                                 <div class="d-flex">
                                                     <div class="me-2">
                                                         <label for="quantity" class="form-label">Số lượng sản phẩm:</label>
-                                                        <input type="number" id="quantity" class="form-control" name="quantity" value="10" min="1">
+                                                        <input type="number" id="quantity" class="form-control" name="quantity" value="${sessionScope.quantity}" min="1">
                                                     </div>
                                                     <div class="me-2">
                                                         <label for="start-date-sales" class="form-label">Ngày bắt đầu:</label>
-                                                        <input type="date" id="start-date-sales" class="form-control" name="startdate">
+                                                        <input type="date" id="start-date-sales" class="form-control" value="${sessionScope.startdate}" name="startdate">
                                                     </div>
                                                     <div class="me-2">
                                                         <label for="end-date-sales" class="form-label">Ngày kết thúc:</label>
-                                                        <input type="date" id="end-date-sales" class="form-control" name="enddate">
+                                                        <input type="date" id="end-date-sales" class="form-control" value="${sessionScope.enddate}" name="enddate">
                                                     </div>
                                                     <div>
                                                         <button id="show-sales" class="btn btn-primary mt-4">Xem</button>
@@ -249,11 +249,11 @@
                                                 <div class="d-flex">
                                                     <div class="me-2">
                                                         <label for="start-date-sales" class="form-label">Ngày bắt đầu:</label>
-                                                        <input type="date" id="start-date-sales" class="form-control" name="startdate">
+                                                        <input type="date" id="start-date-sales" class="form-control" value="${sessionScope.startdate1}" name="startdate">
                                                     </div>
                                                     <div class="me-2">
                                                         <label for="end-date-sales" class="form-label">Ngày kết thúc:</label>
-                                                        <input type="date" id="end-date-sales" class="form-control" name="enddate">
+                                                        <input type="date" id="end-date-sales" class="form-control" value="${sessionScope.enddate1}" name="enddate">
                                                     </div>
                                                     <div>
                                                         <button id="show-sales" class="btn btn-primary mt-4">Xem</button>
@@ -280,10 +280,11 @@
                                         <div class="bg-light text-center rounded p-4">
                                             <div class="d-flex align-items-center justify-content-between mb-4">
                                                 <h6 class="mb-0">Top danh mục bán chạy</h6>
+                                                <h6>${sessionScope.a}</h6>
                                                 <div class="d-flex">
                                                     <div class="me-2">
                                                         <label for="startmonth" class="form-label">Tháng:</label>
-                                                        <select id="startmonth"  name="startmonth" class="form-control">
+                                                        <select id="startmonth"  name="startmonth" value="${sessionScope.startmonth}" class="form-control">
                                                             <option value="0">Tất cả</option>
                                                             <option value="1">Tháng 1</option>
                                                             <option value="2">Tháng 2</option>
@@ -302,7 +303,7 @@
 
                                                     <div class="me-2">
                                                         <label for="startyear" class="form-label">Năm:</label>
-                                                        <input type="number" id="startyear" class="form-control" name="startyear" min="1900" max="2100" value="2024">
+                                                        <input type="number" id="startyear" class="form-control" name="startyear" value="${sessionScope.startYear}" min="1900" max="2100" value="2024">
                                                     </div>
                                                     <div>
                                                         <button id="show-sales" class="btn btn-primary mt-4">Xem</button>
@@ -312,7 +313,7 @@
                                             <div>
                                                 <canvas id="trending"></canvas>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                 </form>
@@ -450,65 +451,65 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
 
         <script>
-                                                var names = [];
-                                                var sums = [];
-            <c:forEach items="${sessionScope.name}" var="val" varStatus="loop">
-                                                names.push("${val}");
+                                                    var ProductNames = [];
+                                                    var ProductQuans = [];
+            <c:forEach items="${sessionScope.ProductName}" var="val" varStatus="loop">
+                                                    ProductNames.push("${val}");
             </c:forEach>
 
-            <c:forEach items="${sessionScope.sum}" var="val" varStatus="loop">
-                                                sums.push(${val});
+            <c:forEach items="${sessionScope.ProductQuan}" var="val" varStatus="loop">
+                                                    ProductQuans.push(${val});
             </c:forEach>
-                                                var ctx = document.getElementById('marketingProduct').getContext('2d');
-                                                var myChart = new Chart(ctx, {
-                                                    type: 'bar',
-                                                    data: {
-                                                        labels: names,
-                                                        datasets: [{
-                                                                label: 'Số sản phẩm bán được',
-                                                                data: sums,
-                                                                borderWidth: 1
-                                                            }]
-                                                    },
-                                                    options: {
-                                                        scales: {
-                                                            y: {
-                                                                beginAtZero: true
-                                                            }
+                                                    var ctx = document.getElementById('marketingProduct').getContext('2d');
+                                                    var myChart = new Chart(ctx, {
+                                                        type: 'bar',
+                                                        data: {
+                                                            labels: ProductNames,
+                                                            datasets: [{
+                                                                    label: 'Số sản phẩm bán được',
+                                                                    data: ProductQuans,
+                                                                    borderWidth: 1
+                                                                }]
                                                         },
-                                                        plugins: {
-                                                            legend: {
-                                                                display: false // Ẩn legend
-                                                            }
-                                                        },
-                                                        text: {
-                                                            color: 'black', // Màu chữ
-                                                            align: 'center', // Căn chỉnh chữ
-                                                            font: {
-                                                                size: 12, // Kích thước chữ
+                                                        options: {
+                                                            scales: {
+                                                                y: {
+                                                                    beginAtZero: true
+                                                                }
+                                                            },
+                                                            plugins: {
+                                                                legend: {
+                                                                    display: false // Ẩn legend
+                                                                }
+                                                            },
+                                                            text: {
+                                                                color: 'black', // Màu chữ
+                                                                align: 'center', // Căn chỉnh chữ
+                                                                font: {
+                                                                    size: 12, // Kích thước chữ
+                                                                }
                                                             }
                                                         }
-                                                    }
-                                                });
+                                                    });
         </script>
         <script>
-            var names1 = [];
-            var sums1 = [];
-            <c:forEach items="${sessionScope.name1}" var="val" varStatus="loop">
-            names1.push("${val}");
+            var bills = [];
+            var sumByDays = [];
+            <c:forEach items="${sessionScope.bill}" var="val" varStatus="loop">
+            bills.push("${val}");
             </c:forEach>
 
-            <c:forEach items="${sessionScope.sum1}" var="val" varStatus="loop">
-            sums1.push(${val});
+            <c:forEach items="${sessionScope.sumByDay}" var="val" varStatus="loop">
+            sumByDays.push(${val});
             </c:forEach>
             var ctx = document.getElementById('income').getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: names1,
+                    labels: bills,
                     datasets: [{
                             label: 'Sản phẩm bán được',
-                            data: sums1,
+                            data: sumByDays,
                             borderWidth: 1
                         }]
                 },
@@ -534,47 +535,47 @@
             });
         </script>
         <script>
-                                                var names2 = [];
-                                                var sums2 = [];
-                                                <c:forEach items="${sessionScope.name2}" var="val" varStatus="loop">
-                                                names2.push("${val}");
-                                                </c:forEach>
+            var Productlist = [];
+            var quantity = [];
+            <c:forEach items="${sessionScope.ProductCategory}" var="val" varStatus="loop">
+            Productlist.push("${val}");
+            </c:forEach>
 
-                                                <c:forEach items="${sessionScope.sum2}" var="val" varStatus="loop">
-                                                sums2.push(${val});
-                                                </c:forEach>
-                                                var ctx = document.getElementById('trending').getContext('2d');
-                                                var myChart = new Chart(ctx, {
-                                                    type: 'bar',
-                                                    data: {
-                                                        labels: names2,
-                                                        datasets: [{
-                                                                label: 'Sản phẩm bán được',
-                                                                data: sums2,
-                                                                borderWidth: 1
-                                                            }]
-                                                    },
-                                                    options: {
-                                                        scales: {
-                                                            y: {
-                                                                beginAtZero: true
-                                                            }
-                                                        },
-                                                        plugins: {
-                                                            legend: {
-                                                                display: false // Ẩn legend
-                                                            }
-                                                        },
-                                                        text: {
-                                                            color: 'black', // Màu chữ
-                                                            align: 'center', // Căn chỉnh chữ
-                                                            font: {
-                                                                size: 12, // Kích thước chữ
-                                                            }
-                                                        }
-                                                    }
-                                                });
-                                            </script>
+            <c:forEach items="${sessionScope.Quan}" var="val" varStatus="loop">
+            quantity.push(${val});
+            </c:forEach>
+            var ctx = document.getElementById('trending').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Productlist,
+                    datasets: [{
+                            label: 'Sản phẩm bán được',
+                            data: quantity,
+                            borderWidth: 1
+                        }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false // Ẩn legend
+                        }
+                    },
+                    text: {
+                        color: 'black', // Màu chữ
+                        align: 'center', // Căn chỉnh chữ
+                        font: {
+                            size: 12, // Kích thước chữ
+                        }
+                    }
+                }
+            });
+        </script>
 
 
 

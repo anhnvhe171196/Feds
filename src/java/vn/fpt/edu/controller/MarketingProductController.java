@@ -28,7 +28,6 @@ public class MarketingProductController extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-        String action = request.getParameter("action");
         PrintWriter out = response.getWriter();
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         String startdate = request.getParameter("startdate");
@@ -43,9 +42,12 @@ public class MarketingProductController extends HttpServlet {
             productNames.add(product.getProduct_name());
             quantities.add(product.getQuantity());
         }
+        session.setAttribute("quantity", quantity);
+        session.setAttribute("startdate", startdate);
+        session.setAttribute("enddate", enddate);
 
-        session.setAttribute("name", productNames);
-        session.setAttribute("sum", quantities);
+        session.setAttribute("ProductName", productNames);
+        session.setAttribute("ProductQuan", quantities);
         request.getRequestDispatcher("OrderProcessor.jsp").forward(request, response);
     }
 

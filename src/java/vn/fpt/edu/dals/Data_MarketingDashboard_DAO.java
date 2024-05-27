@@ -175,7 +175,7 @@ public class Data_MarketingDashboard_DAO extends DBContext {
 
         // In ra kết quả để kiểm tra
         for (Product product : products) {
-            System.out.println(product.getProduct_name() + "/ "+ product.getProduct_img() + "/ " + product.getCategory_name() + "/ " + product.getPrice() + "/ " + product.getSize()+ "/ " + product.getQuantity());
+            System.out.println(product.getCategory_name() + "/ " + product.getQuantity());
         }
     }
 

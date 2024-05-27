@@ -40,9 +40,10 @@ public class MarketingSumIncomeController extends HttpServlet {
             billDate.add(s.getDate());
             sumByDay.add(s.getTotal_price());
         }
-
-        session.setAttribute("name1", billDate);
-        session.setAttribute("sum1", sumByDay);
+        session.setAttribute("startdate1", startdate);
+        session.setAttribute("enddate1", enddate);
+        session.setAttribute("bill", billDate);
+        session.setAttribute("sumByDay", sumByDay);
         request.getRequestDispatcher("OrderProcessor.jsp").forward(request, response);
     } 
 
