@@ -97,7 +97,7 @@
                             <div class="header-search">
 
                                 <form class="col-md-4">
-                                    <select class="input-select" name="cateid"  style="    width: 216px;">
+                                    <select class="input-select" name="cateid"  style="width: 216px;">
                                         <option value="" selected>Loại Sản Phẩm</option>
                                         <c:forEach items="${sessionScope.cates}" var="cate">
 
@@ -188,19 +188,12 @@
                 <!-- container -->
             </div>
             <!-- /MAIN HEADER -->
-
-            <script src="js/jquery.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/slick.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/nouislider.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/jquery.zoom.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/main.js"></script>
-            <script src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/jquery.slicknav.js"></script>
-            <script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/jquery.nice-select.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/mixitup.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/home.js"></script>
+            <script src="../js1/jquery.min.js"></script>
+            <script src="../js1/bootstrap.min.js"></script>
+            <script src="../js1/slick.min.js"></script>
+            <script src="../js1/nouislider.min.js"></script>
+            <script src="../js1/jquery.zoom.min.js"></script>
+            <script src="../js1/main.js"></script>
 
         </header>
 
