@@ -32,14 +32,26 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
         <!-- Libraries Stylesheet -->
-        <link href="OPlib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-        <link href="OPlib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
         <!-- Customized Bootstrap Stylesheet -->
-        <link href="css/bootstrap.min_OP.css" rel="stylesheet">
+
+        <link href="css/bootstrap.minsale.css" rel="stylesheet">
 
         <!-- Template Stylesheet -->
         <link href="css/OrderProcessor.css" rel="stylesheet">
+        <link href="css/stylesale.css" rel="stylesheet">
+        <style>
+            #trendcategory-canvas {
+                width: 100%;
+                display: block;
+                max-width: 70%;
+                height: 50%;
+                margin: auto;
+            }
+        </style>
     </head>
 
     <body>
@@ -81,7 +93,7 @@
 
                     <!-- Content Start -->
                     <div class="content">
-                       <!-- Navbar Start -->
+                        <!-- Navbar Start -->
                         <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
                             <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
                                 <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
@@ -151,7 +163,7 @@
                                         <div class="ms-3">
                                             <p class="mb-2">Tổng thu nhập hôm nay</p>
                                             <h6 class="mb-0"><fmt:formatNumber value="${sessionScope.sumOfDoneBills}" type="number" groupingUsed="true" /> VND</h6>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -216,7 +228,7 @@
                                                 </div>
                                             </div>
                                             <div>
-                                                <canvas id="1"></canvas>
+                                                <canvas id="marketingProduct"></canvas>
                                             </div>
                                         </div>
                                     </div>
@@ -339,7 +351,7 @@
                                     <div class="col-12 col-sm-6 text-center text-sm-start">
                                         &copy; <a href="#">Feds</a>, All Right Reserved. 
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -429,7 +441,7 @@
             <c:forEach items="${sessionScope.sum}" var="val" varStatus="loop">
                                                     sums.push(${val});
             </c:forEach>
-                                                    var ctx = document.getElementById('1').getContext('2d');
+                                                    var ctx = document.getElementById('marketingProduct').getContext('2d');
                                                     var myChart = new Chart(ctx, {
                                                         type: 'bar',
                                                         data: {
@@ -471,9 +483,9 @@
             <c:forEach items="${sessionScope.sum1}" var="val" varStatus="loop">
             sums1.push(${val});
             </c:forEach>
-            var ctx = document.getElementById('2').getContext('2d');
+            var ctx = document.getElementById('marketingProduct').getContext('2d');
             var myChart = new Chart(ctx, {
-                type: 'line',
+                type: 'bar',
                 data: {
                     labels: names1,
                     datasets: [{
