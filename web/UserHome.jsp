@@ -6,6 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib  prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -138,7 +139,7 @@
                                                 <div class="product-body">
                                                     <p class="product-category">${np.getCategory_name()}</p>
                                                     <h3 class="product-name" style="height: 50px"><a href="#">${np.getProduct_name()}</a></h3>
-                                                    <h4 class="product-price">${np.getPrice()} <del class="product-old-price"> </del></h4>
+                                                    <h4 class="product-price"><fmt:formatNumber value="${np.getPrice()}" pattern="#,###" />VNĐ <del class="product-old-price"> </del></h4>
                                                     <div class="product-rating">
                                                         <i class="fa fa-star"></i>
                                                         <i class="fa fa-star"></i>
@@ -267,7 +268,7 @@
                                                     <div class="product-body">
                                                         <p class="product-category">${l.getCategory_name()}</p>
                                                         <h3 class="product-name"><a href="#">${l.getProduct_name()}</a></h3>
-                                                        <h4 class="product-price">${l.getPrice()} <del class="product-old-price">$990.00</del></h4>
+                                                        <h4 class="product-price"> <fmt:formatNumber value="${l.getPrice()}" pattern="#,###"/> VNĐ <del class="product-old-price">$990.00</del></h4>
                                                         <div class="product-rating">
                                                             <i class="fa fa-star"></i>
                                                             <i class="fa fa-star"></i>
@@ -334,7 +335,7 @@
                                             <div class="product-body">
                                                 <p class="product-category">${p.getCategory_name()}</p>
                                                 <h3 class="product-name"><a href="#">${p.getProduct_name()}</a></h3>
-                                                <h4 class="product-price">${p.getPrice()} <del class="product-old-price">$990.00</del></h4>
+                                                <h4 class="product-price"><fmt:formatNumber value="${p.getPrice()}" pattern="#,###"/> VNĐ <del class="product-old-price">$990.00</del></h4>
                                             </div>
                                         </div>
                                         <!-- /product widget -->
@@ -382,7 +383,7 @@
                                         <div class="product-body">
                                             <p class="product-category">${t.getCategory_name()}</p>
                                             <h3 class="product-name"><a href="#"></a>${t.getProduct_name()}</h3>
-                                            <h4 class="product-price">${t.getPrice()} <del class="product-old-price">$990.00</del></h4>
+                                            <h4 class="product-price"><fmt:formatNumber value="${t.getPrice()}" pattern="#,###"/> VNĐ<del class="product-old-price">$990.00</del></h4>
                                         </div>
                                     </div>
                                     <!-- /product widget -->  
@@ -433,7 +434,7 @@
                                     <div class="product-body">
                                         <p class="product-category">${hdd.getCategory_name()}</p>
                                         <h3 class="product-name"><a href="#">${hdd.getProduct_name()}</a></h3>
-                                        <h4 class="product-price">${hdd.getPrice()} <del class="product-old-price">$990.00</del></h4>
+                                        <h4 class="product-price"><fmt:formatNumber value="${hdd.getPrice()}" pattern="#,###"/>VNĐ <del class="product-old-price">$990.00</del></h4>
                                     </div>
                                 </div>
                                 <!-- /product widget -->  
