@@ -26,18 +26,32 @@ public class Order_DAO extends DBContext {
                 + "      ,[Real_time_price]\n"
                 + "      ,[Payment]\n"
                 + "  FROM [dbo].[Order]Order";
-        try{ 
+        try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Order u = new Order(rs.getInt("Order_id"), rs.getInt("Product_id"), rs.getInt("Order_quantity"), rs.getInt("Bill_id"), rs.getDate("Real_time_price"), rs.getString("Payment"));
                 list.add(u);
             }
-        }catch(SQLException e){ 
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return list;
     }
-    
-    
+
+    public int getNumOfProductsSold() {
+        int numOfProductsSold = 0;
+        String sql = "SELECT SUM(Order_quantity) AS TotalProductsSold FROM [Order];";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                numOfProductsSold = rs.getInt("TotalProductsSold");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return numOfProductsSold;
+    }
+
 }

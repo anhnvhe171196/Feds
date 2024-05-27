@@ -260,4 +260,19 @@ public class Product_DAO extends DBContext {
         return list;
     }
 
+    public int getTotalNumberOfProducts() {
+        int totalNumberOfProducts = 0;
+        String sql = "SELECT COUNT(*) AS TotalCount FROM Product;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                totalNumberOfProducts = rs.getInt("TotalCount");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return totalNumberOfProducts;
+    }
+
 }
