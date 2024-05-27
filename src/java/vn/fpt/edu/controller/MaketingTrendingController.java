@@ -28,10 +28,11 @@ public class MaketingTrendingController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String startdate = request.getParameter("startdate");
-        String enddate = request.getParameter("enddate");
+        String startmonth = request.getParameter("startmonth");
+        String startYear = request.getParameter("startYear");
+
         Data_MarketingDashboard_DAO data = new Data_MarketingDashboard_DAO();
-        List<Product> productSellingList = data.getTrendCategory(startdate, enddate);
+        List<Product> productSellingList = data.getTrendCategory(startmonth, startYear);
 
         List<String> productcate = new ArrayList<>();
         List<Integer> quantities = new ArrayList<>();

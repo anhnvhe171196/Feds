@@ -176,7 +176,7 @@
                                             <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <p class="mb-0 xl-1">Tổng thu nhập</p>
 
-                                                <select id="monthSelect" onchange="sendSelectedMonth()">
+                                                <select id="monthSelect" onchange="sendSelectedMonth()" class="form-label">
                                                     <option ${sessionScope.month==1?"selected":""} value="1">Tháng 1</option>
                                                     <option ${sessionScope.month==2?"selected":""} value="2">Tháng 2</option>
                                                     <option ${sessionScope.month==3?"selected":""} value="3">Tháng 3</option>
@@ -282,12 +282,27 @@
                                                 <h6 class="mb-0">Top danh mục bán chạy</h6>
                                                 <div class="d-flex">
                                                     <div class="me-2">
-                                                        <label for="start-date-sales" class="form-label">Ngày bắt đầu:</label>
-                                                        <input type="date" id="start-date-sales" class="form-control" name="startdate">
+                                                        <label for="startmonth" class="form-label">Tháng:</label>
+                                                        <select id="startmonth"  name="startmonth" class="form-control">
+                                                            <option value="0">Tất cả</option>
+                                                            <option value="1">Tháng 1</option>
+                                                            <option value="2">Tháng 2</option>
+                                                            <option value="3">Tháng 3</option>
+                                                            <option  value="4">Tháng 4</option>
+                                                            <option  value="5">Tháng 5</option>
+                                                            <option  value="6">Tháng 6</option>
+                                                            <option  value="7">Tháng 7</option>
+                                                            <option  value="8">Tháng 8</option>
+                                                            <option  value="9">Tháng 9</option>
+                                                            <option  value="10">Tháng 10</option>
+                                                            <option  value="11">Tháng 11</option>
+                                                            <option  value="12">Tháng 12</option>
+                                                        </select>
                                                     </div>
+
                                                     <div class="me-2">
-                                                        <label for="end-date-sales" class="form-label">Ngày kết thúc:</label>
-                                                        <input type="date" id="end-date-sales" class="form-control" name="enddate">
+                                                        <label for="startyear" class="form-label">Năm:</label>
+                                                        <input type="number" id="startyear" class="form-control" name="startyear" min="1900" max="2100" value="2024">
                                                     </div>
                                                     <div>
                                                         <button id="show-sales" class="btn btn-primary mt-4">Xem</button>
@@ -297,6 +312,7 @@
                                             <div>
                                                 <canvas id="trending"></canvas>
                                             </div>
+                                            
                                         </div>
                                     </div>
                                 </form>
@@ -434,46 +450,46 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
 
         <script>
-                                                    var names = [];
-                                                    var sums = [];
+                                                var names = [];
+                                                var sums = [];
             <c:forEach items="${sessionScope.name}" var="val" varStatus="loop">
-                                                    names.push("${val}");
+                                                names.push("${val}");
             </c:forEach>
 
             <c:forEach items="${sessionScope.sum}" var="val" varStatus="loop">
-                                                    sums.push(${val});
+                                                sums.push(${val});
             </c:forEach>
-                                                    var ctx = document.getElementById('marketingProduct').getContext('2d');
-                                                    var myChart = new Chart(ctx, {
-                                                        type: 'bar',
-                                                        data: {
-                                                            labels: names,
-                                                            datasets: [{
-                                                                    label: 'Số sản phẩm bán được',
-                                                                    data: sums,
-                                                                    borderWidth: 1
-                                                                }]
+                                                var ctx = document.getElementById('marketingProduct').getContext('2d');
+                                                var myChart = new Chart(ctx, {
+                                                    type: 'bar',
+                                                    data: {
+                                                        labels: names,
+                                                        datasets: [{
+                                                                label: 'Số sản phẩm bán được',
+                                                                data: sums,
+                                                                borderWidth: 1
+                                                            }]
+                                                    },
+                                                    options: {
+                                                        scales: {
+                                                            y: {
+                                                                beginAtZero: true
+                                                            }
                                                         },
-                                                        options: {
-                                                            scales: {
-                                                                y: {
-                                                                    beginAtZero: true
-                                                                }
-                                                            },
-                                                            plugins: {
-                                                                legend: {
-                                                                    display: false // Ẩn legend
-                                                                }
-                                                            },
-                                                            text: {
-                                                                color: 'black', // Màu chữ
-                                                                align: 'center', // Căn chỉnh chữ
-                                                                font: {
-                                                                    size: 12, // Kích thước chữ
-                                                                }
+                                                        plugins: {
+                                                            legend: {
+                                                                display: false // Ẩn legend
+                                                            }
+                                                        },
+                                                        text: {
+                                                            color: 'black', // Màu chữ
+                                                            align: 'center', // Căn chỉnh chữ
+                                                            font: {
+                                                                size: 12, // Kích thước chữ
                                                             }
                                                         }
-                                                    });
+                                                    }
+                                                });
         </script>
         <script>
             var names1 = [];
@@ -485,81 +501,82 @@
             <c:forEach items="${sessionScope.sum1}" var="val" varStatus="loop">
             sums1.push(${val});
             </c:forEach>
-                                                    var ctx = document.getElementById('income').getContext('2d');
-                                                    var myChart = new Chart(ctx, {
-                                                        type: 'bar',
-                                                        data: {
-                                                            labels: names1,
-                                                            datasets: [{
-                                                                    label: 'Sản phẩm bán được',
-                                                                    data: sums1,
-                                                                    borderWidth: 1
-                                                                }]
-                                                        },
-                                                        options: {
-                                                            scales: {
-                                                                y: {
-                                                                    beginAtZero: true
-                                                                }
-                                                            },
-                                                            plugins: {
-                                                                legend: {
-                                                                    display: false // Ẩn legend
-                                                                }
-                                                            },
-                                                            text: {
-                                                                color: 'black', // Màu chữ
-                                                                align: 'center', // Căn chỉnh chữ
-                                                                font: {
-                                                                    size: 12, // Kích thước chữ
-                                                                }
-                                                            }
-                                                        }
-                                                    });
+            var ctx = document.getElementById('income').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: names1,
+                    datasets: [{
+                            label: 'Sản phẩm bán được',
+                            data: sums1,
+                            borderWidth: 1
+                        }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false // Ẩn legend
+                        }
+                    },
+                    text: {
+                        color: 'black', // Màu chữ
+                        align: 'center', // Căn chỉnh chữ
+                        font: {
+                            size: 12, // Kích thước chữ
+                        }
+                    }
+                }
+            });
         </script>
-
         <script>
-            var names2 = [];
-            var sums2 = [];
-            <c:forEach items="${sessionScope.name2}" var="val" varStatus="loop">
-            names2.push("${val}");
-            </c:forEach>
+                                                var names2 = [];
+                                                var sums2 = [];
+                                                <c:forEach items="${sessionScope.name2}" var="val" varStatus="loop">
+                                                names2.push("${val}");
+                                                </c:forEach>
 
-            <c:forEach items="${sessionScope.sum2}" var="val" varStatus="loop">
-            sums2.push(${val});
-            </c:forEach>
-                                                    var ctx = document.getElementById('trending').getContext('2d');
-                                                    var myChart = new Chart(ctx, {
-                                                        type: 'bar',
-                                                        data: {
-                                                            labels: names2,
-                                                            datasets: [{
-                                                                    label: 'Số lượng: ',
-                                                                    data: sums2,
-                                                                    borderWidth: 1
-                                                                }]
+                                                <c:forEach items="${sessionScope.sum2}" var="val" varStatus="loop">
+                                                sums2.push(${val});
+                                                </c:forEach>
+                                                var ctx = document.getElementById('trending').getContext('2d');
+                                                var myChart = new Chart(ctx, {
+                                                    type: 'bar',
+                                                    data: {
+                                                        labels: names2,
+                                                        datasets: [{
+                                                                label: 'Sản phẩm bán được',
+                                                                data: sums2,
+                                                                borderWidth: 1
+                                                            }]
+                                                    },
+                                                    options: {
+                                                        scales: {
+                                                            y: {
+                                                                beginAtZero: true
+                                                            }
                                                         },
-                                                        options: {
-                                                            scales: {
-                                                                y: {
-                                                                    beginAtZero: true
-                                                                }
-                                                            },
-                                                            plugins: {
-                                                                legend: {
-                                                                    display: false // Ẩn legend
-                                                                }
-                                                            },
-                                                            text: {
-                                                                color: 'black', // Màu chữ
-                                                                align: 'center', // Căn chỉnh chữ
-                                                                font: {
-                                                                    size: 12, // Kích thước chữ
-                                                                }
+                                                        plugins: {
+                                                            legend: {
+                                                                display: false // Ẩn legend
+                                                            }
+                                                        },
+                                                        text: {
+                                                            color: 'black', // Màu chữ
+                                                            align: 'center', // Căn chỉnh chữ
+                                                            font: {
+                                                                size: 12, // Kích thước chữ
                                                             }
                                                         }
-                                                    });
-        </script>
+                                                    }
+                                                });
+                                            </script>
+
+
 
         <script>
             function sendSelectedMonth() {
