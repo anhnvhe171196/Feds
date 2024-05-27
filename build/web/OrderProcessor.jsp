@@ -238,14 +238,48 @@
                         <!-- Top Trends Product  End -->
 
 
-                        <!-- Top Trend Category -->
+                        <!--  Income  -->
+                        <div class="container-fluid pt-4 px-4">
+                            <div class="row g-4">
+                                <form action="sum" method="get">
+                                    <div class="col-sm-12 col-xl-12">
+                                        <div class="bg-light text-center rounded p-4">
+                                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                                <h6 class="mb-0">Doanh thu</h6>
+                                                <div class="d-flex">
+                                                    <div class="me-2">
+                                                        <label for="start-date-sales" class="form-label">Ngày bắt đầu:</label>
+                                                        <input type="date" id="start-date-sales" class="form-control" name="startdate">
+                                                    </div>
+                                                    <div class="me-2">
+                                                        <label for="end-date-sales" class="form-label">Ngày kết thúc:</label>
+                                                        <input type="date" id="end-date-sales" class="form-control" name="enddate">
+                                                    </div>
+                                                    <div>
+                                                        <button id="show-sales" class="btn btn-primary mt-4">Xem</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <canvas id="income"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!--  Income end  -->
+
+
+                        <!-- Top category -->
                         <div class="container-fluid pt-4 px-4">
                             <div class="row g-4">
                                 <form action="trending" method="get">
                                     <div class="col-sm-12 col-xl-12">
                                         <div class="bg-light text-center rounded p-4">
                                             <div class="d-flex align-items-center justify-content-between mb-4">
-                                                <h6 class="mb-0">Doanh thu</h6>
+                                                <h6 class="mb-0">Top danh mục bán chạy</h6>
                                                 <div class="d-flex">
                                                     <div class="me-2">
                                                         <label for="start-date-sales" class="form-label">Ngày bắt đầu:</label>
@@ -269,40 +303,8 @@
                             </div>
                         </div>
 
-                        <!-- Top Trend Category End-->
+                        <!-- Top category end -->
 
-                        <!-- Sum Revenue By Day Start -->
-                        <div class="container-fluid pt-4 px-4">
-                            <div class="row g-4">
-                                <form action="sum" method="get">
-                                    <div class="col-sm-12 col-xl-12">
-                                        <div class="bg-light text-center rounded p-4">
-                                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                                <h6 class="mb-0">Doanh thu</h6>
-                                                <div class="d-flex">
-
-                                                    <div class="me-2">
-                                                        <label for="start-date-priority" class="form-label">Ngày bắt đầu:</label>
-                                                        <input type="date" id="start-date-priority" class="form-control" name="startdate">
-                                                    </div>
-                                                    <div class="me-2">
-                                                        <label for="end-date-priority" class="form-label">Ngày kết thúc:</label>
-                                                        <input type="date" id="end-date-priority" class="form-control" name="enddate">
-                                                    </div>
-                                                    <div>
-                                                        <button id="show-priority" class="btn btn-primary mt-4">Xem</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <canvas id="2"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <!-- Sum Revenue By Day End -->
 
 
                         <!-- Bill Today Start -->
@@ -483,13 +485,13 @@
             <c:forEach items="${sessionScope.sum1}" var="val" varStatus="loop">
             sums1.push(${val});
             </c:forEach>
-                                                    var ctx = document.getElementById('trending').getContext('2d');
+                                                    var ctx = document.getElementById('income').getContext('2d');
                                                     var myChart = new Chart(ctx, {
                                                         type: 'bar',
                                                         data: {
                                                             labels: names1,
                                                             datasets: [{
-                                                                    label: 'Số tiền thu được',
+                                                                    label: 'Sản phẩm bán được',
                                                                     data: sums1,
                                                                     borderWidth: 1
                                                                 }]
@@ -526,25 +528,37 @@
             <c:forEach items="${sessionScope.sum2}" var="val" varStatus="loop">
             sums2.push(${val});
             </c:forEach>
-            var ctx = document.getElementById('trending').getContext('2d');
-            var myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: names2,
-                    datasets: [{
-                            label: 'Số lượng bán được:',
-                            data: sums2,
-                            borderWidth: 1
-                        }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
+                                                    var ctx = document.getElementById('trending').getContext('2d');
+                                                    var myChart = new Chart(ctx, {
+                                                        type: 'bar',
+                                                        data: {
+                                                            labels: names2,
+                                                            datasets: [{
+                                                                    label: 'Số lượng: ',
+                                                                    data: sums2,
+                                                                    borderWidth: 1
+                                                                }]
+                                                        },
+                                                        options: {
+                                                            scales: {
+                                                                y: {
+                                                                    beginAtZero: true
+                                                                }
+                                                            },
+                                                            plugins: {
+                                                                legend: {
+                                                                    display: false // Ẩn legend
+                                                                }
+                                                            },
+                                                            text: {
+                                                                color: 'black', // Màu chữ
+                                                                align: 'center', // Căn chỉnh chữ
+                                                                font: {
+                                                                    size: 12, // Kích thước chữ
+                                                                }
+                                                            }
+                                                        }
+                                                    });
         </script>
 
         <script>

@@ -8,13 +8,14 @@ package vn.fpt.edu.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
-import vn.fpt.edu.dals.Data_SaleDashboard_DAO;
+import vn.fpt.edu.dals.Data_MarketingDashboard_DAO;
 import vn.fpt.edu.models.Product;
 
 /**
@@ -29,7 +30,7 @@ public class MaketingTrendingController extends HttpServlet {
         HttpSession session = request.getSession();
         String startdate = request.getParameter("startdate");
         String enddate = request.getParameter("enddate");
-        Data_SaleDashboard_DAO data = new Data_SaleDashboard_DAO();
+        Data_MarketingDashboard_DAO data = new Data_MarketingDashboard_DAO();
         List<Product> productSellingList = data.getTrendCategory(startdate, enddate);
 
         List<String> productcate = new ArrayList<>();

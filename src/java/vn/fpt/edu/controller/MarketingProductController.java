@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
-import vn.fpt.edu.dals.Data_SaleDashboard_DAO;
+import vn.fpt.edu.dals.Data_MarketingDashboard_DAO;
 import vn.fpt.edu.models.Product;
 
 /**
@@ -33,7 +33,7 @@ public class MarketingProductController extends HttpServlet {
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         String startdate = request.getParameter("startdate");
         String enddate = request.getParameter("enddate");
-        Data_SaleDashboard_DAO data = new Data_SaleDashboard_DAO();
+        Data_MarketingDashboard_DAO data = new Data_MarketingDashboard_DAO();
         List<Product> productSellingList = data.getSellingProduct(startdate, enddate, quantity);
 
         List<String> productNames = new ArrayList<>();
