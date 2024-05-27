@@ -271,11 +271,11 @@
 
                                             <div class="me-2">
                                                 <label for="start-date-priority" class="form-label">Ngày bắt đầu:</label>
-                                                <input type="date" id="start-date-priority" class="form-control" name="startdate">
+                                                <input type="date" id="start-date-priority" value="${requestScope.start}" class="form-control" name="startdate">
                                             </div>
                                             <div class="me-2">
                                                 <label for="end-date-priority" class="form-label">Ngày kết thúc:</label>
-                                                <input type="date" id="end-date-priority" class="form-control" name="enddate">
+                                                <input type="date" id="end-date-priority" value="${requestScope.end}" class="form-control" name="enddate">
                                             </div>
                                             <div>
                                                 <button id="show-priority" class="btn btn-primary mt-4">Xem</button>
