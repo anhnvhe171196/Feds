@@ -66,8 +66,8 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="SaleHome.jsp" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <a href="OrderList.jsp" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Order List</a>
+                    <a href="SaleHome.jsp" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="OrderList.jsp" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Order List</a>
                     
                 </div>
             </nav>

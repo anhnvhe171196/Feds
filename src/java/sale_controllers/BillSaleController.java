@@ -75,8 +75,8 @@ public class BillSaleController extends HttpServlet {
             billDate.add(s.getDate());
             sumByDay.add(s.getTotal_price());
         }
-        request.setAttribute("start", startdate);
-        request.setAttribute("end", enddate);
+        session.setAttribute("start", startdate);
+        session.setAttribute("end", enddate);
         session.setAttribute("name1", billDate);
         session.setAttribute("sum1", sumByDay);
         request.getRequestDispatcher("SaleHome.jsp").forward(request, response);

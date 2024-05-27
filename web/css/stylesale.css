@@ -275,18 +275,3 @@
     background: var(--dark);
     border-color: var(--primary);
 }
-
-
-
-#monthSelect:focus {
-  outline: none;
-  border-color: #66afe9;
-  box-shadow: 0 0 5px #66afe9;
-}
-
-/* Định dạng cho option được chọn */
-#monthSelect option[selected] {
-  font-weight: bold;
-  color: #fff;
-  background-color: #007bff;
-}
