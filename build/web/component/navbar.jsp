@@ -27,9 +27,9 @@
                 <div id="responsive-nav">
                     <!-- NAV -->
                     <ul class="main-nav nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
+                        <li <c:if test="${param.cateid == null}">class="active"</c:if>><a href="ListProduct">Home</a></li>
                         <c:forEach items="${sessionScope.cates}" var="cate">
-                            <li><a href="ListCategory?cateid=${cate.category_id}">${cate.category_name}</a></li>
+                        <li <c:if test="${cate.category_id == param.cateid}">class="active"</c:if>><a href="ListProduct?cateid=${cate.category_id}<c:if test="${param.search != null}">&search=${param.search}</c:if>">${cate.category_name}</a></li>
                         </c:forEach>
                     </ul>
                     <!-- /NAV -->
