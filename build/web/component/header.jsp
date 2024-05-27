@@ -40,15 +40,15 @@
                         <div class="menu-container">
                             <c:if test="${sessionScope.account == null}">
                                 <a href="login">
-                                    <i class="fa fa-user-o"></i>
+                                    <i class="fa fa-user-o" style="color: red"></i>
                                 </a>
-                                <a href="login"><button class="menu-button" style="background-color: red">Login</button></a>
+                                <a href="login"><button class="menu-button" >Login</button></a>
                             </c:if>
                             <c:if test="${sessionScope.account != null}">
                                 <a class="fa" href="userProfile"><img style="width: 23px;border-radius: 20px;" src="images/${sessionScope.account.avarta}" alt="alt"/></a>
                                 <li>
                                     <div class="menu-container">
-                                        <button class="menu-button" style="background-color: red">My Account</button>
+                                        <button class="menu-button" style="font-weight: bold">My Account</button>
                                         <div class="menu">
                                             <ul>
                                                 <li><a href="userProfile">Hồ sơ cá nhân</a></li>
