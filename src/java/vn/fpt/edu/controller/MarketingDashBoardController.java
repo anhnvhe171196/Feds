@@ -49,13 +49,13 @@ public class MarketingDashBoardController extends HttpServlet {
         int numOfProducts = pb.getTotalNumberOfProducts();
         int NumOfProductsSold = od.getNumOfProductsSold();
 
-        session.setAttribute("numOfBills", numOfBills);
-        session.setAttribute("sumOfDoneBills", sumOfDoneBills);
-        session.setAttribute("numOfFeedbacks", numOfFeedbacks);
-        session.setAttribute("sumOfFeedbacks", sumOfFeedbacks);
-        session.setAttribute("numOfUser", numOfUser);
-        session.setAttribute("numOfProducts", numOfProducts);
-        session.setAttribute("NumOfProductsSold", NumOfProductsSold);
+        request.setAttribute("numOfBills", numOfBills);
+        request.setAttribute("sumOfDoneBills", sumOfDoneBills);
+        request.setAttribute("numOfFeedbacks", numOfFeedbacks);
+        request.setAttribute("sumOfFeedbacks", sumOfFeedbacks);
+        request.setAttribute("numOfUser", numOfUser);
+        request.setAttribute("numOfProducts", numOfProducts);
+        request.setAttribute("NumOfProductsSold", NumOfProductsSold);
 
         List<Feedback> FeedbackList = fd.getFeedbackAllWithUser();
         session.setAttribute("FeedbackList", FeedbackList);
