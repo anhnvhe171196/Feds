@@ -134,16 +134,5 @@ public class Feedback_DAO extends DBContext {
     return sumOfFeedback;
 }
 
-    public static void main(String[] args) {
-
-        Feedback_DAO data = new Feedback_DAO();
-        // Gọi phương thức getSellingProduct
-        int feedback = data.getNumOfFeedbackCurrentDate();
-
-        // In ra kết quả để kiểm tra
-        /*for (Product product : products) {
-            System.out.println(product.getProduct_name() + "/ "+ product.getProduct_img() + "/ " + product.getCategory_name() + "/ " + product.getPrice() + "/ " + product.getSize());
-        }*/
-        System.out.println(feedback);
-    }
+   
 }

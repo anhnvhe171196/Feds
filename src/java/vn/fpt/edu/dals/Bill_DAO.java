@@ -34,6 +34,40 @@ public class Bill_DAO extends DBContext {
         return numOfBill;
     }
 
+    public List<Bill> getSumRevenueByDay(String startDate, String endDate) {
+        List<Bill> list = new ArrayList<>();
+        String sql = "SELECT\n"
+                + "    Date AS Ngay,\n"
+                + "    SUM(Total_price) AS TongTien\n"
+                + "FROM\n"
+                + "    [Feds].[dbo].[Bill]\n"
+                + "WHERE\n"
+                + "    Date BETWEEN ? AND ?\n"
+                + "    AND Status = 'Done'\n"
+                + "GROUP BY\n"
+                + "    Date\n"
+                + "ORDER BY\n"
+                + "    Date ASC;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+
+            st.setString(1, startDate);
+            st.setString(2, endDate);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+
+                Bill bill = new Bill();
+                bill.setDate(rs.getString(1));
+
+                bill.setTotal_price(rs.getInt(2));
+                list.add(bill);
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
     public int getSumOfDoneBill() {
         int sumOfDoneBill = 0;
         String sql = "SELECT SUM(Total_price) AS Sum \n"
@@ -51,7 +85,7 @@ public class Bill_DAO extends DBContext {
         return sumOfDoneBill;
     }
 
-    public List<Bill> getBillAllWithUser() {
+    public List<Bill> getBillAllWithUserToday() {
         List<Bill> list = new ArrayList<>();
         String sql = "SELECT Bill.*, U.User_name\n"
                 + "FROM Bill\n"
@@ -69,7 +103,31 @@ public class Bill_DAO extends DBContext {
         }
         return list;
     }
+    
+    public List<Bill> getBillAllWithUser() {
+        List<Bill> list = new ArrayList<>();
+        String sql = "SELECT Bill.*, U.User_name\n"
+                + "FROM Bill\n"
+                + "JOIN [User] AS U ON Bill.User_Id = U.User_Id\n"; 
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Bill u = new Bill(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"), rs.getInt("User_id"), rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
+                list.add(u);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
 
+    public static void main(String[] args) {
+        Bill_DAO bd = new Bill_DAO();
+        List<Bill> bills = bd.getBillAllWithUser();
+        System.out.println(bills.size());
+    }
+    
     public double getSumOfBillByMonth(int month) {
         double sumOfDoneBill = 0;
         String sql = "SELECT SUM(Total_price) AS TongTienBanDuoc\n"
@@ -140,4 +198,6 @@ public class Bill_DAO extends DBContext {
         }
         return sumOfDoneBill;
     }
+    
+    
 }

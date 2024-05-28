@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package sale_controllers;
+package vn.fpt.edu.salecontroller;
 
 import vn.fpt.edu.dals.Bill_DAO;
 import vn.fpt.edu.models.Bill;
@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import vn.fpt.edu.dals.Data_SaleDashboard_DAO;
+import vn.fpt.edu.dals.Product_DAO;
 import vn.fpt.edu.models.Product;
 
 /**
@@ -62,7 +62,7 @@ public class BillOrderController extends HttpServlet {
             session.setAttribute("numOfBills", numOfBills);
             session.setAttribute("sumOfDoneBills", sumOfDoneBills);
             session.setAttribute("sumOfBillByMonth", sumOfBillByMonth);
-            List<Bill> billList = bd.getBillAllWithUser();
+            List<Bill> billList = bd.getBillAllWithUserToday();
             session.setAttribute("billList", billList);
             request.getRequestDispatcher("SaleHome.jsp").forward(request, response);
         } else if (action.equals("sumByMonth")) {
@@ -74,7 +74,7 @@ public class BillOrderController extends HttpServlet {
             session.setAttribute("numOfBills", numOfBills);
             session.setAttribute("sumOfDoneBills", sumOfDoneBills);
             session.setAttribute("sumOfBillByMonth", sumOfBillByMonth);
-            List<Bill> billList = bd.getBillAllWithUser();
+            List<Bill> billList = bd.getBillAllWithUserToday();
             session.setAttribute("billList", billList);
             session.setAttribute("month", month);
 
@@ -102,8 +102,8 @@ public class BillOrderController extends HttpServlet {
         String startdate = request.getParameter("startdate");
         String enddate = request.getParameter("enddate");
         PrintWriter o = response.getWriter();
-        Data_SaleDashboard_DAO data = new Data_SaleDashboard_DAO();
-        List<Product> productSellingList = data.getSellingProduct(startdate, enddate, quantity);
+        Product_DAO pd = new Product_DAO();
+        List<Product> productSellingList = pd.getSellingProduct(startdate, enddate, quantity);
 
         List<String> productNames = new ArrayList<>();
         List<Integer> quantities = new ArrayList<>();
