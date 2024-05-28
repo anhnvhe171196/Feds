@@ -28,7 +28,6 @@ public class MarketingProductController extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-        PrintWriter out = response.getWriter();
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         String startdate = request.getParameter("startdate");
         String enddate = request.getParameter("enddate");

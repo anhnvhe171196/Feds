@@ -4,6 +4,10 @@
  */
 package vn.fpt.edu.models;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+
 /**
  *
  * @author Trong
@@ -17,6 +21,7 @@ public class Product {
     private int User_Id;
     private int Brand_id;
     private String Category_name;
+    private String Description;
     private float Price;
     private String Size;
     private Product_Detail Product_detail;
@@ -24,7 +29,9 @@ public class Product {
     public Product() {
     }
 
-    public Product(int Product_id, int Quantity, String Product_name, String Product_img, int User_Id, int Brand_id, String Category_name, float Price, String Size, Product_Detail Product_detail) {
+
+    public Product(int Product_id, int Quantity, String Product_name, String Product_img, int User_Id, int Brand_id, String Category_name, float Price, String Size, String Description, Product_Detail Product_detail) {
+
         this.Product_id = Product_id;
         this.Quantity = Quantity;
         this.Product_name = Product_name;
@@ -35,6 +42,23 @@ public class Product {
         this.Price = Price;
         this.Size = Size;
         this.Product_detail = Product_detail;
+        this.Description = Description;
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String Description) {
+        this.Description = Description;
+    }
+
+    public String getCategory_name() {
+        return Category_name;
+    }
+
+    public void setCategory_name(String Category_name) {
+        this.Category_name = Category_name;
     }
 
     public int getProduct_id() {
@@ -85,16 +109,18 @@ public class Product {
         this.Brand_id = Brand_id;
     }
 
-    public String getCategory_name() {
-        return Category_name;
-    }
-
-    public void setCategory_name(String Category_name) {
-        this.Category_name = Category_name;
-    }
-
     public float getPrice() {
         return Price;
+    }
+
+    public String getPriceString() {
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.getDefault());
+        symbols.setGroupingSeparator('.');
+        decimalFormat.setDecimalFormatSymbols(symbols);
+        String formattedNumber = decimalFormat.format(Price);
+        String result = formattedNumber + "đ";
+        return result;
     }
 
     public void setPrice(float Price) {

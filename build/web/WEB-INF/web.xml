@@ -37,7 +37,7 @@
         <servlet-class>vn.fpt.edu.controller.UserChangeImageController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ListCategoryController</servlet-name>
+        <servlet-name>ListProductController</servlet-name>
         <servlet-class>homepage.controller.ListProductController</servlet-class>
     </servlet>
     <servlet>
@@ -67,6 +67,10 @@
     <servlet>
         <servlet-name>AddToCartController</servlet-name>
         <servlet-class>vn.fpt.edu.controller.AddToCartController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderListBillController</servlet-name>
+        <servlet-class>vn.fpt.edu.salecontroller.OrderListBillController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserRegisterController</servlet-name>
@@ -105,8 +109,8 @@
         <url-pattern>/chageImage</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ListCategoryController</servlet-name>
-        <url-pattern>/ListCategory</url-pattern>
+        <servlet-name>ListProductController</servlet-name>
+        <url-pattern>/ListProduct</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserLogoutController</servlet-name>
@@ -139,6 +143,10 @@
     <servlet-mapping>
         <servlet-name>AddToCartController</servlet-name>
         <url-pattern>/addToCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderListBillController</servlet-name>
+        <url-pattern>/orderListBillController</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home</welcome-file>

@@ -52,7 +52,7 @@ public class CustomerHomeController extends HttpServlet {
         request.setAttribute("size", n);
         request.setAttribute("data", data.getAllProduct());
         session.setAttribute("cates", d.getAllCate());
-        session.setAttribute("list", data.getSellingProduct());
+        session.setAttribute("list", data.getSellingProduct1());
         session.setAttribute("phone", data.getProductByPrice());
         session.setAttribute("tivi", data.getTiviByPrice());
         session.setAttribute("newproduct", data.getNewProduct());

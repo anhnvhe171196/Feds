@@ -223,4 +223,19 @@ public class User_DAO extends DBContext {
         }
         return null;
     }
+
+    public int getTotalNumberOfUsers() {
+        int totalNumberOfUsers = 0;
+        String sql = "SELECT COUNT(*) AS TotalCount FROM [User];";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                totalNumberOfUsers = rs.getInt("TotalCount");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return totalNumberOfUsers;
+    }
 }

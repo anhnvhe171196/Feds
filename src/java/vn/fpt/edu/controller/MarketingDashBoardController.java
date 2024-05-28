@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package vn.fpt.edu.controller;
 
 import java.io.IOException;
@@ -14,14 +13,19 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import vn.fpt.edu.dals.Bill_DAO;
-import vn.fpt.edu.models.Bill;
+import vn.fpt.edu.dals.Feedback_DAO;
+import vn.fpt.edu.dals.Feedback_DAO;
+import vn.fpt.edu.dals.Order_DAO;
+import vn.fpt.edu.dals.Product_DAO;
+import vn.fpt.edu.dals.User_DAO;
+import vn.fpt.edu.models.Feedback;
 
 /**
  *
  * @author admin
  */
 public class MarketingDashBoardController extends HttpServlet {
-   
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -31,35 +35,32 @@ public class MarketingDashBoardController extends HttpServlet {
         HttpSession session = request.getSession(true);
         String action = request.getParameter("action");
         PrintWriter out = response.getWriter();
+        Feedback_DAO fd = new Feedback_DAO();
+        User_DAO u = new User_DAO();
         Bill_DAO bd = new Bill_DAO();
-        
-        if (action == null) {
-            int numOfBills = bd.getNumOfBillCurrentDate();
-            int sumOfDoneBills = bd.getSumOfDoneBill();
+        Product_DAO pb = new Product_DAO();
+        Order_DAO od = new Order_DAO();
 
-            session.setAttribute("numOfBills", numOfBills);
-            session.setAttribute("sumOfDoneBills", sumOfDoneBills);
+        int numOfFeedbacks = fd.getNumOfFeedbackCurrentDate();
+        int sumOfFeedbacks = fd.getTotalNumberOfFeedbacks();
+        int numOfUser = u.getTotalNumberOfUsers();
+        int numOfBills = bd.getNumOfBillCurrentDate();
+        int sumOfDoneBills = bd.getSumOfDoneBill();
+        int numOfProducts = pb.getTotalNumberOfProducts();
+        int NumOfProductsSold = od.getNumOfProductsSold();
 
-            List<Bill> billList = bd.getBillAllWithUser();
-            session.setAttribute("billList", billList);
-            request.getRequestDispatcher("OrderProcessor.jsp").forward(request, response);
-        }
+        request.setAttribute("numOfBills", numOfBills);
+        request.setAttribute("sumOfDoneBills", sumOfDoneBills);
+        request.setAttribute("numOfFeedbacks", numOfFeedbacks);
+        request.setAttribute("sumOfFeedbacks", sumOfFeedbacks);
+        request.setAttribute("numOfUser", numOfUser);
+        request.setAttribute("numOfProducts", numOfProducts);
+        request.setAttribute("NumOfProductsSold", NumOfProductsSold);
 
-        else if(action.equals("sumByMonth")){ 
-            int numOfBills = bd.getNumOfBillCurrentDate();
-            int sumOfDoneBills = bd.getSumOfDoneBill();
-            int month = Integer.parseInt(request.getParameter("month"));
-            double sumOfBillByMonth = bd.getSumOfBillByMonth(month);
-            
-            session.setAttribute("numOfBills", numOfBills);
-            session.setAttribute("sumOfDoneBills", sumOfDoneBills);
-            session.setAttribute("sumOfBillByMonth", sumOfBillByMonth);
-            List<Bill> billList = bd.getBillAllWithUser();
-            session.setAttribute("billList", billList);
-            session.setAttribute("month", month);
-            
-            request.getRequestDispatcher("OrderProcessor.jsp").forward(request, response);
-        }
+        List<Feedback> FeedbackList = fd.getFeedbackAllWithUser();
+        session.setAttribute("FeedbackList", FeedbackList);
+        request.getRequestDispatcher("OrderProcessor.jsp").forward(request, response);
+
     }
 
     /**

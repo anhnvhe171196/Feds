@@ -35,7 +35,7 @@ public class UserChangeImageController extends HttpServlet {
         try {
             String email = request.getParameter("email");
             Part part = request.getPart("photo");
-            String readpath = getServletContext().getRealPath("/" + "images");
+            String readpath = getServletContext().getRealPath("/images");
             String filename = Path.of(part.getSubmittedFileName()).getFileName().toString();
             if (!Files.exists(Path.of(readpath))) {
                 Files.createDirectories(Path.of(readpath));
