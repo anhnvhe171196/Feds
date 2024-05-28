@@ -134,17 +134,7 @@ public class Product_DAO extends DBContext {
         return list;
     }
 
-    public static void main(String[] args) {
-
-        Product_DAO data = new Product_DAO();
-        // Gọi phương thức getSellingProduct
-        List<Product> products = data.getTiviByPrice();
-
-        // In ra kết quả để kiểm tra
-        for (Product product : products) {
-            System.out.println(product.getProduct_name() + "/ " + product.getProduct_img() + "/ " + product.getCategory_name() + "/ " + product.getPrice() + "/ " + product.getSize());
-        }
-    }
+    
 
     public List<Product> getProductByPrice() {
         List<Product> list = new ArrayList<>();

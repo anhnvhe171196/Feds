@@ -218,7 +218,7 @@
                                             <div class="me-2">
                                                 <label for="month-sales" class="form-label">Chọn tháng:</label>
                                                 <select id="month-sales" class="form-select" name="month1">
-                                                    <option ${sessionScope.monthtrend==all?"selected":""} value="all">Cả năm</option>
+                                                    <option ${sessionScope.monthtrend==0?"selected":""} value="0">Cả năm</option>
                                                     <option ${sessionScope.monthtrend==1?"selected":""} value="1">Tháng 1</option>
                                                     <option ${sessionScope.monthtrend==2?"selected":""} value="2">Tháng 2</option>
                                                     <option ${sessionScope.monthtrend==3?"selected":""} value="3">Tháng 3</option>
@@ -269,11 +269,11 @@
 
                                             <div class="me-2">
                                                 <label for="start-date-priority" class="form-label">Ngày bắt đầu:</label>
-                                                <input type="date" id="start-date-priority" value="${sessionScope.start}" class="form-control" name="startdate">
+                                                <input type="date" id="start-date-priority" value="${sessionScope.startDatechart3}" class="form-control" name="startdate">
                                             </div>
                                             <div class="me-2">
                                                 <label for="end-date-priority" class="form-label">Ngày kết thúc:</label>
-                                                <input type="date" id="end-date-priority" value="${sessionScope.end}" class="form-control" name="enddate">
+                                                <input type="date" id="end-date-priority" value="${sessionScope.endDatechart3}" class="form-control" name="enddate">
                                             </div>
                                             <div>
                                                 <button id="show-priority" class="btn btn-primary mt-4">Xem</button>
@@ -335,13 +335,13 @@
                     <div class="bg-light rounded-top p-4">
                         <div class="row">
                             <div class="col-12 col-sm-6 text-center text-sm-start">
-                                &copy; <a href="#">Your Site Name</a>, All Right Reserved. 
+                                &copy; <a href="/Feds/home">F Electronic Shop.</a>
                             </div>
                             <div class="col-12 col-sm-6 text-center text-sm-end">
                                 <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                                Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+                                Designed By <a href="#">...</a>
                                 </br>
-                                Distributed By <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
+                                Distributed By <a class="border-bottom" href="#" target="_blank">...</a>
                             </div>
                         </div>
                     </div>
@@ -367,7 +367,7 @@
         <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
         <!-- Template Javascript -->
-        <script src="js/main.js"></script>
+        <script src="js/mainsale.js"></script>
 
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>

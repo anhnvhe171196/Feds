@@ -103,28 +103,7 @@ public class Data_SaleDashboard_DAO extends DBContext {
         List<Product> list = new ArrayList<>();
         String sql;
 
-        if ("all".equalsIgnoreCase(month)) {
-            sql = "SELECT\n"
-                    + "    pc.Category_name,\n"
-                    + "    COUNT(DISTINCT b.Bill_id) AS Bill_Count\n"
-                    + "FROM\n"
-                    + "    [Bill] b\n"
-                    + "JOIN\n"
-                    + "    [Order] o ON b.Bill_id = o.Bill_id\n"
-                    + "JOIN\n"
-                    + "    Product p ON o.Product_id = p.Product_id\n"
-                    + "JOIN\n"
-                    + "    Brandd br ON p.Brand_id = br.Brand_id\n"
-                    + "JOIN\n"
-                    + "    Product_Category pc ON br.Category_id = pc.Category_id\n"
-                    + "WHERE\n"
-                    + "    YEAR(b.Date) = ?\n"
-                    + "    AND b.Status = 'Done'\n"
-                    + "GROUP BY\n"
-                    + "    pc.Category_name\n"
-                    + "ORDER BY\n"
-                    + "    pc.Category_name ASC;";
-        } else {
+        if (!"0".equalsIgnoreCase(month)) {
             sql = "SELECT\n"
                     + "    pc.Category_name,\n"
                     + "    COUNT(DISTINCT b.Bill_id) AS Bill_Count\n"
@@ -145,13 +124,34 @@ public class Data_SaleDashboard_DAO extends DBContext {
                     + "    pc.Category_name\n"
                     + "ORDER BY\n"
                     + "    pc.Category_name ASC;";
+        } else {
+            sql = "SELECT\n"
+                    + "    pc.Category_name,\n"
+                    + "    COUNT(DISTINCT b.Bill_id) AS Bill_Count\n"
+                    + "FROM\n"
+                    + "    [Bill] b\n"
+                    + "JOIN\n"
+                    + "    [Order] o ON b.Bill_id = o.Bill_id\n"
+                    + "JOIN\n"
+                    + "    Product p ON o.Product_id = p.Product_id\n"
+                    + "JOIN\n"
+                    + "    Brandd br ON p.Brand_id = br.Brand_id\n"
+                    + "JOIN\n"
+                    + "    Product_Category pc ON br.Category_id = pc.Category_id\n"
+                    + "WHERE\n"
+                    + "    YEAR(b.Date) = ?\n"
+                    + "    AND b.Status = 'Done'\n"
+                    + "GROUP BY\n"
+                    + "    pc.Category_name\n"
+                    + "ORDER BY\n"
+                    + "    pc.Category_name ASC;";
         }
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
 
             st.setString(1, year);
-            if (!"all".equalsIgnoreCase(month)) {
+            if (!"0".equalsIgnoreCase(month)) {
                 st.setString(2, month);
             }
 
@@ -167,16 +167,6 @@ public class Data_SaleDashboard_DAO extends DBContext {
         }
         return list;
     }
-    public static void main(String[] args) {
-
-        Data_SaleDashboard_DAO data = new Data_SaleDashboard_DAO();
-        // Gọi phương thức getSellingProduct
-        List<Product> products = data.getTrendCategory("5", "2024");
-
-        // In ra kết quả để kiểm tra
-        for (Product product : products) {
-            System.out.println(product.getProduct_name() + "/ "+ product.getProduct_img() + "/ " + product.getCategory_name() + "/ " + product.getPrice() + "/ " + product.getSize());
-        }
-    }
+    
 
 }
