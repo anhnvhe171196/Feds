@@ -122,7 +122,11 @@ public class Bill_DAO extends DBContext {
         return list;
     }
 
-    
+    public static void main(String[] args) {
+        Bill_DAO bd = new Bill_DAO();
+        List<Bill> bills = bd.getBillAllWithUser();
+        System.out.println(bills.size());
+    }
     
     public double getSumOfBillByMonth(int month) {
         double sumOfDoneBill = 0;
