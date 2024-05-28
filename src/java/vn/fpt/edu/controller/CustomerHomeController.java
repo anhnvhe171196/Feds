@@ -6,6 +6,7 @@ package vn.fpt.edu.controller;
 
 import java.io.IOException;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import vn.fpt.edu.dals.Category_DAO;
 import vn.fpt.edu.dals.Product_DAO;
+import vn.fpt.edu.models.Cart;
+import vn.fpt.edu.models.Item;
 import vn.fpt.edu.models.Product;
 
 /**
@@ -28,11 +31,26 @@ public class CustomerHomeController extends HttpServlet {
         HttpSession session = request.getSession();
         Category_DAO d = new Category_DAO();
         Product_DAO data = new Product_DAO();
-//        List<Product> listSellingProduct = data.getSellingProduct();
-//        List<Product> list = new ArrayList<>();
-//        for (Product product : listSellingProduct) {
-//            list.add(product);
-//        }
+        Cookie[] arr = request.getCookies();
+        String txt="";
+        if(arr!=null) { 
+            for (Cookie o : arr) {
+                if(o.getName().equals("cart")) { 
+                    txt+=o.getValue();
+                }
+            }
+        }
+        
+        Cart cart = new Cart(txt, data.getAllProduct());
+        List<Item> listItem = cart.getItems();
+        int n;
+        if(listItem != null) { 
+            n = listItem.size();
+        } else 
+            n = 0;
+        
+        request.setAttribute("size", n);
+        request.setAttribute("data", data.getAllProduct());
         session.setAttribute("cates", d.getAllCate());
         session.setAttribute("list", data.getSellingProduct());
         session.setAttribute("phone", data.getProductByPrice());

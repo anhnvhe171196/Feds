@@ -19,11 +19,12 @@ public class Product {
     private String Category_name;
     private float Price;
     private String Size;
+    private Product_Detail Product_detail;
 
     public Product() {
     }
 
-    public Product(int Product_id, int Quantity, String Product_name, String Product_img, int User_Id, int Brand_id, String Category_name, float Price, String Size) {
+    public Product(int Product_id, int Quantity, String Product_name, String Product_img, int User_Id, int Brand_id, String Category_name, float Price, String Size, Product_Detail Product_detail) {
         this.Product_id = Product_id;
         this.Quantity = Quantity;
         this.Product_name = Product_name;
@@ -33,14 +34,7 @@ public class Product {
         this.Category_name = Category_name;
         this.Price = Price;
         this.Size = Size;
-    }
-
-    public String getCategory_name() {
-        return Category_name;
-    }
-
-    public void setCategory_name(String Category_name) {
-        this.Category_name = Category_name;
+        this.Product_detail = Product_detail;
     }
 
     public int getProduct_id() {
@@ -91,6 +85,14 @@ public class Product {
         this.Brand_id = Brand_id;
     }
 
+    public String getCategory_name() {
+        return Category_name;
+    }
+
+    public void setCategory_name(String Category_name) {
+        this.Category_name = Category_name;
+    }
+
     public float getPrice() {
         return Price;
     }
@@ -107,5 +109,14 @@ public class Product {
         this.Size = Size;
     }
 
+    public Product_Detail getProduct_detail() {
+        return Product_detail;
+    }
+
+    public void setProduct_detail(Product_Detail Product_detail) {
+        this.Product_detail = Product_detail;
+    }
+
+    
     
 }
