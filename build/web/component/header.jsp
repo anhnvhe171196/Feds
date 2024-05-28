@@ -95,18 +95,25 @@
                         <!-- SEARCH BAR -->
                         <div class="row col-md-7">
                             <div class="header-search">
-
+                                <script>
+                                    function ChangeCate(e) {
+                                        window.location.href = "ListProduct?cateid="+e.value+"<c:if test="${param.search != null}">&search=${param.search}</c:if>";
+                                    }
+                                </script>
                                 <form class="col-md-4">
-                                    <select class="input-select" name="cateid"  style="width: 216px;">
-                                        <option value="" selected>Loại Sản Phẩm</option>
+                                    <select class="input-select" name="cateid"  style="width: 216px;" onchange="ChangeCate(this)">
+                                        <option selected>Loại Sản Phẩm</option>
                                         <c:forEach items="${sessionScope.cates}" var="cate">
 
-                                            <option type ="submit" href="PostList?cateid=${cate.getCategory_id()}">${cate.getCategory_name()}</option>
+                                            <option value="${cate.getCategory_id()}">${cate.getCategory_name()}</option>
                                         </c:forEach>
                                     </select>
                                 </form>                                    
-                                <form method="get" class="col-md-8" action="ListCategory">
-                                    <input name="search" class="input" placeholder="Search here" style="width: 200px">
+                                <form method="get" class="col-md-8" action="ListProduct">
+                                    <input name="search" class="input" placeholder="Search here" style="width: 200px" value="<c:if test="${param.search != null}">${param.search}</c:if>">
+                                    <c:if test="${param.cateid != null}">
+                                    <input name="cateid" type="hidden" value="${param.cateid}">
+                                    </c:if>
                                     <button type="submit" class="search-btn">Search</button>
                                 </form>
 
