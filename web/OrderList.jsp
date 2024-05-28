@@ -117,61 +117,26 @@
                             <table class="table text-start align-middle table-bordered table-hover mb-0">
                                 <thead>
                                     <tr class="text-dark">
-                                        <th scope="col"><input class="form-check-input" type="checkbox"></th>
-                                        <th scope="col">Date</th>
-                                        <th scope="col">Invoice</th>
-                                        <th scope="col">Customer</th>
-                                        <th scope="col">Amount</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Action</th>
+                                        <th scope="col">Ngày</th>
+                                        <th scope="col">Mã Đơn</th>
+                                        <th scope="col">Khách Hàng</th>
+                                        <th scope="col">Địa Chỉ</th>
+                                        <th scope="col">Giá Trị</th>
+                                        <th scope="col">Trạng Thái</th>
+                                        <th scope="col">Hành Động</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><input class="form-check-input" type="checkbox"></td>
                                         <td>01 Jan 2045</td>
-                                        <td>INV-0123</td>
-                                        <td>Jhon Doe</td>
+                                        <td>101</td>
+                                        <td>Vu Duc Trong</td>
+                                        <td>Ha Noi - Viet Nam</td>
                                         <td>$123</td>
-                                        <td>Paid</td>
-                                        <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+                                        <td>Đang xử lý</td>
+                                        <td><a class="btn btn-sm btn-primary" href="/OrderDetail.jsp">Detail</a></td>
                                     </tr>
-                                    <tr>
-                                        <td><input class="form-check-input" type="checkbox"></td>
-                                        <td>01 Jan 2045</td>
-                                        <td>INV-0123</td>
-                                        <td>Jhon Doe</td>
-                                        <td>$123</td>
-                                        <td>Paid</td>
-                                        <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input class="form-check-input" type="checkbox"></td>
-                                        <td>01 Jan 2045</td>
-                                        <td>INV-0123</td>
-                                        <td>Jhon Doe</td>
-                                        <td>$123</td>
-                                        <td>Paid</td>
-                                        <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input class="form-check-input" type="checkbox"></td>
-                                        <td>01 Jan 2045</td>
-                                        <td>INV-0123</td>
-                                        <td>Jhon Doe</td>
-                                        <td>$123</td>
-                                        <td>Paid</td>
-                                        <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input class="form-check-input" type="checkbox"></td>
-                                        <td>01 Jan 2045</td>
-                                        <td>INV-0123</td>
-                                        <td>Jhon Doe</td>
-                                        <td>$123</td>
-                                        <td>Paid</td>
-                                        <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                                    </tr>
+
                                 </tbody>
                             </table>
                         </div>

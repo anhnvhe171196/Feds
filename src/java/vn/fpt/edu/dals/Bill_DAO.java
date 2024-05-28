@@ -34,6 +34,40 @@ public class Bill_DAO extends DBContext {
         return numOfBill;
     }
 
+    public List<Bill> getSumRevenueByDay(String startDate, String endDate) {
+        List<Bill> list = new ArrayList<>();
+        String sql = "SELECT\n"
+                + "    Date AS Ngay,\n"
+                + "    SUM(Total_price) AS TongTien\n"
+                + "FROM\n"
+                + "    [Feds].[dbo].[Bill]\n"
+                + "WHERE\n"
+                + "    Date BETWEEN ? AND ?\n"
+                + "    AND Status = 'Done'\n"
+                + "GROUP BY\n"
+                + "    Date\n"
+                + "ORDER BY\n"
+                + "    Date ASC;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+
+            st.setString(1, startDate);
+            st.setString(2, endDate);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+
+                Bill bill = new Bill();
+                bill.setDate(rs.getString(1));
+
+                bill.setTotal_price(rs.getInt(2));
+                list.add(bill);
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
     public int getSumOfDoneBill() {
         int sumOfDoneBill = 0;
         String sql = "SELECT SUM(Total_price) AS Sum \n"
