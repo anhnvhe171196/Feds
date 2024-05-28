@@ -90,6 +90,7 @@
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>List</a>
                             <div class="dropdown-menu bg-transparent border-0">
                                 <a href="OrderProcessorTable.jsp" class="dropdown-item">Products List</a>
+                                <a href="#" class="dropdown-item">Post list</a>
                                 <a href="#" class="dropdown-item">Sliders List</a>
                                 <a href="#" class="dropdown-item">Customer list</a>
                                 <a href="#" class="dropdown-item">Feedback list</a>
@@ -235,7 +236,7 @@
                             <div class="col-sm-12 col-xl-12">
                                 <div class="bg-light text-center rounded p-4">
                                     <div class="d-flex align-items-center justify-content-between mb-4">
-                                        <h6 class="mb-0">Sản phẩm bán chạy</h6>
+                                        <h6 class="mb-0">Xu Hướng mua hàng</h6>
                                         <div class="d-flex">
                                             <div class="me-2">
                                                 <label for="quantity" class="form-label">Số lượng sản phẩm:</label>
