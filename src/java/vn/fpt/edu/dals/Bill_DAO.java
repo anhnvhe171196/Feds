@@ -85,7 +85,7 @@ public class Bill_DAO extends DBContext {
         return sumOfDoneBill;
     }
 
-    public List<Bill> getBillAllWithUser() {
+    public List<Bill> getBillAllWithUserToday() {
         List<Bill> list = new ArrayList<>();
         String sql = "SELECT Bill.*, U.User_name\n"
                 + "FROM Bill\n"
@@ -103,7 +103,27 @@ public class Bill_DAO extends DBContext {
         }
         return list;
     }
+    
+    public List<Bill> getBillAllWithUser() {
+        List<Bill> list = new ArrayList<>();
+        String sql = "SELECT Bill.*, U.User_name\n"
+                + "FROM Bill\n"
+                + "JOIN [User] AS U ON Bill.User_Id = U.User_Id\n"; 
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Bill u = new Bill(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"), rs.getInt("User_id"), rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
+                list.add(u);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
 
+    
+    
     public double getSumOfBillByMonth(int month) {
         double sumOfDoneBill = 0;
         String sql = "SELECT SUM(Total_price) AS TongTienBanDuoc\n"
@@ -174,4 +194,6 @@ public class Bill_DAO extends DBContext {
         }
         return sumOfDoneBill;
     }
+    
+    
 }

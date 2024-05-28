@@ -5,7 +5,6 @@
 
 package vn.fpt.edu.salecontroller;
 
-import vn.fpt.edu.dals.Data_SaleDashboard_DAO;
 import vn.fpt.edu.models.Bill;
 
 import java.io.IOException;

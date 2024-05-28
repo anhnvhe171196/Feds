@@ -16,7 +16,6 @@ import jakarta.servlet.http.HttpSession;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import vn.fpt.edu.dals.Data_SaleDashboard_DAO;
 import vn.fpt.edu.dals.Product_DAO;
 import vn.fpt.edu.models.Product;
 
@@ -63,7 +62,7 @@ public class BillOrderController extends HttpServlet {
             session.setAttribute("numOfBills", numOfBills);
             session.setAttribute("sumOfDoneBills", sumOfDoneBills);
             session.setAttribute("sumOfBillByMonth", sumOfBillByMonth);
-            List<Bill> billList = bd.getBillAllWithUser();
+            List<Bill> billList = bd.getBillAllWithUserToday();
             session.setAttribute("billList", billList);
             request.getRequestDispatcher("SaleHome.jsp").forward(request, response);
         } else if (action.equals("sumByMonth")) {
@@ -75,7 +74,7 @@ public class BillOrderController extends HttpServlet {
             session.setAttribute("numOfBills", numOfBills);
             session.setAttribute("sumOfDoneBills", sumOfDoneBills);
             session.setAttribute("sumOfBillByMonth", sumOfBillByMonth);
-            List<Bill> billList = bd.getBillAllWithUser();
+            List<Bill> billList = bd.getBillAllWithUserToday();
             session.setAttribute("billList", billList);
             session.setAttribute("month", month);
 
