@@ -76,7 +76,7 @@ public class Cart {
                 int quantity = Integer.parseInt(n[1]);
                 Product p = getProductById(id, list);
                 Item t = new Item(p, quantity, p.getPrice()*2);
-                addItem(t);
+//                addItem(t);
             }
         }
         } catch (NumberFormatException e) {
