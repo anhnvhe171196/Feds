@@ -31,7 +31,7 @@
         <!-- Custom stlylesheet -->
         <link type="text/css" rel="stylesheet" href="css/style.css"/>
         <link rel="stylesheet" href="css/home.css" type="text/css">
-
+        
     </head>
     <body>
         <!-- /HEADER -->
@@ -180,9 +180,9 @@
             <!-- /container -->
         </div>
         <!-- /SECTION -->
-
+        
         <!-- HOT DEAL SECTION -->
-        <div id="hot-deal" class="section">
+        <div id="hot-deal" class="section" style="background-image: url(./images/hotdeal.png)">
             <!-- container -->
             <div class="container">
                 <!-- row -->

@@ -65,6 +65,10 @@
         <servlet-class>vn.fpt.edu.common.UserRandomPassword</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AddToCartController</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.AddToCartController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>OrderListBillController</servlet-name>
         <servlet-class>vn.fpt.edu.salecontroller.OrderListBillController</servlet-class>
     </servlet>
@@ -139,6 +143,10 @@
     <servlet-mapping>
         <servlet-name>UserRandomPassword</servlet-name>
         <url-pattern>/userRandomPassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddToCartController</servlet-name>
+        <url-pattern>/addToCart</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>OrderListBillController</servlet-name>

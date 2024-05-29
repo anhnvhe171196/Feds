@@ -90,6 +90,7 @@
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>List</a>
                             <div class="dropdown-menu bg-transparent border-0">
                                 <a href="OrderProcessorTable.jsp" class="dropdown-item">Products List</a>
+                                <a href="#" class="dropdown-item">Post list</a>
                                 <a href="#" class="dropdown-item">Sliders List</a>
                                 <a href="#" class="dropdown-item">Customer list</a>
                                 <a href="#" class="dropdown-item">Feedback list</a>
@@ -162,7 +163,7 @@
                                 <i class="fa fa-chart-line fa-3x text-primary"></i>
                                 <div class="ms-3">
                                     <p class="mb-2">Số bài đánh giá hôm nay</p>
-                                    <h6 class="mb-0">${sessionScope.numOfFeedbacks}</h6>
+                                    <h6 class="mb-0">${numOfFeedbacks}</h6>
                                 </div>
                             </div>
                         </div>
@@ -173,7 +174,7 @@
                                 <i class="fa fa-chart-pie fa-3x text-primary"></i>
                                 <div class="ms-3">
                                     <p class="mb-2">Tổng số bài đánh giá</p>
-                                    <h6 class="mb-0">${sessionScope.sumOfFeedbacks}</h6>
+                                    <h6 class="mb-0">${sumOfFeedbacks}</h6>
 
                                 </div>
                             </div>
@@ -184,7 +185,7 @@
                                 <i class="fa fa-chart-line fa-3x text-primary"></i>
                                 <div class="ms-3">
                                     <p class="mb-2">Số Lượng người dùng</p>
-                                    <h6 class="mb-0">${sessionScope.numOfUser}</h6>
+                                    <h6 class="mb-0">${numOfUser}</h6>
                                 </div>
                             </div>
                         </div>
@@ -197,7 +198,7 @@
                                 <i class="fa fa-chart-line fa-3x text-primary"></i>
                                 <div class="ms-3">
                                     <p class="mb-2">Số đơn hàng hôm nay</p>
-                                    <h6 class="mb-0">${sessionScope.numOfBills}</h6>
+                                    <h6 class="mb-0">${numOfBills}</h6>
                                 </div>
                             </div>
                         </div>
@@ -208,7 +209,7 @@
                                 <i class="fa fa-chart-pie fa-3x text-primary"></i>
                                 <div class="ms-3">
                                     <p class="mb-2">Tổng số sản phẩm hiện có</p>
-                                    <h6 class="mb-0">${sessionScope.numOfProducts}</h6>
+                                    <h6 class="mb-0">${numOfProducts}</h6>
 
                                 </div>
                             </div>
@@ -219,7 +220,7 @@
                                 <i class="fa fa-chart-line fa-3x text-primary"></i>
                                 <div class="ms-3">
                                     <p class="mb-2">Số sản phẩm đã bán</p>
-                                    <h6 class="mb-0">${sessionScope.NumOfProductsSold}</h6>
+                                    <h6 class="mb-0">${NumOfProductsSold}</h6>
                                 </div>
                             </div>
                         </div>
@@ -235,7 +236,7 @@
                             <div class="col-sm-12 col-xl-12">
                                 <div class="bg-light text-center rounded p-4">
                                     <div class="d-flex align-items-center justify-content-between mb-4">
-                                        <h6 class="mb-0">Sản phẩm bán chạy</h6>
+                                        <h6 class="mb-0">Xu Hướng mua hàng</h6>
                                         <div class="d-flex">
                                             <div class="me-2">
                                                 <label for="quantity" class="form-label">Số lượng sản phẩm:</label>
@@ -344,113 +345,9 @@
                 }
             });
         </script>
-        <script>
-            var bills = [];
-            var sumByDays = [];
-            <c:forEach items="${sessionScope.bill}" var="val" varStatus="loop">
-            bills.push("${val}");
-            </c:forEach>
-
-            <c:forEach items="${sessionScope.sumByDay}" var="val" varStatus="loop">
-            sumByDays.push(${val});
-            </c:forEach>
-            var ctx = document.getElementById('income').getContext('2d');
-            var myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: bills,
-                    datasets: [{
-                            label: 'Sản phẩm bán được',
-                            data: sumByDays,
-                            borderWidth: 1
-                        }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false // Ẩn legend
-                        }
-                    },
-                    text: {
-                        color: 'black', // Màu chữ
-                        align: 'center', // Căn chỉnh chữ
-                        font: {
-                            size: 12, // Kích thước chữ
-                        }
-                    }
-                }
-            });
-        </script>
-        <script>
-            var Productlist = [];
-            var quantity = [];
-            <c:forEach items="${sessionScope.ProductCategory}" var="val" varStatus="loop">
-            Productlist.push("${val}");
-            </c:forEach>
-
-            <c:forEach items="${sessionScope.Quan}" var="val" varStatus="loop">
-            quantity.push(${val});
-            </c:forEach>
-            var ctx = document.getElementById('trending').getContext('2d');
-            var myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: Productlist,
-                    datasets: [{
-                            label: 'Sản phẩm bán được',
-                            data: quantity,
-                            borderWidth: 1
-                        }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false // Ẩn legend
-                        }
-                    },
-                    text: {
-                        color: 'black', // Màu chữ
-                        align: 'center', // Căn chỉnh chữ
-                        font: {
-                            size: 12, // Kích thước chữ
-                        }
-                    }
-                }
-            });
-        </script>
 
 
-
-        <script>
-            function sendSelectedMonth() {
-                const selectedMonth = document.getElementById("monthSelect").value;
-                window.location.href = `/Feds/marketingDashBoard?action=sumByMonth&month=` + selectedMonth;
-            }
-
-            document.getElementById('show-sales').addEventListener('click', function () {
-                sendData('start-date-sales', 'end-date-sales', 'sales');
-            });
-            document.getElementById('show-priority').addEventListener('click', function () {
-                sendData('start-date-priority', 'end-date-priority', 'priority');
-            });
-            document.getElementById('show-sales').addEventListener('click', function () {
-                var startDate = document.getElementById('start-date-sales').value;
-                var endDate = document.getElementById('end-date-sales').value;
-                var url = `/Feds/marketingDashBoard?action=chart1&startdate=${startDate}&enddate=${endDate}`;
-                window.location.href = url;
-            });
-        </script>
-        <script>
+       <script>
             $('.sidebar-toggler').click(function () {
                 $('.sidebar, .content').toggleClass("open");
                 return false;
