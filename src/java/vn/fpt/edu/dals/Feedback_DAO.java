@@ -4,13 +4,15 @@
  */
 package vn.fpt.edu.dals;
 
-import vn.fpt.edu.models.Feedback1;
+import vn.fpt.edu.models.FeedBack;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import vn.fpt.edu.models.Bill;
 import vn.fpt.edu.models.Product1;
+import vn.fpt.edu.models.User;
 
 /**
  *
@@ -52,30 +54,53 @@ public class Feedback_DAO extends DBContext {
 }
 
 
-    public List<Feedback1> getFeedbackAllWithUser() {
-        List<Feedback1> list = new ArrayList<>();
-        String sql = "SELECT F.*, U.User_name\n"
-                + "FROM FeedBack AS F\n"
-                + "JOIN [User] AS U ON F.User_Id = U.User_Id\n";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                Feedback1 feedback = new Feedback1();
-                feedback.setFeedbackId(rs.getInt("Feedback_Id"));
-                feedback.setTotalPrice(rs.getDouble("Total_price"));
-                feedback.setDate(rs.getString("Date"));
-                feedback.setUserId(rs.getInt("User_id"));
-                feedback.setAddress(rs.getString("Address"));
-                feedback.setStatus(rs.getString("Status"));
-                feedback.setUserName(rs.getString("User_name"));
-                list.add(feedback);
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
+    public List<FeedBack> getFeedbackAllWithUser() {
+    List<FeedBack> list = new ArrayList<>();
+    String sql = "SELECT F.Comment, F.Date AS FeedbackDate, F.Rating, F.Img, " +
+                 "B.Bill_id, B.Total_price, B.Date AS BillDate, B.Address, B.Status, " +
+                 "U.User_Id, U.User_name, U.Password, U.Email, U.Phone_number, U.Avarta " +
+                 "FROM FeedBack AS F " +
+                 "JOIN Bill AS B ON F.Bill_Id = B.Bill_id " +
+                 "JOIN [User] AS U ON B.User_Id = U.User_Id";
+
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        ResultSet rs = st.executeQuery();
+        while (rs.next()) {
+            // Tạo đối tượng User
+            User user = new User();
+            user.setUser_Id(rs.getInt("User_Id"));
+            user.setUser_name(rs.getString("User_name"));
+            user.setPassword(rs.getString("Password"));
+            user.setEmail(rs.getString("Email"));
+            user.setPhone_number(rs.getString("Phone_number"));
+            user.setAvarta(rs.getString("Avarta"));
+
+            // Tạo đối tượng Bill
+            Bill bill = new Bill();
+            bill.setBill_id(rs.getInt("Bill_id"));
+            bill.setTotal_price(rs.getDouble("Total_price"));
+            bill.setDate(rs.getString("BillDate"));
+            bill.setAddress(rs.getString("Address"));
+            bill.setStatus(rs.getString("Status"));
+            bill.setUser(user);
+
+            // Tạo đối tượng Feedback
+            FeedBack feedback = new FeedBack();
+            feedback.setComment(rs.getString("Comment"));
+            feedback.setDate(rs.getDate("FeedbackDate"));
+            feedback.setRating(rs.getInt("Rating"));
+            feedback.setBill(bill);
+            feedback.setImg(rs.getString("Img"));
+
+            list.add(feedback);
         }
-        return list;
+    } catch (SQLException e) {
+        System.out.println(e);
     }
+    return list;
+}
+
 
     
 
