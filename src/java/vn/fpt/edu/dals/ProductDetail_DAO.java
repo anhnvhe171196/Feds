@@ -9,8 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import vn.fpt.edu.models.Product;
 import vn.fpt.edu.models.Product1;
+import vn.fpt.edu.models.Product;
 import vn.fpt.edu.models.ProductDetail;
 
 /**
@@ -39,9 +39,9 @@ public class ProductDetail_DAO extends DBContext {
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 Product_DAO pd = new Product_DAO();
-                Product p = pd.getProductById(rs.getInt("Product_id"));
-                return new ProductDetail(rs.getString("RAM"), rs.getString("RAM"), rs.getString("RAM"), rs.getString("RAM"), rs.getString("RAM"), rs.getString("RAM"),
-                        rs.getString("RAM"), rs.getString("RAM"), rs.getString("RAM"), rs.getString("RAM"), p);
+                Product1 p = pd.getProductById(rs.getInt("Product_id"));
+                return new ProductDetail(rs.getString("RAM"), rs.getString("ROM"), rs.getString("Size"), rs.getString("Battery"), rs.getString("Weight"), rs.getString("Color"),
+                        rs.getString("Decription"), rs.getString("CPU"), rs.getString("Wattage"), rs.getString("Status"), p);
             }
         } catch (SQLException e) {
             System.out.println(e);

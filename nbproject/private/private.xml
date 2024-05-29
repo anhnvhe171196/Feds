@@ -3,15 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Feds/Feds/src/java/vn/fpt/edu/models/Product1.java</file>
-            <file>file:/E:/Feds/Feds/src/java/vn/fpt/edu/models/Product.java</file>
-            <file>file:/E:/Feds/Feds/src/java/vn/fpt/edu/salecontroller/ProductSaleController.java</file>
-            <file>file:/E:/Feds/Feds/src/java/vn/fpt/edu/models/Brand.java</file>
-            <file>file:/E:/Feds/Feds/src/java/vn/fpt/edu/models/ProductDetail.java</file>
-            <file>file:/E:/Feds/Feds/src/java/vn/fpt/edu/models/Item.java</file>
-            <file>file:/E:/Feds/Feds/src/java/vn/fpt/edu/models/Cart.java</file>
-            <file>file:/E:/Feds/Feds/src/java/vn/fpt/edu/salecontroller/BillOrderController.java</file>
-            <file>file:/E:/Feds/Feds/src/java/vn/fpt/edu/dals/Product_DAO.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/models/Product1.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/controller/ViewProductDetailController.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/controller/UserRegisterGoogleController.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/models/GoogleAcount.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/controller/UserRegisterTokenController.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/web/UserRegister.jsp</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/googleconstants/IconstantForLogin.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/web/ViewProductDetail.jsp</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/googleconstants/IconstantForRegister.java</file>
         </group>
     </open-files>
 </project-private>

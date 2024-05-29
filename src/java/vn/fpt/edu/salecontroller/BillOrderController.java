@@ -17,7 +17,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import vn.fpt.edu.dals.Product_DAO;
-import vn.fpt.edu.models.Product1;
+import vn.fpt.edu.models.Product;
 
 /**
  *
@@ -103,12 +103,12 @@ public class BillOrderController extends HttpServlet {
         String enddate = request.getParameter("enddate");
         PrintWriter o = response.getWriter();
         Product_DAO pd = new Product_DAO();
-        List<Product1> productSellingList = pd.getSellingProduct(startdate, enddate, quantity);
+        List<Product> productSellingList = pd.getSellingProduct(startdate, enddate, quantity);
 
         List<String> productNames = new ArrayList<>();
         List<Integer> quantities = new ArrayList<>();
 
-        for (Product1 product : productSellingList) {
+        for (Product product : productSellingList) {
             productNames.add(product.getProduct_name());
             quantities.add(product.getQuantity());
         }

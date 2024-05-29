@@ -4,132 +4,76 @@
  */
 package vn.fpt.edu.models;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
-
 /**
  *
- * @author Trong
+ * @author admin
  */
 public class Product1 {
-
-    private int Product_id;
-    private int Quantity;
-    private String Product_name;
-    private String Product_img;
-    private int User_Id;
-    private int Brand_id;
-    private String Category_name;
-    private String Description;
-    private float Price;
-    private String Size;
+    private int product_id;
+    private int quantity;
+    private String product_name;
+    private String product_img;
+    private User user;
+    private Brand brand;
 
     public Product1() {
     }
 
-    public Product1(int Product_id, int Quantity, String Product_name, String Product_img, int User_Id, int Brand_id, String Category_name, float Price, String Size, String Description) {
-        this.Product_id = Product_id;
-        this.Quantity = Quantity;
-        this.Product_name = Product_name;
-        this.Product_img = Product_img;
-        this.User_Id = User_Id;
-        this.Brand_id = Brand_id;
-        this.Category_name = Category_name;
-        this.Price = Price;
-        this.Size = Size;
-        this.Description = Description;
-    }
-
-    public String getDescription() {
-        return Description;
-    }
-
-    public void setDescription(String Description) {
-        this.Description = Description;
-    }
-
-    public String getCategory_name() {
-        return Category_name;
-    }
-
-    public void setCategory_name(String Category_name) {
-        this.Category_name = Category_name;
+    public Product1(int Product_id, int Quantity, String Product_name, String Product_img, User user, Brand brand) {
+        this.product_id = Product_id;
+        this.quantity = Quantity;
+        this.product_name = Product_name;
+        this.product_img = Product_img;
+        this.user = user;
+        this.brand = brand;
     }
 
     public int getProduct_id() {
-        return Product_id;
+        return product_id;
     }
 
     public void setProduct_id(int Product_id) {
-        this.Product_id = Product_id;
+        this.product_id = Product_id;
     }
 
     public int getQuantity() {
-        return Quantity;
+        return quantity;
     }
 
     public void setQuantity(int Quantity) {
-        this.Quantity = Quantity;
+        this.quantity = Quantity;
     }
 
     public String getProduct_name() {
-        return Product_name;
+        return product_name;
     }
 
     public void setProduct_name(String Product_name) {
-        this.Product_name = Product_name;
+        this.product_name = Product_name;
     }
 
     public String getProduct_img() {
-        return Product_img;
+        return product_img;
     }
 
     public void setProduct_img(String Product_img) {
-        this.Product_img = Product_img;
+        this.product_img = Product_img;
     }
 
-    public int getUser_Id() {
-        return User_Id;
+    public User getUser() {
+        return user;
     }
 
-    public void setUser_Id(int User_Id) {
-        this.User_Id = User_Id;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public int getBrand_id() {
-        return Brand_id;
+    public Brand getBrand() {
+        return brand;
     }
 
-    public void setBrand_id(int Brand_id) {
-        this.Brand_id = Brand_id;
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
-
-    public float getPrice() {
-        return Price;
-    }
-
-    public String getPriceString() {
-        DecimalFormat decimalFormat = new DecimalFormat("#,###");
-        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.getDefault());
-        symbols.setGroupingSeparator('.');
-        decimalFormat.setDecimalFormatSymbols(symbols);
-        String formattedNumber = decimalFormat.format(Price);
-        String result = formattedNumber + "đ";
-        return result;
-    }
-
-    public void setPrice(float Price) {
-        this.Price = Price;
-    }
-
-    public String getSize() {
-        return Size;
-    }
-
-    public void setSize(String Size) {
-        this.Size = Size;
-    }
-
     
 }

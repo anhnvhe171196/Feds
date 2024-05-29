@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import vn.fpt.edu.dals.Product_DAO;
-import vn.fpt.edu.models.Product1;
+import vn.fpt.edu.models.Product;
 
 /**
  *
@@ -65,12 +65,12 @@ public class ProductSaleController extends HttpServlet {
         String month1 = request.getParameter("month1");
         String year = request.getParameter("year");
         Product_DAO pd = new Product_DAO();
-        List<Product1> productSellingList = pd.getTrendCategory(month1, year);
+        List<Product> productSellingList = pd.getTrendCategory(month1, year);
 
         List<String> productcate = new ArrayList<>();
         List<Integer> quantities = new ArrayList<>();
         PrintWriter out = response.getWriter();
-        for (Product1 product : productSellingList) {
+        for (Product product : productSellingList) {
             productcate.add(product.getCategory_name());
             
             quantities.add(product.getQuantity());

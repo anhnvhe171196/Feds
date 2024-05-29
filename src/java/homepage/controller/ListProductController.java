@@ -16,7 +16,7 @@ import java.util.List;
 import vn.fpt.edu.dals.Category_DAO;
 import vn.fpt.edu.dals.Product_DAO;
 import vn.fpt.edu.models.Category;
-import vn.fpt.edu.models.Product1;
+import vn.fpt.edu.models.Product;
 
 /**
  *
@@ -63,7 +63,7 @@ public class ListProductController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        List<Product1> listProduct = new ArrayList<>();
+        List<Product> listProduct = new ArrayList<>();
         Product_DAO d = new Product_DAO();
         int p = 1;
         if (request.getParameter("page") != null) {
