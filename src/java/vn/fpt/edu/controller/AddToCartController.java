@@ -59,7 +59,7 @@ public class AddToCartController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         Product_DAO data = new Product_DAO();
-        List<Product> list = data.getAllProduct();
+//        List<Product> list = data.getAllProduct();
         Cookie[] arr = request.getCookies();
         String txt="";
         if(arr!=null) { 

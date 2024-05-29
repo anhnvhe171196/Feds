@@ -232,7 +232,7 @@
                 <!-- Top Trends Product  Start -->
                 <div class="container-fluid pt-4 px-4">
                     <div class="row g-4">
-                        <form action="marketingProduct" method="get" >
+                        <form action="marketingDashBoard" method="post" >
                             <div class="col-sm-12 col-xl-12">
                                 <div class="bg-light text-center rounded p-4">
                                     <div class="d-flex align-items-center justify-content-between mb-4">
@@ -240,15 +240,15 @@
                                         <div class="d-flex">
                                             <div class="me-2">
                                                 <label for="quantity" class="form-label">Số lượng sản phẩm:</label>
-                                                <input type="number" id="quantity" class="form-control" name="quantity" value="${sessionScope.quantity}" min="1">
+                                                <input type="number" id="quantity" class="form-control" name="quantity" value="${requestScope.quantity}" min="1">
                                             </div>
                                             <div class="me-2">
                                                 <label for="start-date-sales" class="form-label">Ngày bắt đầu:</label>
-                                                <input type="date" id="start-date-sales" class="form-control" value="${sessionScope.startdate}" name="startdate">
+                                                <input type="date" id="start-date-sales" class="form-control" value="${requestScope.startdate}" name="startdate">
                                             </div>
                                             <div class="me-2">
                                                 <label for="end-date-sales" class="form-label">Ngày kết thúc:</label>
-                                                <input type="date" id="end-date-sales" class="form-control" value="${sessionScope.enddate}" name="enddate">
+                                                <input type="date" id="end-date-sales" class="form-control" value="${requestScope.enddate}" name="enddate">
                                             </div>
                                             <div>
                                                 <button id="show-sales" class="btn btn-primary mt-4">Xem</button>
@@ -256,7 +256,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <canvas id="marketingProduct"></canvas>
+                                        <canvas id="marketingDashBoard"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -306,14 +306,14 @@
         <script>
             var ProductNames = [];
             var ProductQuans = [];
-            <c:forEach items="${sessionScope.ProductName}" var="val" varStatus="loop">
+            <c:forEach items="${requestScope.ProductName}" var="val" varStatus="loop">
             ProductNames.push("${val}");
             </c:forEach>
 
-            <c:forEach items="${sessionScope.ProductQuan}" var="val" varStatus="loop">
+            <c:forEach items="${requestScope.ProductQuan}" var="val" varStatus="loop">
             ProductQuans.push(${val});
             </c:forEach>
-            var ctx = document.getElementById('marketingProduct').getContext('2d');
+            var ctx = document.getElementById('marketingDashBoard').getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
