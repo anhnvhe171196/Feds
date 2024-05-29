@@ -76,7 +76,11 @@
                     </div>
                     <div class="navbar-nav w-100">
                         <a href="/Feds/saleDashboard" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                        <a href="/Feds/orderListBillController" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Order List</a></div>
+                        <a href="/Feds/orderListBillController" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Order List</a>
+                        <a href="#" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Feedback List</a> 
+                    </div> 
+
+
                 </nav>
             </div>
             <!-- Sidebar End -->
@@ -98,7 +102,7 @@
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                                 <!--                                <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">-->
-                                <span class="d-none d-lg-inline-flex">Trong Saler</span>
+                                <span class="d-none d-lg-inline-flex">Trong Sale</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                                 <a href="#" class="dropdown-item">Thông tin cá nhân</a>
