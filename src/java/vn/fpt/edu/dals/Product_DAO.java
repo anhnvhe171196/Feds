@@ -9,17 +9,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import vn.fpt.edu.models.Brand;
 import vn.fpt.edu.models.Product;
+import vn.fpt.edu.models.Product1;
+import vn.fpt.edu.models.User;
 
 /**
  *
  * @author admin
  */
 public class Product_DAO extends DBContext {
-    
+
     public int getAllProductsSize(int cateId) {
         String sql = "SELECT  Count(Product.Product_id) as Total FROM Product join Brandd on Brandd.Brand_id = Product.Brand_id join Product_Category on Product_Category.Category_id = Brandd.Category_id";
-        if(cateId != -1) {
+        if (cateId != -1) {
             sql += " WHERE [Product_Category].[Category_id] = " + cateId;
         }
         try {
@@ -33,10 +36,10 @@ public class Product_DAO extends DBContext {
         }
         return 0;
     }
-    
+
     public int getProductByTittleSize(String strSearch, int cateId) {
         String sql = "SELECT  Count(Product.Product_id) as Total FROM Product join Brandd on Brandd.Brand_id = Product.Brand_id join Product_Category on Product_Category.Category_id = Brandd.Category_id WHERE Product_name LIKE ?";
-        if(cateId != -1) {
+        if (cateId != -1) {
             sql += " AND [Product_Category].[Category_id] = " + cateId;
         }
         try {
@@ -52,46 +55,19 @@ public class Product_DAO extends DBContext {
         return 0;
     }
 
-    public List<Product> getProductByTittle(String strSearch, int cateId, int page) {
-        List<Product> list = new ArrayList<>();
+    public List<Product1> getProductByTittle(String strSearch, int cateId, int page) {
+        List<Product1> list = new ArrayList<>();
         String sql = "SELECT Product.Product_name, Product.Product_img, Product.Product_id, Product_Detail.Decription, Price.Price, [Product_Category].[Category_name] FROM Product join Product_Detail ON Product.Product_id = Product_Detail.Product_id join Price on Product.Product_id = [Price].Product_id join Brandd on [Brandd].[Brand_Id] = [Product].[Brand_id] join [Product_Category] on [Product_Category].[Category_id] = [Brandd].[Category_id] WHERE Product_name LIKE ?";
-        if(cateId != -1) {
+        if (cateId != -1) {
             sql += " AND [Product_Category].[Category_id] = " + cateId;
         }
-        sql += " ORDER BY Product.Product_id OFFSET "+((page - 1) * 9)+" ROWS FETCH NEXT 9 ROWS ONLY;";
+        sql += " ORDER BY Product.Product_id OFFSET " + ((page - 1) * 9) + " ROWS FETCH NEXT 9 ROWS ONLY;";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, "%" + strSearch + "%");
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Product u = new Product();
-                u.setProduct_name(rs.getString("Product_name"));
-                u.setProduct_img(rs.getString("Product_img"));
-                u.setProduct_id(rs.getInt("Product_id"));
-                u.setDescription(rs.getString("Decription"));
-                u.setPrice(rs.getInt("Price"));
-                u.setCategory_name(rs.getString("Category_name"));
-                list.add(u);
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return list;
-    }
-    
-    
-    public List<Product> getAllProducts(int cateId, int page) {
-        List<Product> list = new ArrayList<>();
-        String sql = "SELECT Product.Product_name, Product.Product_img, Product.Product_id, Product_Detail.Decription, Price.Price, [Product_Category].[Category_name] FROM Product join Product_Detail ON Product.Product_id = Product_Detail.Product_id join Price on Product.Product_id = [Price].Product_id join Brandd on [Brandd].[Brand_Id] = [Product].[Brand_id] join [Product_Category] on [Product_Category].[Category_id] = [Brandd].[Category_id]";
-        if(cateId != -1) {
-            sql += " WHERE [Product_Category].[Category_id] = " + cateId;
-        }
-        sql += " ORDER BY Product.Product_id OFFSET "+((page - 1) * 9)+" ROWS FETCH NEXT 9 ROWS ONLY;";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                Product u = new Product();
+                Product1 u = new Product1();
                 u.setProduct_name(rs.getString("Product_name"));
                 u.setProduct_img(rs.getString("Product_img"));
                 u.setProduct_id(rs.getInt("Product_id"));
@@ -106,8 +82,34 @@ public class Product_DAO extends DBContext {
         return list;
     }
 
-    public List<Product> getSellingProduct() {
-        List<Product> list = new ArrayList<>();
+    public List<Product1> getAllProducts(int cateId, int page) {
+        List<Product1> list = new ArrayList<>();
+        String sql = "SELECT Product.Product_name, Product.Product_img, Product.Product_id, Product_Detail.Decription, Price.Price, [Product_Category].[Category_name] FROM Product join Product_Detail ON Product.Product_id = Product_Detail.Product_id join Price on Product.Product_id = [Price].Product_id join Brandd on [Brandd].[Brand_Id] = [Product].[Brand_id] join [Product_Category] on [Product_Category].[Category_id] = [Brandd].[Category_id]";
+        if (cateId != -1) {
+            sql += " WHERE [Product_Category].[Category_id] = " + cateId;
+        }
+        sql += " ORDER BY Product.Product_id OFFSET " + ((page - 1) * 9) + " ROWS FETCH NEXT 9 ROWS ONLY;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Product1 u = new Product1();
+                u.setProduct_name(rs.getString("Product_name"));
+                u.setProduct_img(rs.getString("Product_img"));
+                u.setProduct_id(rs.getInt("Product_id"));
+                u.setDescription(rs.getString("Decription"));
+                u.setPrice(rs.getInt("Price"));
+                u.setCategory_name(rs.getString("Category_name"));
+                list.add(u);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public List<Product1> getSellingProduct() {
+        List<Product1> list = new ArrayList<>();
         String sql = "select p.Product_img, pc.Category_name, p.Product_name, pr.Price, SUM(o.Order_quantity) AS Total_Products\n"
                 + "from Product p\n"
                 + "Inner Join [Order] o on o.Product_id = p.Product_id\n"
@@ -120,7 +122,7 @@ public class Product_DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Product product = new Product();
+                Product1 product = new Product1();
                 product.setProduct_img(rs.getString(1));
                 product.setCategory_name(rs.getString(2));
                 product.setProduct_name(rs.getString(3));
@@ -134,8 +136,8 @@ public class Product_DAO extends DBContext {
         return list;
     }
 
-    public List<Product> getSellingProduct(String startDate, String endDate, int numberOfTop) {
-        List<Product> list = new ArrayList<>();
+    public List<Product1> getSellingProduct(String startDate, String endDate, int numberOfTop) {
+        List<Product1> list = new ArrayList<>();
         String sql = "SELECT TOP (?)\n"
                 + "    p.Product_name,\n"
                 + "    SUM(o.Order_quantity) AS Total_Products\n"
@@ -167,7 +169,7 @@ public class Product_DAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
 
-                Product product = new Product();
+                Product1 product = new Product1();
                 product.setProduct_name(rs.getString(1).trim());
                 product.setQuantity(rs.getInt(2));
                 list.add(product);
@@ -179,9 +181,8 @@ public class Product_DAO extends DBContext {
         return list;
     }
 
-    
-    public List<Product> getTrendCategory(String month, String year) {
-        List<Product> list = new ArrayList<>();
+    public List<Product1> getTrendCategory(String month, String year) {
+        List<Product1> list = new ArrayList<>();
         String sql;
 
         if (!"0".equalsIgnoreCase(month)) {
@@ -238,7 +239,7 @@ public class Product_DAO extends DBContext {
 
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Product prd = new Product();
+                Product1 prd = new Product1();
                 prd.setCategory_name(rs.getString("Category_name"));
                 prd.setQuantity(rs.getInt("Bill_Count"));
                 list.add(prd);
@@ -248,8 +249,9 @@ public class Product_DAO extends DBContext {
         }
         return list;
     }
-    public List<Product> getProductByPrice() {
-        List<Product> list = new ArrayList<>();
+
+    public List<Product1> getProductByPrice() {
+        List<Product1> list = new ArrayList<>();
         String sql = "select p.Product_name, p.Product_img, pc.Category_name, pr.Price\n"
                 + "From Product p\n"
                 + "Inner join Brandd b on b.Brand_Id = p.Brand_id\n"
@@ -262,7 +264,7 @@ public class Product_DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Product product = new Product();
+                Product1 product = new Product1();
                 product.setProduct_name(rs.getString(1));
                 product.setProduct_img(rs.getString(2));
                 product.setCategory_name(rs.getString(3));
@@ -276,8 +278,8 @@ public class Product_DAO extends DBContext {
         return list;
     }
 
-    public List<Product> getTiviByPrice() {
-        List<Product> list = new ArrayList<>();
+    public List<Product1> getTiviByPrice() {
+        List<Product1> list = new ArrayList<>();
         String sql = " select p.Product_name, p.Product_img, pc.Category_name, pr.Price, pd.Size\n"
                 + "From Product p\n"
                 + "Inner Join Brandd b on b.Brand_Id = p.Brand_id\n"
@@ -289,7 +291,7 @@ public class Product_DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Product product = new Product();
+                Product1 product = new Product1();
                 product.setProduct_name(rs.getString(1));
                 product.setProduct_img(rs.getString(2));
                 product.setCategory_name(rs.getString(3));
@@ -303,8 +305,8 @@ public class Product_DAO extends DBContext {
         return list;
     }
 
-    public List<Product> getNewProduct() {
-        List<Product> list = new ArrayList<>();
+    public List<Product1> getNewProduct() {
+        List<Product1> list = new ArrayList<>();
         String sql = "select p.Product_name, p.Product_img, pc.Category_name, pr.Price\n"
                 + "From Product p\n"
                 + "Inner Join Brandd b on b.Brand_Id = p.Brand_id\n"
@@ -316,7 +318,7 @@ public class Product_DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Product product = new Product();
+                Product1 product = new Product1();
                 product.setProduct_name(rs.getString(1));
                 product.setProduct_img(rs.getString(2));
                 product.setCategory_name(rs.getString(3));
@@ -329,8 +331,8 @@ public class Product_DAO extends DBContext {
         return list;
     }
 
-    public List<Product> getMTB() {
-        List<Product> list = new ArrayList<>();
+    public List<Product1> getMTB() {
+        List<Product1> list = new ArrayList<>();
         String sql = "select p.Product_name, p.Product_img, pc.Category_name, pr.Price\n"
                 + "From Product p\n"
                 + "Inner Join Brandd b on b.Brand_Id = p.Brand_id\n"
@@ -342,7 +344,7 @@ public class Product_DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Product product = new Product();
+                Product1 product = new Product1();
                 product.setProduct_name(rs.getString(1));
                 product.setProduct_img(rs.getString(2));
                 product.setCategory_name(rs.getString(3));
@@ -355,8 +357,8 @@ public class Product_DAO extends DBContext {
         return list;
     }
 
-    public List<Product> getML() {
-        List<Product> list = new ArrayList<>();
+    public List<Product1> getML() {
+        List<Product1> list = new ArrayList<>();
         String sql = "select p.Product_name, p.Product_img, pc.Category_name, pr.Price\n"
                 + "From Product p\n"
                 + "Inner Join Brandd b on b.Brand_Id = p.Brand_id\n"
@@ -368,7 +370,7 @@ public class Product_DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Product product = new Product();
+                Product1 product = new Product1();
                 product.setProduct_name(rs.getString(1));
                 product.setProduct_img(rs.getString(2));
                 product.setCategory_name(rs.getString(3));
@@ -381,8 +383,8 @@ public class Product_DAO extends DBContext {
         return list;
     }
 
-    public List<Product> getHDD() {
-        List<Product> list = new ArrayList<>();
+    public List<Product1> getHDD() {
+        List<Product1> list = new ArrayList<>();
         String sql = "select p.Product_name, p.Product_img, pc.Category_name, pr.Price, p.Quantity\n"
                 + "From Product p\n"
                 + "Inner Join Brandd b on b.Brand_Id = p.Brand_id\n"
@@ -394,7 +396,7 @@ public class Product_DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Product product = new Product();
+                Product1 product = new Product1();
                 product.setProduct_name(rs.getString(1));
                 product.setProduct_img(rs.getString(2));
                 product.setCategory_name(rs.getString(3));
@@ -407,8 +409,8 @@ public class Product_DAO extends DBContext {
         return list;
     }
 
-    public List<Product> getHC() {
-        List<Product> list = new ArrayList<>();
+    public List<Product1> getHC() {
+        List<Product1> list = new ArrayList<>();
         String sql = "select p.Product_name, p.Product_img, pc.Category_name, pr.Price, p.Quantity\n"
                 + "From Product p\n"
                 + "Inner Join Brandd b on b.Brand_Id = p.Brand_id\n"
@@ -420,7 +422,7 @@ public class Product_DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Product product = new Product();
+                Product1 product = new Product1();
                 product.setProduct_name(rs.getString(1));
                 product.setProduct_img(rs.getString(2));
                 product.setCategory_name(rs.getString(3));
@@ -449,4 +451,29 @@ public class Product_DAO extends DBContext {
         return totalNumberOfProducts;
     }
 
+    public Product getProductById(int id) {
+        String sql = "SELECT [Product_id]\n"
+                + "      ,[Quantity]\n"
+                + "      ,[Product_name]\n"
+                + "      ,[Product_img]\n"
+                + "      ,[User_Id]\n"
+                + "      ,[Brand_id]\n"
+                + "  FROM [dbo].[Product]\n"
+                + "  where Product_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                User_DAO ud = new User_DAO();
+                User u = ud.getCustomerByID(rs.getInt("User_Id"));
+                Brand_DAO bdao = new Brand_DAO();
+                Brand b = bdao.getBrandById(rs.getInt("Brand_id"));
+                return new Product(rs.getInt("Product_id"), rs.getInt("Quantity"), rs.getString("Product_name"), rs.getString("Product_img"), u, b);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
 }

@@ -5,7 +5,7 @@
 
 package vn.fpt.edu.salecontroller;
 
-import vn.fpt.edu.models.Bill;
+import vn.fpt.edu.models.Bill1;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -66,12 +66,12 @@ public class BillSaleController extends HttpServlet {
         String startdate = request.getParameter("startdate");
         String enddate = request.getParameter("enddate");
         Bill_DAO billdao = new Bill_DAO();
-        List<Bill> sum = billdao.getSumRevenueByDay(startdate, enddate);
+        List<Bill1> sum = billdao.getSumRevenueByDay(startdate, enddate);
 
         List<String> billDate = new ArrayList<>();
         List<Double>sumByDay = new ArrayList<>();
 
-        for (Bill s : sum) {
+        for (Bill1 s : sum) {
             billDate.add(s.getDate());
             sumByDay.add(s.getTotal_price());
         }

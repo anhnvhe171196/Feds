@@ -46,7 +46,7 @@
                         <tbody>
                             <tr>
                                 <td>Role:</td>
-                                <td>${requestScope.roleName}</td>
+                                <td>${sessionScope.account.role.roleName}</td>
                             </tr>
                             <tr>
                                 <td>Xác Minh:</td>
@@ -73,7 +73,7 @@
                                 <th style="text-align: center">Xóa</th>
                                 <th style="text-align: center">Tạo</th>
                             </tr>
-                            <c:if test="${account.role_id == 1}">
+                            <c:if test="${sessionScope.account.role.id == 1}">
                                 <tr>
                                     <td>Admin</td>
                                     <td><span class="fa fa-check text-primary"></span></td>
@@ -85,7 +85,7 @@
                                     <td><span class="fa fa-check text-primary"></span></td>
                                 </tr>
                             </c:if> 
-                            <c:if test="${account.role_id == 2}">
+                            <c:if test="${sessionScope.account.role.id == 2}">
                                 <tr>
                                     <td>Sale Manager</td>
                                     <td><span class="fa fa-check text-primary"></span></td>
@@ -97,7 +97,7 @@
                                     <td><span class="fa fa-check text-primary"></span></td>
                                 </tr>
                             </c:if> 
-                            <c:if test="${account.role_id == 3}">
+                            <c:if test="${sessionScope.account.role.id == 3}">
                                 <tr>
                                     <td>Sale</td>
                                     <td><span class="fa fa-check text-primary"></span></td>
@@ -109,7 +109,7 @@
                                     <td><span class="fa fa-times text-light"></span></td>
                                 </tr>
                             </c:if> 
-                            <c:if test="${account.role_id == 4}">
+                            <c:if test="${sessionScope.account.role.id == 4}">
                                 <tr>
                                     <td>Order Processor</td>
                                     <td><span class="fa fa-check text-primary"></span></td>
@@ -121,7 +121,7 @@
                                     <td><span class="fa fa-times text-light"></span></td>
                                 </tr>
                             </c:if> 
-                            <c:if test="${account.role_id == 5}">
+                            <c:if test="${sessionScope.account.role.id == 5}">
                                 <tr>
                                     <td>Customer</td>
                                     <td><span class="fa fa-check text-primary"></span></td>

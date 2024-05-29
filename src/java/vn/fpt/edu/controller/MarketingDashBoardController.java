@@ -18,7 +18,7 @@ import vn.fpt.edu.dals.Feedback_DAO;
 import vn.fpt.edu.dals.Order_DAO;
 import vn.fpt.edu.dals.Product_DAO;
 import vn.fpt.edu.dals.User_DAO;
-import vn.fpt.edu.models.Feedback;
+import vn.fpt.edu.models.Feedback1;
 
 /**
  *
@@ -57,7 +57,7 @@ public class MarketingDashBoardController extends HttpServlet {
         session.setAttribute("numOfProducts", numOfProducts);
         session.setAttribute("NumOfProductsSold", NumOfProductsSold);
 
-        List<Feedback> FeedbackList = fd.getFeedbackAllWithUser();
+        List<Feedback1> FeedbackList = fd.getFeedbackAllWithUser();
         session.setAttribute("FeedbackList", FeedbackList);
         request.getRequestDispatcher("OrderProcessor.jsp").forward(request, response);
 

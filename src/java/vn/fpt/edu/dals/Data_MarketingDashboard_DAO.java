@@ -4,14 +4,14 @@
  */
 package vn.fpt.edu.dals;
 
-import vn.fpt.edu.models.Bill;
+import vn.fpt.edu.models.Bill1;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import java.util.List;
-import vn.fpt.edu.models.Product;
+import vn.fpt.edu.models.Product1;
 
 /**
  *
@@ -19,8 +19,8 @@ import vn.fpt.edu.models.Product;
  */
 public class Data_MarketingDashboard_DAO extends DBContext {
 
-    public List<Product> getSellingProduct(String startDate, String endDate, int numberOfTop) {
-        List<Product> list = new ArrayList<>();
+    public List<Product1> getSellingProduct(String startDate, String endDate, int numberOfTop) {
+        List<Product1> list = new ArrayList<>();
         String sql = "SELECT TOP (?)\n"
                 + "    p.Product_name,\n"
                 + "    SUM(o.Order_quantity) AS Total_Products\n"
@@ -52,7 +52,7 @@ public class Data_MarketingDashboard_DAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
 
-                Product product = new Product();
+                Product1 product = new Product1();
                 product.setProduct_name(rs.getString(1).trim());
                 product.setQuantity(rs.getInt(2));
                 list.add(product);
@@ -64,8 +64,8 @@ public class Data_MarketingDashboard_DAO extends DBContext {
         return list;
     }
 
-    public List<Bill> getSumRevenueByDay(String startDate, String endDate) {
-        List<Bill> list = new ArrayList<>();
+    public List<Bill1> getSumRevenueByDay(String startDate, String endDate) {
+        List<Bill1> list = new ArrayList<>();
         String sql = "SELECT\n"
                 + "    Date AS Ngay,\n"
                 + "    SUM(Total_price) AS TongTien\n"
@@ -86,7 +86,7 @@ public class Data_MarketingDashboard_DAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
 
-                Bill bill = new Bill();
+                Bill1 bill = new Bill1();
                 bill.setDate(rs.getString(1));
 
                 bill.setTotal_price(rs.getInt(2));
@@ -99,8 +99,8 @@ public class Data_MarketingDashboard_DAO extends DBContext {
         return list;
     }
 
-    public List<Product> getTrendCategory(String month, String year) {
-        List<Product> list = new ArrayList<>();
+    public List<Product1> getTrendCategory(String month, String year) {
+        List<Product1> list = new ArrayList<>();
         String sql;
 
         if ("0".equalsIgnoreCase(month)) {
@@ -157,7 +157,7 @@ public class Data_MarketingDashboard_DAO extends DBContext {
 
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Product prd = new Product();
+                Product1 prd = new Product1();
                 prd.setCategory_name(rs.getString("Category_name"));
                 prd.setQuantity(rs.getInt("Bill_Count"));
                 list.add(prd);
@@ -166,17 +166,6 @@ public class Data_MarketingDashboard_DAO extends DBContext {
             System.out.println(e);
         }
         return list;
-    }
-    public static void main(String[] args) {
-
-        Data_MarketingDashboard_DAO data = new Data_MarketingDashboard_DAO();
-        // Gọi phương thức getSellingProduct
-        List<Product> products = data.getTrendCategory("0", "2024");
-
-        // In ra kết quả để kiểm tra
-        for (Product product : products) {
-            System.out.println(product.getCategory_name() + "/ " + product.getQuantity());
-        }
     }
 
 }

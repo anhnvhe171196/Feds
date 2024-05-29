@@ -14,19 +14,19 @@ public class User {
     private String user_name;
     private String email;
     private String phone_number;
-    private int role_id;
+    private Role role;
     private String avarta;
 
     public User() {
     }
 
-    public User(int User_Id, String Password, String User_name, String Email, String Phone_number, int Role_id, String Avarta) {
+    public User(int User_Id, String Password, String User_name, String Email, String Phone_number, Role role, String Avarta) {
         this.user_Id = User_Id;
         this.password = Password;
         this.user_name = User_name;
         this.email = Email;
         this.phone_number = Phone_number;
-        this.role_id = Role_id;
+        this.role = role;
         this.avarta = Avarta;
     }
 
@@ -70,12 +70,12 @@ public class User {
         this.phone_number = Phone_number;
     }
 
-    public int getRole_id() {
-        return role_id;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRole_id(int Role_id) {
-        this.role_id = Role_id;
+    public void setRole(Role Role_id) {
+        this.role = Role_id;
     }
 
     public String getAvarta() {

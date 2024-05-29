@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import vn.fpt.edu.dals.Data_MarketingDashboard_DAO;
-import vn.fpt.edu.models.Product;
+import vn.fpt.edu.models.Product1;
 
 /**
  *
@@ -32,12 +32,12 @@ public class MaketingTrendingController extends HttpServlet {
         String startYear = request.getParameter("startyear");
 
         Data_MarketingDashboard_DAO data = new Data_MarketingDashboard_DAO();
-        List<Product> trend = data.getTrendCategory(startmonth, startYear);
+        List<Product1> trend = data.getTrendCategory(startmonth, startYear);
 
         List<String> productcate = new ArrayList<>();
         List<Integer> quantities = new ArrayList<>();
 
-        for (Product product : trend) {
+        for (Product1 product : trend) {
             productcate.add(product.getCategory_name());  
             quantities.add(product.getQuantity());
         }

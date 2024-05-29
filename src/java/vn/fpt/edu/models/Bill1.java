@@ -6,26 +6,29 @@ package vn.fpt.edu.models;
 
 /**
  *
- * @author admin
+ * @author Trong
  */
-public class Bill {
+public class Bill1 {
     private int Bill_id;
     private double Total_price;
     private String Date;
+    private int User_id;
     private String Address;
     private String Status;
-    private User user;
-
-    public Bill() {
+    private String User_name;
+    public Bill1() {
     }
 
-    public Bill(int Bill_id, double Total_price, String Date, String Address, String Status, User user) {
+    
+
+    public Bill1(int Bill_id, double Total_price, String Date, int User_id, String Address, String Status, String User_name) {
         this.Bill_id = Bill_id;
         this.Total_price = Total_price;
         this.Date = Date;
+        this.User_id = User_id;
         this.Address = Address;
         this.Status = Status;
-        this.user = user;
+        this.User_name = User_name;
     }
 
     public int getBill_id() {
@@ -52,6 +55,14 @@ public class Bill {
         this.Date = Date;
     }
 
+    public int getUser_id() {
+        return User_id;
+    }
+
+    public void setUser_id(int User_id) {
+        this.User_id = User_id;
+    }
+
     public String getAddress() {
         return Address;
     }
@@ -68,12 +79,13 @@ public class Bill {
         this.Status = Status;
     }
 
-    public User getUser() {
-        return user;
+    public String getUser_name() {
+        return User_name;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser_name(String User_name) {
+        this.User_name = User_name;
     }
+    
     
 }

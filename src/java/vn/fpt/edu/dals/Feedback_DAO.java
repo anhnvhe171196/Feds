@@ -4,13 +4,13 @@
  */
 package vn.fpt.edu.dals;
 
-import vn.fpt.edu.models.Feedback;
+import vn.fpt.edu.models.Feedback1;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import vn.fpt.edu.models.Product;
+import vn.fpt.edu.models.Product1;
 
 /**
  *
@@ -52,8 +52,8 @@ public class Feedback_DAO extends DBContext {
 }
 
 
-    public List<Feedback> getFeedbackAllWithUser() {
-        List<Feedback> list = new ArrayList<>();
+    public List<Feedback1> getFeedbackAllWithUser() {
+        List<Feedback1> list = new ArrayList<>();
         String sql = "SELECT F.*, U.User_name\n"
                 + "FROM FeedBack AS F\n"
                 + "JOIN [User] AS U ON F.User_Id = U.User_Id\n";
@@ -61,7 +61,7 @@ public class Feedback_DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Feedback feedback = new Feedback();
+                Feedback1 feedback = new Feedback1();
                 feedback.setFeedbackId(rs.getInt("Feedback_Id"));
                 feedback.setTotalPrice(rs.getDouble("Total_price"));
                 feedback.setDate(rs.getString("Date"));

@@ -4,8 +4,38 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/controller/UserChangeImageController.java</file>
-            <file>file:/D:/Desktop/SWP391/Feds/web/UserProductDetail.jsp</file>
-            <file>file:/D:/Desktop/SWP391/Feds/web/UserLogin.jsp</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/dals/User_DAO.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/models/Brand.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/models/Category.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/dals/Role_DAO.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/controller/UserLoginController.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/dals/Product_DAO.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/controller/UserChangeProfileController.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/controller/MarketingSumIncomeController.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/models/ProductDetail.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/controller/UserProfileController.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/dals/Bill_DAO.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/models/FeedBack.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/dals/Category_DAO.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/models/Product.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/dals/Brand_DAO.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/dals/Data_MarketingDashboard_DAO.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/web/ViewProductDetail.jsp</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/models/Bill1.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/controller/UserRegisterController.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/dals/ProductDetail_DAO.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/controller/ViewProductDetailController.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/web/component/header.jsp</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/models/Price.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/models/Product1.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/controller/UserRegisterGoogleController.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/models/Bill.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/web/UserChangeProfile.jsp</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/models/Role.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/models/User.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/web/UserProfile.jsp</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/models/Feedback1.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/dals/Price_DAO.java</file>
         </group>
     </open-files>
 </project-private>

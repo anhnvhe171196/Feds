@@ -20,7 +20,7 @@
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
     </head>
     <body>
-        <div id="newsletter" class="section">
+        <div id="newsletter" class="section" style="    padding: 10px;">
             <!-- container -->
             <div class="container">
                 <!-- row -->
@@ -29,17 +29,14 @@
                         <div class="col-md-12">
                             <div class="newsletter">
                                 <p>Đăng ký để nhận <strong>THÔNG BÁO</strong></p>
-                                <form>
-                                    <input class="input" type="email" placeholder="Nhập địa chỉ gmail của bạn">
-                                    <button class="newsletter-btn"><i class="fa fa-envelope"></i> ĐĂNG KÝ</button>
+                                <form action="register">
+                                    <button style="border-radius: 100px" class="newsletter-btn"><i class="fa fa-envelope"></i>ĐĂNG KÝ</button>
                                 </form>
                                 <ul class="newsletter-follow">
                                     <li>
-                                        <a href="#"><i class="fa fa-facebook"></i></a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#"><i class="fa fa-google"></i></a>
+                                        <a href="https://accounts.google.com/o/oauth2/auth?scope=email profile openid&redirect_uri=http://localhost:9999/Feds/registerGoogle&response_type=code&client_id=110538104080-crjqoltjgupbigij7mm6mdi8imco1k14.apps.googleusercontent.com&approval_prompt=force" class="login100-form-social-item1 flex-c-m m-r-5">
+                                            <i class="fa fa-google"></i>
+                                        </a>
                                     </li>
                                 </ul>
                             </div>

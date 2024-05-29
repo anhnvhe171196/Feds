@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import vn.fpt.edu.dals.Bill_DAO;
-import vn.fpt.edu.models.Bill;
+import vn.fpt.edu.models.Bill1;
 
 /**
  *
@@ -66,7 +66,7 @@ public class OrderListBillController extends HttpServlet {
         if (action == null) {
             Bill_DAO bd = new Bill_DAO();;
 
-            List<Bill> listBill = bd.getBillAllWithUser();
+            List<Bill1> listBill = bd.getBillAllWithUser();
             session.setAttribute("listBill", listBill);
             
 //            out.print(listBill.get(0).getBill_id());

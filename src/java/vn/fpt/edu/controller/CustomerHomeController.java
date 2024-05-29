@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import vn.fpt.edu.dals.Category_DAO;
 import vn.fpt.edu.dals.Product_DAO;
-import vn.fpt.edu.models.Product;
+import vn.fpt.edu.models.Product1;
 
 /**
  *
@@ -30,7 +30,7 @@ public class CustomerHomeController extends HttpServlet {
         Product_DAO data = new Product_DAO();
 //        List<Product> listSellingProduct = data.getSellingProduct();
 //        List<Product> list = new ArrayList<>();
-//        for (Product product : listSellingProduct) {
+//        for (Product1 product : listSellingProduct) {
 //            list.add(product);
 //        }
         session.setAttribute("cates", d.getAllCate());

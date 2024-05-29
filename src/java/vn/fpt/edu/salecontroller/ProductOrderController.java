@@ -5,7 +5,7 @@
 package vn.fpt.edu.salecontroller;
 
 
-import vn.fpt.edu.models.Product;
+import vn.fpt.edu.models.Product1;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -71,12 +71,12 @@ public class ProductOrderController extends HttpServlet {
         String startdate = request.getParameter("startdate");
         String enddate = request.getParameter("enddate");
         Product_DAO pd = new Product_DAO();
-        List<Product> productSellingList = pd.getSellingProduct(startdate, enddate, quantity);
+        List<Product1> productSellingList = pd.getSellingProduct(startdate, enddate, quantity);
 
         List<String> productNames = new ArrayList<>();
         List<Integer> quantities = new ArrayList<>();
 
-        for (Product product : productSellingList) {
+        for (Product1 product : productSellingList) {
             productNames.add(product.getProduct_name());
             quantities.add(product.getQuantity());
         }

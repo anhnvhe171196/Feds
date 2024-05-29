@@ -5,7 +5,7 @@
 package vn.fpt.edu.salecontroller;
 
 import vn.fpt.edu.dals.Bill_DAO;
-import vn.fpt.edu.models.Bill;
+import vn.fpt.edu.models.Bill1;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,7 +17,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import vn.fpt.edu.dals.Product_DAO;
-import vn.fpt.edu.models.Product;
+import vn.fpt.edu.models.Product1;
 
 /**
  *
@@ -62,7 +62,7 @@ public class BillOrderController extends HttpServlet {
             session.setAttribute("numOfBills", numOfBills);
             session.setAttribute("sumOfDoneBills", sumOfDoneBills);
             session.setAttribute("sumOfBillByMonth", sumOfBillByMonth);
-            List<Bill> billList = bd.getBillAllWithUserToday();
+            List<Bill1> billList = bd.getBillAllWithUserToday();
             session.setAttribute("billList", billList);
             request.getRequestDispatcher("SaleHome.jsp").forward(request, response);
         } else if (action.equals("sumByMonth")) {
@@ -74,7 +74,7 @@ public class BillOrderController extends HttpServlet {
             session.setAttribute("numOfBills", numOfBills);
             session.setAttribute("sumOfDoneBills", sumOfDoneBills);
             session.setAttribute("sumOfBillByMonth", sumOfBillByMonth);
-            List<Bill> billList = bd.getBillAllWithUserToday();
+            List<Bill1> billList = bd.getBillAllWithUserToday();
             session.setAttribute("billList", billList);
             session.setAttribute("month", month);
 
@@ -103,12 +103,12 @@ public class BillOrderController extends HttpServlet {
         String enddate = request.getParameter("enddate");
         PrintWriter o = response.getWriter();
         Product_DAO pd = new Product_DAO();
-        List<Product> productSellingList = pd.getSellingProduct(startdate, enddate, quantity);
+        List<Product1> productSellingList = pd.getSellingProduct(startdate, enddate, quantity);
 
         List<String> productNames = new ArrayList<>();
         List<Integer> quantities = new ArrayList<>();
 
-        for (Product product : productSellingList) {
+        for (Product1 product : productSellingList) {
             productNames.add(product.getProduct_name());
             quantities.add(product.getQuantity());
         }

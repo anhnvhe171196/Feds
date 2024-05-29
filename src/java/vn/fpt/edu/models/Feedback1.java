@@ -8,7 +8,7 @@ package vn.fpt.edu.models;
  *
  * @author rimok
  */
-public class Feedback {
+public class Feedback1 {
     private int feedbackId;
     private double totalPrice;
     private String date;
@@ -18,11 +18,11 @@ public class Feedback {
     private String userName; // Thêm thông tin tên người dùng
 
     // Constructor không tham số
-    public Feedback() {
+    public Feedback1() {
     }
 
     // Constructor có tham số
-    public Feedback(int feedbackId, double totalPrice, String date, int userId, String address, String status, String userName) {
+    public Feedback1(int feedbackId, double totalPrice, String date, int userId, String address, String status, String userName) {
         this.feedbackId = feedbackId;
         this.totalPrice = totalPrice;
         this.date = date;

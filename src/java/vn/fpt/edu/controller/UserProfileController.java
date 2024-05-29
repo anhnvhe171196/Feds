@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import vn.fpt.edu.dals.Role_DAO;
 import vn.fpt.edu.dals.User_DAO;
 import vn.fpt.edu.models.User;
 
@@ -58,11 +59,6 @@ public class UserProfileController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        User u = (User)session.getAttribute("account");
-        User_DAO d = new User_DAO();
-        String s = d.getRoleName(u.getEmail());
-        request.setAttribute("roleName", s);
         request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
     } 
 
