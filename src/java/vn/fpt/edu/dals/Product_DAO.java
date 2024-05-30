@@ -21,7 +21,7 @@ import vn.fpt.edu.models.User;
 public class Product_DAO extends DBContext {
 
       public int getAllProductsSize(String[] cateId, String[] brandId, String min, String max) {
-        String sql = "SELECT  Count(Product.Product_id) as Total FROM Product join Brandd on Brandd.Brand_id = Product.Brand_id join Product_Category on Product_Category.Category_id = Brandd.Category_id";
+        String sql = "SELECT  Count(Product.Product_id) as Total FROM Product join Brandd on Brandd.Brand_id = Product.Brand_id join Product_Category on Product_Category.Category_id = Brandd.Category_id join Price On Price.Product_id = Product.Product_id";
         boolean where = false;
         if(cateId.length > 0) {
             where =  true;
