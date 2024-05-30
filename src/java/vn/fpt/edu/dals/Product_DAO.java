@@ -169,7 +169,31 @@ public class Product_DAO extends DBContext {
         return list;
     }
 
-  public List<Product> getAllProducts(String[] cateId, int page, String[] brandId, String min, String max) {
+ public List<Product> getAllProducts(int page) {
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT Product.Product_name, Product.Product_img, Product.Product_id, Product_Detail.Decription, Price.Price, [Product_Category].[Category_name] FROM Product join Product_Detail ON Product.Product_id = Product_Detail.Product_id join Price on Product.Product_id = [Price].Product_id join Brandd on [Brandd].[Brand_Id] = [Product].[Brand_id] join [Product_Category] on [Product_Category].[Category_id] = [Brandd].[Category_id]";
+        sql += " ORDER BY Product.Product_id OFFSET "+((page - 1) * 9)+" ROWS FETCH NEXT 9 ROWS ONLY;";
+        System.out.println(sql);
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Product u = new Product();
+                u.setProduct_name(rs.getString("Product_name"));
+                u.setProduct_img(rs.getString("Product_img"));
+                u.setProduct_id(rs.getInt("Product_id"));
+                u.setDescription(rs.getString("Decription"));
+                u.setPrice(rs.getInt("Price"));
+                u.setCategory_name(rs.getString("Category_name"));
+                list.add(u);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    
+    public List<Product> getAllProductsWithParameter(String[] cateId, int page, String[] brandId, String min, String max) {
         List<Product> list = new ArrayList<>();
         String sql = "SELECT Product.Product_name, Product.Product_img, Product.Product_id, Product_Detail.Decription, Price.Price, [Product_Category].[Category_name] FROM Product join Product_Detail ON Product.Product_id = Product_Detail.Product_id join Price on Product.Product_id = [Price].Product_id join Brandd on [Brandd].[Brand_Id] = [Product].[Brand_id] join [Product_Category] on [Product_Category].[Category_id] = [Brandd].[Category_id]";
         boolean where = false;
@@ -195,7 +219,7 @@ public class Product_DAO extends DBContext {
         }
         if(where) {
             if(min != null) {
-                sql += " AND Price.Price >= " + min;
+sql += " AND Price.Price >= " + min;
             }
             if(max != null) {
                 sql += " AND Price.Price <= " + max;
@@ -231,7 +255,6 @@ public class Product_DAO extends DBContext {
         }
         return list;
     }
-
     public List<Product> getSellingProduct() {
         List<Product> list = new ArrayList<>();
         String sql = "select p.Product_img, pc.Category_name, p.Product_name, pr.Price, SUM(o.Order_quantity) AS Total_Products\n"
