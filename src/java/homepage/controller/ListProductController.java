@@ -78,7 +78,7 @@ public class ListProductController extends HttpServlet {
         request.setAttribute("p", p);
         int size = 0;
         String[] cateId = new String[0];
-        String[] brandId = new String[0];
+String[] brandId = new String[0];
         String min = request.getParameter("min");
         String maxp = request.getParameter("max");
         try {
@@ -94,13 +94,16 @@ public class ListProductController extends HttpServlet {
             brandId = request.getParameterValues("brandid");
             
         }
-        if (request.getParameter("search") != null && request.getParameter("search") != "") {
+        if(request.getParameterMap().size() == 0 || (request.getParameterMap().size() == 1 && request.getParameter("page") != null)) {
+            listProduct = d.getAllProducts(p);
+            size = d.getAllProductsSize();
+        } else if (request.getParameter("search") != null && request.getParameter("search") != "") {
             String strSearch = request.getParameter("search");
             listProduct = d.getProductByTittle(strSearch, cateId, p, brandId, min, maxp);
             size = d.getProductByTittleSize(strSearch, cateId, brandId, min, maxp);
         } else {
-            listProduct = d.getAllProducts(cateId, p, brandId, min, maxp);
-            size = d.getAllProductsSize(cateId, brandId, min, maxp);
+            listProduct = d.getAllProductsWithParameter(cateId, p, brandId, min, maxp);
+            size = d.getAllProductsWithParameterSize(cateId, brandId, min, maxp);
         }
         int max = (size / 9) + ((size / 9) > (float)(size / 9.0) ? 0 : 1);
         request.setAttribute("max", max);
