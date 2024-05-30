@@ -55,13 +55,31 @@ public class Product_DAO extends DBContext {
         return 0;
     }
 
-    public List<Product> getProductByTittle(String strSearch, int cateId, int page) {
+  public List<Product> getProductByTittle(String strSearch, String[] cateId, int page, String[] brandId, String min, String max) {
         List<Product> list = new ArrayList<>();
         String sql = "SELECT Product.Product_name, Product.Product_img, Product.Product_id, Product_Detail.Decription, Price.Price, [Product_Category].[Category_name] FROM Product join Product_Detail ON Product.Product_id = Product_Detail.Product_id join Price on Product.Product_id = [Price].Product_id join Brandd on [Brandd].[Brand_Id] = [Product].[Brand_id] join [Product_Category] on [Product_Category].[Category_id] = [Brandd].[Category_id] WHERE Product_name LIKE ?";
-        if (cateId != -1) {
-            sql += " AND [Product_Category].[Category_id] = " + cateId;
+        if(cateId.length > 0) {
+            sql += " AND ([Product_Category].[Category_id] = " + cateId[0];
+            for(int i = 1; i < cateId.length; i++) {
+                sql += " OR [Product_Category].[Category_id] = " + cateId[i];
+            }
+            sql += ")";
         }
-        sql += " ORDER BY Product.Product_id OFFSET " + ((page - 1) * 9) + " ROWS FETCH NEXT 9 ROWS ONLY;";
+        if(brandId.length > 0) {
+            sql += " AND [Product].[Brand_id] in (SELECT Brand_Id FROM Brandd WHERE Brand_Name like '%" + brandId[0]+"%'";
+            for(int i = 1; i < brandId.length; i++) {
+                sql += " OR Brand_Name like '%" + brandId[i]+"%'";
+            }
+            sql += ")";
+        }
+        if(min != null) {
+            sql += " AND Price.Price >= " + min;
+        }
+        if(max != null) {
+            sql += " AND Price.Price <= " + max;
+        }
+        sql += " ORDER BY Product.Product_id OFFSET "+((page - 1) * 9)+" ROWS FETCH NEXT 9 ROWS ONLY;";
+        System.out.println(sql);
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, "%" + strSearch + "%");
@@ -476,4 +494,5 @@ public class Product_DAO extends DBContext {
         }
         return null;
     }
+    
 }
