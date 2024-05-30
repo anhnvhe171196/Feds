@@ -68,6 +68,7 @@ public class Bill_DAO extends DBContext {
         }
         return list;
     }
+
     public int getSumOfDoneBill() {
         int sumOfDoneBill = 0;
         String sql = "SELECT SUM(Total_price) AS Sum \n"
@@ -103,23 +104,122 @@ public class Bill_DAO extends DBContext {
         }
         return list;
     }
-    
+
     public List<Bill1> getBillAllWithUser() {
         List<Bill1> list = new ArrayList<>();
         String sql = "SELECT Bill.*, U.User_name\n"
                 + "FROM Bill\n"
-                + "JOIN [User] AS U ON Bill.User_Id = U.User_Id\n"; 
+                + "JOIN [User] AS U ON Bill.User_Id = U.User_Id\n";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
+
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"), rs.getInt("User_id"), rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
+                Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"),
+                        rs.getInt("User_id"), rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
                 list.add(u);
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
         return list;
+    }
+
+    public List<Bill1> getBillAllWithUserSortByDate(String type) {
+        List<Bill1> list = new ArrayList<>();
+        String sql = "SELECT Bill.*, U.User_name\n"
+                + "FROM Bill\n"
+                + "JOIN [User] AS U ON Bill.User_Id = U.User_Id\n"
+                + "ORDER BY Bill.Date " + type + ";";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"),
+                        rs.getInt("User_id"), rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
+                list.add(u);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public List<Bill1> getBillAllWithUserSortByBillId(String type) {
+        List<Bill1> list = new ArrayList<>();
+        String sql = "SELECT Bill.*, U.User_name\n"
+                + "FROM Bill\n"
+                + "JOIN [User] AS U ON Bill.User_Id = U.User_Id\n"
+                + "ORDER BY Bill.Bill_Id " + type + ";";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"),
+                        rs.getInt("User_id"), rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
+                list.add(u);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public List<Bill1> getBillAllWithUserSortByValue(String type) {
+        List<Bill1> list = new ArrayList<>();
+        String sql = "SELECT Bill.*, U.User_name\n"
+                + "FROM Bill\n"
+                + "JOIN [User] AS U ON Bill.User_Id = U.User_Id\n"
+                + "ORDER BY Bill.Total_price " + type + ";";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"),
+                        rs.getInt("User_id"), rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
+                list.add(u);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public List<Bill1> getBillAllWithUserPagingSQL(int pageIndex, int numOfBill) {
+        List<Bill1> list = new ArrayList<>();
+        String sql = "exec PagingBill ?,?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, pageIndex);
+            st.setInt(2, numOfBill);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Bill1 u = new Bill1(rs.getInt(1), rs.getDouble(2), rs.getString(3), rs.getInt(4),
+                        rs.getString(5), rs.getString(6), rs.getString(7));
+                list.add(u);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public int getNumOfPageBillList(int numOfBillInScreen) {
+        int numOfPages = 0;
+        String sql = "DECLARE @NumberBillPerPage INT = ?\n"
+                + "SELECT CEILING(COUNT(*) * 1.0 / @NumberBillPerPage) AS TotalPages\n"
+                + "FROM Bill;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, numOfBillInScreen);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                numOfPages = rs.getInt("TotalPages");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return numOfPages;
     }
 
     public double getSumOfBillByMonth(int month) {
@@ -158,6 +258,7 @@ public class Bill_DAO extends DBContext {
         }
         return numberOrder;
     }
+
     public int getTotalOrderUser(int id) {
         int numberOrder = 0;
         String sql = "select count(b.Bill_Id)\n"
@@ -175,6 +276,7 @@ public class Bill_DAO extends DBContext {
         }
         return numberOrder;
     }
+
     public double getSumOfBillByUserId(int id) {
         double sumOfDoneBill = 0;
         String sql = "SELECT SUM(Total_price)\n"
@@ -192,6 +294,48 @@ public class Bill_DAO extends DBContext {
         }
         return sumOfDoneBill;
     }
+
+    public List<Bill1> searchBills(String value) {
+        List<Bill1> list = new ArrayList<>();
+        try {
+
+            String sql = "SELECT Bill.*, U.User_name FROM Bill JOIN [User] AS U ON Bill.User_Id = U.User_Id "
+                    + "WHERE Bill.Bill_Id LIKE ? OR U.User_name LIKE ?  OR Bill.Status LIKE ? OR Bill.Address LIKE ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, "%" + value + "%");
+            ps.setString(2, "%" + value + "%");
+            ps.setString(3, "%" + value + "%");
+            ps.setString(4, "%" + value + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Bill1 u = new Bill1(rs.getInt(1), rs.getDouble(2), rs.getString(3), rs.getInt(4),
+                        rs.getString(5), rs.getString(6), rs.getString(7));
+                list.add(u);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
     
     
+    
+public static void main(String[] args) {
+    // Tạo đối tượng Bill_DAO
+    Bill_DAO billDAO = new Bill_DAO();
+    
+    // Số lượng hóa đơn trên mỗi trang
+    int numOfBillInScreen = 5; // Thay đổi giá trị này để phù hợp với yêu cầu của bạn
+
+    // Gọi hàm getNumOfPageBillList
+    int totalPages = billDAO.getNumOfPageBillList(numOfBillInScreen);
+
+    // Hiển thị kết quả
+    System.out.println("Total Pages: " + totalPages);
+}
+
+
+
 }

@@ -38,7 +38,7 @@
     </servlet>
     <servlet>
         <servlet-name>ListProductController</servlet-name>
-        <servlet-class>homepage.controller.ListProductController</servlet-class>
+        <servlet-class>vn.fpt.edu.homepagecontroller.ListProductController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UserLogoutController</servlet-name>

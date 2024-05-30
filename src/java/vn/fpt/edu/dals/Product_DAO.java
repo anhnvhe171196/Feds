@@ -148,7 +148,7 @@ public class Product_DAO extends DBContext {
                 + "INNER JOIN\n"
                 + "    Bill b ON o.Bill_id = b.Bill_Id\n"
                 + "JOIN\n"
-                + "    Brandd br ON p.Brand_id = br.Brand_Id\n"
+                + "    Brand br ON p.Brand_id = br.Brand_Id\n"
                 + "JOIN\n"
                 + "    Product_Category pc ON br.Category_id = pc.Category_id\n"
                 + "WHERE\n"
@@ -180,6 +180,8 @@ public class Product_DAO extends DBContext {
         }
         return list;
     }
+    
+    
 
     public List<Product> getTrendCategory(String month, String year) {
         List<Product> list = new ArrayList<>();
@@ -196,7 +198,7 @@ public class Product_DAO extends DBContext {
                     + "JOIN\n"
                     + "    Product p ON o.Product_id = p.Product_id\n"
                     + "JOIN\n"
-                    + "    Brandd br ON p.Brand_id = br.Brand_id\n"
+                    + "    Brand br ON p.Brand_id = br.Brand_id\n"
                     + "JOIN\n"
                     + "    Product_Category pc ON br.Category_id = pc.Category_id\n"
                     + "WHERE\n"
@@ -217,7 +219,7 @@ public class Product_DAO extends DBContext {
                     + "JOIN\n"
                     + "    Product p ON o.Product_id = p.Product_id\n"
                     + "JOIN\n"
-                    + "    Brandd br ON p.Brand_id = br.Brand_id\n"
+                    + "    Brand br ON p.Brand_id = br.Brand_id\n"
                     + "JOIN\n"
                     + "    Product_Category pc ON br.Category_id = pc.Category_id\n"
                     + "WHERE\n"
@@ -476,4 +478,6 @@ public class Product_DAO extends DBContext {
         }
         return null;
     }
+    
+    
 }
