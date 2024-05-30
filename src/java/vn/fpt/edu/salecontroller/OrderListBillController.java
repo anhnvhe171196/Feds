@@ -66,7 +66,7 @@ public class OrderListBillController extends HttpServlet {
         if (action == null) {
             Bill_DAO bd = new Bill_DAO();;
 
-            List<Bill1> listBill = bd.getBillAllWithUser();
+            List<Bill1> listBill = bd.getBillAllWithUser```````````````````````````````();
             session.setAttribute("listBill", listBill);
             
 //            out.print(listBill.get(0).getBill_id());
