@@ -44,7 +44,7 @@ public class Bill_DAO extends DBContext {
                 + "    [Feds].[dbo].[Bill]\n"
                 + "WHERE\n"
                 + "    Date BETWEEN ? AND ?\n"
-                + "    AND Status = 'Done'\n"
+                + "    AND Status = 'Hoàn Thành'\n"
                 + "GROUP BY\n"
                 + "    Date\n"
                 + "ORDER BY\n"

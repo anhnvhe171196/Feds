@@ -80,13 +80,12 @@ public class ProductOrderController extends HttpServlet {
             productNames.add(product.getProduct_name());
             quantities.add(product.getQuantity());
         }
-        out.print(productNames);
-//        session.setAttribute("startDate", startdate);
-//        session.setAttribute("endDate", enddate);
-//        session.setAttribute("name", productNames);
-//        session.setAttribute("quantity", quantity);
-//        session.setAttribute("sum", quantities);
-//        request.getRequestDispatcher("SaleHome.jsp").forward(request, response);
+        session.setAttribute("startDate", startdate);
+        session.setAttribute("endDate", enddate);
+        session.setAttribute("name", productNames);
+        session.setAttribute("quantity", quantity);
+        session.setAttribute("sum", quantities);
+        request.getRequestDispatcher("SaleHome.jsp").forward(request, response);
     }
 
     /**
