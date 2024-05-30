@@ -233,16 +233,16 @@
                                                                     for(int i = 0; i < brands.size(); i++) { //Toàn Bộ Brand
                                                                         boolean checked = false;
                                                                         for(int j = 0; j < brandId.length; j++) {
-                                                                            if(String.valueOf(brands.get(i).getName()).equals(brandId[j])) {
+                                                                            if(String.valueOf(brands.get(i).getBrandName()).equals(brandId[j])) {
                                                                                 checked = true;
                                                                             }
                                                                         }
     %>
 								<div class="input-checkbox">
-									<input type="checkbox" name="brandid" value="<%=brands.get(i).getName()%>" id="brand-<%=i+1%>" <%=checked ? "checked" : ""%>>
+									<input type="checkbox" name="brandid" value="<%=brands.get(i).getBrandName()%>" id="brand-<%=i+1%>" <%=checked ? "checked" : ""%>>
 									<label for="brand-<%=i+1%>">
 										<span></span>
-										<%=brands.get(i).getName()%>
+										<%=brands.get(i).getBrandName()%>
 									</label>
 								</div>
                                                                 <% } %>
