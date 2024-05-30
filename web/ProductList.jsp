@@ -229,8 +229,8 @@
 							<div class="checkbox-filter">
                                                                 <%  String[] brandId = request.getParameterValues("brandid") == null ? new String[0] : request.getParameterValues("brandid");
                                                                     ArrayList<Brand> brands = (ArrayList)request.getAttribute("brands");
-                                                                    //for(int i = 0; i < (brands.size() > 9 ? 9 : brands.size()); i++) { //Giới Hạn 9 brand
-                                                                    for(int i = 0; i < brands.size(); i++) { //Toàn Bộ Brand
+                                                                    for(int i = 0; i < (brands.size() > 9 ? 9 : brands.size()); i++) { //Giới Hạn 9 brand
+//                                                                    for(int i = 0; i < brands.size(); i++) { //Toàn Bộ Brand
                                                                         boolean checked = false;
                                                                         for(int j = 0; j < brandId.length; j++) {
                                                                             if(String.valueOf(brands.get(i).getBrandName()).equals(brandId[j])) {
