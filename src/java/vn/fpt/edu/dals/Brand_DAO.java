@@ -7,6 +7,8 @@ package vn.fpt.edu.dals;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import vn.fpt.edu.models.Brand;
 import vn.fpt.edu.models.Category;
 import vn.fpt.edu.models.Product1;
@@ -36,5 +38,21 @@ public class Brand_DAO extends DBContext {
             System.out.println(e);
         }
         return null;
+    }
+    public List<Brand> getAllBrand() {
+        List<Brand> list = new ArrayList<>();
+        String sql = "SELECT distinct [Brand_Name]\n" +
+"  FROM [Brandd]";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Brand u = new Brand(rs.getString("Brand_Name"));
+                list.add(u);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
     }
 }

@@ -16,6 +16,10 @@ public class Brand {
     public Brand() {
     }
 
+    public Brand(String brandName) {
+        this.brandName = brandName;
+    }
+
     public Brand(int brandId, String brandName, Category category) {
         this.brandId = brandId;
         this.brandName = brandName;
