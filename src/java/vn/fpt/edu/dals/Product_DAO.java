@@ -37,10 +37,27 @@ public class Product_DAO extends DBContext {
         return 0;
     }
 
-    public int getProductByTittleSize(String strSearch, int cateId) {
+     public int getProductByTittleSize(String strSearch, String[] cateId, String[] brandId, String min, String max) {
         String sql = "SELECT  Count(Product.Product_id) as Total FROM Product join Brandd on Brandd.Brand_id = Product.Brand_id join Product_Category on Product_Category.Category_id = Brandd.Category_id WHERE Product_name LIKE ?";
-        if (cateId != -1) {
-            sql += " AND [Product_Category].[Category_id] = " + cateId;
+        if(cateId.length > 0) {
+            sql += " AND ([Product_Category].[Category_id] = " + cateId[0];
+            for(int i = 1; i < cateId.length; i++) {
+                sql += " OR [Product_Category].[Category_id] = " + cateId[i];
+            }
+            sql += ")";
+        }
+        if(brandId.length > 0) {
+            sql += " AND [Product].[Brand_id] in (SELECT Brand_Id FROM Brandd WHERE Brand_Name like '%" + brandId[0]+"%'";
+            for(int i = 1; i < brandId.length; i++) {
+                sql += " OR Brand_Name like '%" + brandId[i]+"%'";
+            }
+            sql += ")";
+        }
+        if(min != null) {
+            sql += " AND Price.Price >= " + min;
+        }
+        if(max != null) {
+            sql += " AND Price.Price <= " + max;
         }
         try {
             PreparedStatement st = connection.prepareStatement(sql);
