@@ -21,7 +21,7 @@ import vn.fpt.edu.dals.Order_DAO;
 import vn.fpt.edu.dals.Product_DAO;
 import vn.fpt.edu.dals.User_DAO;
 import vn.fpt.edu.models.Feedback1;
-import vn.fpt.edu.models.Product1;
+import vn.fpt.edu.models.Product;
 
 /**
  *
@@ -79,12 +79,12 @@ public class MarketingDashBoardController extends HttpServlet {
         String startdate = request.getParameter("startdate");
         String enddate = request.getParameter("enddate");
         Data_MarketingDashboard_DAO data = new Data_MarketingDashboard_DAO();
-        List<Product1> productSellingList = data.getSellingProduct(startdate, enddate, quantity);
+        List<Product> productSellingList = data.getSellingProduct(startdate, enddate, quantity);
 
         List<String> productNames = new ArrayList<>();
         List<Integer> quantities = new ArrayList<>();
 
-        for (Product1 product : productSellingList) {
+        for (Product product : productSellingList) {
             productNames.add(product.getProduct_name());
             quantities.add(product.getQuantity());
         }

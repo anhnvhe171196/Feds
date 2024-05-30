@@ -6,6 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@taglib  prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -44,7 +46,7 @@
                     <div class="col-md-7">
                         <div id="product-main-img">
                             <div class="product-preview">
-                                <img src="images/product01.png" alt="">
+                                <img src="images/${product.product.product_img}" alt="">
                             </div>
                         </div>
                     </div>
@@ -54,7 +56,7 @@
                     <!-- Product details -->
                     <div class="col-md-5" style="    margin-top: 100px;">
                         <div class="product-details">
-                            <h2 class="product-name">product name goes here</h2>
+                            <h2 class="product-name">${product.product.product_name}</h2>
                             <div>
                                 <div class="product-rating">
                                     <i class="fa fa-star"></i>
@@ -66,49 +68,71 @@
                                 <a class="review-link" href="#">10 Review(s) | Add your review</a>
                             </div>
                             <div>
-                                <h3 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h3>
+                                <h3 class="product-price"><fmt:formatNumber value="${price.price}" pattern="#,###"/><del class="product-old-price">$990.00</del></h3>
                                 <span class="product-available">In Stock</span>
                             </div>
-                            <table>
-                                <tr>
-                                    <td style="padding-right: 80px;padding-bottom: 5px;font-weight: bold;">RAM</td>
-                                    <td>Du lieu</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding-right: 80px;padding-bottom: 5px;font-weight: bold;">ROM</td>
-                                    <td>Du lieu</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding-right: 80px;padding-bottom: 5px;font-weight: bold;">Size</td>
-                                    <td>Du lieu</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding-right: 80px;padding-bottom: 5px;font-weight: bold;">Battery</td>
-                                    <td>Du lieu</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding-right: 80px;padding-bottom: 5px;font-weight: bold;" >Weight</td>
-                                    <td>Du lieu</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding-right: 80px;padding-bottom: 5px;font-weight: bold;">Color</td>
-                                    <td>Du lieu</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding-right: 80px;padding-bottom: 5px;font-weight: bold;">Describe</td>
-                                    <td>Du lieu</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding-right: 80px;padding-bottom: 5px;font-weight: bold;">Wattage</td>
-                                    <td></td>
-                                </tr>
+                            <table> 
+                                <c:if test="${product.ram!=null}">
+                                    <tr>
+                                        <td style="padding-right: 80px;padding-bottom: 5px;font-weight: bold;">RAM</td>
+                                        <td>${product.ram}</td>
+                                    </tr>
+                                </c:if>
+                                <c:if test="${product.rom!=null}">
+                                    <tr>
+                                        <td style="padding-right: 80px;padding-bottom: 5px;font-weight: bold;">ROM</td>
+                                        <td>${product.rom}</td>
+                                    </tr>
+                                </c:if>
+                                <c:if test="${product.size!=null}">
+                                    <tr>
+                                        <td style="padding-right: 80px;padding-bottom: 5px;font-weight: bold;">Size</td>
+                                        <td>${product.size}</td>
+                                    </tr>
+                                </c:if>
+                                <c:if test="${product.battery!=null}">
+                                    <tr>
+                                        <td style="padding-right: 80px;padding-bottom: 5px;font-weight: bold;">Battery</td>
+                                        <td>${product.battery}</td>
+                                    </tr>
+                                </c:if>
+                                <c:if test="${product.weight!=null}">
+                                    <tr>
+                                        <td style="padding-right: 80px;padding-bottom: 5px;font-weight: bold;" >Weight</td>
+                                        <td>${product.weight}</td>
+                                    </tr>
+                                </c:if>
+                                <c:if test="${product.color!=null}">
+                                    <tr>
+                                        <td style="padding-right: 80px;padding-bottom: 5px;font-weight: bold;">Color</td>
+                                        <td>${product.color}</td>
+                                    </tr>
+                                </c:if>
+                                <c:if test="${product.cpu!=null}">
+                                    <tr>
+                                        <td style="padding-right: 80px;padding-bottom: 5px;font-weight: bold;">CPU</td>
+                                        <td>${product.cpu}</td>
+                                    </tr>
+                                </c:if>
+                                <c:if test="${product.wattage!=null}">
+                                    <tr>
+                                        <td style="padding-right: 80px;padding-bottom: 5px;font-weight: bold;">Wattage</td>
+                                        <td>${product.wattage}</td>
+                                    </tr>
+                                </c:if>
+                                <c:if test="${product.status!=null}">
+                                    <tr>
+                                        <td style="padding-right: 80px;padding-bottom: 5px;font-weight: bold;">Status</td>
+                                        <td>${product.status}</td>
+                                    </tr>
+                                </c:if>
                             </table>
 
                             <div class="add-to-cart">
                                 <div class="qty-label">
                                     Số lượng:
                                     <div class="input-number">
-                                        <input type="number" value="1">
+                                        <input type="number" value="1" max="${requestScope.product.product.quantity}">
                                         <span class="qty-up">+</span>
                                         <span class="qty-down">-</span>
                                     </div>
@@ -118,16 +142,8 @@
 
                             <ul class="product-links">
                                 <li>Category:</li>
-                                <li><a href="#">Headphones</a></li>
-                                <li><a href="#">Accessories</a></li>
-                            </ul>
-
-                            <ul class="product-links">
-                                <li>Share:</li>
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a href="#"><i class="fa fa-envelope"></i></a></li>
+                                <li><a href="#">${requestScope.product.product.brand.category.category_name}</a></li>
+                                <li><a href="#">${requestScope.product.product.brand.brandName}</a></li>
                             </ul>
 
                         </div>
@@ -151,7 +167,7 @@
                             <div id="tab1" class="tab-pane fade in active">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                        <p>${requestScope.product.decription}</p>
                                     </div>
                                 </div>
                             </div>
@@ -368,7 +384,7 @@
                         <div class="product-body">
                             <p class="product-category">Category</p>
                             <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                            <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+                            <h4 class="product-price">${price.price} <del class="product-old-price">$990.00</del></h4>
                             <div class="product-rating">
                             </div>
                             <div class="product-btns">

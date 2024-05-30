@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import vn.fpt.edu.models.Brand;
 import vn.fpt.edu.models.Category;
 import vn.fpt.edu.models.Price;
-import vn.fpt.edu.models.Product;
+import vn.fpt.edu.models.Product1;
 
 /**
  *
@@ -32,7 +32,7 @@ public class Price_DAO extends DBContext {
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 Product_DAO p = new Product_DAO();
-                Product p1 = p.getProductById(rs.getInt("Product_id"));
+                Product1 p1 = p.getProductById(rs.getInt("Product_id"));
                 return new Price(rs.getDouble("Price"), rs.getDate("Date_start"), rs.getDate("Date_start"), p1);
             }
         } catch (SQLException e) {

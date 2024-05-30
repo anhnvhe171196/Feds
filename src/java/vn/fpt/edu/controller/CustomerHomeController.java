@@ -10,11 +10,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
 import vn.fpt.edu.dals.Category_DAO;
 import vn.fpt.edu.dals.Product_DAO;
-import vn.fpt.edu.models.Product1;
 
 /**
  *
@@ -30,7 +27,7 @@ public class CustomerHomeController extends HttpServlet {
         Product_DAO data = new Product_DAO();
 //        List<Product> listSellingProduct = data.getSellingProduct();
 //        List<Product> list = new ArrayList<>();
-//        for (Product1 product : listSellingProduct) {
+//        for (Product product : listSellingProduct) {
 //            list.add(product);
 //        }
         session.setAttribute("cates", d.getAllCate());

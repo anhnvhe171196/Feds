@@ -14,12 +14,12 @@ public class Price {
     private double price;
     private Date dateStart;
     private Date dateEnd;
-    private Product product;
+    private Product1 product;
 
     public Price() {
     }
 
-    public Price(double price, Date dateStart, Date dateEnd, Product product) {
+    public Price(double price, Date dateStart, Date dateEnd, Product1 product) {
         this.price = price;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
@@ -50,11 +50,11 @@ public class Price {
         this.dateEnd = dateEnd;
     }
 
-    public Product getProduct() {
+    public Product1 getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(Product1 product) {
         this.product = product;
     }
     

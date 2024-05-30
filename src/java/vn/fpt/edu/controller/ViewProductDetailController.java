@@ -11,6 +11,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import vn.fpt.edu.dals.Price_DAO;
+import vn.fpt.edu.dals.ProductDetail_DAO;
+import vn.fpt.edu.models.Price;
+import vn.fpt.edu.models.ProductDetail;
 
 /**
  *
@@ -53,6 +57,18 @@ public class ViewProductDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        String productId = request.getParameter("pid");
+        try {
+            int productID = Integer.parseInt(productId);
+            ProductDetail_DAO pdao = new ProductDetail_DAO();
+            ProductDetail pd = pdao.getProductDetailById(productID);
+            request.setAttribute("product", pd);
+            Price_DAO pds = new Price_DAO();
+            Price p = pds.getPriceById(productID);
+            request.setAttribute("price", p);
+            request.getRequestDispatcher("ViewProductDetail.jsp").forward(request, response);
+        } catch (Exception e) {
+        }
     } 
 
     /** 

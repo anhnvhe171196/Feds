@@ -10,12 +10,12 @@ package vn.fpt.edu.models;
  */
 public class ProductDetail {
     private String ram, rom, size, battery, weight, color, decription, cpu, wattage, status;
-    private Product product;
+    private Product1 product;
 
     public ProductDetail() {
     }
 
-    public ProductDetail(String ram, String rom, String size, String battery, String weight, String color, String decription, String cpu, String wattage, String status, Product product) {
+    public ProductDetail(String ram, String rom, String size, String battery, String weight, String color, String decription, String cpu, String wattage, String status, Product1 product) {
         this.ram = ram;
         this.rom = rom;
         this.size = size;
@@ -109,11 +109,11 @@ public class ProductDetail {
         this.status = status;
     }
 
-    public Product getProduct() {
+    public Product1 getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(Product1 product) {
         this.product = product;
     }
     

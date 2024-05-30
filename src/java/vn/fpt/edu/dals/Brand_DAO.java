@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import vn.fpt.edu.models.Brand;
 import vn.fpt.edu.models.Category;
-import vn.fpt.edu.models.Product;
+import vn.fpt.edu.models.Product1;
 
 /**
  *

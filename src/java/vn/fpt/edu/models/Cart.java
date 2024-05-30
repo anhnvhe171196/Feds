@@ -58,8 +58,8 @@ public class Cart {
         return t;
     }
     
-    private Product getProductById(int id, List<Product> list) { 
-        for (Product i : list) {
+    private Product1 getProductById(int id, List<Product1> list) { 
+        for (Product1 i : list) {
             if(i.getProduct_id() == id) return i;
         }
         return null;
@@ -74,7 +74,7 @@ public class Cart {
 //                String[] n = i.split(":");
 //                int id = Integer.parseInt(n[0]);
 //                int quantity = Integer.parseInt(n[1]);
-//                Product p = getProductById(id, list);
+//                Product1 p = getProductById(id, list);
 //                Item t = new Item(p, quantity, p.getPrice()*2);
 //                addItem(t);
 //            }

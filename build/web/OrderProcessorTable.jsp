@@ -41,8 +41,7 @@
         <link href="css/OrderProcessor.css" rel="stylesheet">
     </head>
     <body>
-        <c:choose>
-            <c:when test="${sessionScope.account != null && sessionScope.account.getRole_id() >= 1 && sessionScope.account.getRole_id() <= 4}">
+        
                 <div class="container-xxl position-relative bg-white d-flex p-0">
                     <!-- Spinner Start -->
                     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -268,57 +267,8 @@
                         <!-- Back to Top -->
                         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
                     </div>
-                </c:when>
-                <c:otherwise>
-                    <div id="notfound">
-                        <div class="notfound" style="text-align: center">
-                            <div class="notfound-404">
-                                <h1 style="font-family: 'Montserrat', sans-serif;
-                                    font-size: 230px;
-                                    margin: 0px;
-                                    font-weight: 900;
-                                    position: absolute;
-                                    left: 50%;
-                                    -webkit-transform: translateX(-50%);
-                                    -ms-transform: translateX(-50%);
-                                    transform: translateX(-50%);
-                                    background: url('images/bg_2.jpg') no-repeat;
-                                    -webkit-background-clip: text;
-                                    -webkit-text-fill-color: transparent;
-                                    background-size: cover;">Oops!</h1>
-                            </div>
-                            <div style="margin-top: 150px;padding: 272px;">
-                                <h2 style=" font-family: 'Montserrat', sans-serif;
-                                    color: #000;
-                                    font-size: 24px;
-                                    font-weight: 700;
-                                    text-transform: uppercase;
-                                    margin-top: 0;">Looks like you don't have access!</h2>
-                                <p style="font-family: 'Montserrat', sans-serif;
-                                   color: #000;
-                                   font-size: 14px;
-                                   font-weight: 400;
-                                   margin-bottom: 20px;
-                                   margin-top: 0px;">The page you are looking for might have been removed had its name changed or is temporarily unavailable.</p>
-                                <a style="font-family: 'Montserrat', sans-serif;
-                                   font-size: 14px;
-                                   text-decoration: none;
-                                   text-transform: uppercase;
-                                   background: #0046d5;
-                                   display: inline-block;
-                                   padding: 15px 30px;
-                                   border-radius: 40px;
-                                   color: #fff;
-                                   font-weight: 700;
-                                   -webkit-box-shadow: 0px 4px 15px -5px #0046d5;
-                                   box-shadow: 0px 4px 15px -5px #0046d5;" href="home">Go To Homepage</a>
-                            </div>
-                        </div>
 
-                    </div>
-                </c:otherwise>
-            </c:choose>
-
+ 
 
             <!-- JavaScript Libraries -->
             <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

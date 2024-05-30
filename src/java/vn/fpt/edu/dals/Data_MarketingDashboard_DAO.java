@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import java.util.List;
-import vn.fpt.edu.models.Product1;
+import vn.fpt.edu.models.Product;
 
 /**
  *
@@ -19,8 +19,8 @@ import vn.fpt.edu.models.Product1;
  */
 public class Data_MarketingDashboard_DAO extends DBContext {
 
-    public List<Product1> getSellingProduct(String startDate, String endDate, int numberOfTop) {
-        List<Product1> list = new ArrayList<>();
+    public List<Product> getSellingProduct(String startDate, String endDate, int numberOfTop) {
+        List<Product> list = new ArrayList<>();
         String sql = "SELECT TOP (?)\n"
                 + "    p.Product_name,\n"
                 + "    SUM(o.Order_quantity) AS Total_Products\n"
@@ -52,7 +52,7 @@ public class Data_MarketingDashboard_DAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
 
-                Product1 product = new Product1();
+                Product product = new Product();
                 product.setProduct_name(rs.getString(1).trim());
                 product.setQuantity(rs.getInt(2));
                 list.add(product);
@@ -99,8 +99,8 @@ public class Data_MarketingDashboard_DAO extends DBContext {
         return list;
     }
 
-    public List<Product1> getTrendCategory(String month, String year) {
-        List<Product1> list = new ArrayList<>();
+    public List<Product> getTrendCategory(String month, String year) {
+        List<Product> list = new ArrayList<>();
         String sql;
 
         if ("0".equalsIgnoreCase(month)) {
@@ -157,7 +157,7 @@ public class Data_MarketingDashboard_DAO extends DBContext {
 
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Product1 prd = new Product1();
+                Product prd = new Product();
                 prd.setCategory_name(rs.getString("Category_name"));
                 prd.setQuantity(rs.getInt("Bill_Count"));
                 list.add(prd);
