@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import vn.fpt.edu.models.Product;
 
 /**
  *
@@ -321,20 +322,6 @@ public class Bill_DAO extends DBContext {
 
     
     
-    
-public static void main(String[] args) {
-    // Tạo đối tượng Bill_DAO
-    Bill_DAO billDAO = new Bill_DAO();
-    
-    // Số lượng hóa đơn trên mỗi trang
-    int numOfBillInScreen = 5; // Thay đổi giá trị này để phù hợp với yêu cầu của bạn
-
-    // Gọi hàm getNumOfPageBillList
-    int totalPages = billDAO.getNumOfPageBillList(numOfBillInScreen);
-
-    // Hiển thị kết quả
-    System.out.println("Total Pages: " + totalPages);
-}
 
 
 
