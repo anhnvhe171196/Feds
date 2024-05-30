@@ -9,7 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import vn.fpt.edu.models.Brand;
+import vn.fpt.edu.models.Price;
 import vn.fpt.edu.models.Product1;
 import vn.fpt.edu.models.Product;
 import vn.fpt.edu.models.User;
@@ -476,4 +478,7 @@ public class Product_DAO extends DBContext {
         }
         return null;
     }
+
+    
+
 }

@@ -33,24 +33,23 @@ public class Feedback_DAO extends DBContext {
             System.out.println(e);
         }
         return numOfFeedback;
- 
-    }
-    
-    public int getTotalNumberOfFeedbacks() {
-    int totalNumberOfFeedbacks = 0;
-    String sql = "SELECT COUNT(*) AS TotalCount FROM Feedback;";
-    try {
-        PreparedStatement st = connection.prepareStatement(sql);
-        ResultSet rs = st.executeQuery();
-        if (rs.next()) {
-            totalNumberOfFeedbacks = rs.getInt("TotalCount");
-        }
-    } catch (SQLException e) {
-        System.out.println(e);
-    }
-    return totalNumberOfFeedbacks;
-}
 
+    }
+
+    public int getTotalNumberOfFeedbacks() {
+        int totalNumberOfFeedbacks = 0;
+        String sql = "SELECT COUNT(*) AS TotalCount FROM Feedback;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                totalNumberOfFeedbacks = rs.getInt("TotalCount");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return totalNumberOfFeedbacks;
+    }
 
     public List<Feedback1> getFeedbackAllWithUser() {
         List<Feedback1> list = new ArrayList<>();
@@ -76,8 +75,6 @@ public class Feedback_DAO extends DBContext {
         }
         return list;
     }
-
-    
 
     public int getNumberOrderUser(int id, String status) {
         int numberOrder = 0;
@@ -117,22 +114,56 @@ public class Feedback_DAO extends DBContext {
     }
 
     public double getSumOfFeedbackByUserId(int id) {
-    double sumOfFeedback = 0;
-    String sql = "SELECT SUM(Total_price) AS TotalFeedback\n"
-               + "FROM Feedback\n"
-               + "WHERE User_id = ?;";
-    try {
-        PreparedStatement st = connection.prepareStatement(sql);
-        st.setInt(1, id);
-        ResultSet rs = st.executeQuery();
-        if (rs.next()) {
-            sumOfFeedback = rs.getDouble("TotalFeedback");
+        double sumOfFeedback = 0;
+        String sql = "SELECT SUM(Total_price) AS TotalFeedback\n"
+                + "FROM Feedback\n"
+                + "WHERE User_id = ?;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                sumOfFeedback = rs.getDouble("TotalFeedback");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
         }
-    } catch (SQLException e) {
-        System.out.println(e);
+        return sumOfFeedback;
     }
-    return sumOfFeedback;
-}
 
-   
+    public double avgRatingOfProduct(int id) {
+        double avg = 0;
+        String sql = "select AVG(Rating)\n"
+                + "from FeedBack\n"
+                + "where Product_id = ?;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                avg = rs.getDouble(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return avg;
+    }
+
+    public int totalFeedBackOfProductById(int id) {
+        int avg = 0;
+        String sql = "select count(f.Comment)\n"
+                + "from FeedBack as f\n"
+                + "where Product_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                avg = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return avg;
+    }
 }
