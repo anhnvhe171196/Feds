@@ -20,8 +20,23 @@ import vn.fpt.edu.models.User;
  */
 public class Product_DAO extends DBContext {
 
-      public int getAllProductsSize(String[] cateId, String[] brandId, String min, String max) {
-        String sql = "SELECT  Count(Product.Product_id) as Total FROM Product join Brandd on Brandd.Brand_id = Product.Brand_id join Product_Category on Product_Category.Category_id = Brandd.Category_id join Price On Price.Product_id = Product.Product_id";
+      public int getAllProductsSize() {
+        String sql = "SELECT Count(Product.Product_id) as Total FROM Product join Brandd on Brandd.Brand_id = Product.Brand_id join Product_Category on Product_Category.Category_id = Brandd.Category_id join Price On Price.Product_id = Product.Product_id";
+        System.out.println(sql);
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("Total");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return 0;
+    }
+    
+    public int getAllProductsWithParameterSize(String[] cateId, String[] brandId, String min, String max) {
+        String sql = "SELECT Count(Product.Product_id) as Total FROM Product join Brandd on Brandd.Brand_id = Product.Brand_id join Product_Category on Product_Category.Category_id = Brandd.Category_id join Price On Price.Product_id = Product.Product_id";
         boolean where = false;
         if(cateId.length > 0) {
             where =  true;
@@ -61,6 +76,7 @@ public class Product_DAO extends DBContext {
                 sql += " WHERE Price.Price <= " + max;
             }
         }
+        System.out.println(sql);
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
