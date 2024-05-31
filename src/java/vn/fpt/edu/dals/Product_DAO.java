@@ -9,9 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import vn.fpt.edu.models.Brand;
-import vn.fpt.edu.models.Price;
 import vn.fpt.edu.models.Product1;
 import vn.fpt.edu.models.Product;
 import vn.fpt.edu.models.User;
@@ -22,11 +20,63 @@ import vn.fpt.edu.models.User;
  */
 public class Product_DAO extends DBContext {
 
-    public int getAllProductsSize(int cateId) {
-        String sql = "SELECT  Count(Product.Product_id) as Total FROM Product join Brandd on Brandd.Brand_id = Product.Brand_id join Product_Category on Product_Category.Category_id = Brandd.Category_id";
-        if (cateId != -1) {
-            sql += " WHERE [Product_Category].[Category_id] = " + cateId;
+      public int getAllProductsSize() {
+        String sql = "SELECT Count(Product.Product_id) as Total FROM Product join Brandd on Brandd.Brand_id = Product.Brand_id join Product_Category on Product_Category.Category_id = Brandd.Category_id join Price On Price.Product_id = Product.Product_id";
+        System.out.println(sql);
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("Total");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
         }
+        return 0;
+    }
+    
+    public int getAllProductsWithParameterSize(String[] cateId, String[] brandId, String min, String max) {
+        String sql = "SELECT Count(Product.Product_id) as Total FROM Product join Brandd on Brandd.Brand_id = Product.Brand_id join Product_Category on Product_Category.Category_id = Brandd.Category_id join Price On Price.Product_id = Product.Product_id";
+        boolean where = false;
+        if(cateId.length > 0) {
+            where =  true;
+            sql += " WHERE ([Product_Category].[Category_id] = " + cateId[0];
+            for(int i = 1; i < cateId.length; i++) {
+                sql += " OR [Product_Category].[Category_id] = " + cateId[i];
+            }
+            sql += ")";
+        }
+        if(brandId.length > 0) {
+            if(where) {
+                sql += " AND [Product].[Brand_id] in (SELECT Brand_Id FROM Brandd WHERE Brand_Name like '%" + brandId[0]+"%'";
+            } else {
+                sql += " WHERE [Product].[Brand_id] in (SELECT Brand_Id FROM Brandd WHERE Brand_Name like '%" + brandId[0]+"%'";
+                where = true;
+            }
+            for(int i = 1; i < brandId.length; i++) {
+                sql += " OR Brand_Name like '%" + brandId[i]+"%'";
+            }
+            sql += ")";
+        }
+        if(where) {
+            if(min != null) {
+                sql += " AND Price.Price >= " + min;
+            }
+            if(max != null) {
+                sql += " AND Price.Price <= " + max;
+            }
+        } else {
+            if(min != null) {
+                sql += " WHERE Price.Price >= " + min;
+                where = true;
+            }
+            if(max != null && where) {
+                sql += " AND Price.Price <= " + max;
+            } else if(max != null) {
+                sql += " WHERE Price.Price <= " + max;
+            }
+        }
+        System.out.println(sql);
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -39,10 +89,27 @@ public class Product_DAO extends DBContext {
         return 0;
     }
 
-    public int getProductByTittleSize(String strSearch, int cateId) {
-        String sql = "SELECT  Count(Product.Product_id) as Total FROM Product join Brandd on Brandd.Brand_id = Product.Brand_id join Product_Category on Product_Category.Category_id = Brandd.Category_id WHERE Product_name LIKE ?";
-        if (cateId != -1) {
-            sql += " AND [Product_Category].[Category_id] = " + cateId;
+     public int getProductByTittleSize(String strSearch, String[] cateId, String[] brandId, String min, String max) {
+        String sql = "SELECT  Count(Product.Product_id) as Total FROM Product join Brandd on Brandd.Brand_id = Product.Brand_id join Product_Category on Product_Category.Category_id = Brandd.Category_id join Price On Price.Product_id = Product.Product_id WHERE Product_name LIKE ?";
+        if(cateId.length > 0) {
+            sql += " AND ([Product_Category].[Category_id] = " + cateId[0];
+            for(int i = 1; i < cateId.length; i++) {
+                sql += " OR [Product_Category].[Category_id] = " + cateId[i];
+            }
+            sql += ")";
+        }
+        if(brandId.length > 0) {
+            sql += " AND [Product].[Brand_id] in (SELECT Brand_Id FROM Brandd WHERE Brand_Name like '%" + brandId[0]+"%'";
+            for(int i = 1; i < brandId.length; i++) {
+                sql += " OR Brand_Name like '%" + brandId[i]+"%'";
+            }
+            sql += ")";
+        }
+        if(min != null) {
+            sql += " AND Price.Price >= " + min;
+        }
+        if(max != null) {
+            sql += " AND Price.Price <= " + max;
         }
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -57,13 +124,31 @@ public class Product_DAO extends DBContext {
         return 0;
     }
 
-    public List<Product> getProductByTittle(String strSearch, int cateId, int page) {
+  public List<Product> getProductByTittle(String strSearch, String[] cateId, int page, String[] brandId, String min, String max) {
         List<Product> list = new ArrayList<>();
         String sql = "SELECT Product.Product_name, Product.Product_img, Product.Product_id, Product_Detail.Decription, Price.Price, [Product_Category].[Category_name] FROM Product join Product_Detail ON Product.Product_id = Product_Detail.Product_id join Price on Product.Product_id = [Price].Product_id join Brandd on [Brandd].[Brand_Id] = [Product].[Brand_id] join [Product_Category] on [Product_Category].[Category_id] = [Brandd].[Category_id] WHERE Product_name LIKE ?";
-        if (cateId != -1) {
-            sql += " AND [Product_Category].[Category_id] = " + cateId;
+        if(cateId.length > 0) {
+            sql += " AND ([Product_Category].[Category_id] = " + cateId[0];
+            for(int i = 1; i < cateId.length; i++) {
+                sql += " OR [Product_Category].[Category_id] = " + cateId[i];
+            }
+            sql += ")";
         }
-        sql += " ORDER BY Product.Product_id OFFSET " + ((page - 1) * 9) + " ROWS FETCH NEXT 9 ROWS ONLY;";
+        if(brandId.length > 0) {
+            sql += " AND [Product].[Brand_id] in (SELECT Brand_Id FROM Brandd WHERE Brand_Name like '%" + brandId[0]+"%'";
+            for(int i = 1; i < brandId.length; i++) {
+                sql += " OR Brand_Name like '%" + brandId[i]+"%'";
+            }
+            sql += ")";
+        }
+        if(min != null) {
+            sql += " AND Price.Price >= " + min;
+        }
+        if(max != null) {
+            sql += " AND Price.Price <= " + max;
+        }
+        sql += " ORDER BY Product.Product_id OFFSET "+((page - 1) * 9)+" ROWS FETCH NEXT 9 ROWS ONLY;";
+        System.out.println(sql);
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, "%" + strSearch + "%");
@@ -84,13 +169,11 @@ public class Product_DAO extends DBContext {
         return list;
     }
 
-    public List<Product> getAllProducts(int cateId, int page) {
+ public List<Product> getAllProducts(int page) {
         List<Product> list = new ArrayList<>();
         String sql = "SELECT Product.Product_name, Product.Product_img, Product.Product_id, Product_Detail.Decription, Price.Price, [Product_Category].[Category_name] FROM Product join Product_Detail ON Product.Product_id = Product_Detail.Product_id join Price on Product.Product_id = [Price].Product_id join Brandd on [Brandd].[Brand_Id] = [Product].[Brand_id] join [Product_Category] on [Product_Category].[Category_id] = [Brandd].[Category_id]";
-        if (cateId != -1) {
-            sql += " WHERE [Product_Category].[Category_id] = " + cateId;
-        }
-        sql += " ORDER BY Product.Product_id OFFSET " + ((page - 1) * 9) + " ROWS FETCH NEXT 9 ROWS ONLY;";
+        sql += " ORDER BY Product.Product_id OFFSET "+((page - 1) * 9)+" ROWS FETCH NEXT 9 ROWS ONLY;";
+        System.out.println(sql);
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -109,7 +192,69 @@ public class Product_DAO extends DBContext {
         }
         return list;
     }
-
+    
+    public List<Product> getAllProductsWithParameter(String[] cateId, int page, String[] brandId, String min, String max) {
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT Product.Product_name, Product.Product_img, Product.Product_id, Product_Detail.Decription, Price.Price, [Product_Category].[Category_name] FROM Product join Product_Detail ON Product.Product_id = Product_Detail.Product_id join Price on Product.Product_id = [Price].Product_id join Brandd on [Brandd].[Brand_Id] = [Product].[Brand_id] join [Product_Category] on [Product_Category].[Category_id] = [Brandd].[Category_id]";
+        boolean where = false;
+        if(cateId.length > 0) {
+            where = true;
+            sql += " WHERE ([Product_Category].[Category_id] = " + cateId[0];
+            for(int i = 1; i < cateId.length; i++) {
+                sql += " OR [Product_Category].[Category_id] = " + cateId[i];
+            }
+            sql += ")";
+        }
+        if(brandId.length > 0) {
+            if(where) {
+                sql += " AND [Product].[Brand_id] in (SELECT Brand_Id FROM Brandd WHERE Brand_Name like '%" + brandId[0]+"%'";
+            } else {
+                sql += " WHERE [Product].[Brand_id] in (SELECT Brand_Id FROM Brandd WHERE Brand_Name like '%" + brandId[0]+"%'";
+                where = true;
+            }
+            for(int i = 1; i < brandId.length; i++) {
+                sql += " OR Brand_Name like '%" + brandId[i]+"%'";
+            }
+            sql += ")";
+        }
+        if(where) {
+            if(min != null) {
+sql += " AND Price.Price >= " + min;
+            }
+            if(max != null) {
+                sql += " AND Price.Price <= " + max;
+            }
+        } else {
+            if(min != null) {
+                sql += " WHERE Price.Price >= " + min;
+                where = true;
+            }
+            if(max != null && where) {
+                sql += " AND Price.Price <= " + max;
+            } else if(max != null) {
+                sql += " WHERE Price.Price <= " + max;
+            }
+        }
+        sql += " ORDER BY Product.Product_id OFFSET "+((page - 1) * 9)+" ROWS FETCH NEXT 9 ROWS ONLY;";
+        System.out.println(sql);
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Product u = new Product();
+                u.setProduct_name(rs.getString("Product_name"));
+                u.setProduct_img(rs.getString("Product_img"));
+                u.setProduct_id(rs.getInt("Product_id"));
+                u.setDescription(rs.getString("Decription"));
+                u.setPrice(rs.getInt("Price"));
+                u.setCategory_name(rs.getString("Category_name"));
+                list.add(u);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
     public List<Product> getSellingProduct() {
         List<Product> list = new ArrayList<>();
         String sql = "select p.Product_img, pc.Category_name, p.Product_name, pr.Price, SUM(o.Order_quantity) AS Total_Products\n"
@@ -478,7 +623,5 @@ public class Product_DAO extends DBContext {
         }
         return null;
     }
-
     
-
 }
