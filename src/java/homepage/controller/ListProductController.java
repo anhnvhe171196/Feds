@@ -12,9 +12,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import vn.fpt.edu.dals.Brand_DAO;
 import vn.fpt.edu.dals.Category_DAO;
 import vn.fpt.edu.dals.Product_DAO;
+import vn.fpt.edu.models.Brand;
 import vn.fpt.edu.models.Category;
 import vn.fpt.edu.models.Product;
 
@@ -74,29 +77,43 @@ public class ListProductController extends HttpServlet {
         }
         request.setAttribute("p", p);
         int size = 0;
-        int cateId = -1;
+        String[] cateId = new String[0];
+String[] brandId = new String[0];
+        String min = request.getParameter("min");
+        String maxp = request.getParameter("max");
         try {
-            if (request.getParameter("cateid") != null && request.getParameter("cateid") != "") {
+            if (request.getParameterValues("cateid") != null && request.getParameterValues("cateid").length > 0) {
                 try {
-                    cateId = Integer.parseInt(request.getParameter("cateid"));
+                    cateId = request.getParameterValues("cateid");
                 } catch (Exception e) {
                 }
             }
         } catch (Exception e) {
         }
-        if (request.getParameter("search") != null && request.getParameter("search") != "") {
+        if(request.getParameterValues("brandid") != null && request.getParameterValues("brandid").length > 0) {
+            brandId = request.getParameterValues("brandid");
+            
+        }
+        if(request.getParameterMap().size() == 0 || (request.getParameterMap().size() == 1 && request.getParameter("page") != null)) {
+            listProduct = d.getAllProducts(p);
+            size = d.getAllProductsSize();
+        } else if (request.getParameter("search") != null && request.getParameter("search") != "") {
             String strSearch = request.getParameter("search");
-            listProduct = d.getProductByTittle(strSearch, cateId, p);
-            size = d.getProductByTittleSize(strSearch, cateId);
+            listProduct = d.getProductByTittle(strSearch, cateId, p, brandId, min, maxp);
+            size = d.getProductByTittleSize(strSearch, cateId, brandId, min, maxp);
         } else {
-            listProduct = d.getAllProducts(cateId, p);
-            size = d.getAllProductsSize(cateId);
+            listProduct = d.getAllProductsWithParameter(cateId, p, brandId, min, maxp);
+            size = d.getAllProductsWithParameterSize(cateId, brandId, min, maxp);
         }
         int max = (size / 9) + ((size / 9) > (float)(size / 9.0) ? 0 : 1);
         request.setAttribute("max", max);
         Category_DAO categoryDAO = new Category_DAO();
+        Brand_DAO BrandDAO = new Brand_DAO();
         List<Category> cates = categoryDAO.getAllCate();
+        List<Brand> brands = BrandDAO.getAllBrand();
+        //Collections.shuffle(brands); //Ngẫu nhiên brand
         session.setAttribute("cates", cates);
+        request.setAttribute("brands", brands);
         request.setAttribute("List", listProduct);
         request.getRequestDispatcher("ProductList.jsp").forward(request, response);
     }
