@@ -394,7 +394,7 @@
                                             </div>
                                             <div class="product-body">
                                                 <p class="product-category">${pd.product.brand.brandName}</p>
-                                                <h3 class="product-name"><a href="product?pid=${pd.product.product_id}">product name goes here</a></h3>
+                                                <h3 class="product-name"><a href="product?pid=${pd.product.product_id}">${pd.product.product_name}</a></h3>
                                                         <h4 class="product-price">
                                                         <fmt:formatNumber value="${pd.price}" pattern="#,###"/>VNĐ
                                                         </h4>
