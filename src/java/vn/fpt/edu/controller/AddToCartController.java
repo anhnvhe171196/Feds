@@ -58,8 +58,20 @@ public class AddToCartController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        Product_DAO data = new Product_DAO();
-//        List<Product> list = data.getAllProduct();
+        processRequest(request, response);
+    }
+
+    /** 
+     * Handles the HTTP <code>POST</code> method.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        Product_DAO data = new Product_DAO();       
         Cookie[] arr = request.getCookies();
         String txt="";
         if(arr!=null) { 
@@ -72,31 +84,19 @@ public class AddToCartController extends HttpServlet {
             }
         }
         
-        String num = request.getParameter("num");
-        String id = request.getParameter("id");
+        int num = 1;
+        String id = request.getParameter("pid");
         if(txt.isEmpty()) { 
             txt=id+":"+num;
         } else {
-            txt=txt+","+id+":"+num;
+            txt=txt+"/"+id+":"+num;
         }
         
         Cookie c = new Cookie("cart", txt);
         c.setMaxAge(1*24*60*60);
         response.addCookie(c);
         request.getRequestDispatcher("home").forward(request, response);
-    } 
-
-    /** 
-     * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
+    
     }
 
     /** 

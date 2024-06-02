@@ -9,24 +9,24 @@ package vn.fpt.edu.models;
  * @author admin
  */
 public class Item {
-    public Product1 product;
+    public Product product;
     public int quantity;
     public double price;
 
     public Item() {
     }
 
-    public Item(Product1 product, int quantity, double price) {
+    public Item(Product product, int quantity, double price) {
         this.product = product;
         this.quantity = quantity;
         this.price = price;
     }
 
-    public Product1 getProduct() {
+    public Product getProduct() {
         return product;
     }
 
-    public void setProduct(Product1 product) {
+    public void setProduct(Product product) {
         this.product = product;
     }
 

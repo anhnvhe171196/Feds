@@ -58,31 +58,31 @@ public class Cart {
         return t;
     }
     
-    private Product1 getProductById(int id, List<Product1> list) { 
-        for (Product1 i : list) {
+    private Product getProductById(int id, List<Product> list) { 
+        for (Product i : list) {
             if(i.getProduct_id() == id) return i;
         }
         return null;
     }
     
-//    public Cart(String txt, List<Product> list) { 
-//        items = new ArrayList<>();
-//        try {
-//            if(txt != null && txt.length()!= 0) { 
-//            String[]s = txt.split(",");
-//            for (String i : s) {
-//                String[] n = i.split(":");
-//                int id = Integer.parseInt(n[0]);
-//                int quantity = Integer.parseInt(n[1]);
-//                Product1 p = getProductById(id, list);
-//                Item t = new Item(p, quantity, p.getPrice()*2);
-//                addItem(t);
-//            }
-//        }
-//        } catch (NumberFormatException e) {
-//            
-//        }       
-//    }
+    public Cart(String txt, List<Product> list) { 
+        items = new ArrayList<>();
+        try {
+            if(txt != null && txt.length()!= 0) { 
+            String[]s = txt.split("/");
+            for (String i : s) {
+                String[] n = i.split(":");
+                int id = Integer.parseInt(n[0]);
+                int quantity = Integer.parseInt(n[1]);
+                Product p = getProductById(id, list);
+                Item t = new Item(p, quantity, p.getPrice());
+                addItem(t);
+            }
+        }
+        } catch (NumberFormatException e) {
+            
+        }       
+    }
     
     
 }
