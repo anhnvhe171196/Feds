@@ -31,7 +31,7 @@
         <!-- Custom stlylesheet -->
         <link type="text/css" rel="stylesheet" href="css/style.css"/>
         <link rel="stylesheet" href="css/home.css" type="text/css">
-        
+
     </head>
     <body>
         <!-- /HEADER -->
@@ -128,44 +128,45 @@
                                     <div class="products-slick" data-nav="#slick-nav-1">
                                         <!-- product -->
                                         <c:forEach items="${sessionScope.newproduct}" var="np" varStatus="status">
+
                                             <c:if test="${status.index < 10}">
-                                            <div class="product">
-                                                <div class="product-img" style="height: 250px">
-                                                    <img src="images/${np.getProduct_img()}" alt="">
-                                                    <div class="product-label">
-                                                        <span class="new">Mới</span>
+
+                                                <div class="product">
+                                                    <div class="product-img" style="height: 250px">
+                                                        <img src="images/${np.getProduct_img()}" alt="">
+                                                        <div class="product-label">
+                                                            <span class="new">Mới</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-body">
+                                                        <p class="product-category">${np.getCategory_name()}</p>
+                                                        <h3 class="product-name" style="height: 50px"><a href="#">${np.getProduct_name()}</a></h3>
+
+
+
+                                                        <h4 class="product-price"><fmt:formatNumber value="${np.getPrice()}" pattern="#,###" />VNĐ <del class="product-old-price"> </del></h4>
+
+                                                        <div class="product-rating">
+                                                            <!--                                                        <i class="fa fa-star"></i>
+                                                                                                                    <i class="fa fa-star"></i>
+                                                                                                                    <i class="fa fa-star"></i>
+                                                                                                                    <i class="fa fa-star"></i>
+                                                                                                                    <i class="fa fa-star"></i>-->
+                                                        </div>
+                                                        <div class="product-btns">
+                                                            <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">Yêu thích</span></button>
+                                                            <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">Xem ngay</span></button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="add-to-cart">
+                                                        <form method="post">
+                                                            <button type="submit" formaction="addToCart?pid=${np.getProduct_id()}" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Thêm Vào giỏ hàng</button>
+                                                        </form>                                               
                                                     </div>
                                                 </div>
-                                                <div class="product-body">
-                                                    <p class="product-category">${np.getCategory_name()}</p>
-                                                    <h3 class="product-name" style="height: 50px"><a href="#">${np.getProduct_name()}</a></h3>
-
-                                                    
-
-                                                    <h4 class="product-price"><fmt:formatNumber value="${np.getPrice()}" pattern="#,###" />VNĐ <del class="product-old-price"> </del></h4>
-
-                                                    <div class="product-rating">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                    </div>
-                                                    <div class="product-btns">
-                                                        <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">Yêu thích</span></button>
-                                                        <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">Xem ngay</span></button>
-                                                    </div>
-                                                </div>
-                                                <div class="add-to-cart">
-                                                    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Thêm Vào giỏ hàng</button>
-                                                </div>
-                                            </div>
-                                            <!-- /product -->
+                                                <!-- /product -->
                                             </c:if>
                                         </c:forEach>
-
-
-
                                     </div>
                                     <div id="slick-nav-1" class="products-slick-nav"></div>
                                 </div>
@@ -180,7 +181,7 @@
             <!-- /container -->
         </div>
         <!-- /SECTION -->
-        
+
         <!-- HOT DEAL SECTION -->
         <div id="hot-deal" class="section" style="background-image: url(./images/hotdeal.png)">
             <!-- container -->
@@ -259,42 +260,42 @@
                                     <div class="products-slick" data-nav="#slick-nav-2">
                                         <!-- product -->
                                         <c:forEach items="${sessionScope.list}" var="l" varStatus="status">
-                                            <c:if test="${status.index < 10}">
-                                                <div class="product">
 
-                                                    <div class="product-img" style="height: 270px">
-                                                        <img src="images/${l.getProduct_img()}" alt="">
-                                                        <div class="product-label">
-<!--                                                            <span class="sale">-30%</span>-->
-                                                            <span class="new">HOT</span>
-                                                        </div>
+
+                                            <div class="product">
+
+                                                <div class="product-img" style="height: 270px">
+                                                    <img src="images/${l.getProduct_img()}" alt="">
+                                                    <div class="product-label">
+                                                        <!--                                                            <span class="sale">-30%</span>-->
+                                                        <span class="new">HOT</span>
                                                     </div>
-                                                    <div class="product-body">
-                                                        <p class="product-category">${l.getCategory_name()}</p>
-                                                        <h3 class="product-name"><a href="#">${l.getProduct_name()}</a></h3>
-
-
-                                                        <h4 class="product-price"> <fmt:formatNumber value="${l.getPrice()}" pattern="#,###"/> VNĐ <del class="product-old-price">$990.00</del></h4>
-
-                                                        <div class="product-rating">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                        </div>
-                                                        <div class="product-btns">
-                                                            <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">Yêu Thích</span></button>
-                                                            <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">Xem Ngay</span></button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="add-to-cart">
-                                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</button>
-                                                    </div>
-
-
                                                 </div>
-                                            </c:if>
+                                                <div class="product-body">
+                                                    <p class="product-category">${l.getCategory_name()}</p>
+                                                    <h3 class="product-name"><a href="#">${l.getProduct_name()}</a></h3>
+
+
+                                                    <h4 class="product-price"> <fmt:formatNumber value="${l.getPrice()}" pattern="#,###"/> VNĐ <del class="product-old-price">$990.00</del></h4>
+
+                                                    <div class="product-rating">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                    </div>
+                                                    <div class="product-btns">
+                                                        <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">Yêu Thích</span></button>
+                                                        <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">Xem Ngay</span></button>
+                                                    </div>
+                                                </div>
+                                                <div class="add-to-cart">
+                                                    <form method="post">
+                                                        <button type="submit" formaction="addToCart?pid=${l.getProduct_id()}" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Thêm Vào giỏ hàng</button>
+                                                    </form>                                               
+                                                </div>
+                                            </div>
 
                                         </c:forEach>
                                         <!-- /product -->
@@ -343,7 +344,7 @@
                                                 <p class="product-category">${p.getCategory_name()}</p>
                                                 <h3 class="product-name"><a href="#">${p.getProduct_name()}</a></h3>
 
-                                                
+
 
                                                 <h4 class="product-price"><fmt:formatNumber value="${p.getPrice()}" pattern="#,###"/> VNĐ <del class="product-old-price">$990.00</del></h4>
 
@@ -386,22 +387,22 @@
                             <div>
                                 <c:forEach items="${sessionScope.tivi}" var="t" varStatus="status">
                                     <c:if test="${status.index< 5}">
-                                    <!-- product widget -->
-                                    <div class="product-widget">
-                                        <div class="product-img">
-                                            <img src="images/${t.getProduct_img()}" alt="">
+                                        <!-- product widget -->
+                                        <div class="product-widget">
+                                            <div class="product-img">
+                                                <img src="images/${t.getProduct_img()}" alt="">
+                                            </div>
+                                            <div class="product-body">
+                                                <p class="product-category">${t.getCategory_name()}</p>
+                                                <h3 class="product-name"><a href="#"></a>${t.getProduct_name()}</h3>
+
+
+
+                                                <h4 class="product-price"><fmt:formatNumber value="${t.getPrice()}" pattern="#,###"/> VNĐ<del class="product-old-price">$990.00</del></h4>
+
+                                            </div>
                                         </div>
-                                        <div class="product-body">
-                                            <p class="product-category">${t.getCategory_name()}</p>
-                                            <h3 class="product-name"><a href="#"></a>${t.getProduct_name()}</h3>
-
-                                            
-
-                                            <h4 class="product-price"><fmt:formatNumber value="${t.getPrice()}" pattern="#,###"/> VNĐ<del class="product-old-price">$990.00</del></h4>
-
-                                        </div>
-                                    </div>
-                                    <!-- /product widget -->  
+                                        <!-- /product widget -->  
                                     </c:if>
                                 </c:forEach>
                             </div>
@@ -409,19 +410,19 @@
                             <div>
                                 <c:forEach items="${sessionScope.ml}" var="ml" varStatus="status">
                                     <c:if test="${status.index< 5}">
-                                <!-- product widget -->
-                                <div class="product-widget">
-                                    <div class="product-img">
-                                        <img src="images/${ml.getProduct_img()}" alt="">
-                                    </div>
-                                    <div class="product-body">
-                                        <p class="product-category">${ml.getCategory_name()}</p>
-                                        <h3 class="product-name"><a href="#">${ml.getProduct_name()}</a></h3>
-                                        <h4 class="product-price"><fmt:formatNumber value="${ml.getPrice()}" pattern="#,###"/>VNĐ <del class="product-old-price">$990.00</del></h4>
-                                    </div>
-                                </div>
-                                <!-- /product widget -->   
-                                </c:if>
+                                        <!-- product widget -->
+                                        <div class="product-widget">
+                                            <div class="product-img">
+                                                <img src="images/${ml.getProduct_img()}" alt="">
+                                            </div>
+                                            <div class="product-body">
+                                                <p class="product-category">${ml.getCategory_name()}</p>
+                                                <h3 class="product-name"><a href="#">${ml.getProduct_name()}</a></h3>
+                                                <h4 class="product-price"><fmt:formatNumber value="${ml.getPrice()}" pattern="#,###"/>VNĐ <del class="product-old-price">$990.00</del></h4>
+                                            </div>
+                                        </div>
+                                        <!-- /product widget -->   
+                                    </c:if>
                                 </c:forEach>
                             </div>
                         </div>
@@ -441,38 +442,38 @@
                             <div>
                                 <c:forEach items="${sessionScope.hdd}" var="hdd" varStatus="status">
                                     <c:if test="${status.index < 5}">
-                                <!-- product widget -->
-                                <div class="product-widget">
-                                    <div class="product-img">
-                                        <img src="images/${hdd.getProduct_img()}" alt="">
-                                    </div>
-                                    <div class="product-body">
-                                        <p class="product-category">${hdd.getCategory_name()}</p>
-                                        <h3 class="product-name"><a href="#">${hdd.getProduct_name()}</a></h3>
-                                        <h4 class="product-price"><fmt:formatNumber value="${hdd.getPrice()}" pattern="#,###"/>VNĐ <del class="product-old-price">$990.00</del></h4>
-                                    </div>
-                                </div>
-                                <!-- /product widget -->  
-                                </c:if>
+                                        <!-- product widget -->
+                                        <div class="product-widget">
+                                            <div class="product-img">
+                                                <img src="images/${hdd.getProduct_img()}" alt="">
+                                            </div>
+                                            <div class="product-body">
+                                                <p class="product-category">${hdd.getCategory_name()}</p>
+                                                <h3 class="product-name"><a href="#">${hdd.getProduct_name()}</a></h3>
+                                                <h4 class="product-price"><fmt:formatNumber value="${hdd.getPrice()}" pattern="#,###"/>VNĐ <del class="product-old-price">$990.00</del></h4>
+                                            </div>
+                                        </div>
+                                        <!-- /product widget -->  
+                                    </c:if>
                                 </c:forEach>
                             </div>
 
                             <div>
                                 <c:forEach items="${sessionScope.hc}" var="hc" varStatus="status">
                                     <c:if test="${status.index < 5}">
-                                <!-- product widget -->
-                                <div class="product-widget">
-                                    <div class="product-img">
-                                        <img src="images/${hc.getProduct_img()}" alt="">
-                                    </div>
-                                    <div class="product-body">
-                                        <p class="product-category">${hc.getCategory_name()}</p>
-                                        <h3 class="product-name"><a href="#">${hc.getProduct_name()}</a></h3>
-                                        <h4 class="product-price"><fmt:formatNumber value="${hc.getPrice()}" pattern="#,###"/>VNĐ <del class="product-old-price">$990.00</del></h4>
-                                    </div>
-                                </div>
-                                <!-- /product widget -->
-                                </c:if>
+                                        <!-- product widget -->
+                                        <div class="product-widget">
+                                            <div class="product-img">
+                                                <img src="images/${hc.getProduct_img()}" alt="">
+                                            </div>
+                                            <div class="product-body">
+                                                <p class="product-category">${hc.getCategory_name()}</p>
+                                                <h3 class="product-name"><a href="#">${hc.getProduct_name()}</a></h3>
+                                                <h4 class="product-price"><fmt:formatNumber value="${hc.getPrice()}" pattern="#,###"/>VNĐ <del class="product-old-price">$990.00</del></h4>
+                                            </div>
+                                        </div>
+                                        <!-- /product widget -->
+                                    </c:if>
                                 </c:forEach>
                             </div>
                         </div>
@@ -486,29 +487,34 @@
         <!-- /SECTION -->
 
         <!-- NEWSLETTER -->
-        
+
         <!-- /NEWSLETTER -->
 
         <!-- FOOTER -->
-        
-    <!-- /SECTION -->
 
-    <!-- NEWSLETTER -->
+        <!-- /SECTION -->
 
-    <!-- /NEWSLETTER -->
+        <!-- NEWSLETTER -->
 
-    <!-- FOOTER -->
-    <%@include file="component/footer.jsp" %>
-    <!-- /FOOTER -->
+        <!-- /NEWSLETTER -->
 
-    <!-- jQuery Plugins -->
-    <script src="js1/jquery.min.js"></script>
-    <script src="js1/bootstrap.min.js"></script>
-    <script src="js1/slick.min.js"></script>
-    <script src="js1/nouislider.min.js"></script>
-    <script src="js1/jquery.zoom.min.js"></script>
-    <script src="js1/main.js"></script>
+        <!-- FOOTER -->
+        <%@include file="component/footer.jsp" %>
+        <!-- /FOOTER -->
+
+        <!-- jQuery Plugins -->
+        <script src="js1/jquery.min.js"></script>
+        <script src="js1/bootstrap.min.js"></script>
+        <script src="js1/slick.min.js"></script>
+        <script src="js1/nouislider.min.js"></script>
+        <script src="js1/jquery.zoom.min.js"></script>
+        <script src="js1/main.js"></script>
 
 
-</body>
+    </body>
 </html>
+<script>
+    function buy(Product_id) {
+
+    }
+</script>

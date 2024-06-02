@@ -12,6 +12,7 @@ import java.util.List;
 import vn.fpt.edu.models.Brand;
 import vn.fpt.edu.models.Product1;
 import vn.fpt.edu.models.Product;
+import vn.fpt.edu.models.ProductDetail;
 import vn.fpt.edu.models.User;
 
 /**
@@ -624,6 +625,36 @@ public class Product_DAO extends DBContext {
         }
         return null;
     }
+    
+    public List<Product> getAllProductinCart() {
+        List<Product> list = new ArrayList<>();
+        String sql = "select p.Product_id, p.Product_img, p.Product_name, p.Quantity, pr.Price, pd.Battery, pd.Color\n"
+                + "From Product p, Price pr, Product_Detail pd\n"
+                + "where p.Product_id = pr.Product_id and p.Product_id = pd.Product_id";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setProduct_id(rs.getInt(1));
+                product.setProduct_img(rs.getString(2));
+                product.setProduct_name(rs.getString(3));
+                product.setQuantity(rs.getInt(4));
+                product.setPrice(rs.getFloat(5));
+
+                ProductDetail productDetail = new ProductDetail();
+                productDetail.setBattery(rs.getString(6));
+                productDetail.setColor(rs.getString(7));
+                product.setProductdetail(productDetail);
+                list.add(product);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    
+    
 
     public static void main(String[] args) {
         // Khởi tạo đối tượng DAO
