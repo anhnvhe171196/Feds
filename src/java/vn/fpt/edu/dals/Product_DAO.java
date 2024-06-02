@@ -654,7 +654,35 @@ public class Product_DAO extends DBContext {
         return list;
     }
     
-    
+    public Product getProductByIdinCart(int id) {
+        String sql = "select p.Product_id, p.Product_img, p.Product_name, p.Quantity, pr.Price, pd.Battery, pd.Color\n"
+                + "From Product p, Price pr, Product_Detail pd\n"
+                + "where p.Product_id = pr.Product_id and p.Product_id = pd.Product_id\n"
+                + "and p.Product_id=?";
+        Product product = null;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                product = new Product();
+                product.setProduct_id(rs.getInt(1));
+                product.setProduct_img(rs.getString(2));
+                product.setProduct_name(rs.getString(3));
+                product.setQuantity(rs.getInt(4));
+                product.setPrice(rs.getFloat(5));
+
+                ProductDetail productDetail = new ProductDetail();
+                productDetail.setBattery(rs.getString(6));
+                productDetail.setColor(rs.getString(7));
+                product.setProductdetail(productDetail);
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return product;
+    }
 
     public static void main(String[] args) {
         // Khởi tạo đối tượng DAO

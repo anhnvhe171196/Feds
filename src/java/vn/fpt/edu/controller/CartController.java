@@ -8,9 +8,12 @@ package vn.fpt.edu.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import vn.fpt.edu.dals.Product_DAO;
+import vn.fpt.edu.models.Cart;
 
 /**
  *
@@ -53,7 +56,19 @@ public class CartController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        Product_DAO data = new Product_DAO();
+        Cookie[] arr = request.getCookies();
+        String txt ="";
+        if(arr!=null) { 
+            for (Cookie o : arr) {
+                if(o.getName().equals("cart")) { 
+                    txt+=o.getValue();
+                }
+            }
+        }
+        Cart cart = new Cart(txt, data.getAllProductinCart());
+        request.setAttribute("cart", cart);
+        request.getRequestDispatcher("CartDetail.jsp").forward(request, response);
     } 
 
     /** 
