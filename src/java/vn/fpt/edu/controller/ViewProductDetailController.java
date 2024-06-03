@@ -69,6 +69,7 @@ public class ViewProductDetailController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String productId = request.getParameter("pid");
+        String pageIndex1 = request.getParameter("page");
         try {
             int productID = Integer.parseInt(productId);
             ProductDetail_DAO pdao = new ProductDetail_DAO();
@@ -78,7 +79,7 @@ public class ViewProductDetailController extends HttpServlet {
             Price p = pds.getPriceById(productID);
             request.setAttribute("price", p);
             Feedback_DAO fd = new Feedback_DAO();
-            double f = fd.avgRatingOfProduct(productID);
+            int f = fd.avgRatingOfProduct(productID);
             request.setAttribute("rating", f);
             int f1 = fd.totalFeedBackOfProductById(productID);
             request.setAttribute("totalFeedback", f1);
@@ -99,10 +100,27 @@ public class ViewProductDetailController extends HttpServlet {
             } else {
                 request.setAttribute("check", 2);
             }
+            Feedback_DAO d = new Feedback_DAO();
             request.setAttribute("dateNow", nowDate);
             List<RelatedProducts> temp = pdao1.getListPriceByBrandId(pd.getProduct().getBrand().getBrandId());
-            List<RelatedProducts> list = pdao1.getRandomPrice(temp, productID);
+            List<RelatedProducts> list = Price_DAO.getRandomPrice(temp, productID);
             request.setAttribute("list", list);
+            int pageIndex;
+            if (pageIndex1 != null) {
+                pageIndex = Integer.parseInt(pageIndex1);
+            } else {
+                pageIndex = 1;
+            }
+            request.setAttribute("pid", productID);
+            request.setAttribute("numberOfPage", d.totalPageOfFeedBackByProductID(pageIndex, 3, productID));
+            request.setAttribute("listFeedback", d.feedBacksByProductIDSQL(pageIndex, 3, productID));
+            request.setAttribute("page", pageIndex);
+            request.setAttribute("oneStart", d.numberOfRatingByStart(1, productID));
+            request.setAttribute("twoStart", d.numberOfRatingByStart(2, productID));
+            request.setAttribute("threeStart", d.numberOfRatingByStart(3, productID));
+            request.setAttribute("fourStart", d.numberOfRatingByStart(4, productID));
+            request.setAttribute("fiveStart", d.numberOfRatingByStart(5, productID));
+            request.setAttribute(nowDateStr, d);
             request.getRequestDispatcher("ViewProductDetail.jsp").forward(request, response);
         } catch (Exception e) {
         }

@@ -63,9 +63,9 @@
                                         <i class="fa fa-star"></i>
                                     </c:forEach>
                                     <c:if test="${requestScope.rating != 5}">
-                                    <c:forEach begin="${requestScope.rating + 1}" end="5">
-                                        <i class="fa fa-star-o"></i>
-                                    </c:forEach>
+                                        <c:forEach begin="${requestScope.rating + 1}" end="5">
+                                            <i class="fa fa-star-o"></i>
+                                        </c:forEach>
                                     </c:if>
                                 </div>
                                 <a class="review-link" href="#">${requestScope.totalFeedback} Review(s) | Thêm đánh giá của bạn</a>
@@ -164,15 +164,15 @@
                     <div id="product-tab">
                         <!-- product tab nav -->
                         <ul class="tab-nav">
-                            <li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
-                            <li><a data-toggle="tab" href="#tab3">Reviews (${requestScope.totalFeedback})</a></li>
+                            <li class="${requestScope.page != 1 ? '' : 'active'}"><a data-toggle="tab" href="#tab1">Description</a></li>
+                            <li class="${requestScope.page != 1 ? 'active' : ''}"><a data-toggle="tab" href="#tab3">Reviews (${requestScope.totalFeedback})</a></li>
                         </ul>
                         <!-- /product tab nav -->
 
                         <!-- product tab content -->
                         <div class="tab-content">
                             <!-- tab1  -->
-                            <div id="tab1" class="tab-pane fade in active">
+                            <div id="tab1" class="tab-pane fade in ${requestScope.page != 1 ? '' : 'active'}">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <p>${requestScope.product.decription}</p>
@@ -182,19 +182,23 @@
                             <!-- /tab1  -->
 
                             <!-- tab3  -->
-                            <div id="tab3" class="tab-pane fade in">
+                            <div id="tab3" class="tab-pane fade in ${requestScope.page != 1 ? 'active' : ''}">
                                 <div class="row">
                                     <!-- Rating -->
                                     <div class="col-md-3">
                                         <div id="rating">
                                             <div class="rating-avg">
-                                                <span>4.5</span>
+                                                <span>${requestScope.rating}</span>
+
                                                 <div class="rating-stars">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o"></i>
+                                                    <c:forEach begin="1" end="${requestScope.rating}">
+                                                        <i class="fa fa-star"></i>
+                                                    </c:forEach>
+                                                    <c:if test="${requestScope.rating != 5}">
+                                                        <c:forEach begin="${requestScope.rating + 1}" end="5">
+                                                            <i class="fa fa-star-o"></i>
+                                                        </c:forEach>
+                                                    </c:if>
                                                 </div>
                                             </div>
                                             <ul class="rating">
@@ -209,7 +213,7 @@
                                                     <div class="rating-progress">
                                                         <div style="width: 80%;"></div>
                                                     </div>
-                                                    <span class="sum">3</span>
+                                                    <span class="sum">${requestScope.fiveStart}</span>
                                                 </li>
                                                 <li>
                                                     <div class="rating-stars">
@@ -222,7 +226,7 @@
                                                     <div class="rating-progress">
                                                         <div style="width: 60%;"></div>
                                                     </div>
-                                                    <span class="sum">2</span>
+                                                    <span class="sum">${requestScope.fourStart}</span>
                                                 </li>
                                                 <li>
                                                     <div class="rating-stars">
@@ -235,7 +239,7 @@
                                                     <div class="rating-progress">
                                                         <div></div>
                                                     </div>
-                                                    <span class="sum">0</span>
+                                                    <span class="sum">${requestScope.threeStart}</span>
                                                 </li>
                                                 <li>
                                                     <div class="rating-stars">
@@ -248,7 +252,7 @@
                                                     <div class="rating-progress">
                                                         <div></div>
                                                     </div>
-                                                    <span class="sum">0</span>
+                                                    <span class="sum">${requestScope.twoStart}</span>
                                                 </li>
                                                 <li>
                                                     <div class="rating-stars">
@@ -261,7 +265,7 @@
                                                     <div class="rating-progress">
                                                         <div></div>
                                                     </div>
-                                                    <span class="sum">0</span>
+                                                    <span class="sum">${requestScope.oneStart}</span>
                                                 </li>
                                             </ul>
                                         </div>
@@ -272,62 +276,47 @@
                                     <div class="col-md-6">
                                         <div id="reviews">
                                             <ul class="reviews">
-                                                <li>
-                                                    <div class="review-heading">
-                                                        <h5 class="name">John</h5>
-                                                        <p class="date">27 DEC 2018, 8:0 PM</p>
-                                                        <div class="review-rating">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star-o empty"></i>
+                                                <c:forEach items="${requestScope.listFeedback}" var="item">
+                                                    <li>
+                                                        <div class="review-heading">
+                                                            <h5 class="name">${item.bill.user.user_name}</h5>
+                                                            <p class="date">${item.date}</p>
+                                                            <div class="review-rating">
+                                                                <c:forEach begin="1" end="${item.rating}">
+                                                                    <i class="fa fa-star"></i>
+                                                                </c:forEach>
+                                                                <c:if test="${item.rating != 5}">
+                                                                    <c:forEach begin="${item.rating + 1}" end="5">
+                                                                        <i class="fa fa-star-o"></i>
+                                                                    </c:forEach>
+                                                                </c:if>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="review-body">
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="review-heading">
-                                                        <h5 class="name">John</h5>
-                                                        <p class="date">27 DEC 2018, 8:0 PM</p>
-                                                        <div class="review-rating">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star-o empty"></i>
+                                                        <div class="review-body">
+                                                            <c:if test="${item.img != null}">
+                                                                <img style="width: 40%;" src="images/01-1020x570.jpg" alt="alt"/>
+                                                            </c:if>
+                                                            <p>${item.comment}</p>
                                                         </div>
-                                                    </div>
-                                                    <div class="review-body">
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="review-heading">
-                                                        <h5 class="name">John</h5>
-                                                        <p class="date">27 DEC 2018, 8:0 PM</p>
-                                                        <div class="review-rating">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star-o empty"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div class="review-body">
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                                                    </div>
-                                                </li>
+                                                    </li>
+                                                </c:forEach>
+
                                             </ul>
+                                            <c:if test="${requestScope.numberOfPage != 1}">
                                             <ul class="reviews-pagination">
-                                                <li class="active">1</li>
-                                                <li><a href="#">2</a></li>
-                                                <li><a href="#">3</a></li>
-                                                <li><a href="#">4</a></li>
-                                                <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                                                <c:set value="0" var="i"/>
+                                                <c:if test="${page != 1}">
+                                                    <li><a href="product?pid=${requestScope.pid}&page=${requestScope.page - 1}"><i class="fa fa-angle-left"></i></a></li>
+                                                </c:if>
+                                                <c:forEach begin="1" end ="${requestScope.numberOfPage}" >
+                                                    <c:set value="${i+1}" var="i"/>
+                                                        <li class=${requestScope.page == i?"active":""}><a href="product?pid=${requestScope.pid}&page=${i}">${i}</a></li>
+                                                </c:forEach>
+                                                <c:if test="${page != requestScope.numberOfPage}">
+                                                    <li><a href="product?pid=${requestScope.pid}&page=${requestScope.page + 1}"><i class="fa fa-angle-right"></i></a></li>
+                                                </c:if>
                                             </ul>
+                                            </c:if>
                                         </div>
                                     </div>
                                     <!-- /Reviews -->
@@ -335,6 +324,9 @@
                                     <!-- Review Form -->
                                     <div class="col-md-3">
                                         <div id="review-form">
+                                            <c:if test="${sessionScope.account == null}">
+                                                <h3 style="color: red;text-align: center">Bạn phải đăng nhập để được phản hồi về sản phẩm!!!</h3>
+                                            </c:if>
                                             <form class="review-form">
                                                 <input class="input" type="text" placeholder="Your Name">
                                                 <input class="input" type="email" placeholder="Your Email">
@@ -395,18 +387,18 @@
                                             <div class="product-body">
                                                 <p class="product-category">${pd.product.brand.brandName}</p>
                                                 <h3 class="product-name"><a href="product?pid=${pd.product.product_id}">${pd.product.product_name}</a></h3>
-                                                        <h4 class="product-price">
-                                                        <fmt:formatNumber value="${pd.price}" pattern="#,###"/>VNĐ
-                                                        </h4>
+                                                <h4 class="product-price">
+                                                    <fmt:formatNumber value="${pd.price}" pattern="#,###"/>VNĐ
+                                                </h4>
                                                 <div class="product-rating">
-                                                <c:forEach begin="1" end="${pd.rating}">
-                                                    <i class="fa fa-star"></i>
-                                                </c:forEach>
-                                                <c:if test="${pd.rating != 5}">
-                                                    <c:forEach begin="${pd.rating + 1}" end="5">
-                                                        <i class="fa fa-star-o"></i>
+                                                    <c:forEach begin="1" end="${pd.rating}">
+                                                        <i class="fa fa-star"></i>
                                                     </c:forEach>
-                                                </c:if>
+                                                    <c:if test="${pd.rating != 5}">
+                                                        <c:forEach begin="${pd.rating + 1}" end="5">
+                                                            <i class="fa fa-star-o"></i>
+                                                        </c:forEach>
+                                                    </c:if>
                                                 </div>
                                                 <div class="product-btns">
                                                     <button class="quick-view"><a href="product?pid=${pd.product.product_id}"><i class="fa fa-eye"></i></a><span class="tooltipp">quick view</span></button>
@@ -430,7 +422,7 @@
             <!-- /row -->
         </div>
     </div>
-        <!-- /container -->
+    <!-- /container -->
     <%@include file="component/footer.jsp" %>
 
     <script src="js1/jquery.min.js"></script>

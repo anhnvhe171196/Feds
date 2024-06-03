@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import vn.fpt.edu.models.Bill;
 
 /**
  *
@@ -68,6 +69,7 @@ public class Bill_DAO extends DBContext {
         }
         return list;
     }
+
     public int getSumOfDoneBill() {
         int sumOfDoneBill = 0;
         String sql = "SELECT SUM(Total_price) AS Sum \n"
@@ -103,12 +105,12 @@ public class Bill_DAO extends DBContext {
         }
         return list;
     }
-    
+
     public List<Bill1> getBillAllWithUser() {
         List<Bill1> list = new ArrayList<>();
         String sql = "SELECT Bill.*, U.User_name\n"
                 + "FROM Bill\n"
-                + "JOIN [User] AS U ON Bill.User_Id = U.User_Id\n"; 
+                + "JOIN [User] AS U ON Bill.User_Id = U.User_Id\n";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -158,6 +160,7 @@ public class Bill_DAO extends DBContext {
         }
         return numberOrder;
     }
+
     public int getTotalOrderUser(int id) {
         int numberOrder = 0;
         String sql = "select count(b.Bill_Id)\n"
@@ -175,6 +178,7 @@ public class Bill_DAO extends DBContext {
         }
         return numberOrder;
     }
+
     public double getSumOfBillByUserId(int id) {
         double sumOfDoneBill = 0;
         String sql = "SELECT SUM(Total_price)\n"
@@ -192,6 +196,27 @@ public class Bill_DAO extends DBContext {
         }
         return sumOfDoneBill;
     }
-    
-    
+
+    public Bill getBillByID(int bill_id) {
+        String sql = "SELECT [Bill_Id]\n"
+                + "      ,[Total_price]\n"
+                + "      ,[Date]\n"
+                + "      ,[User_id]\n"
+                + "      ,[Address]\n"
+                + "      ,[Status]\n"
+                + "  FROM [dbo].[Bill]\n"
+                + "  where Bill_Id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, bill_id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                User_DAO u = new User_DAO();
+                return new Bill(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getDate("Date"), rs.getString("Address"), rs.getString("Status"), u.getCustomerByID(rs.getInt("User_id")));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
 }
