@@ -11,7 +11,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>DASHMIN - Bootstrap Admin Template</title>
+        <title>ORDER LIST FOR SALER</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
@@ -37,6 +37,32 @@
 
         <!-- Template Stylesheet -->
         <link href="css/stylesale.css" rel="stylesheet">
+        <style>
+            #dropdownMenuButton {
+                display: block;
+                color: #757575;
+                background-color: #fff;
+                background-clip: padding-box;
+                border-radius: 5px;
+                border: 10px black;
+            }
+            .btn-sm1 {
+                padding: 0.3rem 0.3rem; /* Điều chỉnh padding cho nút */
+                font-size: 0.8rem; /* Điều chỉnh kích thước font cho nút */
+                line-height: 1; /* Điều chỉnh chiều cao dòng cho nút */
+            }
+
+            .dropdown-menu .dropdown-item {
+                border-bottom: 1px solid #ddd;
+                transition: border-color 0.3s ease;
+            }
+
+            .dropdown-menu .dropdown-item:hover {
+                border-color: #333;
+            }
+
+
+        </style>
     </head>
 
     <body>
@@ -110,10 +136,42 @@
         <div class="container-fluid pt-4 px-4">
             <div class="bg-light text-center rounded p-4">
                 <div class="d-flex align-items-center justify-content-between mb-4">
-                    <form class="d-none d-md-flex ms-4">
-                        <input class="form-control border-0" type="search" placeholder="Search">
+                    <form class="d-none d-md-flex ms-4" method="GET" action="orderListBillController">
+                        <input type="hidden" name="action" value="search">
+                        <input class="form-control border-0" type="search" name="value" placeholder="Tìm kiếm" value="${sessionScope.value}">
                     </form>
-                    <a href="">Xem Tất Cả</a>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            Xếp theo ngày
+                        </button>
+                        <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="orderListBillController?action=sortByDateAsc">Ngày tăng</a></li>
+                            <li><a class="dropdown-item" href="orderListBillController?action=sortByDateDesc">Ngày giảm</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            Xếp theo Mã đơn
+                        </button>
+                        <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="orderListBillController?action=sortByBillIdAsc">Mã đơn tăng</a></li>
+                            <li><a class="dropdown-item" href="orderListBillController?action=sortByBillIdDesc">Mã đơn giảm</a></li>
+
+                        </ul>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            Xếp theo Giá trị đơn hàng
+                        </button>
+                        <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="orderListBillController?action=sortByValueAsc">Giá trị tăng</a></li>
+                            <li><a class="dropdown-item" href="orderListBillController?action=sortByValueDesc">Giá trị giảm</a></li>
+                        </ul>
+                    </div>
+
+                    <a href="/Feds/orderListBillController?action=showAll">Xem Tất Cả</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table text-start align-middle table-bordered table-hover mb-0">
@@ -136,10 +194,10 @@
                                     <td>${b.user_name}</td>
                                     <td>${b.address}</td>
                                     <td><fmt:formatNumber value="${b.total_price}" pattern="#,###"/> VNĐ</td>
-                            <td>${b.status}</td>
-                            <td><a class="btn btn-sm btn-primary" href="/OrderDetail.jsp">Xem đơn</a></td>
-                            </tr>
-                        </c:forEach>
+                                    <td>${b.status}</td>
+                                    <td><a class="btn btn-sm btn-primary" href="/OrderDetail.jsp">Xem đơn</a></td>
+                                </tr>
+                            </c:forEach>
                         </tbody>
                     </table>
                 </div>
@@ -147,7 +205,18 @@
         </div>
         <!-- Recent Sales End -->
 
-
+        <!-- Pagination -->
+        <div class="container-fluid pt-4 px-4">
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <c:forEach begin="1" end="${requestScope.totalPages}" varStatus="loop">
+                        <li class="page-item ${loop.index == sessionScope.page ? 'active' : ''}">
+                            <a class="page-link" href="/Feds/orderListBillController?action=paging&page=${loop.index}"><button type="button" class="btn btn-primary btn-sm1">${loop.index}</button></a>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </nav>
+        </div>
         <!-- Footer Start -->
         <div class="container-fluid pt-4 px-4">
             <div class="bg-light rounded-top p-4">
@@ -186,6 +255,7 @@
 
 <!-- Template Javascript -->
 <script src="js/mainsale.js"></script>
+
 </body>
 
 </html>

@@ -3,24 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package homepage.controller;
+package vn.fpt.edu.controller;
 
-import vn.fpt.edu.dals.Category_DAO;
-import vn.fpt.edu.models.Category;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.List;
+import vn.fpt.edu.dals.Product_DAO;
+import vn.fpt.edu.models.Cart;
 
 /**
  *
  * @author admin
  */
-public class HomePage extends HttpServlet {
+public class CartController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -32,11 +31,18 @@ public class HomePage extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        Category_DAO categoryDAO = new Category_DAO();
-        List<Category> cates = categoryDAO.getAllCate();
-        session.setAttribute("cates", cates);
-        request.getRequestDispatcher("home.jsp").forward(request, response);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet CartController</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet CartController at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -50,12 +56,19 @@ public class HomePage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
-        HttpSession session = request.getSession();
-        String done = request.getParameter("do");
-        if(request.getParameter("search") != null && request.getParameter("search") != "") { 
-            request.getRequestDispatcher("FilterPostList").forward(request, response);
+        Product_DAO data = new Product_DAO();
+        Cookie[] arr = request.getCookies();
+        String txt ="";
+        if(arr!=null) { 
+            for (Cookie o : arr) {
+                if(o.getName().equals("cart")) { 
+                    txt+=o.getValue();
+                }
+            }
         }
+        Cart cart = new Cart(txt, data.getAllProductinCart());
+        request.setAttribute("cart", cart);
+        request.getRequestDispatcher("CartDetail.jsp").forward(request, response);
     } 
 
     /** 
