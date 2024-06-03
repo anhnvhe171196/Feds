@@ -111,9 +111,7 @@ public class OrderListBillController extends HttpServlet {
             int page = Integer.parseInt(request.getParameter("page"));
             List<Bill1> listBill = bd.getBillAllWithUserPagingSQL(page, 3);
             session.setAttribute("listBill", listBill);
-            
-//            out.print(listBill.get(0).getBill_id());
-//            out.print(listBill.get(0).getAddress());
+
             session.setAttribute("page", page);
             int totalPages = bd.getNumOfPageBillList(3);
             request.setAttribute("totalPages", totalPages);
