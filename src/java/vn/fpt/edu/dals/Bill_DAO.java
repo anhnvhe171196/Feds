@@ -312,7 +312,7 @@ public class Bill_DAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"),
-                        rs.getInt("User_id"), rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
+                        rs.getInt("User_idf"), rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -343,21 +343,6 @@ public class Bill_DAO extends DBContext {
     }
     
     
-    public static void main(String[] args) {
-        // Create an instance of Bill_DAO
-        Bill_DAO billDao = new Bill_DAO();
-
-        // Define the start and end dates for the query
-        String startDate = "2024-01-01";
-        String endDate = "2024-08-31";
-
-        // Call the getSumRevenueByDay method
-        List<Bill1> revenues = billDao.getSumRevenueByDay(startDate, endDate);
-
-        // Print the results
-        for (Bill1 bill : revenues) {
-            System.out.println("Date: " + bill.getDate() + ", Total Revenue: " + bill.getTotal_price());
-        }
-    }
+    
     
 }
