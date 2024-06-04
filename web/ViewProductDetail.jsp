@@ -211,7 +211,7 @@
                                                         <i class="fa fa-star"></i>
                                                     </div>
                                                     <div class="rating-progress">
-                                                        <div style="width: 80%;"></div>
+                                                        <div style="width: ${requestScope.fiveStart/requestScope.totalFeedback * 100}%;"></div>
                                                     </div>
                                                     <span class="sum">${requestScope.fiveStart}</span>
                                                 </li>
@@ -224,7 +224,7 @@
                                                         <i class="fa fa-star-o"></i>
                                                     </div>
                                                     <div class="rating-progress">
-                                                        <div style="width: 60%;"></div>
+                                                        <div style="width: ${requestScope.fourStart/requestScope.totalFeedback * 100}%;"></div>
                                                     </div>
                                                     <span class="sum">${requestScope.fourStart}</span>
                                                 </li>
@@ -237,7 +237,7 @@
                                                         <i class="fa fa-star-o"></i>
                                                     </div>
                                                     <div class="rating-progress">
-                                                        <div></div>
+                                                        <div style="width: ${requestScope.threeStart/requestScope.totalFeedback * 100}%;"></div>
                                                     </div>
                                                     <span class="sum">${requestScope.threeStart}</span>
                                                 </li>
@@ -250,7 +250,7 @@
                                                         <i class="fa fa-star-o"></i>
                                                     </div>
                                                     <div class="rating-progress">
-                                                        <div></div>
+                                                        <div style="width: ${requestScope.twoStart/requestScope.totalFeedback * 100}%;"></div>
                                                     </div>
                                                     <span class="sum">${requestScope.twoStart}</span>
                                                 </li>
@@ -263,7 +263,7 @@
                                                         <i class="fa fa-star-o"></i>
                                                     </div>
                                                     <div class="rating-progress">
-                                                        <div></div>
+                                                        <div style="width: ${requestScope.oneStart/requestScope.totalFeedback * 100}%;"></div>
                                                     </div>
                                                     <span class="sum">${requestScope.oneStart}</span>
                                                 </li>
@@ -293,8 +293,8 @@
                                                             </div>
                                                         </div>
                                                         <div class="review-body">
-                                                            <c:if test="${item.img != null}">
-                                                                <img style="width: 40%;" src="images/01-1020x570.jpg" alt="alt"/>
+                                                            <c:if test="${item.img != null && item.img != ''}">
+                                                                <img style="width: 40%;" src="imgFeedBack/${item.img}" alt="alt"/>
                                                             </c:if>
                                                             <p>${item.comment}</p>
                                                         </div>
@@ -302,20 +302,23 @@
                                                 </c:forEach>
 
                                             </ul>
-                                            <c:if test="${requestScope.numberOfPage != 1}">
-                                            <ul class="reviews-pagination">
-                                                <c:set value="0" var="i"/>
-                                                <c:if test="${page != 1}">
-                                                    <li><a href="product?pid=${requestScope.pid}&page=${requestScope.page - 1}"><i class="fa fa-angle-left"></i></a></li>
-                                                </c:if>
-                                                <c:forEach begin="1" end ="${requestScope.numberOfPage}" >
-                                                    <c:set value="${i+1}" var="i"/>
+                                            <c:if test="${requestScope.numberOfPage != 1 && requestScope.numberOfPage > 0}">
+                                                <ul class="reviews-pagination">
+                                                    <c:set value="0" var="i"/>
+                                                    <c:if test="${page != 1}">
+                                                        <li><a href="product?pid=${requestScope.pid}&page=${requestScope.page - 1}"><i class="fa fa-angle-left"></i></a></li>
+                                                            </c:if>
+                                                            <c:forEach begin="1" end ="${requestScope.numberOfPage}" >
+                                                                <c:set value="${i+1}" var="i"/>
                                                         <li class=${requestScope.page == i?"active":""}><a href="product?pid=${requestScope.pid}&page=${i}">${i}</a></li>
-                                                </c:forEach>
-                                                <c:if test="${page != requestScope.numberOfPage}">
-                                                    <li><a href="product?pid=${requestScope.pid}&page=${requestScope.page + 1}"><i class="fa fa-angle-right"></i></a></li>
-                                                </c:if>
-                                            </ul>
+                                                        </c:forEach>
+                                                        <c:if test="${page != requestScope.numberOfPage}">
+                                                        <li><a href="product?pid=${requestScope.pid}&page=${requestScope.page + 1}"><i class="fa fa-angle-right"></i></a></li>
+                                                            </c:if>
+                                                </ul>
+                                            </c:if>
+                                            <c:if test="${requestScope.numberOfPage < 1}">
+                                                <h4>Hiện tại chưa có comment nào</h4>
                                             </c:if>
                                         </div>
                                     </div>
@@ -327,22 +330,31 @@
                                             <c:if test="${sessionScope.account == null}">
                                                 <h3 style="color: red;text-align: center">Bạn phải đăng nhập để được phản hồi về sản phẩm!!!</h3>
                                             </c:if>
-                                            <form class="review-form">
-                                                <input class="input" type="text" placeholder="Your Name">
-                                                <input class="input" type="email" placeholder="Your Email">
-                                                <textarea class="input" placeholder="Your Review"></textarea>
-                                                <div class="input-rating">
-                                                    <span>Your Rating: </span>
-                                                    <div class="stars">
-                                                        <input id="star5" name="rating" value="5" type="radio"><label for="star5"></label>
-                                                        <input id="star4" name="rating" value="4" type="radio"><label for="star4"></label>
-                                                        <input id="star3" name="rating" value="3" type="radio"><label for="star3"></label>
-                                                        <input id="star2" name="rating" value="2" type="radio"><label for="star2"></label>
-                                                        <input id="star1" name="rating" value="1" type="radio"><label for="star1"></label>
-                                                    </div>
-                                                </div>
-                                                <button class="primary-btn">Submit</button>
-                                            </form>
+                                            <c:if test="${sessionScope.account != null}">
+                                                <c:if test="${requestScope.conditionsForFeedback == 0}">
+                                                    <h3 style="color: red;text-align: center">Vui lòng trải nghiệm sản phẩm trước khi bình luận về sản phẩm</h3>
+                                                </c:if>
+                                                <c:if test="${requestScope.conditionsForFeedback > 0}">
+                                                    <form id="ratingForm" class="review-form" action="addFeedBack" method="post" enctype="multipart/form-data" onsubmit="return validateForm();">
+                                                        <input class="input" type="text" value="${sessionScope.account.user_name}" readonly="">
+                                                        <input class="input" type="email" value="${sessionScope.account.email}" readonly="">
+                                                        <textarea class="input" name="coment" required="" placeholder="Phản hồi"></textarea>
+                                                        <input style="margin-bottom: 10px" type="file" name="photo" id="imageMain" required="" onchange="return checkFileExtension();">
+                                                        <div class="input-rating">
+                                                            <span>Your Rating: </span>
+                                                            <div class="stars">
+                                                                <input id="star5" name="rating" value="5" type="radio"><label for="star5"></label>
+                                                                <input id="star4" name="rating" value="4" type="radio"><label for="star4"></label>
+                                                                <input id="star3" name="rating" value="3" type="radio"><label for="star3"></label>
+                                                                <input id="star2" name="rating" value="2" type="radio"><label for="star2"></label>
+                                                                <input id="star1" name="rating" value="1" type="radio"><label for="star1"></label>
+                                                            </div>
+                                                        </div>
+                                                        <input type="hidden" name="pid" value="${requestScope.pid}">
+                                                        <button style="margin-left: 75px;" class="primary-btn">Submit</button>
+                                                    </form>
+                                                </c:if>
+                                            </c:if>
                                         </div>
                                     </div>
                                     <!-- /Review Form -->
@@ -379,7 +391,7 @@
                             <!-- tab -->
                             <div id="tab1" class="tab-pane active">
                                 <div class="products-slick" data-nav="#slick-nav-1">
-                                    <c:forEach items="${requestScope.list}" var="pd">
+                                    <c:forEach items="${requestScope.list}" var="pd" >
                                         <div class="product">
                                             <div class="product-img">
                                                 <img src="images/${pd.product.product_img}" alt="">
@@ -424,7 +436,38 @@
     </div>
     <!-- /container -->
     <%@include file="component/footer.jsp" %>
+    <script>
+        function validateForm() {
+            var ratingInputs = document.getElementsByName('rating');
+            var ratingChecked = false;
 
+            for (var i = 0; i < ratingInputs.length; i++) {
+                if (ratingInputs[i].checked) {
+                    ratingChecked = true;
+                    break;
+                }
+            }
+
+            if (!ratingChecked) {
+                alert('Vui lòng chọn một đánh giá!');
+                return false;
+            }
+
+            return true;
+        }
+
+        function checkFileExtension() {
+            var fileInput = document.getElementById('imageMain');
+            var filePath = fileInput.value;
+            var allowedExtensions = /(\.jsp|\.png|\.jpg)$/i;
+            if (!allowedExtensions.exec(filePath)) {
+                alert('Vui lòng chọn một tệp có phần mở rộng là .jsp, .png hoặc .jpg');
+                fileInput.value = '';
+                return false;
+            }
+            return true;
+        }
+    </script>
     <script src="js1/jquery.min.js"></script>
     <script src="js1/bootstrap.min.js"></script>
     <script src="js1/slick.min.js"></script>

@@ -123,7 +123,7 @@
                 var filePath = fileInput.value;
                 var allowedExtensions = /(\.jsp|\.png|\.jpg)$/i;
                 if (!allowedExtensions.exec(filePath)) {
-                    alert('Vui lòng chọn một tệp có phần mở rộng là .jsp hoặc .png');
+                    alert('Vui lòng chọn một tệp có phần mở rộng là .jsp,.png hoặc .jpg');
                     fileInput.value = '';
                     return false;
                 }

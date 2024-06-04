@@ -3,23 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/models/Product1.java</file>
             <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/controller/UserChangeImageController.java</file>
             <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/controller/ViewProductDetailController.java</file>
-            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/controller/UserLogoutController.java</file>
-            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/dals/Feedback_DAO.java</file>
-            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/googleconstants/IconstantForRegister.java</file>
-            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/controller/CustomerHomeController.java</file>
-            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/controller/AddToCartController.java</file>
-            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/models/Bill.java</file>
-            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/dals/Bill_DAO.java</file>
             <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/models/FeedBack.java</file>
-            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/common/UserRandomPassword.java</file>
-            <file>file:/D:/Desktop/SWP391/Feds/web/OrderList.jsp</file>
-            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/dals/Data_MarketingDashboard_DAO.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/controller/AddFeedBackController.java</file>
+            <file>file:/D:/Desktop/SWP391/Feds/web/UserChangeProfile.jsp</file>
             <file>file:/D:/Desktop/SWP391/Feds/web/ViewProductDetail.jsp</file>
             <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/models/User.java</file>
-            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/dals/DBContext.java</file>
-            <file>file:/D:/Desktop/SWP391/Feds/src/java/vn/fpt/edu/dals/ProductDetail_DAO.java</file>
         </group>
     </open-files>
 </project-private>

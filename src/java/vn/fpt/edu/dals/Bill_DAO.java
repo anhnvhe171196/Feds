@@ -219,4 +219,52 @@ public class Bill_DAO extends DBContext {
         }
         return null;
     }
+
+    public int conditionsForFeedback(int product_id, int user_id) {
+        List<Bill> list = new ArrayList<>();
+        String sql = "select b.[Bill_Id]\n"
+                + "      ,[Total_price]\n"
+                + "      ,[Date]\n"
+                + "      ,[User_id]\n"
+                + "      ,[Address]\n"
+                + "      ,[Status]\n"
+                + "from Bill as b\n"
+                + "join [dbo].[Order] as o on o.Bill_id = b.Bill_Id\n"
+                + "where o.Product_id = ? and b.User_id = ? and Status = N'Hoàn Thành'";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, product_id);
+            st.setInt(2, user_id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                User_DAO u = new User_DAO();
+                list.add(new Bill(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getDate("Date"), rs.getString("Address"), rs.getString("Status"), u.getCustomerByID(rs.getInt("User_id"))));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list.size();
+    }
+    public Bill getBillByUID(int bill_id) {
+        String sql = "SELECT [Bill_Id]\n"
+                + "      ,[Total_price]\n"
+                + "      ,[Date]\n"
+                + "      ,[User_id]\n"
+                + "      ,[Address]\n"
+                + "      ,[Status]\n"
+                + "  FROM [dbo].[Bill]\n"
+                + "  where User_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, bill_id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                User_DAO u = new User_DAO();
+                return new Bill(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getDate("Date"), rs.getString("Address"), rs.getString("Status"), u.getCustomerByID(rs.getInt("User_id")));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
 }
