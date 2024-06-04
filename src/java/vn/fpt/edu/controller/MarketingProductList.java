@@ -82,6 +82,7 @@ public class MarketingProductList extends HttpServlet {
 
         List<Product1> products = dt.getAllProducts1(index);
 
+        request.setAttribute("index", index);
         request.setAttribute("products", products);
         request.setAttribute("endPage", endPage);
 
