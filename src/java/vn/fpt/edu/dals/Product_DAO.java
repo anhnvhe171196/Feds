@@ -583,6 +583,7 @@ sql += " AND Price.Price >= " + min;
         return list;
     }
 
+    //total get 
     public int getTotalNumberOfProducts() {
         int totalNumberOfProducts = 0;
         String sql = "SELECT COUNT(*) AS TotalCount FROM Product;";
