@@ -8,6 +8,7 @@
 <%@page import="vn.fpt.edu.models.User" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -39,236 +40,269 @@
 
         <!-- Template Stylesheet -->
         <link href="css/OrderProcessor.css" rel="stylesheet">
+            <style>
+        /* Đặt mọi CSS ở đây */
+        .sort-button {
+            border: none; /* Loại bỏ viền */
+            background-color: transparent; /* Xóa màu nền */
+            cursor: pointer; /* Hiển thị con trỏ khi di chuột qua */
+            padding: 0; /* Loại bỏ padding */
+            margin: 0; /* Loại bỏ margin */
+            font-family: inherit; /* Sử dụng font chung của trang */
+            font-size: inherit; /* Sử dụng kích thước font chung của trang */
+            color: inherit; /* Sử dụng màu chữ chung của trang */
+            text-decoration: none; /* Gạch chân dưới chữ */
+        }
+
+        /* Hover effect */
+        .sort-button:hover {
+            text-decoration: none; /* Loại bỏ gạch chân khi di chuột qua */
+        }
+    </style>
     </head>
     <body>
-        
-                <div class="container-xxl position-relative bg-white d-flex p-0">
-                    <!-- Spinner Start -->
-                    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-                        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                            <span class="sr-only">Loading...</span>
+
+        <div class="container-xxl position-relative bg-white d-flex p-0">
+            <!-- Spinner Start -->
+            <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+            <!-- Spinner End -->
+
+            <!-- Sidebar Start -->
+            <div class="sidebar pe-4 pb-3">
+                <nav class="navbar bg-light navbar-light">
+                    <a href="home" class="navbar-brand mx-4 mb-3">
+                        <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Marketing</h3>
+                    </a>
+                    <div class="d-flex align-items-center ms-4 mb-4">
+                        <div class="position-relative">
+                            <img class="rounded-circle" src="images/${sessionScope.account.avarta}" alt="" style="width: 40px; height: 40px;">
+                            <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+                        </div>
+                        <div class="ms-3">
+                            <h6 class="mb-0">${sessionScope.account.user_name}</h6>
+
+                            <span>Marketing</span>
                         </div>
                     </div>
-                    <!-- Spinner End -->
-                    <!-- Sidebar Start -->
-                    <div class="sidebar pe-4 pb-3">
-                        <nav class="navbar bg-light navbar-light">
-                            <a href="index.html" class="navbar-brand mx-4 mb-3">
-                                <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Marketing</h3>
-                            </a>
-                            <div class="d-flex align-items-center ms-4 mb-4">
-                                <div class="position-relative">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
-                                </div>
-                                <div class="ms-3">
-                                    <h6 class="mb-0">${sessionScope.account.getUser_name()}</h6>
+                    <div class="navbar-nav w-100">
+                        <a href="marketingDashBoard" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                        <a href="#" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>Order List</a>
 
-                                    <span>Marketing</span>
-                                </div>
-                            </div>
-                            <div class="navbar-nav w-100">
-                                <a href="marketingDashBoard" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                                <a href="#" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>Order List</a>
-                                
-                            </div>
-                        </nav>
                     </div>
-                    <!-- Sidebar End -->
+                </nav>
+            </div>
+            <!-- Sidebar End -->
 
 
-                    <!-- Content Start -->
-                    <div class="content">
-                        <!-- Navbar Start -->
-                        <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                            <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                                <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
+            <!-- Content Start -->
+            <div class="content">
+                <!-- Navbar Start -->
+                <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+                    <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                        <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
+                    </a>
+                    <a href="#" class="sidebar-toggler flex-shrink-0">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                    <form class="d-none d-md-flex ms-4">
+                        <input class="form-control border-0" type="search" placeholder="Search">
+                    </form>
+                    <div class="navbar-nav align-items-center ms-auto">
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                <i class="fa fa-envelope me-lg-2"></i>
+                                <span class="d-none d-lg-inline-flex">Message</span>
                             </a>
-                            <a href="#" class="sidebar-toggler flex-shrink-0">
-                                <i class="fa fa-bars"></i>
-                            </a>
-                            <form class="d-none d-md-flex ms-4">
-                                <input class="form-control border-0" type="search" placeholder="Search">
-                            </form>
-                            <div class="navbar-nav align-items-center ms-auto">
-                                <div class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                        <i class="fa fa-envelope me-lg-2"></i>
-                                        <span class="d-none d-lg-inline-flex">Message</span>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
 
-                                        <hr class="dropdown-divider">
-                                        <a href="#" class="dropdown-item text-center">See all message</a>
-                                    </div>
-                                </div>
-                                <div class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                        <i class="fa fa-bell me-lg-2"></i>
-                                        <span class="d-none d-lg-inline-flex">Notificatin</span>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-
-                                        <hr class="dropdown-divider">
-                                        <a href="#" class="dropdown-item text-center">See all notifications</a>
-                                    </div>
-                                </div>
-                                <div class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                        <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                        <span class="d-none d-lg-inline-flex">${sessionScope.account.getUser_name()}</span>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                                        <a href="roleProfile.jsp" class="dropdown-item">My Profile</a>
-                                        <a href="#" class="dropdown-item">Settings</a>
-                                        <a href="login.jsp" class="dropdown-item">Log Out</a>
-                                    </div>
-                                </div>
+                                <hr class="dropdown-divider">
+                                <a href="#" class="dropdown-item text-center">See all message</a>
                             </div>
-                        </nav>
-                        <!-- Navbar End -->
-                        <div class="container-fluid pt-4 px-4">
-                            <div class="row g-4">
-                                <div class="col-sm-12">
-                                    <div class="bg-light rounded h-100 p-4">
-                                        <h6 class="mb-4">Products list</h6>
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">First Name</th>
-                                                    <th scope="col">Last Name</th>
-                                                    <th scope="col">Email</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-xl-6">
-                                    <div class="bg-light rounded h-100 p-4">
-                                        <h6 class="mb-4">Accented Table</h6>
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">First Name</th>
-                                                    <th scope="col">Last Name</th>
-                                                    <th scope="col">Email</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-xl-6">
-                                    <div class="bg-light rounded h-100 p-4">
-                                        <h6 class="mb-4">Hoverable Table</h6>
-                                        <table class="table table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">First Name</th>
-                                                    <th scope="col">Last Name</th>
-                                                    <th scope="col">Email</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-xl-6">
-                                    <div class="bg-light rounded h-100 p-4">
-                                        <h6 class="mb-4">Color Table</h6>
-                                        <table class="table table-dark">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">First Name</th>
-                                                    <th scope="col">Last Name</th>
-                                                    <th scope="col">Email</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-xl-6">
-                                    <div class="bg-light rounded h-100 p-4">
-                                        <h6 class="mb-4">Bordered Table</h6>
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">First Name</th>
-                                                    <th scope="col">Last Name</th>
-                                                    <th scope="col">Email</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-xl-6">
-                                    <div class="bg-light rounded h-100 p-4">
-                                        <h6 class="mb-4">Table Without Border</h6>
-                                        <table class="table table-borderless">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">First Name</th>
-                                                    <th scope="col">Last Name</th>
-                                                    <th scope="col">Email</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="bg-light rounded h-100 p-4">
-                                        <h6 class="mb-4">Responsive Table</h6>
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">#</th>
-                                                        <th scope="col">First Name</th>
-                                                        <th scope="col">Last Name</th>
-                                                        <th scope="col">Email</th>
-                                                        <th scope="col">Country</th>
-                                                        <th scope="col">ZIP</th>
-                                                        <th scope="col">Status</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                        </div>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                <i class="fa fa-bell me-lg-2"></i>
+                                <span class="d-none d-lg-inline-flex">Notificatin</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+
+                                <hr class="dropdown-divider">
+                                <a href="#" class="dropdown-item text-center">See all notifications</a>
+                            </div>
+                        </div>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                <img class="rounded-circle me-lg-2" src="images/${sessionScope.account.avarta}" alt="" style="width: 40px; height: 40px;">
+                                <span class="d-none d-lg-inline-flex">${sessionScope.account.getUser_name()}</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                                <a href="roleProfile.jsp" class="dropdown-item">My Profile</a>
+                                <a href="#" class="dropdown-item">Settings</a>
+                                <a href="login.jsp" class="dropdown-item">Log Out</a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                <!-- Navbar End -->
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row g-4">
+                        <div class="col-sm-12">
+                            <div class="bg-light rounded h-100 p-4">
+                                <h6 class="mb-4">Products list</h6>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Image</th>
+                                            <th scope="col"><a href="#" onclick="sortByName()"><button type="button" class="sort-button" onclick="sortBy('name')">Product name</button></a></th>
+                                            <th scope="col">Quantity</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">Details</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach items="${products}" var="product">
+                                            <tr>
+                                                <td scope="col">${product.product_id}</th>
+                                                <td scope="col"><img src="images/${product.product_img}" style="max-height: 50px"></th>
+                                                <td scope="col" style="max-width: 200px; word-wrap: break-word;">${product.product_name}</th>
+                                                <td scope="col">${product.quantity}</th>
+                                                <td scope="col"><fmt:formatNumber value="${product.price.price}" pattern="#,##0 VND" /></th>
+                                                <td scope="col">Details</th>
+                                            </tr>
+
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-light rounded h-100 p-4">
+                                <h6 class="mb-4">Accented Table</h6>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">First Name</th>
+                                            <th scope="col">Last Name</th>
+                                            <th scope="col">Email</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-light rounded h-100 p-4">
+                                <h6 class="mb-4">Hoverable Table</h6>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">First Name</th>
+                                            <th scope="col">Last Name</th>
+                                            <th scope="col">Email</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-light rounded h-100 p-4">
+                                <h6 class="mb-4">Color Table</h6>
+                                <table class="table table-dark">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">First Name</th>
+                                            <th scope="col">Last Name</th>
+                                            <th scope="col">Email</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-light rounded h-100 p-4">
+                                <h6 class="mb-4">Bordered Table</h6>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">First Name</th>
+                                            <th scope="col">Last Name</th>
+                                            <th scope="col">Email</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-light rounded h-100 p-4">
+                                <h6 class="mb-4">Table Without Border</h6>
+                                <table class="table table-borderless">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">First Name</th>
+                                            <th scope="col">Last Name</th>
+                                            <th scope="col">Email</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="bg-light rounded h-100 p-4">
+                                <h6 class="mb-4">Responsive Table</h6>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">First Name</th>
+                                                <th scope="col">Last Name</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Country</th>
+                                                <th scope="col">ZIP</th>
+                                                <th scope="col">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
-
-
-
-                        <!-- Back to Top -->
-                        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
                     </div>
+                </div>
 
- 
+
+
+                <!-- Back to Top -->
+                <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+            </div>
+
+
 
             <!-- JavaScript Libraries -->
             <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -283,5 +317,12 @@
 
             <!-- Template Javascript -->
             <script src="js/main.js"></script>
+            <script>
+                                                $('.sidebar-toggler').click(function () {
+                                                    $('.sidebar, .content').toggleClass("open");
+                                                    return false;
+                                                });
+            </script>
+
     </body>
 </html>
