@@ -118,9 +118,64 @@ public class OrderListBillController extends HttpServlet {
 //            int totalPages = bd.getNumOfPageBillList(3);
 //            request.setAttribute("totalPages", totalPages);
 //            request.getRequestDispatcher("OrderList.jsp").forward(request, response);
+        PrintWriter out = response.getWriter();
+        String action = request.getParameter("action");
+        Bill_DAO bd = new Bill_DAO();;
+
+        if (action == null) {
+            List<Bill1> listBill = bd.getBillAllWithUserPagingSQL(1, 3);
+            session.setAttribute("listBill", listBill);
+
+            int totalPages = bd.getNumOfPageBillList(3);
+            request.setAttribute("totalPages", totalPages);
+            request.getRequestDispatcher("OrderList.jsp").forward(request, response);
+        } else if (action.equals("sortByDateAsc")) {
+            List<Bill1> listBill = bd.getBillAllWithUserSortByDate("Asc");
+            session.setAttribute("listBill", listBill);
+            request.getRequestDispatcher("OrderList.jsp").forward(request, response);
+        } else if (action.equals("sortByDateDesc")) {
+            List<Bill1> listBill = bd.getBillAllWithUserSortByDate("Desc");
+            session.setAttribute("listBill", listBill);
+            request.getRequestDispatcher("OrderList.jsp").forward(request, response);
+        } else if (action.equals("sortByBillIdAsc")) {
+            List<Bill1> listBill = bd.getBillAllWithUserSortByBillId("Asc");
+            session.setAttribute("listBill", listBill);
+            request.getRequestDispatcher("OrderList.jsp").forward(request, response);
+        } else if (action.equals("sortByBillIdDesc")) {
+            List<Bill1> listBill = bd.getBillAllWithUserSortByBillId("Desc");
+            session.setAttribute("listBill", listBill);
+            request.getRequestDispatcher("OrderList.jsp").forward(request, response);
+        } else if (action.equals("sortByValueAsc")) {
+            List<Bill1> listBill = bd.getBillAllWithUserSortByValue("Asc");
+            session.setAttribute("listBill", listBill);
+            request.getRequestDispatcher("OrderList.jsp").forward(request, response);
+        } else if (action.equals("sortByValueDesc")) {
+            List<Bill1> listBill = bd.getBillAllWithUserSortByValue("Desc");
+            session.setAttribute("listBill", listBill);
+            request.getRequestDispatcher("OrderList.jsp").forward(request, response);
+        } else if (action.equals("showAll")) {
+            List<Bill1> listBill = bd.getBillAllWithUser();
+            session.setAttribute("listBill", listBill);
+            request.getRequestDispatcher("OrderList.jsp").forward(request, response);
+        } else if (action.equals("search")) {
+            String value = request.getParameter("value");
+            session.setAttribute("value", value);
+
+            List<Bill1> listBill = bd.searchBills(value);
+            session.setAttribute("listBill", listBill);
+            request.getRequestDispatcher("OrderList.jsp").forward(request, response);
+        }else if(action.equals("paging")){ 
+            int page = Integer.parseInt(request.getParameter("page"));
+            List<Bill1> listBill = bd.getBillAllWithUserPagingSQL(page, 3);
+            session.setAttribute("listBill", listBill);
+
+            session.setAttribute("page", page);
+            int totalPages = bd.getNumOfPageBillList(3);
+            request.setAttribute("totalPages", totalPages);
+            request.getRequestDispatcher("OrderList.jsp").forward(request, response);
         }
 //    }
-
+    }
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -129,20 +184,5 @@ public class OrderListBillController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+    
 }
