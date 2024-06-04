@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import vn.fpt.edu.dals.Data_MarketingDashboard_DAO;
+import vn.fpt.edu.dals.Product_DAO;
 import vn.fpt.edu.models.Product1;
 
 /**
@@ -63,14 +64,29 @@ public class MarketingProductList extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
-        
+
         Data_MarketingDashboard_DAO dt = new Data_MarketingDashboard_DAO();
-        
-        List<Product1> products = dt.getAllProducts();
+        Product_DAO pd = new Product_DAO();
+
+        int count = pd.getTotalNumberOfProducts();
+        int endPage = count / 10;
+        if (count % 10 != 0) {
+            endPage++;
+        }
+
+        String indexPage = request.getParameter("index");
+        if (indexPage == null) {
+            indexPage = "1";
+        }
+        int index = Integer.parseInt(indexPage);
+
+        List<Product1> products = dt.getAllProducts1(index);
 
         request.setAttribute("products", products);
-        
+        request.setAttribute("endPage", endPage);
+
         request.getRequestDispatcher("OrderProcessorTable.jsp").forward(request, response);
+
     }
 
     /**

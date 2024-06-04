@@ -176,8 +176,12 @@
                                             </tr>
 
                                         </c:forEach>
+                                        
                                     </tbody>
                                 </table>
+                                <c:forEach begin="1" end="${endPage}" var="i" >
+                                            <a href="marketingProductList?index=${i}" >${i}</a>
+                                        </c:forEach>
 
                             </div>
                         </div>
