@@ -529,6 +529,8 @@ sql += " AND Price.Price >= " + min;
         }
         return list;
     }
+    
+    //get change
 
     public List<Product> getHDD() {
         List<Product> list = new ArrayList<>();
