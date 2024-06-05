@@ -3,23 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package vn.fpt.edu.controller;
+package vn.fpt.edu.salecontroller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import vn.fpt.edu.dals.Product_DAO;
-import vn.fpt.edu.models.Cart;
+import jakarta.servlet.http.HttpSession;
+import vn.fpt.edu.dals.Bill_DAO;
 
 /**
  *
- * @author admin
+ * @author Trong
  */
-public class CartController extends HttpServlet {
+public class BillDetailBillController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,10 +35,10 @@ public class CartController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CartController</title>");  
+            out.println("<title>Servlet BillDetailBillController</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CartController at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet BillDetailBillController at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,19 +55,15 @@ public class CartController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        Product_DAO data = new Product_DAO();
-        Cookie[] arr = request.getCookies();
-        String txt ="";
-        if(arr!=null) { 
-            for (Cookie o : arr) {
-                if(o.getName().equals("cart")) { 
-                    txt+=o.getValue();
-                }
-            }
+        HttpSession session = request.getSession();
+        PrintWriter out = response.getWriter();
+        String action = request.getParameter("action");
+        Bill_DAO bd = new Bill_DAO();;
+        int id = Integer.parseInt(request.getParameter("id"));
+        if(action == null){ 
+            
         }
-//        Cart cart = new Cart(txt, data.getAllProductinCart());
-//        request.setAttribute("cart", cart);
-        request.getRequestDispatcher("CartDetail.jsp").forward(request, response);
+
     } 
 
     /** 

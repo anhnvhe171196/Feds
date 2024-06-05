@@ -4,6 +4,8 @@
  */
 package vn.fpt.edu.models;
 
+import java.util.Date;
+
 /**
  *
  * @author admin
@@ -11,7 +13,7 @@ package vn.fpt.edu.models;
 public class Bill {
     private int Bill_id;
     private double Total_price;
-    private String Date;
+    private Date Date;
     private String Address;
     private String Status;
     private User user;
@@ -19,7 +21,7 @@ public class Bill {
     public Bill() {
     }
 
-    public Bill(int Bill_id, double Total_price, String Date, String Address, String Status, User user) {
+    public Bill(int Bill_id, double Total_price, Date Date, String Address, String Status, User user) {
         this.Bill_id = Bill_id;
         this.Total_price = Total_price;
         this.Date = Date;
@@ -44,11 +46,11 @@ public class Bill {
         this.Total_price = Total_price;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return Date;
     }
 
-    public void setDate(String Date) {
+    public void setDate(Date Date) {
         this.Date = Date;
     }
 

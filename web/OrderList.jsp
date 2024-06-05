@@ -195,7 +195,7 @@
                                     <td>${b.address}</td>
                                     <td><fmt:formatNumber value="${b.total_price}" pattern="#,###"/> VNĐ</td>
                                     <td>${b.status}</td>
-                                    <td><a class="btn btn-sm btn-primary" href="/OrderDetail.jsp">Xem đơn</a></td>
+                                    <td><a class="btn btn-sm btn-primary" href="/BillDetailBillController?id=${b.bill_id}">Xem đơn</a></td>
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -209,14 +209,57 @@
         <div class="container-fluid pt-4 px-4">
             <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-center">
-                    <c:forEach begin="1" end="${requestScope.totalPages}" varStatus="loop">
-                        <li class="page-item ${loop.index == sessionScope.page ? 'active' : ''}">
-                            <a class="page-link" href="/Feds/orderListBillController?action=paging&page=${loop.index}"><button type="button" class="btn btn-primary btn-sm1">${loop.index}</button></a>
+                    <!-- First Button -->
+                    <c:if test="${sessionScope.page > 1}">
+                        <li class="page-item">
+                            <a class="page-link" href="/Feds/orderListBillController?action=paging&page=1">Trang đầu</a>
+                        </li>
+                    </c:if>
+                    <!-- Previous Button -->
+                    <c:if test="${sessionScope.page > 1}">
+                        <li class="page-item">
+                            <a class="page-link" href="/Feds/orderListBillController?action=paging&page=${sessionScope.page - 1}">Trước</a>
+                        </li>
+                    </c:if>
+                    <!-- Page Numbers Logic -->
+                    <c:choose>
+                        <c:when test="${sessionScope.page <= 2}">
+                            <c:set var="start" value="1"/>
+                            <c:set var="end" value="${totalPages < 3 ? totalPages : 3}"/>
+                        </c:when>
+                        <c:when test="${sessionScope.page >= totalPages - 1}">
+                            <c:set var="start" value="${totalPages - 2 > 0 ? totalPages - 2 : 1}"/>
+                            <c:set var="end" value="${totalPages}"/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="start" value="${sessionScope.page - 1}"/>
+                            <c:set var="end" value="${sessionScope.page + 1}"/>
+                        </c:otherwise>
+                    </c:choose>
+                    <c:forEach var="i" begin="${start}" end="${end}">
+                        <li class="page-item ${i == sessionScope.page ? 'active' : ''}">
+                            <a class="page-link" href="/Feds/orderListBillController?action=paging&page=${i}">
+                                <button type="button" class="btn btn-primary btn-sm1">${i}</button>
+                            </a>
                         </li>
                     </c:forEach>
+                    <!-- Next Button -->
+                    <c:if test="${sessionScope.page < totalPages}">
+                        <li class="page-item">
+                            <a class="page-link" href="/Feds/orderListBillController?action=paging&page=${sessionScope.page + 1}">Sau</a>
+                        </li>
+                    </c:if>
+                    <!-- Last Button -->
+                    <c:if test="${sessionScope.page < totalPages}">
+                        <li class="page-item">
+                            <a class="page-link" href="/Feds/orderListBillController?action=paging&page=${totalPages}">Trang cuối</a>
+                        </li>
+                    </c:if>
                 </ul>
             </nav>
         </div>
+
+
         <!-- Footer Start -->
         <div class="container-fluid pt-4 px-4">
             <div class="bg-light rounded-top p-4">

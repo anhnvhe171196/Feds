@@ -11,6 +11,7 @@ import java.util.Date;
  * @author admin
  */
 public class FeedBack {
+    private Product1 p;
     private String comment;
     private Date date;
     private int rating;
@@ -20,12 +21,21 @@ public class FeedBack {
     public FeedBack() {
     }
 
-    public FeedBack(String comment, Date date, int rating, Bill bill, String img) {
+    public FeedBack(Product1 p, String comment, Date date, int rating, Bill bill, String img) {
+        this.p = p;
         this.comment = comment;
         this.date = date;
         this.rating = rating;
         this.bill = bill;
         this.img = img;
+    }
+
+    public Product1 getP() {
+        return p;
+    }
+
+    public void setP(Product1 p) {
+        this.p = p;
     }
 
     public String getComment() {
@@ -67,5 +77,6 @@ public class FeedBack {
     public void setImg(String img) {
         this.img = img;
     }
+
     
 }

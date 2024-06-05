@@ -59,17 +59,25 @@
                             <h2 class="product-name">${product.product.product_name}</h2>
                             <div>
                                 <div class="product-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-o"></i>
+                                    <c:forEach begin="1" end="${requestScope.rating}">
+                                        <i class="fa fa-star"></i>
+                                    </c:forEach>
+                                    <c:if test="${requestScope.rating != 5}">
+                                        <c:forEach begin="${requestScope.rating + 1}" end="5">
+                                            <i class="fa fa-star-o"></i>
+                                        </c:forEach>
+                                    </c:if>
                                 </div>
-                                <a class="review-link" href="#">10 Review(s) | Add your review</a>
+                                <a class="review-link" href="#">${requestScope.totalFeedback} Review(s) | Thêm đánh giá của bạn</a>
                             </div>
                             <div>
-                                <h3 class="product-price"><fmt:formatNumber value="${price.price}" pattern="#,###"/><del class="product-old-price">$990.00</del></h3>
-                                <span class="product-available">In Stock</span>
+                                <c:if test="${price.sale > 0 && requestScope.check == 2}">
+                                    <h3 class="product-price"><fmt:formatNumber value="${price.price - price.price * price.sale / 100}" pattern="#,###"/>VNĐ &nbsp;<del class="product-old-price"><fmt:formatNumber value="${price.price}" pattern="#,###"/>VNĐ</del></h3>
+                                    <span class="product-available">Giảm giá ${price.sale}%</span>
+                                </c:if>
+                                <c:if test="${requestScope.check == 1 || price.sale < 1}">    
+                                    <h3 class="product-price"><fmt:formatNumber value="${price.price}" pattern="#,###"/>VNĐ</h3>
+                                </c:if>
                             </div>
                             <table> 
                                 <c:if test="${product.ram!=null}">
@@ -142,7 +150,7 @@
 
                             <ul class="product-links">
                                 <li>Category:</li>
-                                <li><a href="#">${requestScope.product.product.brand.category.category_name}</a></li>
+                                <li><a href="ListProduct?cateid=${requestScope.product.product.brand.category.category_id}">${requestScope.product.product.brand.category.category_name}</a></li>
                                 <li><a href="#">${requestScope.product.product.brand.brandName}</a></li>
                             </ul>
 
@@ -156,15 +164,15 @@
                     <div id="product-tab">
                         <!-- product tab nav -->
                         <ul class="tab-nav">
-                            <li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
-                            <li><a data-toggle="tab" href="#tab3">Reviews (3)</a></li>
+                            <li class="${requestScope.page != 1 ? '' : 'active'}"><a data-toggle="tab" href="#tab1">Description</a></li>
+                            <li class="${requestScope.page != 1 ? 'active' : ''}"><a data-toggle="tab" href="#tab3">Reviews (${requestScope.totalFeedback})</a></li>
                         </ul>
                         <!-- /product tab nav -->
 
                         <!-- product tab content -->
                         <div class="tab-content">
                             <!-- tab1  -->
-                            <div id="tab1" class="tab-pane fade in active">
+                            <div id="tab1" class="tab-pane fade in ${requestScope.page != 1 ? '' : 'active'}">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <p>${requestScope.product.decription}</p>
@@ -174,19 +182,23 @@
                             <!-- /tab1  -->
 
                             <!-- tab3  -->
-                            <div id="tab3" class="tab-pane fade in">
+                            <div id="tab3" class="tab-pane fade in ${requestScope.page != 1 ? 'active' : ''}">
                                 <div class="row">
                                     <!-- Rating -->
                                     <div class="col-md-3">
                                         <div id="rating">
                                             <div class="rating-avg">
-                                                <span>4.5</span>
+                                                <span>${requestScope.rating}</span>
+
                                                 <div class="rating-stars">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o"></i>
+                                                    <c:forEach begin="1" end="${requestScope.rating}">
+                                                        <i class="fa fa-star"></i>
+                                                    </c:forEach>
+                                                    <c:if test="${requestScope.rating != 5}">
+                                                        <c:forEach begin="${requestScope.rating + 1}" end="5">
+                                                            <i class="fa fa-star-o"></i>
+                                                        </c:forEach>
+                                                    </c:if>
                                                 </div>
                                             </div>
                                             <ul class="rating">
@@ -199,9 +211,9 @@
                                                         <i class="fa fa-star"></i>
                                                     </div>
                                                     <div class="rating-progress">
-                                                        <div style="width: 80%;"></div>
+                                                        <div style="width: ${requestScope.fiveStart/requestScope.totalFeedback * 100}%;"></div>
                                                     </div>
-                                                    <span class="sum">3</span>
+                                                    <span class="sum">${requestScope.fiveStart}</span>
                                                 </li>
                                                 <li>
                                                     <div class="rating-stars">
@@ -212,9 +224,9 @@
                                                         <i class="fa fa-star-o"></i>
                                                     </div>
                                                     <div class="rating-progress">
-                                                        <div style="width: 60%;"></div>
+                                                        <div style="width: ${requestScope.fourStart/requestScope.totalFeedback * 100}%;"></div>
                                                     </div>
-                                                    <span class="sum">2</span>
+                                                    <span class="sum">${requestScope.fourStart}</span>
                                                 </li>
                                                 <li>
                                                     <div class="rating-stars">
@@ -225,9 +237,9 @@
                                                         <i class="fa fa-star-o"></i>
                                                     </div>
                                                     <div class="rating-progress">
-                                                        <div></div>
+                                                        <div style="width: ${requestScope.threeStart/requestScope.totalFeedback * 100}%;"></div>
                                                     </div>
-                                                    <span class="sum">0</span>
+                                                    <span class="sum">${requestScope.threeStart}</span>
                                                 </li>
                                                 <li>
                                                     <div class="rating-stars">
@@ -238,9 +250,9 @@
                                                         <i class="fa fa-star-o"></i>
                                                     </div>
                                                     <div class="rating-progress">
-                                                        <div></div>
+                                                        <div style="width: ${requestScope.twoStart/requestScope.totalFeedback * 100}%;"></div>
                                                     </div>
-                                                    <span class="sum">0</span>
+                                                    <span class="sum">${requestScope.twoStart}</span>
                                                 </li>
                                                 <li>
                                                     <div class="rating-stars">
@@ -251,9 +263,9 @@
                                                         <i class="fa fa-star-o"></i>
                                                     </div>
                                                     <div class="rating-progress">
-                                                        <div></div>
+                                                        <div style="width: ${requestScope.oneStart/requestScope.totalFeedback * 100}%;"></div>
                                                     </div>
-                                                    <span class="sum">0</span>
+                                                    <span class="sum">${requestScope.oneStart}</span>
                                                 </li>
                                             </ul>
                                         </div>
@@ -264,62 +276,50 @@
                                     <div class="col-md-6">
                                         <div id="reviews">
                                             <ul class="reviews">
-                                                <li>
-                                                    <div class="review-heading">
-                                                        <h5 class="name">John</h5>
-                                                        <p class="date">27 DEC 2018, 8:0 PM</p>
-                                                        <div class="review-rating">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star-o empty"></i>
+                                                <c:forEach items="${requestScope.listFeedback}" var="item">
+                                                    <li>
+                                                        <div class="review-heading">
+                                                            <h5 class="name">${item.bill.user.user_name}</h5>
+                                                            <p class="date">${item.date}</p>
+                                                            <div class="review-rating">
+                                                                <c:forEach begin="1" end="${item.rating}">
+                                                                    <i class="fa fa-star"></i>
+                                                                </c:forEach>
+                                                                <c:if test="${item.rating != 5}">
+                                                                    <c:forEach begin="${item.rating + 1}" end="5">
+                                                                        <i class="fa fa-star-o"></i>
+                                                                    </c:forEach>
+                                                                </c:if>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="review-body">
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="review-heading">
-                                                        <h5 class="name">John</h5>
-                                                        <p class="date">27 DEC 2018, 8:0 PM</p>
-                                                        <div class="review-rating">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star-o empty"></i>
+                                                        <div class="review-body">
+                                                            <c:if test="${item.img != null && item.img != ''}">
+                                                                <img style="width: 40%;" src="imgFeedBack/${item.img}" alt="alt"/>
+                                                            </c:if>
+                                                            <p>${item.comment}</p>
                                                         </div>
-                                                    </div>
-                                                    <div class="review-body">
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="review-heading">
-                                                        <h5 class="name">John</h5>
-                                                        <p class="date">27 DEC 2018, 8:0 PM</p>
-                                                        <div class="review-rating">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star-o empty"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div class="review-body">
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                                                    </div>
-                                                </li>
+                                                    </li>
+                                                </c:forEach>
+
                                             </ul>
-                                            <ul class="reviews-pagination">
-                                                <li class="active">1</li>
-                                                <li><a href="#">2</a></li>
-                                                <li><a href="#">3</a></li>
-                                                <li><a href="#">4</a></li>
-                                                <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                                            </ul>
+                                            <c:if test="${requestScope.numberOfPage != 1 && requestScope.numberOfPage > 0}">
+                                                <ul class="reviews-pagination">
+                                                    <c:set value="0" var="i"/>
+                                                    <c:if test="${page != 1}">
+                                                        <li><a href="product?pid=${requestScope.pid}&page=${requestScope.page - 1}"><i class="fa fa-angle-left"></i></a></li>
+                                                            </c:if>
+                                                            <c:forEach begin="1" end ="${requestScope.numberOfPage}" >
+                                                                <c:set value="${i+1}" var="i"/>
+                                                        <li class=${requestScope.page == i?"active":""}><a href="product?pid=${requestScope.pid}&page=${i}">${i}</a></li>
+                                                        </c:forEach>
+                                                        <c:if test="${page != requestScope.numberOfPage}">
+                                                        <li><a href="product?pid=${requestScope.pid}&page=${requestScope.page + 1}"><i class="fa fa-angle-right"></i></a></li>
+                                                            </c:if>
+                                                </ul>
+                                            </c:if>
+                                            <c:if test="${requestScope.numberOfPage < 1}">
+                                                <h4>Hiện tại chưa có comment nào</h4>
+                                            </c:if>
                                         </div>
                                     </div>
                                     <!-- /Reviews -->
@@ -327,22 +327,34 @@
                                     <!-- Review Form -->
                                     <div class="col-md-3">
                                         <div id="review-form">
-                                            <form class="review-form">
-                                                <input class="input" type="text" placeholder="Your Name">
-                                                <input class="input" type="email" placeholder="Your Email">
-                                                <textarea class="input" placeholder="Your Review"></textarea>
-                                                <div class="input-rating">
-                                                    <span>Your Rating: </span>
-                                                    <div class="stars">
-                                                        <input id="star5" name="rating" value="5" type="radio"><label for="star5"></label>
-                                                        <input id="star4" name="rating" value="4" type="radio"><label for="star4"></label>
-                                                        <input id="star3" name="rating" value="3" type="radio"><label for="star3"></label>
-                                                        <input id="star2" name="rating" value="2" type="radio"><label for="star2"></label>
-                                                        <input id="star1" name="rating" value="1" type="radio"><label for="star1"></label>
-                                                    </div>
-                                                </div>
-                                                <button class="primary-btn">Submit</button>
-                                            </form>
+                                            <c:if test="${sessionScope.account == null}">
+                                                <h3 style="color: red;text-align: center">Bạn phải đăng nhập để được phản hồi về sản phẩm!!!</h3>
+                                            </c:if>
+                                            <c:if test="${sessionScope.account != null}">
+                                                <c:if test="${requestScope.conditionsForFeedback == 0}">
+                                                    <h3 style="color: red;text-align: center">Vui lòng trải nghiệm sản phẩm trước khi bình luận về sản phẩm</h3>
+                                                </c:if>
+                                                <c:if test="${requestScope.conditionsForFeedback > 0}">
+                                                    <form id="ratingForm" class="review-form" action="addFeedBack" method="post" enctype="multipart/form-data" onsubmit="return validateForm();">
+                                                        <input class="input" type="text" value="${sessionScope.account.user_name}" readonly="">
+                                                        <input class="input" type="email" value="${sessionScope.account.email}" readonly="">
+                                                        <textarea class="input" name="coment" required="" placeholder="Phản hồi"></textarea>
+                                                        <input style="margin-bottom: 10px" type="file" name="photo" id="imageMain" required="" onchange="return checkFileExtension();">
+                                                        <div class="input-rating">
+                                                            <span>Your Rating: </span>
+                                                            <div class="stars">
+                                                                <input id="star5" name="rating" value="5" type="radio"><label for="star5"></label>
+                                                                <input id="star4" name="rating" value="4" type="radio"><label for="star4"></label>
+                                                                <input id="star3" name="rating" value="3" type="radio"><label for="star3"></label>
+                                                                <input id="star2" name="rating" value="2" type="radio"><label for="star2"></label>
+                                                                <input id="star1" name="rating" value="1" type="radio"><label for="star1"></label>
+                                                            </div>
+                                                        </div>
+                                                        <input type="hidden" name="pid" value="${requestScope.pid}">
+                                                        <button style="margin-left: 75px;" class="primary-btn">Submit</button>
+                                                    </form>
+                                                </c:if>
+                                            </c:if>
                                         </div>
                                     </div>
                                     <!-- /Review Form -->
@@ -373,118 +385,46 @@
                 </div>
 
                 <!-- product -->
-                <div class="col-md-3 col-xs-6">
-                    <div class="product">
-                        <div class="product-img">
-                            <img src="./img/product01.png" alt="">
-                            <div class="product-label">
-                                <span class="sale">-30%</span>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="products-tabs">
+                            <!-- tab -->
+                            <div id="tab1" class="tab-pane active">
+                                <div class="products-slick" data-nav="#slick-nav-1">
+                                    <c:forEach items="${requestScope.list}" var="pd" >
+                                        <div class="product">
+                                            <div class="product-img">
+                                                <img src="images/${pd.product.product_img}" alt="">
+                                            </div>
+                                            <div class="product-body">
+                                                <p class="product-category">${pd.product.brand.brandName}</p>
+                                                <h3 class="product-name"><a href="product?pid=${pd.product.product_id}">${pd.product.product_name}</a></h3>
+                                                <h4 class="product-price">
+                                                    <fmt:formatNumber value="${pd.price}" pattern="#,###"/>VNĐ
+                                                </h4>
+                                                <div class="product-rating">
+                                                    <c:forEach begin="1" end="${pd.rating}">
+                                                        <i class="fa fa-star"></i>
+                                                    </c:forEach>
+                                                    <c:if test="${pd.rating != 5}">
+                                                        <c:forEach begin="${pd.rating + 1}" end="5">
+                                                            <i class="fa fa-star-o"></i>
+                                                        </c:forEach>
+                                                    </c:if>
+                                                </div>
+                                                <div class="product-btns">
+                                                    <button class="quick-view"><a href="product?pid=${pd.product.product_id}"><i class="fa fa-eye"></i></a><span class="tooltipp">quick view</span></button>
+                                                </div>
+                                            </div>
+                                            <div class="add-to-cart">
+                                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                                <div id="slick-nav-1" class="products-slick-nav"></div>
                             </div>
-                        </div>
-                        <div class="product-body">
-                            <p class="product-category">Category</p>
-                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                            <h4 class="product-price">${price.price} <del class="product-old-price">$990.00</del></h4>
-                            <div class="product-rating">
-                            </div>
-                            <div class="product-btns">
-                                <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-                                <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-                                <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-                            </div>
-                        </div>
-                        <div class="add-to-cart">
-                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- /product -->
-
-                <!-- product -->
-                <div class="col-md-3 col-xs-6">
-                    <div class="product">
-                        <div class="product-img">
-                            <img src="./img/product02.png" alt="">
-                            <div class="product-label">
-                                <span class="new">NEW</span>
-                            </div>
-                        </div>
-                        <div class="product-body">
-                            <p class="product-category">Category</p>
-                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                            <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-                            <div class="product-rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product-btns">
-                                <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-                                <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-                                <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-                            </div>
-                        </div>
-                        <div class="add-to-cart">
-                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- /product -->
-
-                <div class="clearfix visible-sm visible-xs"></div>
-
-                <!-- product -->
-                <div class="col-md-3 col-xs-6">
-                    <div class="product">
-                        <div class="product-img">
-                            <img src="./img/product03.png" alt="">
-                        </div>
-                        <div class="product-body">
-                            <p class="product-category">Category</p>
-                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                            <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-                            <div class="product-rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-o"></i>
-                            </div>
-                            <div class="product-btns">
-                                <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-                                <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-                                <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-                            </div>
-                        </div>
-                        <div class="add-to-cart">
-                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- /product -->
-
-                <!-- product -->
-                <div class="col-md-3 col-xs-6">
-                    <div class="product">
-                        <div class="product-img">
-                            <img src="./img/product04.png" alt="">
-                        </div>
-                        <div class="product-body">
-                            <p class="product-category">Category</p>
-                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                            <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-                            <div class="product-rating">
-                            </div>
-                            <div class="product-btns">
-                                <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-                                <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-                                <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-                            </div>
-                        </div>
-                        <div class="add-to-cart">
-                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                            <!-- /tab -->
                         </div>
                     </div>
                 </div>
@@ -493,10 +433,41 @@
             </div>
             <!-- /row -->
         </div>
-        <!-- /container -->
     </div>
+    <!-- /container -->
     <%@include file="component/footer.jsp" %>
+    <script>
+        function validateForm() {
+            var ratingInputs = document.getElementsByName('rating');
+            var ratingChecked = false;
 
+            for (var i = 0; i < ratingInputs.length; i++) {
+                if (ratingInputs[i].checked) {
+                    ratingChecked = true;
+                    break;
+                }
+            }
+
+            if (!ratingChecked) {
+                alert('Vui lòng chọn một đánh giá!');
+                return false;
+            }
+
+            return true;
+        }
+
+        function checkFileExtension() {
+            var fileInput = document.getElementById('imageMain');
+            var filePath = fileInput.value;
+            var allowedExtensions = /(\.jsp|\.png|\.jpg)$/i;
+            if (!allowedExtensions.exec(filePath)) {
+                alert('Vui lòng chọn một tệp có phần mở rộng là .jsp, .png hoặc .jpg');
+                fileInput.value = '';
+                return false;
+            }
+            return true;
+        }
+    </script>
     <script src="js1/jquery.min.js"></script>
     <script src="js1/bootstrap.min.js"></script>
     <script src="js1/slick.min.js"></script>

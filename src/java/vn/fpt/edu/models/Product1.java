@@ -15,6 +15,7 @@ public class Product1 {
     private String product_img;
     private User user;
     private Brand brand;
+    private Price price;
 
     public Product1() {
     }
@@ -75,5 +76,14 @@ public class Product1 {
     public void setBrand(Brand brand) {
         this.brand = brand;
     }
+
+    public Price getPrice() {
+        return price;
+    }
+
+    public void setPrice(Price price) {
+        this.price = price;
+    }
+    
     
 }

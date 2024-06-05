@@ -38,6 +38,7 @@ public class CustomerHomeController extends HttpServlet {
                 }
             }
         }
+
         Cart cart = new Cart(txt, data.getAllProductinCart());
         List<Item> listItem = cart.getItems();
 //        int n;
@@ -49,6 +50,7 @@ public class CustomerHomeController extends HttpServlet {
         int n = listItem != null ? listItem.size() : 0;
         request.setAttribute("size", n);
         request.setAttribute("data", data.getAllProductinCart());
+
         session.setAttribute("cates", d.getAllCate());
         session.setAttribute("list", data.getSellingProduct());
         session.setAttribute("phone", data.getProductByPrice());

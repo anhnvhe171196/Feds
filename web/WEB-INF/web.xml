@@ -80,6 +80,10 @@
         <servlet-name>CartController</servlet-name>
         <servlet-class>vn.fpt.edu.controller.CartController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddFeedBackController</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.AddFeedBackController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserRegisterController</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -163,6 +167,10 @@
     <servlet-mapping>
         <servlet-name>CartController</servlet-name>
         <url-pattern>/cart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddFeedBackController</servlet-name>
+        <url-pattern>/addFeedBack</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home</welcome-file>
