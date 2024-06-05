@@ -14,15 +14,17 @@ public class Price {
     private double price;
     private Date dateStart;
     private Date dateEnd;
+    private int sale;
     private Product1 product;
 
     public Price() {
     }
 
-    public Price(double price, Date dateStart, Date dateEnd, Product1 product) {
+    public Price(double price, Date dateStart, Date dateEnd, int sale, Product1 product) {
         this.price = price;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
+        this.sale = sale;
         this.product = product;
     }
 
@@ -50,6 +52,14 @@ public class Price {
         this.dateEnd = dateEnd;
     }
 
+    public int getSale() {
+        return sale;
+    }
+
+    public void setSale(int sale) {
+        this.sale = sale;
+    }
+
     public Product1 getProduct() {
         return product;
     }
@@ -57,6 +67,8 @@ public class Price {
     public void setProduct(Product1 product) {
         this.product = product;
     }
+
+    
     
     
 }

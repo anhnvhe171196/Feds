@@ -65,24 +65,29 @@ public class Cart {
         return null;
     }
     
-    public Cart(String txt, List<Product> list) { 
+    public Cart(String txt, List<Product> list) {
         items = new ArrayList<>();
         try {
-            if(txt != null && txt.length()!= 0) { 
-            String[]s = txt.split("/");
-            for (String i : s) {
-                String[] n = i.split(":");
-                int id = Integer.parseInt(n[0]);
-                int quantity = Integer.parseInt(n[1]);
-                Product p = getProductById(id, list);
-                Item t = new Item(p, quantity, p.getPrice());
-                addItem(t);
+            if (txt != null && txt.length() != 0) {
+                String[] s = txt.split("/");
+                for (String i : s) {
+                    String[] n = i.split(":");
+                    int iduser = Integer.parseInt(n[0]);
+                    int idproduct = Integer.parseInt(n[1]);
+                    int quantity = Integer.parseInt(n[2]);
+                    double price = Double.parseDouble(n[3]);
+                    Product p = getProductById(idproduct, list);
+                    Item i1;
+                    i1 = new Item(iduser, p, quantity, price);
+                    addItem(i1);
+                }
             }
-        }
         } catch (NumberFormatException e) {
-            
-        }       
+        }
+
     }
-    
+//    public static void main(String[] args) {
+//        Item i = new Item(0, product, 0, 0)
+//    }
     
 }

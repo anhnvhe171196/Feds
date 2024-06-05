@@ -259,13 +259,13 @@ public class Product_DAO extends DBContext {
 
     public List<Product> getSellingProduct() {
         List<Product> list = new ArrayList<>();
-        String sql = "select p.Product_img, pc.Category_name, p.Product_name, pr.Price, SUM(o.Order_quantity) AS Total_Products\n"
+        String sql = "select p.Product_img, pc.Category_name, p.Product_name, pr.Price, p.Product_id, SUM(o.Order_quantity) AS Total_Products\n"
                 + "from Product p\n"
                 + "Inner Join [Order] o on o.Product_id = p.Product_id\n"
                 + "Inner Join Brandd b on b.Brand_Id = p.Brand_id\n"
                 + "Inner Join Product_Category pc on pc.Category_id = b.Category_id\n"
                 + "Join Price pr on p.Product_id = pr.Product_id\n"
-                + "Group by p.Product_img, pc.Category_name, p.Product_name, pr.Price\n"
+                + "Group by p.Product_img, pc.Category_name, p.Product_name, pr.Price, p.Product_id\n"
                 + "Order by Total_Products DESC";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -276,6 +276,7 @@ public class Product_DAO extends DBContext {
                 product.setCategory_name(rs.getString(2));
                 product.setProduct_name(rs.getString(3));
                 product.setPrice(rs.getFloat(4));
+                product.setProduct_id(rs.getInt(5));
                 list.add(product);
 
             }
@@ -401,7 +402,7 @@ public class Product_DAO extends DBContext {
 
     public List<Product> getProductByPrice() {
         List<Product> list = new ArrayList<>();
-        String sql = "select p.Product_name, p.Product_img, pc.Category_name, pr.Price\n"
+        String sql = "select p.Product_name, p.Product_img, pc.Category_name, pr.Price, p.Product_id\n"
                 + "From Product p\n"
                 + "Inner join Brandd b on b.Brand_Id = p.Brand_id\n"
                 + "Inner Join Product_Category pc on pc.Category_id = b.Category_id\n"
@@ -418,6 +419,7 @@ public class Product_DAO extends DBContext {
                 product.setProduct_img(rs.getString(2));
                 product.setCategory_name(rs.getString(3));
                 product.setPrice(rs.getFloat(4));
+                product.setProduct_id(rs.getInt(5));
                 list.add(product);
 
             }
@@ -429,7 +431,7 @@ public class Product_DAO extends DBContext {
 
     public List<Product> getTiviByPrice() {
         List<Product> list = new ArrayList<>();
-        String sql = " select p.Product_name, p.Product_img, pc.Category_name, pr.Price, pd.Size\n"
+        String sql = " select p.Product_name, p.Product_img, pc.Category_name, pr.Price, pd.Size, p.Product_id\n"
                 + "From Product p\n"
                 + "Inner Join Brandd b on b.Brand_Id = p.Brand_id\n"
                 + "Inner Join Product_Category pc on pc.Category_id = b.Category_id\n"
@@ -446,6 +448,7 @@ public class Product_DAO extends DBContext {
                 product.setCategory_name(rs.getString(3));
                 product.setPrice(rs.getFloat(4));
                 product.setSize(rs.getString(5));
+                product.setProduct_id(rs.getInt(6));
                 list.add(product);
             }
         } catch (SQLException e) {
@@ -456,7 +459,7 @@ public class Product_DAO extends DBContext {
 
     public List<Product> getNewProduct() {
         List<Product> list = new ArrayList<>();
-        String sql = "select p.Product_name, p.Product_img, pc.Category_name, pr.Price\n"
+        String sql = "select p.Product_name, p.Product_img, pc.Category_name, pr.Price, p.Product_id\n"
                 + "From Product p\n"
                 + "Inner Join Brandd b on b.Brand_Id = p.Brand_id\n"
                 + "Inner Join Product_Category pc on pc.Category_id = b.Category_id\n"
@@ -472,6 +475,7 @@ public class Product_DAO extends DBContext {
                 product.setProduct_img(rs.getString(2));
                 product.setCategory_name(rs.getString(3));
                 product.setPrice(rs.getFloat(4));
+                product.setProduct_id(rs.getInt(5));
                 list.add(product);
             }
         } catch (SQLException e) {
@@ -482,7 +486,7 @@ public class Product_DAO extends DBContext {
 
     public List<Product> getMTB() {
         List<Product> list = new ArrayList<>();
-        String sql = "select p.Product_name, p.Product_img, pc.Category_name, pr.Price\n"
+        String sql = "select p.Product_name, p.Product_img, pc.Category_name, pr.Price, p.Product_id\n"
                 + "From Product p\n"
                 + "Inner Join Brandd b on b.Brand_Id = p.Brand_id\n"
                 + "Inner Join Product_Category pc on pc.Category_id = b.Category_id\n"
@@ -498,6 +502,7 @@ public class Product_DAO extends DBContext {
                 product.setProduct_img(rs.getString(2));
                 product.setCategory_name(rs.getString(3));
                 product.setPrice(rs.getFloat(4));
+                product.setProduct_id(rs.getInt(5));
                 list.add(product);
             }
         } catch (SQLException e) {
@@ -508,7 +513,7 @@ public class Product_DAO extends DBContext {
 
     public List<Product> getML() {
         List<Product> list = new ArrayList<>();
-        String sql = "select p.Product_name, p.Product_img, pc.Category_name, pr.Price\n"
+        String sql = "select p.Product_name, p.Product_img, pc.Category_name, pr.Price, p.Product_id\n"
                 + "From Product p\n"
                 + "Inner Join Brandd b on b.Brand_Id = p.Brand_id\n"
                 + "Inner Join Product_Category pc on pc.Category_id = b.Category_id\n"
@@ -524,6 +529,7 @@ public class Product_DAO extends DBContext {
                 product.setProduct_img(rs.getString(2));
                 product.setCategory_name(rs.getString(3));
                 product.setPrice(rs.getFloat(4));
+                product.setProduct_id(rs.getInt(5));
                 list.add(product);
             }
         } catch (SQLException e) {
@@ -534,7 +540,7 @@ public class Product_DAO extends DBContext {
 
     public List<Product> getHDD() {
         List<Product> list = new ArrayList<>();
-        String sql = "select p.Product_name, p.Product_img, pc.Category_name, pr.Price, p.Quantity\n"
+        String sql = "select p.Product_name, p.Product_img, pc.Category_name, pr.Price, p.Product_id, p.Quantity\n"
                 + "From Product p\n"
                 + "Inner Join Brandd b on b.Brand_Id = p.Brand_id\n"
                 + "Inner Join Product_Category pc on pc.Category_id = b.Category_id\n"
@@ -550,6 +556,7 @@ public class Product_DAO extends DBContext {
                 product.setProduct_img(rs.getString(2));
                 product.setCategory_name(rs.getString(3));
                 product.setPrice(rs.getFloat(4));
+                product.setProduct_id(rs.getInt(5));
                 list.add(product);
             }
         } catch (SQLException e) {
@@ -560,7 +567,7 @@ public class Product_DAO extends DBContext {
 
     public List<Product> getHC() {
         List<Product> list = new ArrayList<>();
-        String sql = "select p.Product_name, p.Product_img, pc.Category_name, pr.Price, p.Quantity\n"
+        String sql = "select p.Product_name, p.Product_img, pc.Category_name, pr.Price, p.Quantity, p.Product_id\n"
                 + "From Product p\n"
                 + "Inner Join Brandd b on b.Brand_Id = p.Brand_id\n"
                 + "Inner Join Product_Category pc on pc.Category_id = b.Category_id\n"
@@ -577,6 +584,7 @@ public class Product_DAO extends DBContext {
                 product.setCategory_name(rs.getString(3));
                 product.setPrice(rs.getFloat(4));
                 product.setQuantity(rs.getInt(5));
+                product.setProduct_id(rs.getInt(6));
                 list.add(product);
             }
         } catch (SQLException e) {
@@ -689,21 +697,7 @@ public class Product_DAO extends DBContext {
         Product_DAO productDAO = new Product_DAO();
 
         // Gọi phương thức getSellingProduct với các tham số: startDate, endDate, numberOfTop
-        String startDate = "2024-01-01";
-        String endDate = "2024-06-01";
-        int numberOfTop = 19;
-        List<Product> sellingProducts = productDAO.getSellingProduct(startDate, endDate, numberOfTop);
-
-        // In ra danh sách các sản phẩm bán chạy
-        System.out.println("Top " + numberOfTop + " selling products from " + startDate + " to " + endDate + ":");
-        for (int i = 0; i < sellingProducts.size(); i++) {
-            Product product = sellingProducts.get(i);
-            System.out.println("Product Name: " + product.getProduct_name());
-            System.out.println("Category Name: " + product.getCategory_name());
-            System.out.println("Price: " + product.getPrice());
-            System.out.println("Total Products Sold: " + product.getQuantity());
-            System.out.println("-----------------------");
-        }
+        System.out.println(productDAO.getAllProductinCart().size());
     }
 
 }

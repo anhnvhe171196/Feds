@@ -13,12 +13,12 @@
         <title>JSP Page</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css"/>
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/slick.css"/>
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/slick-theme.css"/>
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/nouislider.min.css"/>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/web/css/bootstrap.min.css"/>
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/web/css/slick.css"/>
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/web/css/slick-theme.css"/>
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/web/css/nouislider.min.css"/>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/web/css/font-awesome.min.css">
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/web/css/style.css"/>
 
 
     </head>
@@ -195,12 +195,12 @@
                 <!-- container -->
             </div>
             <!-- /MAIN HEADER -->
-            <script src="../js1/jquery.min.js"></script>
-            <script src="../js1/bootstrap.min.js"></script>
-            <script src="../js1/slick.min.js"></script>
-            <script src="../js1/nouislider.min.js"></script>
-            <script src="../js1/jquery.zoom.min.js"></script>
-            <script src="../js1/main.js"></script>
+            <script src="../web/js1/jquery.min.js"></script>
+            <script src="../web/js1/bootstrap.min.js"></script>
+            <script src="../web/js1/slick.min.js"></script>
+            <script src="../web/js1/nouislider.min.js"></script>
+            <script src="../web/js1/jquery.zoom.min.js"></script>
+            <script src="../web/js1/main.js"></script>
 
         </header>
 

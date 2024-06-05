@@ -9,6 +9,7 @@ package vn.fpt.edu.models;
  * @author admin
  */
 public class Item {
+    private int userID;
     public Product product;
     public int quantity;
     public double price;
@@ -16,10 +17,19 @@ public class Item {
     public Item() {
     }
 
-    public Item(Product product, int quantity, double price) {
+    public Item(int userID, Product product, int quantity, double price) {
+        this.userID = userID;
         this.product = product;
         this.quantity = quantity;
         this.price = price;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public Product getProduct() {

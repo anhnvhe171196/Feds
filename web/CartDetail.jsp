@@ -36,10 +36,10 @@
                                     <div class="col-lg-5">
                                         <div class="me-lg-5">
                                             <div class="d-flex">
-                                                <img src="images/${i.product1.getProduct_img()}" class="border rounded me-3" style="width: 96px; height: 96px;" />
+                                                <img src="images/${i.product.getProduct_img()}" class="border rounded me-3" style="width: 96px; height: 96px;" />
                                                 <div class="">
-                                                    <a href="#" class="nav-link" >${i.product1.getProduct_name()}</a>
-                                                    <p class="text-muted nav-link">${i.product1.getProductdetail().getColor()}</p>
+                                                    <a href="#" class="nav-link" >${i.product.getProduct_name()}</a>
+                                                    <p class="text-muted nav-link">${i.product.getProductdetail().getColor()}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -47,7 +47,7 @@
                                     <div class="col-lg-2 col-sm-6 col-6 d-flex flex-row flex-lg-column flex-xl-row text-nowrap">
                                         <div class="">
                                             <div class="col">
-                                                <a href="process?num=-1&pid=${i.product1.getProduct_id()}">-</a><a  style="width: 100px;" class="border">${i.quantity}</a><a href="process?num=1&pid=${i.product1.getProduct_id()}">+</a>
+                                                <a href="process?num=-1&pid=${i.product.getProduct_id()}">-</a><a  style="width: 100px;" class="border">${i.quantity}</a><a href="process?num=1&pid=${i.product.getProduct_id()}">+</a>
                                             </div>
                                         </div>
                                         <div class="">
@@ -59,7 +59,7 @@
                                         <div class="float-md-end">
                                             <a href="#!" class="btn btn-light border px-2 icon-hover-primary"><i class="fas fa-heart fa-lg px-1 text-secondary"></i></a>
                                             <form action="process" method="post" class="btn btn-light  text-danger icon-hover-danger">
-                                                <input type="hidden" name="pid" value="${i.product1.getProduct_id()}"/>
+                                                <input type="hidden" name="pid" value="${i.product.getProduct_id()}"/>
                                                 <input type="submit" class="" value="Xóa"/>
                                             </form>          
                                         </div>
