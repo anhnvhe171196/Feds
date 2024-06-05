@@ -35,7 +35,7 @@ public class Price_DAO extends DBContext {
             if (rs.next()) {
                 Product_DAO p = new Product_DAO();
                 Product1 p1 = p.getProductById(rs.getInt("Product_id"));
-                return new Price(rs.getDouble("Price"), rs.getDate("Date_start"), rs.getDate("Date_end"), rs.getInt("Sale"), p1);
+                return new Price(rs.getDouble("Price"), rs.getDate("Date_start"), rs.getDate("Date_end"), p1);
             }
         } catch (SQLException e) {
             System.out.println(e);

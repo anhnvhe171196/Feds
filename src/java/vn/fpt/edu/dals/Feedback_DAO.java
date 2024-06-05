@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import vn.fpt.edu.models.Bill;
 import vn.fpt.edu.models.FeedBack;
+import vn.fpt.edu.models.GoogleAcount;
 import vn.fpt.edu.models.Product;
 import vn.fpt.edu.models.Product1;
 
@@ -138,7 +139,7 @@ public class Feedback_DAO extends DBContext {
         int avg = 0;
         String sql = "select AVG(Rating)\n"
                 + "from FeedBack\n"
-                + "where Product_id = ?;";
+                + "where Product_id = ? and Rating != 0;";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
@@ -259,5 +260,28 @@ public class Feedback_DAO extends DBContext {
             System.out.println(e);
         }
         return avg;
+    }
+
+    public void insertFeedBack(int productId, String comment, int Rating, int billId, String img) {
+        String sql = "INSERT INTO [dbo].[FeedBack]\n"
+                + "           ([Product_id]\n"
+                + "           ,[Comment]\n"
+                + "           ,[Date]\n"
+                + "           ,[Rating]\n"
+                + "           ,[Bill_Id]\n"
+                + "           ,[Img])\n"
+                + "     VALUES\n"
+                + "           (?, ?, GETDATE(), ?, ?, ?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, productId);
+            st.setString(2, comment);
+            st.setInt(3, Rating);
+            st.setInt(4, billId);
+            st.setString(5, img);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
     }
 }

@@ -9,9 +9,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import java.util.List;
+import vn.fpt.edu.models.Price;
 import vn.fpt.edu.models.Product;
+import vn.fpt.edu.models.Product1;
 
 /**
  *
@@ -64,108 +67,100 @@ public class Data_MarketingDashboard_DAO extends DBContext {
         return list;
     }
 
-    public List<Bill1> getSumRevenueByDay(String startDate, String endDate) {
-        List<Bill1> list = new ArrayList<>();
-        String sql = "SELECT\n"
-                + "    Date AS Ngay,\n"
-                + "    SUM(Total_price) AS TongTien\n"
-                + "FROM\n"
-                + "    [Feds].[dbo].[Bill]\n"
-                + "WHERE\n"
-                + "    Date BETWEEN ? AND ?\n"
-                + "    AND Status = 'Done'\n"
-                + "GROUP BY\n"
-                + "    Date\n"
-                + "ORDER BY\n"
-                + "    Date ASC;";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
+    public List<Product1> getAllProducts() {
+        List<Product1> productList = new ArrayList<>();
+        String sql = "SELECT p.Product_id, p.Product_name, p.Product_img, p.Quantity, pr.Price, pr.Date_start, pr.Date_end \n"
+                + "FROM Product p \n"
+                + "LEFT JOIN Price pr ON p.Product_id = pr.Product_id \n";
 
-            st.setString(1, startDate);
-            st.setString(2, endDate);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            try (ResultSet rs = st.executeQuery()) {
+                while (rs.next()) {
+                    int productId = rs.getInt("Product_id");
+                    String productName = rs.getString("Product_name");
+                    String productImg = rs.getString("Product_img");
+                    int quantity = rs.getInt("Quantity");
+                    double price = rs.getDouble("Price");
+                    Date dateStart = rs.getDate("Date_start");
+                    Date dateEnd = rs.getDate("Date_end");
 
-                Bill1 bill = new Bill1();
-                bill.setDate(rs.getString(1));
+                    // Tạo instance Price
+                    Price productPrice = new Price(price, dateStart, dateEnd, null);
 
-                bill.setTotal_price(rs.getInt(2));
-                list.add(bill);
+                    // Tạo instance Product1 và thiết lập các thuộc tính
+                    Product1 product = new Product1(productId, quantity, productName, productImg, null, null);
 
+                    // Thiết lập giá cho sản phẩm
+                    product.setPrice(productPrice);
+
+                    productList.add(product);
+                }
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
-        return list;
+        return productList;
+    }
+    public List<Product1> getAllProducts1(int index) {
+        List<Product1> productList = new ArrayList<>();
+        String sql = "SELECT p.Product_id, p.Product_name, p.Product_img, p.Quantity, pr.Price, pr.Date_start, pr.Date_end \n"
+                + "FROM Product p \n"
+                + "LEFT JOIN Price pr ON p.Product_id = pr.Product_id \n"
+                + "ORDER by p.Product_id\n"
+                + "OFFSET ? ROW FETCH NEXT 10 ROWS ONLY";
+
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+
+            st.setInt(1, (index -1)*10);
+            try (ResultSet rs = st.executeQuery()) {
+                while (rs.next()) {
+                    int productId = rs.getInt("Product_id");
+                    String productName = rs.getString("Product_name");
+                    String productImg = rs.getString("Product_img");
+                    int quantity = rs.getInt("Quantity");
+                    double price = rs.getDouble("Price");
+                    Date dateStart = rs.getDate("Date_start");
+                    Date dateEnd = rs.getDate("Date_end");
+
+                    // Tạo instance Price
+                    Price productPrice = new Price(price, dateStart, dateEnd, null);
+
+                    // Tạo instance Product1 và thiết lập các thuộc tính
+                    Product1 product = new Product1(productId, quantity, productName, productImg, null, null);
+
+                    // Thiết lập giá cho sản phẩm
+                    product.setPrice(productPrice);
+
+                    productList.add(product);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return productList;
     }
 
-    public List<Product> getTrendCategory(String month, String year) {
-        List<Product> list = new ArrayList<>();
-        String sql;
+    public static void main(String[] args) {
+        Data_MarketingDashboard_DAO data = new Data_MarketingDashboard_DAO();
+        List<Product1> products = data.getAllProducts1(2);
 
-        if ("0".equalsIgnoreCase(month)) {
-            sql = "SELECT\n"
-                    + "    pc.Category_name,\n"
-                    + "    COUNT(DISTINCT b.Bill_id) AS Bill_Count\n"
-                    + "FROM\n"
-                    + "    [Bill] b\n"
-                    + "JOIN\n"
-                    + "    [Order] o ON b.Bill_id = o.Bill_id\n"
-                    + "JOIN\n"
-                    + "    Product p ON o.Product_id = p.Product_id\n"
-                    + "JOIN\n"
-                    + "    Brandd br ON p.Brand_id = br.Brand_id\n"
-                    + "JOIN\n"
-                    + "    Product_Category pc ON br.Category_id = pc.Category_id\n"
-                    + "WHERE\n"
-                    + "    YEAR(b.Date) = ?\n"
-                    + "    AND b.Status = 'Done'\n"
-                    + "GROUP BY\n"
-                    + "    pc.Category_name\n"
-                    + "ORDER BY\n"
-                    + "    pc.Category_name ASC;";
-        } else {
-            sql = "SELECT\n"
-                    + "    pc.Category_name,\n"
-                    + "    COUNT(DISTINCT b.Bill_id) AS Bill_Count\n"
-                    + "FROM\n"
-                    + "    [Bill] b\n"
-                    + "JOIN\n"
-                    + "    [Order] o ON b.Bill_id = o.Bill_id\n"
-                    + "JOIN\n"
-                    + "    Product p ON o.Product_id = p.Product_id\n"
-                    + "JOIN\n"
-                    + "    Brandd br ON p.Brand_id = br.Brand_id\n"
-                    + "JOIN\n"
-                    + "    Product_Category pc ON br.Category_id = pc.Category_id\n"
-                    + "WHERE\n"
-                    + "    YEAR(b.Date) = ? AND MONTH(b.Date) = ?\n"
-                    + "    AND b.Status = 'Done'\n"
-                    + "GROUP BY\n"
-                    + "    pc.Category_name\n"
-                    + "ORDER BY\n"
-                    + "    pc.Category_name ASC;";
-        } 
+        for (Product1 product : products) {
+            System.out.println("Product ID: " + product.getProduct_id());
+            System.out.println("Product Name: " + product.getProduct_name());
+            System.out.println("Product Image: " + product.getProduct_img());
+            System.out.println("Quantity: " + product.getQuantity());
 
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-
-            st.setString(1, year);
-            if (!"0".equalsIgnoreCase(month)) {
-                st.setString(2, month);
+            Price price = product.getPrice();
+            if (price != null) {
+                System.out.println("Price: " + price.getPrice());
+                System.out.println("Price Start Date: " + price.getDateStart());
+                System.out.println("Price End Date: " + price.getDateEnd());
+            } else {
+                System.out.println("Price: No price available");
             }
 
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                Product prd = new Product();
-                prd.setCategory_name(rs.getString("Category_name"));
-                prd.setQuantity(rs.getInt("Bill_Count"));
-                list.add(prd);
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
+            System.out.println();
         }
-        return list;
     }
 
 }

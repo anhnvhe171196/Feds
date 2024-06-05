@@ -7,22 +7,26 @@ package vn.fpt.edu.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.text.ParseException;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import vn.fpt.edu.dals.Bill_DAO;
 import vn.fpt.edu.dals.Feedback_DAO;
 import vn.fpt.edu.dals.Price_DAO;
 import vn.fpt.edu.dals.ProductDetail_DAO;
-import vn.fpt.edu.dals.Product_DAO;
-import vn.fpt.edu.models.FeedBack;
+import vn.fpt.edu.dals.User_DAO;
 import vn.fpt.edu.models.Price;
-import vn.fpt.edu.models.Product1;
 import vn.fpt.edu.models.ProductDetail;
 import vn.fpt.edu.models.RelatedProducts;
+import vn.fpt.edu.models.User;
 
 /**
  *
@@ -31,7 +35,7 @@ import vn.fpt.edu.models.RelatedProducts;
 public class ViewProductDetailController extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+ * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
      * @param request servlet request
@@ -93,8 +97,6 @@ public class ViewProductDetailController extends HttpServlet {
 
             Date nowDate = sdf.parse(nowDateStr);
             Date pdEndDate = sdf.parse(pdEndDateStr);
-            System.out.println(nowDate + "     " + pdEndDate);
-            System.out.println(pd1.getDateEnd());
             if (pdEndDate.before(nowDate)) {
                 request.setAttribute("check", 1);
             } else {
@@ -110,6 +112,12 @@ public class ViewProductDetailController extends HttpServlet {
                 pageIndex = Integer.parseInt(pageIndex1);
             } else {
                 pageIndex = 1;
+            }
+            HttpSession session = request.getSession();
+            if (session.getAttribute("account") != null) {
+                User u = (User) session.getAttribute("account");
+                Bill_DAO b = new Bill_DAO();
+                request.setAttribute("conditionsForFeedback", b.conditionsForFeedback(productID, u.getUser_Id()));
             }
             request.setAttribute("pid", productID);
             request.setAttribute("numberOfPage", d.totalPageOfFeedBackByProductID(pageIndex, 3, productID));
@@ -137,7 +145,7 @@ public class ViewProductDetailController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
     }
 
     /**
