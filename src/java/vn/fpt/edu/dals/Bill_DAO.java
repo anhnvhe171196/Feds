@@ -312,7 +312,7 @@ public class Bill_DAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"),
-                        rs.getInt("User_idf"), rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
+                        rs.getInt("User_id"), rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
                 list.add(u);
             }
         } catch (SQLException e) {
