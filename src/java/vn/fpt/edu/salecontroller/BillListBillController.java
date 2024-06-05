@@ -20,7 +20,7 @@ import vn.fpt.edu.models.Bill1;
  *
  * @author Trong
  */
-public class OrderListBillController extends HttpServlet {
+public class BillListBillController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -123,10 +123,12 @@ public class OrderListBillController extends HttpServlet {
         Bill_DAO bd = new Bill_DAO();;
 
         if (action == null) {
-            List<Bill1> listBill = bd.getBillAllWithUserPagingSQL(1, 3);
+            List<Bill1> listBill = bd.getBillAllWithUserPagingSQL(1, 10);
             session.setAttribute("listBill", listBill);
-
-            int totalPages = bd.getNumOfPageBillList(3);
+            
+            int totalPages = bd.getNumOfPageBillList(10);
+            int currentPage = 1;
+            session.setAttribute("page", currentPage);
             request.setAttribute("totalPages", totalPages);
             request.getRequestDispatcher("OrderList.jsp").forward(request, response);
         } else if (action.equals("sortByDateAsc")) {
@@ -166,11 +168,11 @@ public class OrderListBillController extends HttpServlet {
             request.getRequestDispatcher("OrderList.jsp").forward(request, response);
         }else if(action.equals("paging")){ 
             int page = Integer.parseInt(request.getParameter("page"));
-            List<Bill1> listBill = bd.getBillAllWithUserPagingSQL(page, 3);
+            List<Bill1> listBill = bd.getBillAllWithUserPagingSQL(page, 10);
             session.setAttribute("listBill", listBill);
-
+            
             session.setAttribute("page", page);
-            int totalPages = bd.getNumOfPageBillList(3);
+            int totalPages = bd.getNumOfPageBillList(10);
             request.setAttribute("totalPages", totalPages);
             request.getRequestDispatcher("OrderList.jsp").forward(request, response);
         }

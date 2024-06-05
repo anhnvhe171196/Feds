@@ -66,11 +66,12 @@ public class Data_MarketingDashboard_DAO extends DBContext {
         }
         return list;
     }
-public List<Product1> getAllProducts() {
+
+    public List<Product1> getAllProducts() {
         List<Product1> productList = new ArrayList<>();
-        String sql = "SELECT p.Product_id, p.Product_name, p.Product_img, p.Quantity, pr.Price, pr.Date_start, pr.Date_end " +
-                     "FROM Product p " +
-                     "LEFT JOIN Price pr ON p.Product_id = pr.Product_id";
+        String sql = "SELECT p.Product_id, p.Product_name, p.Product_img, p.Quantity, pr.Price, pr.Date_start, pr.Date_end \n"
+                + "FROM Product p \n"
+                + "LEFT JOIN Price pr ON p.Product_id = pr.Product_id \n";
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
             try (ResultSet rs = st.executeQuery()) {
@@ -100,27 +101,66 @@ public List<Product1> getAllProducts() {
         }
         return productList;
     }
-    public static void main(String[] args){
-        Data_MarketingDashboard_DAO data = new Data_MarketingDashboard_DAO();
-         List<Product1> products = data.getAllProducts();
-         
-         for (Product1 product : products) {
-                System.out.println("Product ID: " + product.getProduct_id());
-                System.out.println("Product Name: " + product.getProduct_name());
-                System.out.println("Product Image: " + product.getProduct_img());
-                System.out.println("Quantity: " + product.getQuantity());
+    public List<Product1> getAllProducts1(int index) {
+        List<Product1> productList = new ArrayList<>();
+        String sql = "SELECT p.Product_id, p.Product_name, p.Product_img, p.Quantity, pr.Price, pr.Date_start, pr.Date_end \n"
+                + "FROM Product p \n"
+                + "LEFT JOIN Price pr ON p.Product_id = pr.Product_id \n"
+                + "ORDER by p.Product_id\n"
+                + "OFFSET ? ROW FETCH NEXT 10 ROWS ONLY";
 
-                Price price = product.getPrice();
-                if (price != null) {
-                    System.out.println("Price: " + price.getPrice());
-                    System.out.println("Price Start Date: " + price.getDateStart());
-                    System.out.println("Price End Date: " + price.getDateEnd());
-                } else {
-                    System.out.println("Price: No price available");
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+
+            st.setInt(1, (index -1)*10);
+            try (ResultSet rs = st.executeQuery()) {
+                while (rs.next()) {
+                    int productId = rs.getInt("Product_id");
+                    String productName = rs.getString("Product_name");
+                    String productImg = rs.getString("Product_img");
+                    int quantity = rs.getInt("Quantity");
+                    double price = rs.getDouble("Price");
+                    Date dateStart = rs.getDate("Date_start");
+                    Date dateEnd = rs.getDate("Date_end");
+
+                    // Tạo instance Price
+                    Price productPrice = new Price(price, dateStart, dateEnd, null);
+
+                    // Tạo instance Product1 và thiết lập các thuộc tính
+                    Product1 product = new Product1(productId, quantity, productName, productImg, null, null);
+
+                    // Thiết lập giá cho sản phẩm
+                    product.setPrice(productPrice);
+
+                    productList.add(product);
                 }
-
-                System.out.println();
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return productList;
+    }
+
+    public static void main(String[] args) {
+        Data_MarketingDashboard_DAO data = new Data_MarketingDashboard_DAO();
+        List<Product1> products = data.getAllProducts1(2);
+
+        for (Product1 product : products) {
+            System.out.println("Product ID: " + product.getProduct_id());
+            System.out.println("Product Name: " + product.getProduct_name());
+            System.out.println("Product Image: " + product.getProduct_img());
+            System.out.println("Quantity: " + product.getQuantity());
+
+            Price price = product.getPrice();
+            if (price != null) {
+                System.out.println("Price: " + price.getPrice());
+                System.out.println("Price Start Date: " + price.getDateStart());
+                System.out.println("Price End Date: " + price.getDateEnd());
+            } else {
+                System.out.println("Price: No price available");
+            }
+
+            System.out.println();
+        }
     }
 
 }

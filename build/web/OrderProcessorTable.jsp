@@ -40,35 +40,35 @@
 
         <!-- Template Stylesheet -->
         <link href="css/OrderProcessor.css" rel="stylesheet">
-            <style>
-        /* Đặt mọi CSS ở đây */
-        .sort-button {
-            border: none; /* Loại bỏ viền */
-            background-color: transparent; /* Xóa màu nền */
-            cursor: pointer; /* Hiển thị con trỏ khi di chuột qua */
-            padding: 0; /* Loại bỏ padding */
-            margin: 0; /* Loại bỏ margin */
-            font-family: inherit; /* Sử dụng font chung của trang */
-            font-size: inherit; /* Sử dụng kích thước font chung của trang */
-            color: inherit; /* Sử dụng màu chữ chung của trang */
-            text-decoration: none; /* Gạch chân dưới chữ */
-        }
+        <style>
+            /* Đặt mọi CSS ở đây */
+            .sort-button {
+                border: none; /* Loại bỏ viền */
+                background-color: transparent; /* Xóa màu nền */
+                cursor: pointer; /* Hiển thị con trỏ khi di chuột qua */
+                padding: 0; /* Loại bỏ padding */
+                margin: 0; /* Loại bỏ margin */
+                font-family: inherit; /* Sử dụng font chung của trang */
+                font-size: inherit; /* Sử dụng kích thước font chung của trang */
+                color: inherit; /* Sử dụng màu chữ chung của trang */
+                text-decoration: none; /* Gạch chân dưới chữ */
+            }
 
-        /* Hover effect */
-        .sort-button:hover {
-            text-decoration: none; /* Loại bỏ gạch chân khi di chuột qua */
-        }
-    </style>
+            /* Hover effect */
+            .sort-button:hover {
+                text-decoration: none; /* Loại bỏ gạch chân khi di chuột qua */
+            }
+        </style>
     </head>
     <body>
 
         <div class="container-xxl position-relative bg-white d-flex p-0">
             <!-- Spinner Start -->
-            <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
-            </div>
+            <!--            <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+                            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>-->
             <!-- Spinner End -->
 
             <!-- Sidebar Start -->
@@ -176,8 +176,65 @@
                                             </tr>
 
                                         </c:forEach>
+
                                     </tbody>
                                 </table>
+
+                                <c:if test="${endPage > 1}">
+                                    <nav aria-label="Page navigation">
+                                        <ul class="pagination">
+                                            <!-- Previous Button -->
+                                            <c:if test="${index > 1}">
+                                                <li class="page-item">
+                                                    <a class="page-link" href="marketingProductList?index=${index - 1}" aria-label="Previous">
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                    </a>
+                                                </li>
+                                            </c:if>
+
+                                            <!-- First Page Button -->
+                                            <li class="page-item ${index == 1 ? 'active' : ''}">
+                                                <a class="page-link" href="marketingProductList?index=1">1</a>
+                                            </li>
+
+                                            <!-- Page Number Buttons -->
+                                            <c:if test="${index > 3}">
+                                                <li class="page-item disabled">
+                                                    <span class="page-link">...</span>
+                                                </li>
+                                            </c:if>
+
+                                            <c:forEach begin="2" end="${endPage-1}" var="i">
+                                                <c:if test="${i >= index - 1 && i <= index + 1}">
+                                                    <li class="page-item ${i == index ? 'active' : ''}">
+                                                        <a class="page-link" href="marketingProductList?index=${i}">${i}</a>
+                                                    </li>
+                                                </c:if>
+                                            </c:forEach>
+
+                                            <c:if test="${index < endPage - 2}">
+                                                <li class="page-item disabled">
+                                                    <span class="page-link">...</span>
+                                                </li>
+                                            </c:if>
+
+                                            <!-- Last Page Button -->
+                                            <li class="page-item ${index == endPage ? 'active' : ''}">
+                                                <a class="page-link" href="marketingProductList?index=${endPage}">${endPage}</a>
+                                            </li>
+
+                                            <!-- Next Button -->
+                                            <c:if test="${index < endPage}">
+                                                <li class="page-item">
+                                                    <a class="page-link" href="marketingProductList?index=${index + 1}" aria-label="Next">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
+                                            </c:if>
+                                        </ul>
+                                    </nav>
+                                </c:if>
+
 
                             </div>
                         </div>
