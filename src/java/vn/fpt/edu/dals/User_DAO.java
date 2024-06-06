@@ -247,4 +247,81 @@ public class User_DAO extends DBContext {
         }
         return totalNumberOfUsers;
     }
+      public int getUserSortCount(String sortBy) {
+        int total = 0;
+        String sql = "SELECT Count([User_Id]) as Total\n"
+                + "  FROM [Feds].[dbo].[User]\n";
+        switch(sortBy) {
+            case "id":
+                sql += " ORDER BY [User_Id]";
+                break;
+            case "name":
+                sql += " ORDER BY [User_name]";
+                break;
+            case "email":
+                sql += " ORDER BY [Email]";
+                break;
+            case "role":
+                sql += " ORDER BY [Role_id]";
+                break;
+            case "mobile":
+                sql += " ORDER BY [Phone_number]";
+                break;
+        }
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                total = rs.getInt("Total");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return total;
+    }
+      
+        public List<User> getUserSort(String sortBy, int page) {
+        List<User> list = new ArrayList<>();
+        String sql = "SELECT [User_Id]\n"
+                + "	  ,[Password]\n"
+                + "      ,[User_name]\n"
+                + "      ,[Email]\n"
+                + "      ,[Phone_number]\n"
+                + "      ,[Role_id]\n"
+                + "      ,[Avarta]\n"
+                + "  FROM [Feds].[dbo].[User]\n";
+        switch(sortBy) {
+            case "id":
+                sql += " ORDER BY [User_Id]";
+                break;
+            case "name":
+                sql += " ORDER BY [User_name]";
+                break;
+            case "email":
+                sql += " ORDER BY [Email]";
+                break;
+            case "role":
+                sql += " ORDER BY [Role_id]";
+                break;
+            case "mobile":
+                sql += " ORDER BY [Phone_number]";
+                break;
+        }
+         sql += " OFFSET " + (page-1)*9 + " ROWS FETCH NEXT 9 ROWS ONLY;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            Role_DAO rd = new Role_DAO();
+            while (rs.next()) {
+                Role r = rd.getRoleById(rs.getInt("Role_id"));
+                User u = new User(rs.getInt("User_Id"), rs.getString("Password"), rs.getString("User_name"), rs.getString("Email"), rs.getString("Phone_number"), r, rs.getString("Avarta"));
+                list.add(u);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+      
+      
 }

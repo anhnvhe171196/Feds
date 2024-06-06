@@ -71,7 +71,7 @@ public class Data_MarketingDashboard_DAO extends DBContext {
 
     public List<Product1> getAllProducts() {
         List<Product1> productList = new ArrayList<>();
-        String sql = "SELECT p.Product_id, p.Product_name, p.Product_img, p.Quantity, pr.Price, pr.Date_start, pr.Date_end \n"
+        String sql = "SELECT p.Product_id, p.Product_name, p.Product_img, p.Quantity, pr.Price, pr.Date_start, pr.Date_end, pr.sale \n"
                 + "FROM Product p \n"
                 + "LEFT JOIN Price pr ON p.Product_id = pr.Product_id \n";
 
@@ -85,9 +85,10 @@ public class Data_MarketingDashboard_DAO extends DBContext {
                     double price = rs.getDouble("Price");
                     Date dateStart = rs.getDate("Date_start");
                     Date dateEnd = rs.getDate("Date_end");
+                    int sale = rs.getInt("sale");
 
                     // Tạo instance Price
-                    Price productPrice = new Price(price, dateStart, dateEnd, null);
+                    Price productPrice = new Price(price, dateStart, dateEnd, sale, null);
 
                     // Tạo instance Product1 và thiết lập các thuộc tính
                     Product1 product = new Product1(productId, quantity, productName, productImg, null, null);
@@ -106,7 +107,9 @@ public class Data_MarketingDashboard_DAO extends DBContext {
 
     public List<Product1> getAllProducts1(int index, String softBy) {
         List<Product1> productList = new ArrayList<>();
-        String sql = "SELECT p.Product_id, p.Product_name, p.Product_img, p.Quantity, pr.Price, pr.Date_start, pr.Date_end, br.Brand_Id AS brandId, br.Brand_Name AS brandName \n"
+
+        String sql = "SELECT p.Product_id, p.Product_name, p.Product_img, p.Quantity, pr.Price, pr.Date_start, pr.Date_end, pr.sale, br.Brand_Id AS brandId, br.Brand_Name AS brandName \n"
+
                 + "FROM Product p \n"
                 + "LEFT JOIN Price pr ON p.Product_id = pr.Product_id \n"
                 + "LEFT JOIN [Brandd] br ON p.[Brand_id] = br.Brand_Id \n";
@@ -135,10 +138,14 @@ public class Data_MarketingDashboard_DAO extends DBContext {
                     double price = rs.getDouble("Price");
                     Date dateStart = rs.getDate("Date_start");
                     Date dateEnd = rs.getDate("Date_end");
+
                     int brandId = rs.getInt("brandId");
                     String brandName = rs.getString("brandName");
+
+                    int sale = rs.getInt("sale");
+
                     // Tạo instance Price
-                    Price productPrice = new Price(price, dateStart, dateEnd, null);
+                    Price productPrice = new Price(price, dateStart, dateEnd, sale, null);
 
                     // Tạo instance Product1 và thiết lập các thuộc tính
                     Product1 product = new Product1(productId, quantity, productName, productImg, null, null);
