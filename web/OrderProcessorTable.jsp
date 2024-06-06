@@ -58,6 +58,7 @@
             .sort-button:hover {
                 text-decoration: none; /* Loại bỏ gạch chân khi di chuột qua */
             }
+
         </style>
 
     </head>
@@ -91,7 +92,7 @@
                     </div>
                     <div class="navbar-nav w-100">
                         <a href="marketingDashBoard" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                        <a href="#" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>Order List</a>
+                        <a href="#" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>Product List</a>
 
                     </div>
                 </nav>
@@ -179,7 +180,23 @@
                                                     <button type="button" class="sort-button">Price</button>
                                                 </a>
                                             </th>
-                                            <th scope="col" style="color: #009CFF;">Details</th>
+                                            <th scope="col">
+                                                <a href="#" onclick="sortByDateStart()">
+                                                    <button type="button" class="sort-button">Date Start</button>
+                                                </a>
+                                            </th>
+                                            <th scope="col">
+                                                <a href="#" onclick="sortByDateEnd()">
+                                                    <button type="button" class="sort-button">Date End</button>
+                                                </a>
+                                            </th>
+                                            <th scope="col" style="color: #009CFF;">
+                                                <a href="#">
+                                                    <button type="button" class="sort-button" id="openModalBtn">Details</button>
+                                                </a>
+                                            </th>
+
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -191,6 +208,26 @@
                                                 <td scope="col">${product.brand.brandName}</th>
                                                 <td scope="col">${product.quantity}</th>
                                                 <td scope="col"><fmt:formatNumber value="${product.price.price}" pattern="#,##0 VND" /></th>
+                                                <td scope="col">
+                                                    <c:choose>
+                                                        <c:when test="${empty product.price.dateStart}">
+                                                            Unlimited!
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            ${product.price.dateStart}
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </td>
+                                                <td scope="col">
+                                                    <c:choose>
+                                                        <c:when test="${empty product.price.dateEnd}">
+                                                            Unlimited!
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            ${product.price.dateEnd}
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </td>
                                                 <td scope="col">Details</th>
                                             </tr>
                                         </c:forEach>
@@ -301,6 +338,14 @@
                 }
                 function sortByQuantity() {
                     let url = "marketingProductList?index=${index}&sortBy=quantity";
+                    window.location.href = url;
+                }
+                function sortByDateStart() {
+                    let url = "marketingProductList?index=${index}&sortBy=datestart";
+                    window.location.href = url;
+                }
+                function sortByDateEnd() {
+                    let url = "marketingProductList?index=${index}&sortBy=dateend";
                     window.location.href = url;
                 }
             </script>

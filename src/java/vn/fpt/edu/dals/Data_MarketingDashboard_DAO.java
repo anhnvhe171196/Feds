@@ -109,7 +109,6 @@ public class Data_MarketingDashboard_DAO extends DBContext {
         List<Product1> productList = new ArrayList<>();
 
         String sql = "SELECT p.Product_id, p.Product_name, p.Product_img, p.Quantity, pr.Price, pr.Date_start, pr.Date_end, pr.Sale, br.Brand_Id AS brandId, br.Brand_Name AS brandName \n"
-
                 + "FROM Product p \n"
                 + "LEFT JOIN Price pr ON p.Product_id = pr.Product_id \n"
                 + "LEFT JOIN [Brandd] br ON p.[Brand_id] = br.Brand_Id \n";
@@ -120,6 +119,20 @@ public class Data_MarketingDashboard_DAO extends DBContext {
             sql += "ORDER BY pr.Price ";
         } else if ("quantity".equals(softBy)) {
             sql += "ORDER BY p.Quantity ";
+        } else if ("datestart".equals(softBy)) {
+            sql += "ORDER BY \n"
+                    + "    CASE \n"
+                    + "        WHEN pr.Date_start IS NULL THEN 1 \n"
+                    + "        ELSE 0 \n"
+                    + "    END, \n"
+                    + "    pr.Date_start ";
+        } else if ("dateend".equals(softBy)) {
+            sql += "ORDER BY \n"
+                    + "    CASE \n"
+                    + "        WHEN pr.Date_end IS NULL THEN 1 \n"
+                    + "        ELSE 0 \n"
+                    + "    END, \n"
+                    + "    pr.Date_start";
         } else {
             sql += "ORDER BY p.Product_id ";
         }
@@ -152,7 +165,7 @@ public class Data_MarketingDashboard_DAO extends DBContext {
 
                     // Thiết lập giá cho sản phẩm
                     product.setPrice(productPrice);
-                    product.setBrand(new Brand(brandId,brandName,null));
+                    product.setBrand(new Brand(brandId, brandName, null));
 //
                     productList.add(product);
                 }
@@ -165,7 +178,7 @@ public class Data_MarketingDashboard_DAO extends DBContext {
 
     public static void main(String[] args) {
         Data_MarketingDashboard_DAO data = new Data_MarketingDashboard_DAO();
-        List<Product1> products = data.getAllProducts1(2, "name");
+        List<Product1> products = data.getAllProducts1(2, "datestart");
 
         for (Product1 product : products) {
             System.out.println("Product ID: " + product.getProduct_id());
@@ -173,10 +186,10 @@ public class Data_MarketingDashboard_DAO extends DBContext {
             System.out.println("Product Image: " + product.getProduct_img());
             System.out.println("Quantity: " + product.getQuantity());
             Brand brand = product.getBrand();
-            if(brand !=null){
-                System.out.println("brand: " +brand.getBrandName());
+            if (brand != null) {
+                System.out.println("brand: " + brand.getBrandName());
             }
-            
+
             Price price = product.getPrice();
             if (price != null) {
                 System.out.println("Price: " + price.getPrice());
