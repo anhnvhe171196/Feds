@@ -59,6 +59,7 @@
                 text-decoration: none; /* Loại bỏ gạch chân khi di chuột qua */
             }
         </style>
+
     </head>
     <body>
 
@@ -156,12 +157,29 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Image</th>
-                                            <th scope="col"><a href="#" onclick="sortByName()"><button type="button" class="sort-button" onclick="sortBy('name')">Product name</button></a></th>
-                                            <th scope="col">Quantity</th>
-                                            <th scope="col">Price</th>
-                                            <th scope="col">Details</th>
+                                            <th scope="col">
+                                                <a href="#" onclick="sortById()">
+                                                    <button type="button" class="sort-button">ID</button>
+                                                </a>
+                                            </th>
+                                            <th scope="col" style="color: #009CFF;">Image</th>
+                                            <th scope="col">
+                                                <a href="#" onclick="sortByName()">
+                                                    <button type="button" class="sort-button">Product name</button>
+                                                </a>
+                                            </th>
+                                            <th scope="col" style="color: #009CFF;">Category</th>
+                                            <th scope="col">
+                                                <a href="#" onclick="sortByQuantity()">
+                                                    <button type="button" class="sort-button">Quantity</button>
+                                                </a>
+                                            </th>
+                                            <th scope="col">
+                                                <a href="#" onclick="sortByPrice()">
+                                                    <button type="button" class="sort-button">Price</button>
+                                                </a>
+                                            </th>
+                                            <th scope="col" style="color: #009CFF;">Details</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -170,186 +188,74 @@
                                                 <td scope="col">${product.product_id}</th>
                                                 <td scope="col"><img src="images/${product.product_img}" style="max-height: 50px"></th>
                                                 <td scope="col" style="max-width: 200px; word-wrap: break-word;">${product.product_name}</th>
+                                                <td scope="col">${product.brand.brandName}</th>
                                                 <td scope="col">${product.quantity}</th>
                                                 <td scope="col"><fmt:formatNumber value="${product.price.price}" pattern="#,##0 VND" /></th>
                                                 <td scope="col">Details</th>
                                             </tr>
-
                                         </c:forEach>
 
                                     </tbody>
                                 </table>
-
-                                <c:if test="${endPage > 1}">
-                                    <nav aria-label="Page navigation">
-                                        <ul class="pagination">
-                                            <!-- Previous Button -->
-                                            <c:if test="${index > 1}">
-                                                <li class="page-item">
-                                                    <a class="page-link" href="marketingProductList?index=${index - 1}" aria-label="Previous">
-                                                        <span aria-hidden="true">&laquo;</span>
-                                                    </a>
-                                                </li>
-                                            </c:if>
-
-                                            <!-- First Page Button -->
-                                            <li class="page-item ${index == 1 ? 'active' : ''}">
-                                                <a class="page-link" href="marketingProductList?index=1">1</a>
-                                            </li>
-
-                                            <!-- Page Number Buttons -->
-                                            <c:if test="${index > 3}">
-                                                <li class="page-item disabled">
-                                                    <span class="page-link">...</span>
-                                                </li>
-                                            </c:if>
-
-                                            <c:forEach begin="2" end="${endPage-1}" var="i">
-                                                <c:if test="${i >= index - 1 && i <= index + 1}">
-                                                    <li class="page-item ${i == index ? 'active' : ''}">
-                                                        <a class="page-link" href="marketingProductList?index=${i}">${i}</a>
+                                <div class="d-flex justify-content-center">
+                                    <c:if test="${endPage > 1}">
+                                        <nav aria-label="Page navigation">
+                                            <ul class="pagination">
+                                                <!-- Previous Button -->
+                                                <c:if test="${index > 1}">
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="marketingProductList?index=${index - 1}&sortBy=${sessionScope.sortBy}" aria-label="Previous">
+                                                            <span aria-hidden="true">&laquo;</span>
+                                                        </a>
                                                     </li>
                                                 </c:if>
-                                            </c:forEach>
 
-                                            <c:if test="${index < endPage - 2}">
-                                                <li class="page-item disabled">
-                                                    <span class="page-link">...</span>
+                                                <!-- First Page Button -->
+                                                <li class="page-item ${index == 1 ? 'active' : ''}">
+                                                    <a class="page-link" href="marketingProductList?index=1&sortBy=${sessionScope.sortBy}">1</a>
                                                 </li>
-                                            </c:if>
 
-                                            <!-- Last Page Button -->
-                                            <li class="page-item ${index == endPage ? 'active' : ''}">
-                                                <a class="page-link" href="marketingProductList?index=${endPage}">${endPage}</a>
-                                            </li>
+                                                <!-- Page Number Buttons -->
+                                                <c:if test="${index > 3}">
+                                                    <li class="page-item disabled">
+                                                        <span class="page-link">...</span>
+                                                    </li>
+                                                </c:if>
 
-                                            <!-- Next Button -->
-                                            <c:if test="${index < endPage}">
-                                                <li class="page-item">
-                                                    <a class="page-link" href="marketingProductList?index=${index + 1}" aria-label="Next">
-                                                        <span aria-hidden="true">&raquo;</span>
-                                                    </a>
+                                                <c:forEach begin="2" end="${endPage-1}" var="i">
+                                                    <c:if test="${i >= index - 1 && i <= index + 1}">
+                                                        <li class="page-item ${i == index ? 'active' : ''}">
+                                                            <a class="page-link" href="marketingProductList?index=${i}&sortBy=${sessionScope.sortBy}">${i}</a>
+                                                        </li>
+                                                    </c:if>
+                                                </c:forEach>
+
+                                                <c:if test="${index < endPage - 2}">
+                                                    <li class="page-item disabled">
+                                                        <span class="page-link">...</span>
+                                                    </li>
+                                                </c:if>
+
+                                                <!-- Last Page Button -->
+                                                <li class="page-item ${index == endPage ? 'active' : ''}">
+                                                    <a class="page-link" href="marketingProductList?index=${endPage}&sortBy=${sessionScope.sortBy}">${endPage}</a>
                                                 </li>
-                                            </c:if>
-                                        </ul>
-                                    </nav>
-                                </c:if>
 
-
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-xl-6">
-                            <div class="bg-light rounded h-100 p-4">
-                                <h6 class="mb-4">Accented Table</h6>
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">First Name</th>
-                                            <th scope="col">Last Name</th>
-                                            <th scope="col">Email</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-xl-6">
-                            <div class="bg-light rounded h-100 p-4">
-                                <h6 class="mb-4">Hoverable Table</h6>
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">First Name</th>
-                                            <th scope="col">Last Name</th>
-                                            <th scope="col">Email</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-xl-6">
-                            <div class="bg-light rounded h-100 p-4">
-                                <h6 class="mb-4">Color Table</h6>
-                                <table class="table table-dark">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">First Name</th>
-                                            <th scope="col">Last Name</th>
-                                            <th scope="col">Email</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-xl-6">
-                            <div class="bg-light rounded h-100 p-4">
-                                <h6 class="mb-4">Bordered Table</h6>
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">First Name</th>
-                                            <th scope="col">Last Name</th>
-                                            <th scope="col">Email</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-xl-6">
-                            <div class="bg-light rounded h-100 p-4">
-                                <h6 class="mb-4">Table Without Border</h6>
-                                <table class="table table-borderless">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">First Name</th>
-                                            <th scope="col">Last Name</th>
-                                            <th scope="col">Email</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                </table>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="bg-light rounded h-100 p-4">
-                                <h6 class="mb-4">Responsive Table</h6>
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">First Name</th>
-                                                <th scope="col">Last Name</th>
-                                                <th scope="col">Email</th>
-                                                <th scope="col">Country</th>
-                                                <th scope="col">ZIP</th>
-                                                <th scope="col">Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                        </tbody>
-                                    </table>
+                                                <!-- Next Button -->
+                                                <c:if test="${index < endPage}">
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="marketingProductList?index=${index + 1}&sortBy=${sessionScope.sortBy}" aria-label="Next">
+                                                            <span aria-hidden="true">&raquo;</span>
+                                                        </a>
+                                                    </li>
+                                                </c:if>
+                                            </ul>
+                                        </nav>
+                                    </c:if>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
 
@@ -375,10 +281,28 @@
             <!-- Template Javascript -->
             <script src="js/main.js"></script>
             <script>
-                                                $('.sidebar-toggler').click(function () {
-                                                    $('.sidebar, .content').toggleClass("open");
-                                                    return false;
-                                                });
+                                                    $('.sidebar-toggler').click(function () {
+                                                        $('.sidebar, .content').toggleClass("open");
+                                                        return false;
+                                                    });
+            </script>
+            <script>
+                function sortByName() {
+                    let url = "marketingProductList?index=${index}&sortBy=name";
+                    window.location.href = url;
+                }
+                function sortById() {
+                    let url = "marketingProductList?index=${index}&sortBy=id";
+                    window.location.href = url;
+                }
+                function sortByPrice() {
+                    let url = "marketingProductList?index=${index}&sortBy=price";
+                    window.location.href = url;
+                }
+                function sortByQuantity() {
+                    let url = "marketingProductList?index=${index}&sortBy=quantity";
+                    window.location.href = url;
+                }
             </script>
 
     </body>

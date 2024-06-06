@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import java.util.List;
+import vn.fpt.edu.models.Brand;
+import vn.fpt.edu.models.Category;
 import vn.fpt.edu.models.Price;
 import vn.fpt.edu.models.Product;
 import vn.fpt.edu.models.Product1;
@@ -101,17 +103,29 @@ public class Data_MarketingDashboard_DAO extends DBContext {
         }
         return productList;
     }
-    public List<Product1> getAllProducts1(int index) {
+
+    public List<Product1> getAllProducts1(int index, String softBy) {
         List<Product1> productList = new ArrayList<>();
-        String sql = "SELECT p.Product_id, p.Product_name, p.Product_img, p.Quantity, pr.Price, pr.Date_start, pr.Date_end \n"
+        String sql = "SELECT p.Product_id, p.Product_name, p.Product_img, p.Quantity, pr.Price, pr.Date_start, pr.Date_end, br.Brand_Id AS brandId, br.Brand_Name AS brandName \n"
                 + "FROM Product p \n"
                 + "LEFT JOIN Price pr ON p.Product_id = pr.Product_id \n"
-                + "ORDER by p.Product_id\n"
-                + "OFFSET ? ROW FETCH NEXT 10 ROWS ONLY";
+                + "LEFT JOIN [Brandd] br ON p.[Brand_id] = br.Brand_Id \n";
+
+        if ("name".equals(softBy)) {
+            sql += "ORDER BY p.Product_name ";
+        } else if ("price".equals(softBy)) {
+            sql += "ORDER BY pr.Price ";
+        } else if ("quantity".equals(softBy)) {
+            sql += "ORDER BY p.Quantity ";
+        } else {
+            sql += "ORDER BY p.Product_id ";
+        }
+
+        sql += "OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY";
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
 
-            st.setInt(1, (index -1)*10);
+            st.setInt(1, (index - 1) * 10);
             try (ResultSet rs = st.executeQuery()) {
                 while (rs.next()) {
                     int productId = rs.getInt("Product_id");
@@ -121,7 +135,8 @@ public class Data_MarketingDashboard_DAO extends DBContext {
                     double price = rs.getDouble("Price");
                     Date dateStart = rs.getDate("Date_start");
                     Date dateEnd = rs.getDate("Date_end");
-
+                    int brandId = rs.getInt("brandId");
+                    String brandName = rs.getString("brandName");
                     // Tạo instance Price
                     Price productPrice = new Price(price, dateStart, dateEnd, null);
 
@@ -130,7 +145,8 @@ public class Data_MarketingDashboard_DAO extends DBContext {
 
                     // Thiết lập giá cho sản phẩm
                     product.setPrice(productPrice);
-
+                    product.setBrand(new Brand(brandId,brandName,null));
+//
                     productList.add(product);
                 }
             }
@@ -142,14 +158,18 @@ public class Data_MarketingDashboard_DAO extends DBContext {
 
     public static void main(String[] args) {
         Data_MarketingDashboard_DAO data = new Data_MarketingDashboard_DAO();
-        List<Product1> products = data.getAllProducts1(2);
+        List<Product1> products = data.getAllProducts1(2, "name");
 
         for (Product1 product : products) {
             System.out.println("Product ID: " + product.getProduct_id());
             System.out.println("Product Name: " + product.getProduct_name());
             System.out.println("Product Image: " + product.getProduct_img());
             System.out.println("Quantity: " + product.getQuantity());
-
+            Brand brand = product.getBrand();
+            if(brand !=null){
+                System.out.println("brand: " +brand.getBrandName());
+            }
+            
             Price price = product.getPrice();
             if (price != null) {
                 System.out.println("Price: " + price.getPrice());

@@ -9,6 +9,7 @@ package vn.fpt.edu.models;
  * @author admin
  */
 public class Product1 {
+
     private int product_id;
     private int quantity;
     private String product_name;
@@ -16,6 +17,7 @@ public class Product1 {
     private User user;
     private Brand brand;
     private Price price;
+    private Category category;
 
     public Product1() {
     }
@@ -84,6 +86,11 @@ public class Product1 {
     public void setPrice(Price price) {
         this.price = price;
     }
-    
-    
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+    public Category getCategory(){
+        return category;
+    }
+
 }

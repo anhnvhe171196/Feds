@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import vn.fpt.edu.dals.Data_MarketingDashboard_DAO;
 import vn.fpt.edu.dals.Product_DAO;
@@ -65,6 +66,7 @@ public class MarketingProductList extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
 
+        HttpSession session = request.getSession();
         Data_MarketingDashboard_DAO dt = new Data_MarketingDashboard_DAO();
         Product_DAO pd = new Product_DAO();
 
@@ -80,7 +82,16 @@ public class MarketingProductList extends HttpServlet {
         }
         int index = Integer.parseInt(indexPage);
 
-        List<Product1> products = dt.getAllProducts1(index);
+        String sortBy = request.getParameter("sortBy");
+        if (sortBy == null) {
+            sortBy = "id";
+            session.setAttribute("sortBy", sortBy);
+
+        }else{
+            session.setAttribute("sortBy", sortBy);
+        }
+        
+        List<Product1> products = dt.getAllProducts1(index,sortBy);
 
         request.setAttribute("index", index);
         request.setAttribute("products", products);
