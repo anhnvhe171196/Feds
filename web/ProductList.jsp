@@ -229,7 +229,12 @@
                         <div class="checkbox-filter">
                             <%  String[] brandId = request.getParameterValues("brandid") == null ? new String[0] : request.getParameterValues("brandid");
                                 ArrayList<Brand> brands = (ArrayList)request.getAttribute("brands");
-                                for(int i = 0; i < (brands.size() > 9 ? 9 : brands.size()); i++) { //Giới Hạn 9 brand
+                                int relatedBrand = (int)request.getAttribute("relatedBrand");
+                                int bsize = (relatedBrand == 0 ? brands.size() : relatedBrand);
+                                if(bsize > 9) {
+                                    bsize = 9;
+                                }
+                                for(int i = 0; i < brands.size(); i++) { //Giới Hạn 9 brand
 //                                                                    for(int i = 0; i < brands.size(); i++) { //Toàn Bộ Brand
                                     boolean checked = false;
                                     for(int j = 0; j < brandId.length; j++) {
@@ -238,13 +243,39 @@
                                         }
                                     }
                             %>
-                            <div class="input-checkbox">
+                            <div class="input-checkbox <%=i > bsize ? "hidden" : ""%>" <%=i > bsize ? "type=\"hidden\"" : ""%>>
                                 <input type="checkbox" name="brandid" value="<%=brands.get(i).getBrandName()%>" id="brand-<%=i+1%>" <%=checked ? "checked" : ""%>>
                                 <label for="brand-<%=i+1%>">
                                     <span></span>
                                     <%=brands.get(i).getBrandName()%>
                                 </label>
                             </div>
+                            <% } %>
+                            <%if(bsize < brands.size()) {%>
+                            <div class="input-checkbox">
+                                <label onclick="show(this)">
+                                    Show More...
+                                </label>
+                            </div>
+                            <script>
+                                function show(label) {
+                                    if(label.innerHTML.includes("Show More...")) {
+                                        label.innerHTML = "Show Less";
+                                        let hiddens = document.querySelectorAll("div[type=hidden]");
+                                        for(let i = 0; i < hiddens.length; i++) {
+                                            hiddens[i].className = "input-checkbox";
+                                            hiddens[i].setAttribute("type", "unhidden");
+                                        }
+                                    } else {
+                                        label.innerHTML = "Show More...";
+                                        let hiddens = document.querySelectorAll("div[type=unhidden]");
+                                        for(let i = 0; i < hiddens.length; i++) {
+                                            hiddens[i].className = "input-checkbox hidden";
+                                            hiddens[i].setAttribute("type", "hidden");
+                                        }
+                                    }
+                                }
+                            </script>
                             <% } %>
                         </div>
                     </div>
