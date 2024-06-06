@@ -17,7 +17,7 @@ public class RelatedProducts extends Price{
     }
 
     public RelatedProducts(int rating, double price, Date dateStart, Date dateEnd, int sale, Product1 product) {
-        super(price, dateStart, dateEnd, product);
+        super(price, dateStart, dateEnd, sale, product);
         this.rating = rating;
     }
 
