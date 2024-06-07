@@ -15,8 +15,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Checkout</title>
-                <base href="http://localhost:9999/testQrCode/"/>
-
+        <base href="http://localhost:9999/Feds/checkout.jsp"/>
         <!-- Google Fonts -->
         <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
@@ -30,7 +29,7 @@
 
         <!-- Custom CSS -->
         <link rel="stylesheet" href="css/owl.carousel.css">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="css/checkout.css">
         <link rel="stylesheet" href="css/responsive.css">
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -347,6 +346,6 @@
         <script src="js/jquery.easing.1.3.min.js"></script>
 
         <!-- Main Script -->
-        <script src="js/main.js"></script>
+        <script src="js/checkout.js"></script>
     </body>
 </html>
