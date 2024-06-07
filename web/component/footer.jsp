@@ -30,7 +30,7 @@
                             <div class="newsletter">
                                 <p>Đăng ký để nhận <strong>THÔNG BÁO</strong></p>
                                 <form action="register">
-                                    <button style="border-radius: 100px" class="newsletter-btn"><i class="fa fa-envelope"></i>ĐĂNG KÝ</button>
+                                    <button style="border-radius: 100px" class="newsletter-btn"><i class="fa fa-envelope"></i> ĐĂNG KÝ</button>
                                 </form>
                                 <ul class="newsletter-follow">
                                     <li>

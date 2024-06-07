@@ -20,7 +20,7 @@ public class Price {
     public Price() {
     }
 
-    public Price(double price, Date dateStart, Date dateEnd, Product1 product) {
+    public Price(double price, Date dateStart, Date dateEnd, int sale, Product1 product) {
         this.price = price;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;

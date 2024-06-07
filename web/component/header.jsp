@@ -19,7 +19,7 @@
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/nouislider.min.css"/>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
-
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css"/>
 
     </head>
     <body>
@@ -39,26 +39,28 @@
                         <!--<li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>-->
                         <div class="menu-container">
                             <c:if test="${sessionScope.account == null}">
-                                <a href="login">
+                                <a href="${pageContext.request.contextPath}/login">
                                     <i class="fa fa-user-o" style="color: red"></i>
                                 </a>
-                                <a href="login"><button class="menu-button" >Login</button></a>
+                                <a href="${pageContext.request.contextPath}/login"><button class="menu-button" >Login</button></a>
                             </c:if>
                             <c:if test="${sessionScope.account != null}">
-                                <a class="fa" href="userProfile"><img style="width: 23px;border-radius: 20px;" src="images/${sessionScope.account.avarta}" alt="alt"/></a>
+                                <a class="fa" href="${pageContext.request.contextPath}/userProfile"><img style="width: 23px;border-radius: 20px;" src="${pageContext.request.contextPath}/images/${sessionScope.account.avarta}" alt="alt"/></a>
                                 <li>
                                     <div class="menu-container">
                                         <button class="menu-button" style="font-weight: bold">My Account</button>
                                         <div class="menu">
                                             <ul>
-                                                <li><a href="userProfile">Hồ sơ cá nhân</a></li>
-                                                <li><a href="userChangeProfile">Thay đổi hồ sơ cá nhân</a></li>
+                                                <li><a href="${pageContext.request.contextPath}/userProfile">Hồ sơ cá nhân</a></li>
+                                                <li><a href="${pageContext.request.contextPath}/userChangeProfile">Thay đổi hồ sơ cá nhân</a></li>
                                                     <c:if test="${sessionScope.account != null && sessionScope.account.role.id == 4}">
-                                                    <li><a href="marketingDashBoard">Marketing Management</a></li>
+                                                    <li><a href="${pageContext.request.contextPath}/marketingDashBoard">Marketing Management</a></li>
                                                     </c:if>
-
-                                                <li><a href="changePassword">Thay đổi mật khẩu</a></li>
-                                                <li><a href="userLogout">Đăng xuất</a></li>
+                                                    <c:if test="${sessionScope.account != null && sessionScope.account.role.id == 1}">
+                                                    <li><a href="${pageContext.request.contextPath}/admin/users">Danh sách người dùng</a></li>
+                                                    </c:if>
+                                                <li><a href="${pageContext.request.contextPath}/changePassword">Thay đổi mật khẩu</a></li>
+                                                <li><a href="${pageContext.request.contextPath}/userLogout">Đăng xuất</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -86,7 +88,7 @@
                         <div class="col-md-2">  
                             <div class="header-logo">
                                 <a href="home" class="logo">
-                                    <img style="width: 50%;border-radius: 100px;" src="images/logo.jpg" alt="alt"/>
+                                    <img style="width: 50%;border-radius: 100px;" src="${pageContext.request.contextPath}/images/logo.jpg" alt="alt"/>
                                 </a>
                             </div>
                         </div>
@@ -97,7 +99,7 @@
                             <div class="header-search">
                                 <script>
                                     function ChangeCate(e) {
-                                        window.location.href = "ListProduct?cateid="+e.value+"<c:if test="${param.search != null}">&search=${param.search}</c:if>";
+                                        window.location.href = "${pageContext.request.contextPath}/ListProduct?cateid="+e.value+"<c:if test="${param.search != null}">&search=${param.search}</c:if>";
                                     }
                                 </script>
                                 <form class="col-md-4">
@@ -157,7 +159,7 @@
 
                                             <div class="product-widget">
                                                 <div class="product-img">
-                                                    <img src="./img/product02.png" alt="">
+                                                    <img src="${pageContext.request.contextPath}/./img/product02.png" alt="">
                                                 </div>
                                                 <div class="product-body">
                                                     <h3 class="product-name"><a href="#">product name goes here</a></h3>

@@ -10,10 +10,10 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
         <link href="/https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
         <link type="text/css" rel="stylesheet" href="/css/cartdetail.css"/>
-        
+
 
         <title>JSP Page</title>
-        
+
     </head>
 
     <body>
@@ -33,49 +33,51 @@
                                 <div class="row gy-3 mb-4">
                                     <c:set var="o" value="${requestScope.cart}"/>
                                     <c:forEach items="${o.items}" var="i">                     
-                                    <div class="col-lg-5">
-                                        <div class="me-lg-5">
-                                            <div class="d-flex">
-                                                <img src="images/${i.product1.getProduct_img()}" class="border rounded me-3" style="width: 96px; height: 96px;" />
-                                                <div class="">
-                                                    <a href="#" class="nav-link" >${i.product1.getProduct_name()}</a>
-                                                    <p class="text-muted nav-link">${i.product1.getProductdetail().getColor()}</p>
+                                        <div class="col-lg-5">
+                                            <div class="me-lg-5">
+                                                <div class="d-flex">
+                                                    <img src="images/${i.product.getProduct_img()}" class="border rounded me-3" style="width: 96px; height: 96px;" />
+                                                    <div class="">
+                                                        
+                                                        <a href="product?pid=${i.product.getProduct_id()}" class="nav-link" >${i.product.getProduct_name()}</a>
+                                                        <p class="text-muted nav-link">${i.product.getProductdetail().getColor()}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-2 col-sm-6 col-6 d-flex flex-row flex-lg-column flex-xl-row text-nowrap">
-                                        <div class="">
-                                            <div class="col">
-                                                <a href="process?num=-1&pid=${i.product1.getProduct_id()}">-</a><a  style="width: 100px;" class="border">${i.quantity}</a><a href="process?num=1&pid=${i.product1.getProduct_id()}">+</a>
+                                        <div class="col-lg-2 col-sm-6 col-6 d-flex flex-row flex-lg-column flex-xl-row text-nowrap">
+                                            <div class="">
+                                                <div class="col">
+                                                    <a href="process?num=-1&pid=${i.product.getProduct_id()}">-</a><a  style="width: 100px;" class="border">${i.quantity}</a><a href="process?num=1&pid=${i.product.getProduct_id()}">+</a>
+                                                </div>
+                                            </div>
+                                            <div class="">
+                                                <text class="h6"> <fmt:formatNumber value="${i.price * i.quantity}" pattern="#,###" />VNĐ </text> <br />
+                                                <small class="text-muted text-nowrap"><fmt:formatNumber value="${i.price}" pattern="#,###" />VNĐ / sản phẩm </small>
                                             </div>
                                         </div>
-                                        <div class="">
-                                            <text class="h6"> <fmt:formatNumber value="${i.price * i.quantity}" pattern="#,###" />VNĐ </text> <br />
-                                            <small class="text-muted text-nowrap"><fmt:formatNumber value="${i.price}" pattern="#,###" />VNĐ / sản phẩm </small>
+                                        <div class="col-lg col-sm-6 d-flex justify-content-sm-center justify-content-md-start justify-content-lg-center justify-content-xl-end mb-2">
+                                            <div class="float-md-end">
+                                                
+<!--                                                <a href="#!" class="btn btn-light border px-2 icon-hover-primary"><i class="fas fa-heart fa-lg px-1 text-secondary"></i></a>-->
+                                                <form action="process" method="post" class="btn btn-light  text-danger icon-hover-danger">
+                                                    <input type="hidden" name="pid" value="${i.product.getProduct_id()}"/>
+                                                    <input type="submit" class="" value="Xóa"/>
+                                                </form>          
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg col-sm-6 d-flex justify-content-sm-center justify-content-md-start justify-content-lg-center justify-content-xl-end mb-2">
-                                        <div class="float-md-end">
-                                            <a href="#!" class="btn btn-light border px-2 icon-hover-primary"><i class="fas fa-heart fa-lg px-1 text-secondary"></i></a>
-                                            <form action="process" method="post" class="btn btn-light  text-danger icon-hover-danger">
-                                                <input type="hidden" name="pid" value="${i.product1.getProduct_id()}"/>
-                                                <input type="submit" class="" value="Xóa"/>
-                                            </form>          
-                                        </div>
-                                    </div>
                                     </c:forEach>
                                 </div>
-     
+
                             </div>
 
-<!--                            <div class="border-top pt-4 mx-4 mb-4">
-                                <p><i class="fas fa-truck text-muted fa-lg"></i> Free Delivery within 1-2 weeks</p>
-                                <p class="text-muted">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                                    aliquip
-                                </p>
-                            </div>-->
+                            <!--                            <div class="border-top pt-4 mx-4 mb-4">
+                                                            <p><i class="fas fa-truck text-muted fa-lg"></i> Free Delivery within 1-2 weeks</p>
+                                                            <p class="text-muted">
+                                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                                                                aliquip
+                                                            </p>
+                                                        </div>-->
                         </div>
                     </div>
                     <!-- cart -->
@@ -104,10 +106,10 @@
                                     <p class="mb-2">Giảm giá:</p>
                                     <p class="mb-2 text-success">00000</p>
                                 </div>
-<!--                                <div class="d-flex justify-content-between">
-                                    <p class="mb-2">TAX:</p>
-                                    <p class="mb-2">00000</p>
-                                </div>-->
+                                <!--                                <div class="d-flex justify-content-between">
+                                                                    <p class="mb-2">TAX:</p>
+                                                                    <p class="mb-2">00000</p>
+                                                                </div>-->
                                 <hr />
                                 <div class="d-flex justify-content-between">
                                     <p class="mb-2">Tổng tiền:</p>
@@ -129,90 +131,37 @@
         <section>
             <div class="container my-5">
                 <header class="mb-4">
-                    <h3>Sản phẩm liên quan</h3>
+                    <h4>SẢN PHẨM HOT</h4>
                 </header>
 
                 <div class="row">
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="card px-4 border shadow-0 mb-4 mb-lg-0">
-                            <div class="mask px-2" style="height: 50px;">
-                                <div class="d-flex justify-content-between">
-                                    <h6><span class="badge bg-danger pt-1 mt-3 ms-2">New</span></h6>
-                                    <a href="#"><i class="fas fa-heart text-primary fa-lg float-end pt-3 m-2"></i></a>
+                    <c:forEach items="${sessionScope.list}" var="l" varStatus="status">
+                        <c:if test="${status.index < 4}">
+                            <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
+                                <div class="card px-4 border shadow-0 mb-4 mb-lg-0">
+                                    <div class="mask px-2" style="height: 50px;">
+                                        <div class="d-flex justify-content-between">
+                                            <h6><span class="badge bg-danger pt-1 mt-3 ms-2">Hot</span></h6>
+<!--                                            <a href="#"><i class="fas fa-heart text-primary fa-lg float-end pt-3 m-2"></i></a>-->
+                                        </div>
+                                    </div>
+                                    <a href="product?pid=${l.getProduct_id()}" class="">
+                                        <img src="images/${l.getProduct_img()}" class="card-img-top rounded-2" style="height: 200px;" />
+                                    </a>
+                                    <div class="card-body d-flex flex-column pt-3 border-top">
+                                        <a href="product?pid=${l.getProduct_id()}" class="nav-link" style="text-align: center;">${l.getProduct_name()}</a>
+                                        <div class="price-wrap mb-2">
+                                            <strong class=""><fmt:formatNumber value="${l.getPrice()}" pattern="#,###"/> VNĐ</strong>
+                                            <del class="">$24.99</del>
+                                        </div>
+                                        <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
+                                            <a href="#" class="btn btn-outline-primary w-100">Thêm vào giỏ hàng</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <a href="#" class="">
-                                <img src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/7.webp" class="card-img-top rounded-2" />
-                            </a>
-                            <div class="card-body d-flex flex-column pt-3 border-top">
-                                <a href="#" class="nav-link">Gaming Headset with Mic</a>
-                                <div class="price-wrap mb-2">
-                                    <strong class="">$18.95</strong>
-                                    <del class="">$24.99</del>
-                                </div>
-                                <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                                    <a href="#" class="btn btn-outline-primary w-100">Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="card px-4 border shadow-0 mb-4 mb-lg-0">
-                            <div class="mask px-2" style="height: 50px;">
-                                <a href="#"><i class="fas fa-heart text-primary fa-lg float-end pt-3 m-2"></i></a>
-                            </div>
-                            <a href="#" class="">
-                                <img src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/5.webp" class="card-img-top rounded-2" />
-                            </a>
-                            <div class="card-body d-flex flex-column pt-3 border-top">
-                                <a href="#" class="nav-link">Apple Watch Series 1 Sport </a>
-                                <div class="price-wrap mb-2">
-                                    <strong class="">$120.00</strong>
-                                </div>
-                                <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                                    <a href="#" class="btn btn-outline-primary w-100">Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="card px-4 border shadow-0">
-                            <div class="mask px-2" style="height: 50px;">
-                                <a href="#"><i class="fas fa-heart text-primary fa-lg float-end pt-3 m-2"></i></a>
-                            </div>
-                            <a href="#" class="">
-                                <img src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/9.webp" class="card-img-top rounded-2" />
-                            </a>
-                            <div class="card-body d-flex flex-column pt-3 border-top">
-                                <a href="#" class="nav-link">Men's Denim Jeans Shorts</a>
-                                <div class="price-wrap mb-2">
-                                    <strong class="">$80.50</strong>
-                                </div>
-                                <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                                    <a href="#" class="btn btn-outline-primary w-100">Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="card px-4 border shadow-0">
-                            <div class="mask px-2" style="height: 50px;">
-                                <a href="#"><i class="fas fa-heart text-primary fa-lg float-end pt-3 m-2"></i></a>
-                            </div>
-                            <a href="#" class="">
-                                <img src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/10.webp" class="card-img-top rounded-2" />
-                            </a>
-                            <div class="card-body d-flex flex-column pt-3 border-top">
-                                <a href="#" class="nav-link">Mens T-shirt Cotton Base Layer Slim fit </a>
-                                <div class="price-wrap mb-2">
-                                    <strong class="">$13.90</strong>
-                                </div>
-                                <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                                    <a href="#" class="btn btn-outline-primary w-100">Thêm vào giỏ hàng</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        </c:if>
+                    </c:forEach>
                 </div>
             </div>
         </section>

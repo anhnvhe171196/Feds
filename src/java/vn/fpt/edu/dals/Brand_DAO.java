@@ -41,8 +41,8 @@ public class Brand_DAO extends DBContext {
     }
     public List<Brand> getAllBrand() {
         List<Brand> list = new ArrayList<>();
-        String sql = "SELECT distinct [Brand_Name]\n" +
-"  FROM [Brandd]";
+        String sql = "SELECT [Brand_Name]\n" +
+"  FROM [Brandd] GROUP BY Brand_Name ORDER BY Brand_Name";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -54,5 +54,57 @@ public class Brand_DAO extends DBContext {
             System.out.println(e);
         }
         return list;
+    }
+    public List<Brand> getAllBrandWithCate(String[] cateId) {
+        List<Brand> list = new ArrayList<>();
+        String sql = "SELECT \n" +
+"    Brand_Name\n" +
+"FROM \n" +
+"    Brandd\n" +
+"GROUP BY \n" +
+"    Brand_Name\n" +
+"ORDER BY \n" +
+"    MAX(CASE WHEN Category_id IN (";
+        if(cateId.length > 0) {
+            sql += cateId[0] + ",";
+            for(int i = 1; i < cateId.length; i++) {
+                sql += cateId[0] + ",";
+            }
+            sql = sql.substring(0, sql.length() - 1);
+        }
+        sql += ") THEN 1 ELSE 0 END) DESC, \n" +
+"    Brand_Name;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Brand u = new Brand(rs.getString("Brand_Name"));
+                list.add(u);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    public int getRelatedBrandSize(String[] cateId) {
+        int total = 0;
+        String sql = "SELECT Count(distinct [Brand_Name]) as Total\n" +
+"  FROM [Brandd]";
+        if(cateId.length > 0) {
+            sql += " WHERE [Category_id] = " + cateId[0];
+            for(int i = 1; i < cateId.length; i++) {
+                sql += " OR [Category_id] = " + cateId[0];
+            }
+        }
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                total = rs.getInt("Total");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return total;
     }
 }

@@ -12,6 +12,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import vn.fpt.edu.dals.Product_DAO;
 import vn.fpt.edu.models.Cart;
 
@@ -56,6 +57,7 @@ public class CartController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        HttpSession session = request.getSession();
         Product_DAO data = new Product_DAO();
         Cookie[] arr = request.getCookies();
         String txt ="";
@@ -66,8 +68,9 @@ public class CartController extends HttpServlet {
                 }
             }
         }
-//        Cart cart = new Cart(txt, data.getAllProductinCart());
-//        request.setAttribute("cart", cart);
+        Cart cart = new Cart(txt, data.getAllProductinCart());
+        session.setAttribute("list", data.getSellingProduct());
+        request.setAttribute("cart", cart);
         request.getRequestDispatcher("CartDetail.jsp").forward(request, response);
     } 
 
