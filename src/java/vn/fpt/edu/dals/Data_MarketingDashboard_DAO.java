@@ -136,12 +136,12 @@ public class Data_MarketingDashboard_DAO extends DBContext {
         } else {
             sql += "ORDER BY p.Product_id ";
         }
-        
-        if("asc".equals(sortOrder)){
+
+        if ("asc".equals(sortOrder)) {
             sql += "ASC ";
-        }else  if("desc".equals(sortOrder)){
-            sql += "DESC " ;
-        }else{
+        } else if ("desc".equals(sortOrder)) {
+            sql += "DESC ";
+        } else {
             sql += " ";
         }
 
@@ -184,9 +184,91 @@ public class Data_MarketingDashboard_DAO extends DBContext {
         return productList;
     }
 
+    public List<Product1> getProductsSearchByName(int index, String sortBy, String sortOrder, String search) {
+        List<Product1> productList = new ArrayList<>();
+
+        String sql = "SELECT p.Product_id, p.Product_name, p.Product_img, p.Quantity, pr.Price, pr.Date_start, pr.Date_end, pr.Sale, br.Brand_Id AS brandId, br.Brand_Name AS brandName \n"
+                + "FROM Product p \n"
+                + "LEFT JOIN Price pr ON p.Product_id = pr.Product_id \n"
+                + "LEFT JOIN [Brandd] br ON p.[Brand_id] = br.Brand_Id \n";
+
+        if (search != null && !search.isEmpty()) {
+            sql += "WHERE p.Product_name LIKE ? ";
+        }
+
+        if ("name".equals(sortBy)) {
+            sql += "ORDER BY p.Product_name ";
+        } else if ("price".equals(sortBy)) {
+            sql += "ORDER BY pr.Price ";
+        } else if ("quantity".equals(sortBy)) {
+            sql += "ORDER BY p.Quantity ";
+        } else if ("datestart".equals(sortBy)) {
+            sql += "ORDER BY \n"
+                    + "    CASE \n"
+                    + "        WHEN pr.Date_start IS NULL THEN 1 \n"
+                    + "        ELSE 0 \n"
+                    + "    END, \n"
+                    + "    pr.Date_start ";
+        } else if ("dateend".equals(sortBy)) {
+            sql += "ORDER BY \n"
+                    + "    CASE \n"
+                    + "        WHEN pr.Date_end IS NULL THEN 1 \n"
+                    + "        ELSE 0 \n"
+                    + "    END, \n"
+                    + "    pr.Date_end ";
+        } else {
+            sql += "ORDER BY p.Product_id ";
+        }
+
+        if ("asc".equals(sortOrder)) {
+            sql += "ASC ";
+        } else if ("desc".equals(sortOrder)) {
+            sql += "DESC ";
+        } else {
+            sql += " ";
+        }
+
+        sql += "OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY";
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, "%" + search + "%");
+            st.setInt(2, (index - 1) * 10);
+            try (ResultSet rs = st.executeQuery()) {
+                while (rs.next()) {
+                    int productId = rs.getInt("Product_id");
+                    String productName = rs.getString("Product_name");
+                    String productImg = rs.getString("Product_img");
+                    int quantity = rs.getInt("Quantity");
+                    double price = rs.getDouble("Price");
+                    Date dateStart = rs.getDate("Date_start");
+                    Date dateEnd = rs.getDate("Date_end");
+
+                    int brandId = rs.getInt("brandId");
+                    String brandName = rs.getString("brandName");
+
+                    int sale = rs.getInt("Sale");
+
+                    // Tạo instance Price
+                    Price productPrice = new Price(price, dateStart, dateEnd, sale, null);
+
+                    // Tạo instance Product1 và thiết lập các thuộc tính
+                    Product1 product = new Product1(productId, quantity, productName, productImg, null, null);
+
+                    // Thiết lập giá cho sản phẩm
+                    product.setPrice(productPrice);
+                    product.setBrand(new Brand(brandId, brandName, null));
+//
+                    productList.add(product);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return productList;
+    }
+
 //    public static void main(String[] args) {
 //        Data_MarketingDashboard_DAO data = new Data_MarketingDashboard_DAO();
-//        List<Product1> products = data.getAllProducts1(2, "datestart");
+//        List<Product1> products = data.getProductsSearchByName(1, "name", "asc", "xi");
 //
 //        for (Product1 product : products) {
 //            System.out.println("Product ID: " + product.getProduct_id());
@@ -210,5 +292,4 @@ public class Data_MarketingDashboard_DAO extends DBContext {
 //            System.out.println();
 //        }
 //    }
-
 }

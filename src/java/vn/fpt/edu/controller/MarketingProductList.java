@@ -82,22 +82,30 @@ public class MarketingProductList extends HttpServlet {
         }
         int index = Integer.parseInt(indexPage);
 
+        String search = request.getParameter("search");
         String sortBy = request.getParameter("sortBy");
         String sortOrder = request.getParameter("sortOrder");
         if (sortBy == null) {
             sortBy = "id";
             session.setAttribute("sortBy", sortBy);
 
-        }else{
+        } else {
             session.setAttribute("sortBy", sortBy);
         }
-        
-        List<Product1> products = dt.getAllProducts1(index,sortBy,sortOrder);
+
+        List<Product1> products;
+        if (search != null && !search.isEmpty()) {
+            products = dt.getProductsSearchByName(index, sortBy, sortOrder, search);
+        } else {
+            products = dt.getAllProducts1(index, sortBy, sortOrder);
+        }
 
         request.setAttribute("index", index);
         request.setAttribute("products", products);
         request.setAttribute("endPage", endPage);
         session.setAttribute("sortOrder", sortOrder);
+        session.setAttribute("search", search);
+
 
         request.getRequestDispatcher("OrderProcessorTable.jsp").forward(request, response);
 

@@ -110,9 +110,10 @@
                     <a href="#" class="sidebar-toggler flex-shrink-0">
                         <i class="fa fa-bars"></i>
                     </a>
-                    <form class="d-none d-md-flex ms-4">
-                        <input class="form-control border-0" type="search" placeholder="Search">
-                    </form>
+                    <form class="d-none d-md-flex ms-4" action="marketingProductList" method="get"> 
+                        <input class="form-control border-0" type="search" placeholder="Search" name="search">
+                        <button type="submit" class="btn btn-primary" >Enter</button> 
+                    </form> 
                     <div class="navbar-nav align-items-center ms-auto">
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -241,15 +242,15 @@
                                                 <!-- Previous Button -->
                                                 <c:if test="${index > 1}">
                                                     <li class="page-item">
-                                                        <a class="page-link" href="marketingProductList?index=${index - 1}&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}" aria-label="Previous">
-                                                            <span aria-hidden="true">&laquo;</span>
+                                                        <a class="page-link" href="marketingProductList?index=${index - 1}&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}&search=${sessionScope.search}" aria-label="Previous">
+                                                            <span aria-hidden="true">«</span>
                                                         </a>
                                                     </li>
                                                 </c:if>
 
                                                 <!-- First Page Button -->
                                                 <li class="page-item ${index == 1 ? 'active' : ''}">
-                                                    <a class="page-link" href="marketingProductList?index=1&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}">1</a>
+                                                    <a class="page-link" href="marketingProductList?index=1&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}&search=${sessionScope.search}">1</a>
                                                 </li>
 
                                                 <!-- Page Number Buttons -->
@@ -262,7 +263,7 @@
                                                 <c:forEach begin="2" end="${endPage-1}" var="i">
                                                     <c:if test="${i >= index - 1 && i <= index + 1}">
                                                         <li class="page-item ${i == index ? 'active' : ''}">
-                                                            <a class="page-link" href="marketingProductList?index=${i}&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}">${i}</a>
+                                                            <a class="page-link" href="marketingProductList?index=${i}&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}&search=${sessionScope.search}">${i}</a>
                                                         </li>
                                                     </c:if>
                                                 </c:forEach>
@@ -275,14 +276,14 @@
 
                                                 <!-- Last Page Button -->
                                                 <li class="page-item ${index == endPage ? 'active' : ''}">
-                                                    <a class="page-link" href="marketingProductList?index=${endPage}&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}">${endPage}</a>
+                                                    <a class="page-link" href="marketingProductList?index=${endPage}&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}&search=${sessionScope.search}">${endPage}</a>
                                                 </li>
 
                                                 <!-- Next Button -->
                                                 <c:if test="${index < endPage}">
                                                     <li class="page-item">
-                                                        <a class="page-link" href="marketingProductList?index=${index + 1}&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}" aria-label="Next">
-                                                            <span aria-hidden="true">&raquo;</span>
+                                                        <a class="page-link" href="marketingProductList?index=${index + 1}&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}&search=${sessionScope.search}" aria-label="Next">
+                                                            <span aria-hidden="true">»</span>
                                                         </a>
                                                     </li>
                                                 </c:if>
@@ -327,67 +328,73 @@
                 let a = parseInt(localStorage.getItem('a')) || 0;
                 function sortByName() {
                     let url = "marketingProductList?index=${index}&sortBy=name";
-                    if(a===0){
+                    if (a === 0) {
                         url = url + "&sortOrder=asc";
-                    }else{
+                    } else {
                         url = url + "&sortOrder=desc";
                     }
+                    url = url + "&search=${sessionScope.search}";
                     a = (a + 1) % 2;
                     localStorage.setItem('a', a);
                     window.location.href = url;
                 }
                 function sortById() {
-                   
+
                     let url = "marketingProductList?index=${index}&sortBy=id";
-                    if(a===0){
+                    if (a === 0) {
                         url = url + "&sortOrder=asc";
-                    }else{
+                    } else {
                         url = url + "&sortOrder=desc";
                     }
+                    url = url + "&search=${sessionScope.search}";
                     a = (a + 1) % 2;
                     localStorage.setItem('a', a);
                     window.location.href = url;
                 }
                 function sortByPrice() {
                     let url = "marketingProductList?index=${index}&sortBy=price";
-                    if(a===0){
+                    if (a === 0) {
                         url = url + "&sortOrder=asc";
-                    }else{
+                    } else {
                         url = url + "&sortOrder=desc";
                     }
+                    url = url + "&search=${sessionScope.search}";
                     a = (a + 1) % 2;
                     localStorage.setItem('a', a);
                     window.location.href = url;
                 }
                 function sortByQuantity() {
                     let url = "marketingProductList?index=${index}&sortBy=quantity";
-                    if(a===0){
+                    if (a === 0) {
                         url = url + "&sortOrder=asc";
-                    }else{
+                    } else {
                         url = url + "&sortOrder=desc";
                     }
+                    url = url + "&search=${sessionScope.search}";
                     a = (a + 1) % 2;
                     localStorage.setItem('a', a);
                     window.location.href = url;
                 }
                 function sortByDateStart() {
                     let url = "marketingProductList?index=${index}&sortBy=datestart";
-                    if(a===0){
+                    if (a === 0) {
                         url = url + "&sortOrder=asc";
-                    }else{
+                    } else {
                         url = url + "&sortOrder=desc";
                     }
+                    url = url + "&search=${sessionScope.search}";
                     a = (a + 1) % 2;
                     localStorage.setItem('a', a);
                     window.location.href = url;
                 }
                 function sortByDateEnd() {
                     let url = "marketingProductList?index=${index}&sortBy=dateend";
-                    if(a===0){
+                    if (a === 0) {
                         url = url + "&sortOrder=asc";
-                    }else{
+                    } else {
                         url = url + "&sortOrder=desc";
                     }
+                    url = url + "&search=${sessionScope.search}";
                     a = (a + 1) % 2;
                     localStorage.setItem('a', a);
                     window.location.href = url;
