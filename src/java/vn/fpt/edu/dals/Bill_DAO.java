@@ -245,6 +245,7 @@ public class Bill_DAO extends DBContext {
         }
         return list.size();
     }
+
     public Bill getBillByUID(int bill_id) {
         String sql = "SELECT [Bill_Id]\n"
                 + "      ,[Total_price]\n"
@@ -267,6 +268,7 @@ public class Bill_DAO extends DBContext {
         }
         return null;
     }
+
     public List<Bill1> searchBills(String value) {
         List<Bill1> list = new ArrayList<>();
         try {
@@ -384,9 +386,25 @@ public class Bill_DAO extends DBContext {
             }
         } catch (SQLException e) {
             System.out.println(e);
-            
+
         }
         return list;
+    }
+
+    public void updateStatusBill(String status, String id) {
+        String sql = "UPDATE [dbo].[Bill]\n"
+                + "   SET [Status] = ?\n"
+                + " WHERE Bill_Id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, status);
+            st.setString(2, id);
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println(e);
+
+        }
     }
 
 }

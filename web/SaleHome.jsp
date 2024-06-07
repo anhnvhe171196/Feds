@@ -44,10 +44,18 @@
                 height: 50%;
                 margin: auto;
             }
+            
+            #clock{
+                margin-left: 20px;
+                font-weight: 600;
+                color: rgb(0, 0, 0);
+                font-size: 13px;
+
+            }
         </style>
     </head>
 
-    <body>
+    <body onload="time()">
         <div class="container-xxl position-relative bg-white d-flex p-0">
             <!-- Spinner Start -->
             <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -62,7 +70,7 @@
             <div class="sidebar pe-4 pb-3">
                 <nav class="navbar bg-light navbar-light">
                     <a href="/Feds/saleDashboard" class="navbar-brand mx-4 mb-3">
-                        <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>SALE</h3>
+                        <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>SALE HOME</h3>
                     </a>
                     <div class="d-flex align-items-center ms-4 mb-4">
                         <div class="position-relative">
@@ -83,6 +91,7 @@
 
                 </nav>
             </div>
+        </div>
             <!-- Sidebar End -->
 
 
@@ -96,7 +105,7 @@
                     <a href="#" class="sidebar-toggler flex-shrink-0">
                         <i class="fa fa-bars"></i>
                     </a>
-
+                    <div id="clock"></div>
                     <div class="navbar-nav align-items-center ms-auto">
 
                         <div class="nav-item dropdown">
@@ -480,6 +489,37 @@
             document.getElementById('show-priority').addEventListener('click', function () {
                 sendData('start-date-priority', 'end-date-priority', 'priority');
             });
+        </script>
+
+        <script>
+            function time() {
+                var today = new Date();
+                var weekday = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
+                var day = weekday[today.getDay()];
+                var dd = today.getDate();
+                var mm = today.getMonth() + 1;
+                var yyyy = today.getFullYear();
+                var h = today.getHours();
+                var m = today.getMinutes();
+                var s = today.getSeconds();
+                m = checkTime(m);
+                s = checkTime(s);
+                var nowTime = h + " giờ " + m + " phút " + s + " giây";
+                if (dd < 10)
+                    dd = '0' + dd;
+                if (mm < 10)
+                    mm = '0' + mm;
+                var todayString = day + ', ' + dd + '/' + mm + '/' + yyyy;
+                var tmp = '<span class="date"> ' + todayString + ' - ' + nowTime + '</span>';
+                document.getElementById("clock").innerHTML = tmp;
+                setTimeout(time, 1000);
+            }
+
+            function checkTime(i) {
+                if (i < 10)
+                    i = "0" + i;
+                return i;
+            }
         </script>
     </body>
 

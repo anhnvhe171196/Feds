@@ -18,19 +18,57 @@ public class BillOrder {
     private String Product_img;
     private String Status;
     private String Payment;
+        private String Ram, Rom, Size, Color;
 
     public BillOrder() {
     }
 
-    public BillOrder(int Bill_id, String Product_name, double price, String Product_img, String Status, String Payment) {
+    public BillOrder(int Bill_id, String Product_name, double price, String Product_img, String Status, String Payment, String Ram, String Rom, String Size, String Color) {
         this.Bill_id = Bill_id;
         this.Product_name = Product_name;
         this.price = price;
         this.Product_img = Product_img;
         this.Status = Status;
         this.Payment = Payment;
+        this.Ram = Ram;
+        this.Rom = Rom;
+        this.Size = Size;
+        this.Color = Color;
     }
 
+    public String getRam() {
+        return Ram;
+    }
+
+    public void setRam(String Ram) {
+        this.Ram = Ram;
+    }
+
+    public String getRom() {
+        return Rom;
+    }
+
+    public void setRom(String Rom) {
+        this.Rom = Rom;
+    }
+
+    public String getSize() {
+        return Size;
+    }
+
+    public void setSize(String Size) {
+        this.Size = Size;
+    }
+
+    public String getColor() {
+        return Color;
+    }
+
+    public void setColor(String Color) {
+        this.Color = Color;
+    }
+
+    
     public int getBill_id() {
         return Bill_id;
     }
