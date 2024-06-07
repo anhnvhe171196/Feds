@@ -122,7 +122,7 @@ public class BillListBillController extends HttpServlet {
         String action = request.getParameter("action");
         Bill_DAO bd = new Bill_DAO();;
 
-        if (action == null) {
+        if (action == null) {   
             List<Bill1> listBill = bd.getBillAllWithUserPagingSQL(1, 10);
             session.setAttribute("listBill", listBill);
             

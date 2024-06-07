@@ -187,17 +187,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <c:forEach items="${sessionScope.listBill}" var="b"> 
+
+                            <c:forEach items="${sessionScope.listBill}" var="b"> 
+                                <tr>
                                     <td>${b.date}</td>
                                     <td>${b.bill_id}</td>
                                     <td>${b.user_name}</td>
                                     <td>${b.address}</td>
                                     <td><fmt:formatNumber value="${b.total_price}" pattern="#,###"/> VNĐ</td>
                                     <td>${b.status}</td>
-                                    <td><a class="btn btn-sm btn-primary" href="/BillDetailBillController?id=${b.bill_id}">Xem đơn</a></td>
+                                    <td><a class="btn btn-sm btn-primary" href="/Feds/billDetailBillController?id=${b.bill_id}">Xem đơn</a></td>
                                 </tr>
                             </c:forEach>
+
                         </tbody>
                     </table>
                 </div>
