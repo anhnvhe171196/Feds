@@ -105,7 +105,7 @@ public class Data_MarketingDashboard_DAO extends DBContext {
         return productList;
     }
 
-    public List<Product1> getAllProducts1(int index, String softBy) {
+    public List<Product1> getAllProducts1(int index, String sortBy, String sortOrder) {
         List<Product1> productList = new ArrayList<>();
 
         String sql = "SELECT p.Product_id, p.Product_name, p.Product_img, p.Quantity, pr.Price, pr.Date_start, pr.Date_end, pr.Sale, br.Brand_Id AS brandId, br.Brand_Name AS brandName \n"
@@ -113,28 +113,36 @@ public class Data_MarketingDashboard_DAO extends DBContext {
                 + "LEFT JOIN Price pr ON p.Product_id = pr.Product_id \n"
                 + "LEFT JOIN [Brandd] br ON p.[Brand_id] = br.Brand_Id \n";
 
-        if ("name".equals(softBy)) {
+        if ("name".equals(sortBy)) {
             sql += "ORDER BY p.Product_name ";
-        } else if ("price".equals(softBy)) {
+        } else if ("price".equals(sortBy)) {
             sql += "ORDER BY pr.Price ";
-        } else if ("quantity".equals(softBy)) {
+        } else if ("quantity".equals(sortBy)) {
             sql += "ORDER BY p.Quantity ";
-        } else if ("datestart".equals(softBy)) {
+        } else if ("datestart".equals(sortBy)) {
             sql += "ORDER BY \n"
                     + "    CASE \n"
                     + "        WHEN pr.Date_start IS NULL THEN 1 \n"
                     + "        ELSE 0 \n"
                     + "    END, \n"
                     + "    pr.Date_start ";
-        } else if ("dateend".equals(softBy)) {
+        } else if ("dateend".equals(sortBy)) {
             sql += "ORDER BY \n"
                     + "    CASE \n"
                     + "        WHEN pr.Date_end IS NULL THEN 1 \n"
                     + "        ELSE 0 \n"
                     + "    END, \n"
-                    + "    pr.Date_start";
+                    + "    pr.Date_end ";
         } else {
             sql += "ORDER BY p.Product_id ";
+        }
+        
+        if("asc".equals(sortOrder)){
+            sql += "ASC ";
+        }else  if("desc".equals(sortOrder)){
+            sql += "DESC " ;
+        }else{
+            sql += " ";
         }
 
         sql += "OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY";
@@ -176,31 +184,31 @@ public class Data_MarketingDashboard_DAO extends DBContext {
         return productList;
     }
 
-    public static void main(String[] args) {
-        Data_MarketingDashboard_DAO data = new Data_MarketingDashboard_DAO();
-        List<Product1> products = data.getAllProducts1(2, "datestart");
-
-        for (Product1 product : products) {
-            System.out.println("Product ID: " + product.getProduct_id());
-            System.out.println("Product Name: " + product.getProduct_name());
-            System.out.println("Product Image: " + product.getProduct_img());
-            System.out.println("Quantity: " + product.getQuantity());
-            Brand brand = product.getBrand();
-            if (brand != null) {
-                System.out.println("brand: " + brand.getBrandName());
-            }
-
-            Price price = product.getPrice();
-            if (price != null) {
-                System.out.println("Price: " + price.getPrice());
-                System.out.println("Price Start Date: " + price.getDateStart());
-                System.out.println("Price End Date: " + price.getDateEnd());
-            } else {
-                System.out.println("Price: No price available");
-            }
-
-            System.out.println();
-        }
-    }
+//    public static void main(String[] args) {
+//        Data_MarketingDashboard_DAO data = new Data_MarketingDashboard_DAO();
+//        List<Product1> products = data.getAllProducts1(2, "datestart");
+//
+//        for (Product1 product : products) {
+//            System.out.println("Product ID: " + product.getProduct_id());
+//            System.out.println("Product Name: " + product.getProduct_name());
+//            System.out.println("Product Image: " + product.getProduct_img());
+//            System.out.println("Quantity: " + product.getQuantity());
+//            Brand brand = product.getBrand();
+//            if (brand != null) {
+//                System.out.println("brand: " + brand.getBrandName());
+//            }
+//
+//            Price price = product.getPrice();
+//            if (price != null) {
+//                System.out.println("Price: " + price.getPrice());
+//                System.out.println("Price Start Date: " + price.getDateStart());
+//                System.out.println("Price End Date: " + price.getDateEnd());
+//            } else {
+//                System.out.println("Price: No price available");
+//            }
+//
+//            System.out.println();
+//        }
+//    }
 
 }
