@@ -12,7 +12,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import vn.fpt.edu.dals.BillOrder_DAO;
 import vn.fpt.edu.dals.Bill_DAO;
+import vn.fpt.edu.models.BillOrder;
 
 /**
  *
@@ -35,10 +38,10 @@ public class BillDetailBillController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet BillDetailBillController</title>");  
+            out.println("<title>Servlet BillDetailBillController1</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet BillDetailBillController at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet BillDetailBillController1 at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,10 +63,10 @@ public class BillDetailBillController extends HttpServlet {
         String action = request.getParameter("action");
         Bill_DAO bd = new Bill_DAO();;
         int id = Integer.parseInt(request.getParameter("id"));
-        if(action == null){ 
-            
-        }
-
+        BillOrder_DAO bod = new BillOrder_DAO();
+        List<BillOrder> listBillOrder = bod.getBillOrder(id);
+        session.setAttribute("listBillOrder", listBillOrder);
+        request.getRequestDispatcher("OrderDetail.jsp").forward(request, response);
     } 
 
     /** 

@@ -6,7 +6,7 @@ package vn.fpt.edu.models;
 
 /**
  *
- * @author Trong
+ * @author admin
  */
 public class Bill1 {
     private int Bill_id;
