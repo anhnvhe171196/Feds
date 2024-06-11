@@ -192,7 +192,7 @@
                                                 </a>
                                             </th>
                                             <th scope="col" style="color: #009CFF;">
-                                                <a href="#">
+                                                <a href="MarketingProductDetails.jsp">
                                                     <button type="button" class="sort-button" id="openModalBtn">Details</button>
                                                 </a>
                                             </th>
