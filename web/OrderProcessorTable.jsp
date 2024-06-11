@@ -192,9 +192,7 @@
                                                 </a>
                                             </th>
                                             <th scope="col" style="color: #009CFF;">
-                                                <a href="MarketingProductDetails.jsp">
-                                                    <button type="button" class="sort-button" id="openModalBtn">Details</button>
-                                                </a>
+                                                Details
                                             </th>
 
 
@@ -205,14 +203,14 @@
                                             <tr>
                                                 <td scope="col">${product.product_id}</th>
                                                 <td scope="col"><img src="images/${product.product_img}" style="max-height: 50px"></th>
-                                                <td scope="col" style="max-width: 200px; word-wrap: break-word;">${product.product_name}</th>
+                                                <td scope="col"  style="max-width: 200px; word-wrap: break-word;">${product.product_name}</th>
                                                 <td scope="col">${product.brand.brandName}</th>
                                                 <td scope="col">${product.quantity}</th>
                                                 <td scope="col"><fmt:formatNumber value="${product.price.price}" pattern="#,##0 VND" /></th>
                                                 <td scope="col">
                                                     <c:choose>
                                                         <c:when test="${empty product.price.dateStart}">
-                                                            Unlimited!
+                                                            Null
                                                         </c:when>
                                                         <c:otherwise>
                                                             ${product.price.dateStart}
@@ -222,14 +220,18 @@
                                                 <td scope="col">
                                                     <c:choose>
                                                         <c:when test="${empty product.price.dateEnd}">
-                                                            Unlimited!
+                                                            Null
                                                         </c:when>
                                                         <c:otherwise>
                                                             ${product.price.dateEnd}
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </td>
-                                                <td scope="col">Details</th>
+                                                <td scope="col">
+                                                    <a href="#" onclick="ProductDetail(${product.product_id})">
+                                                        <button type="button" class="sort-button" id="openModalBtn">Details</button>
+                                                    </a>
+                                                </td>
                                             </tr>
                                         </c:forEach>
 
@@ -319,10 +321,10 @@
             <!-- Template Javascript -->
             <script src="js/main.js"></script>
             <script>
-                                                    $('.sidebar-toggler').click(function () {
-                                                        $('.sidebar, .content').toggleClass("open");
-                                                        return false;
-                                                    });
+                                                        $('.sidebar-toggler').click(function () {
+                                                            $('.sidebar, .content').toggleClass("open");
+                                                            return false;
+                                                        });
             </script>
             <script>
                 let a = parseInt(localStorage.getItem('a')) || 0;
@@ -397,6 +399,12 @@
                     url = url + "&search=${sessionScope.search}";
                     a = (a + 1) % 2;
                     localStorage.setItem('a', a);
+                    window.location.href = url;
+                }
+
+                function ProductDetail(id) {
+                    let url = "marketingProductDetails?id=" + id;
+
                     window.location.href = url;
                 }
             </script>

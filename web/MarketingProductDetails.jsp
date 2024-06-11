@@ -92,7 +92,7 @@
                     </div>
                     <div class="navbar-nav w-100">
                         <a href="marketingDashBoard" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                        <a href="#" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>Product List</a>
+                        <a href="marketingProductList" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>Product List</a>
 
                     </div>
                 </nav>
@@ -156,7 +156,102 @@
                         <div class="col-sm-12">
                             <div class="bg-light rounded h-100 p-4">
                                 <h6 class="mb-4">Products Details</h6>
-                                
+                                <div class="mb-3"> 
+                                    <section class="py-5">
+                                        <div class="container">
+                                            <div class="row gx-5">
+                                                <aside class="col-lg-6">
+                                                    <div class="border rounded-4 mb-3 d-flex justify-content-center">
+                                                        <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="images/${product.product_img}" />
+                                                    </div>
+
+                                                </aside>
+                                                <main class="col-lg-6">
+                                                    <div class="ps-lg-3">
+                                                        <h4 class="title text-dark">
+                                                            ${product.product_name} 
+                                                        </h4>
+                                                        ( #${product.product_id} )
+
+
+                                                        <hr/>
+
+                                                        <div class="mb-3">
+                                                            <span class="h5" style="color: #1aa6ff"><fmt:formatNumber value="${product.price.price}" pattern="#,##0 VND" /></span>
+                                                        </div>
+
+                                                        <hr/>
+                                                        <h6>Description:</h6>
+                                                        <c:if test="${not empty product.detail.decription}">
+                                                            <dd class="col-9">${product.detail.decription}</dd>
+                                                        </c:if>
+                                                        <hr/>
+                                                        <a href="#" id="show-more-details">Show more Details</a>
+                                                        <hr/>
+
+                                                        <div class="row" id="product-details" style="display: none;">
+
+                                                            <c:if test="${not empty product.detail.ram}">
+                                                                <dt class="col-3">Ram</dt>
+                                                                <dd class="col-9">${product.detail.ram}</dd>
+                                                            </c:if>
+                                                            <c:if test="${not empty product.detail.rom}">
+                                                                <dt class="col-3">Rom:</dt>
+                                                                <dd class="col-9">${product.detail.rom}</dd>
+                                                            </c:if>
+                                                            <c:if test="${not empty product.detail.size}">
+                                                                <dt class="col-3">Size:</dt>
+                                                                <dd class="col-9">${product.detail.size}</dd>
+                                                            </c:if>
+                                                            <c:if test="${not empty product.detail.battery}">
+                                                                <dt class="col-3">Battery:</dt>
+                                                                <dd class="col-9">${product.detail.battery}</dd>
+                                                            </c:if>
+                                                            <c:if test="${not empty product.detail.weight}">
+                                                                <dt class="col-3">Weight:</dt>
+                                                                <dd class="col-9">${product.detail.weight}</dd>
+                                                            </c:if>
+                                                            <c:if test="${not empty product.detail.color}">
+                                                                <dt class="col-3">Color:</dt>
+                                                                <dd class="col-9">${product.detail.color}</dd>
+                                                            </c:if>                                                            
+                                                            <c:if test="${not empty product.detail.cpu}">
+                                                                <dt class="col-3">CPU:</dt>
+                                                                <dd class="col-9">${product.detail.cpu}</dd>
+                                                            </c:if>
+                                                            <c:if test="${not empty product.detail.wattage}">
+                                                                <dt class="col-3">Wattage:</dt>
+                                                                <dd class="col-9">${product.detail.wattage}</dd>
+                                                            </c:if>
+                                                            <c:if test="${not empty product.detail.status}">
+                                                                <dt class="col-3">Status:</dt>
+                                                                <dd class="col-9">${product.detail.status}</dd>
+                                                            </c:if>
+                                                            <c:if test="${not empty product.price.dateStart}">
+                                                                <dt class="col-3">Date start:</dt>
+                                                                <dd class="col-9">${product.price.dateStart}</dd>
+                                                            </c:if>
+                                                            <c:if test="${not empty product.price.dateEnd}">
+                                                                <dt class="col-3">Date End:</dt>
+                                                                <dd class="col-9">${product.price.dateEnd}</dd>
+                                                            </c:if>
+                                                            <c:if test="${not empty product.price.sale}">
+                                                                <dt class="col-3">Sale:</dt>
+                                                                <dd class="col-9">${product.price.sale} %</dd>
+                                                            </c:if>
+                                                            <hr/>
+
+                                                        </div>
+
+
+                                                    </div>
+                                                </main>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <!-- content -->
+
+                                </div>
                             </div>
                         </div>
 
@@ -185,12 +280,26 @@
             <!-- Template Javascript -->
             <script src="js/main.js"></script>
             <script>
-                                                    $('.sidebar-toggler').click(function () {
-                                                        $('.sidebar, .content').toggleClass("open");
-                                                        return false;
-                                                    });
+                $('.sidebar-toggler').click(function () {
+                    $('.sidebar, .content').toggleClass("open");
+                    return false;
+                });
             </script>
-         
+            <script>
+                const detailsDiv = document.getElementById("product-details");
+                const showMoreButton = document.getElementById("show-more-details");
+
+                showMoreButton.addEventListener("click", function () {
+                    if (detailsDiv.style.display === "none") {
+                        detailsDiv.style.display = "block";
+                        showMoreButton.textContent = "Hide Details"; // Thay đổi nội dung nút
+                    } else {
+                        detailsDiv.style.display = "none";
+                        showMoreButton.textContent = "Show more Details"; // Thay đổi nội dung nút
+                    }
+                });
+            </script>
+
 
     </body>
 </html>

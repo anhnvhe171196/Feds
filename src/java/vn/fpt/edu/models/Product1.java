@@ -18,7 +18,7 @@ public class Product1 {
     private Brand brand;
     private Price price;
     private Category category;
-
+    private ProductDetail detail;
     public Product1() {
     }
 
@@ -91,6 +91,14 @@ public class Product1 {
     }
     public Category getCategory(){
         return category;
+    }
+
+    public ProductDetail getDetail() {
+        return detail;
+    }
+
+    public void setDetail(ProductDetail detail) {
+        this.detail = detail;
     }
 
 }

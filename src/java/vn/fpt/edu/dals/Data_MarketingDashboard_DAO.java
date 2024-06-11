@@ -17,6 +17,7 @@ import vn.fpt.edu.models.Category;
 import vn.fpt.edu.models.Price;
 import vn.fpt.edu.models.Product;
 import vn.fpt.edu.models.Product1;
+import vn.fpt.edu.models.ProductDetail;
 
 /**
  *
@@ -264,6 +265,65 @@ public class Data_MarketingDashboard_DAO extends DBContext {
             e.printStackTrace();
         }
         return productList;
+    }
+
+    public Product1 getProductById(int productId) {
+        Product1 product = null;
+        String sql = "SELECT p.Product_id, p.Quantity, p.Product_name, p.Product_img, p.Brand_id, "
+                + "       pc.Category_name, pd.RAM, pd.ROM, pd.Size, pd.Battery, pd.Weight, pd.Color, pd.Decription, "
+                + "       pd.CPU, pd.Wattage, pd.Status, pr.Price, pr.Date_start, pr.Date_end, pr.Sale, "
+                + "       b.Brand_Name "
+                + "FROM Product p "
+                + "JOIN Product_Category pc ON pc.Category_id = (SELECT c.Category_id FROM Brandd b JOIN Product_Category c ON b.Category_id = c.Category_id WHERE b.Brand_Id = p.Brand_id) "
+                + "JOIN Product_Detail pd ON p.Product_id = pd.Product_id "
+                + "JOIN Price pr ON p.Product_id = pr.Product_id "
+                + "JOIN Brandd b ON p.Brand_id = b.Brand_Id "
+                + "WHERE p.Product_id = ?";
+
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, productId);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                product = new Product1();
+                product.setProduct_id(rs.getInt("Product_id"));
+                product.setQuantity(rs.getInt("Quantity"));
+                product.setProduct_name(rs.getString("Product_name"));
+                product.setProduct_img(rs.getString("Product_img"));
+                // Thiết lập các thuộc tính khác của Product1 tương tự như trên
+
+                //Khởi tạo ProductDetail
+                String ram = rs.getString("RAM");
+                String rom = rs.getString("ROM");
+                String size = rs.getString("Size");
+                String Battery = rs.getString("Battery");
+                String Weight = rs.getString("Weight");
+                String Color = rs.getString("Color");
+                String Decription = rs.getString("Decription");
+                String CPU = rs.getString("CPU");
+                String Wattage = rs.getString("Wattage");
+                String Status = rs.getString("Status");
+
+                ProductDetail dt = new ProductDetail(ram, rom, size, Battery, Weight, Color, Decription, CPU, Wattage, Status, product);
+                product.setDetail(dt);
+
+                // Khởi tạo Price
+                Price price = new Price();
+                price.setPrice(rs.getDouble("Price"));
+                price.setDateStart(rs.getDate("Date_start"));
+                price.setDateEnd(rs.getDate("Date_end"));
+                price.setSale(rs.getInt("Sale"));
+                product.setPrice(price);
+
+                // Khởi tạo Brand
+                Brand brand = new Brand();
+                brand.setBrandId(rs.getInt("Brand_id"));
+                brand.setBrandName(rs.getString("Brand_Name"));
+                product.setBrand(brand);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return product;
     }
 
 //    public static void main(String[] args) {
