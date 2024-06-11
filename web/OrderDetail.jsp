@@ -155,7 +155,6 @@
                         <input id="searchBox" class="form-control border-0" type="search" name="value" placeholder="Tìm kiếm" value="${sessionScope.value}">
                     </div>
 
-
                     <form action="billDetailBillController" method="post" style="margin-left: 760px">
                         <input type="hidden" name="id" value="${sessionScope.idBill}"/>
                         <select name="status" onchange="this.form.submit()" class="border-0" style="width: 170px; color: #000000ad; padding: 6px 0px; border-radius: 5px; padding-left: 7px;"/>
@@ -169,7 +168,7 @@
 
                     <div class="col-sm-2">
                         <a class="btn btn-delete btn-sm print-file" type="button" title="In" onclick="myApp.printTable()"><i
-                                class="fas fa-print"></i> In dữ liệu</a>
+                                class="fas fa-print"></i> In đơn hàng</a>
                     </div>
                 </div>
 
@@ -182,12 +181,12 @@
                             <th scope="col">Mã Đơn</th>
                             <th scope="col">Tên Sản Phẩm</th>
                             <th scope="col">Ảnh Sản Phẩm</th>
-                            <th scope="col">Giá Sản Phẩm</th>
                             <th scope="col">RAM</th>
                             <th scope="col">ROM</th>
                             <th scope="col" width="200px">Size</th>
                             <th scope="col">Màu</th>
-
+                            <th scope="col">Số lượng</th>
+                            <th scope="col">Giá Sản Phẩm</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -197,7 +196,7 @@
                                 <td>${b.bill_id}</td>
                                 <td>${b.product_name}</td>
                                 <td><img src="images/${b.product_img}" alt="" width="150px"></td>
-                                <td><fmt:formatNumber value="${b.price}" pattern="#,###"/> VNĐ</td>
+
                                 <c:if test="${b.ram == null}">
                                     <td></td>
                                 </c:if>
@@ -222,11 +221,10 @@
                                 <c:if test="${b.color != null}">
                                     <td>${b.color}</td>
                                 </c:if>
+                                <td>${b.order_quantity}</td>
+                                <td><fmt:formatNumber value="${b.price}" pattern="#,###"/> VNĐ</td>
                             </tr>
                         </c:forEach>
-
-
-
                     </tbody>
                 </table>
             </div>
@@ -305,8 +303,6 @@
                                     i = "0" + i;
                                 return i;
                             }
-
-
 </script>
 
 <script>
@@ -323,15 +319,31 @@
 </script>
 
 <script>
-    document.getElementById('searchBox').addEventListener('keydown', function (event) {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            var query = this.value;
-            if (query) {
-                window.location.href = '/Feds/billDetailBillController/action=search?value=' + encodeURIComponent(query);
+     document.getElementById('searchBox').addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                var query = this.value;
+
+                if (query) {
+                    var table = document.getElementById('sampleTable');
+                    var rows = table.getElementsByTagName('tr');
+                    var productId = null;
+
+                    // Loop through the table rows to find the product ID in the first column
+                    for (var i = 1; i < rows.length; i++) {
+                        var firstCell = rows[i].getElementsByTagName('td')[0];
+                        if (firstCell) {
+                            productId = firstCell.innerText;
+                            break;
+                        }
+                    }
+
+                    if (productId) {
+                        window.location.href = '/Feds/billDetailBillController?action=search&value=' + encodeURIComponent(query) + '&id=' + encodeURIComponent(productId);
+                    }
+                }
             }
-        }
-    });
+        });
 </script>
 </body>
 

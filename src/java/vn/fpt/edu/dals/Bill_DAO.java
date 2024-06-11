@@ -292,6 +292,8 @@ public class Bill_DAO extends DBContext {
         }
         return list;
     }
+    
+    
 
     public List<Bill1> getBillAllWithUserSortByValue(String type) {
         List<Bill1> list = new ArrayList<>();

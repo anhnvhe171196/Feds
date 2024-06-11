@@ -63,17 +63,28 @@ public class BillDetailBillController extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         PrintWriter out = response.getWriter();
+
         String action = request.getParameter("action");
-        Bill_DAO bd = new Bill_DAO();;
-        int id = Integer.parseInt(request.getParameter("id"));
-        BillOrder_DAO bod = new BillOrder_DAO();
-        ProductDetail_DAO pd = new ProductDetail_DAO();
-        
-        List<BillOrder> listBillOrder = bod.getBillOrder(id);
-        session.setAttribute("status", listBillOrder.get(1).getStatus());
-        session.setAttribute("listBillOrder", listBillOrder);
-        session.setAttribute("idBill", listBillOrder.get(0).getBill_id());
-        request.getRequestDispatcher("OrderDetail.jsp").forward(request, response);
+        if (action == null) {
+            Bill_DAO bd = new Bill_DAO();;
+            int id = Integer.parseInt(request.getParameter("id"));
+            BillOrder_DAO bod = new BillOrder_DAO();
+            ProductDetail_DAO pd = new ProductDetail_DAO();
+
+            List<BillOrder> listBillOrder = bod.getBillOrder(id);
+            session.setAttribute("status", listBillOrder.get(1).getStatus());
+            session.setAttribute("listBillOrder", listBillOrder);
+            session.setAttribute("idBill", listBillOrder.get(0).getBill_id());
+            request.getRequestDispatcher("OrderDetail.jsp").forward(request, response);
+        } else if (action.equals("search")) {
+            String value = request.getParameter("value");
+            int id = Integer.parseInt(request.getParameter("id"));
+            BillOrder_DAO bod = new BillOrder_DAO();
+
+            List<BillOrder> listBillOrder = bod.getBillOrderByName(1, value);
+            session.setAttribute("listBillOrder", listBillOrder);
+            request.getRequestDispatcher("OrderDetail.jsp").forward(request, response);
+        }
 
     }
 

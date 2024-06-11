@@ -19,29 +19,30 @@ public class BillOrder_DAO extends DBContext {
 
     public List<BillOrder> getBillOrder(int id) {
         List<BillOrder> list = new ArrayList<>();
-        String sql = "SELECT\n"
-                + "                     B.Bill_id,  \n"
-                + "                     P.Product_name,  \n"
-                + "                     PR.Price,  \n"
-                + "                     P.Product_img,\n"
-                + "			PD.RAM,\n"
-                + "			PD.ROM,\n"
-                + "			PD.Size,\n"
-                + "			PD.Color,\n"
-                + "                     B.Status, \n"
-                + "                 	O.Payment \n"
-                + "                 FROM  \n"
-                + "                     [Feds].[dbo].[Bill] B \n"
-                + "                 JOIN  \n"
-                + "                     [Feds].[dbo].[Order] O ON B.Bill_id = O.Bill_id \n"
-                + "                 JOIN  \n"
-                + "                     [Feds].[dbo].[Product] P ON O.Product_id = P.Product_id \n"
-                + "                 JOIN  \n"
-                + "                     [Feds].[dbo].[Price] PR ON P.Product_id = PR.Product_id \n"
-                + "				JOIN \n"
-                + "					[Feds].[dbo].[Product_Detail] PD ON P.Product_id = PD.Product_id\n"
-                + "                 WHERE  \n"
-                + "                      B.Bill_Id = ?";
+        String sql = "SELECT \n"
+                + "                                      B.Bill_id,   \n"
+                + "                                      P.Product_name,   \n"
+                + "                                      PR.Price,   \n"
+                + "                                      P.Product_img, \n"
+                + "                 			PD.RAM, \n"
+                + "                 			PD.ROM, \n"
+                + "                 			PD.Size, \n"
+                + "                 			PD.Color, \n"
+                + "                                      B.Status,  \n"
+                + "                                  	O.Payment  ,\n"
+                + "					o.Order_quantity\n"
+                + "                                  FROM   \n"
+                + "                                      [Feds].[dbo].[Bill] B  \n"
+                + "                                  JOIN   \n"
+                + "                                      [Feds].[dbo].[Order] O ON B.Bill_id = O.Bill_id  \n"
+                + "                                  JOIN   \n"
+                + "                                      [Feds].[dbo].[Product] P ON O.Product_id = P.Product_id  \n"
+                + "                                  JOIN   \n"
+                + "                                      [Feds].[dbo].[Price] PR ON P.Product_id = PR.Product_id  \n"
+                + "                 				JOIN  \n"
+                + "                 					[Feds].[dbo].[Product_Detail] PD ON P.Product_id = PD.Product_id \n"
+                + "                                  WHERE   \n"
+                + "                                       B.Bill_Id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
@@ -49,7 +50,7 @@ public class BillOrder_DAO extends DBContext {
             while (rs.next()) {
                 BillOrder bo = new BillOrder(rs.getInt("Bill_id"), rs.getString("Product_name"), rs.getDouble("Price"),
                         rs.getString("Product_img"), rs.getString("Status"), rs.getString("Payment"), rs.getString("RAM"), rs.getString("ROM"), rs.getString("Size"),
-                        rs.getString("Color"));
+                        rs.getString("Color"), rs.getInt("Order_quantity"));
                 list.add(bo);
             }
         } catch (SQLException e) {
@@ -57,7 +58,53 @@ public class BillOrder_DAO extends DBContext {
         }
         return list;
     }
-
     
-
+    
+    public List<BillOrder> getBillOrderByName(int id, String name) {
+        List<BillOrder> list = new ArrayList<>();
+        String sql = "SELECT \n"
+                + "                                      B.Bill_id,   \n"
+                + "                                      P.Product_name,   \n"
+                + "                                      PR.Price,   \n"
+                + "                                      P.Product_img, \n"
+                + "                 			PD.RAM, \n"
+                + "                 			PD.ROM, \n"
+                + "                 			PD.Size, \n"
+                + "                 			PD.Color, \n"
+                + "                                      B.Status,  \n"
+                + "                                  	O.Payment  ,\n"
+                + "					o.Order_quantity\n"
+                + "                                  FROM   \n"
+                + "                                      [Feds].[dbo].[Bill] B  \n"
+                + "                                  JOIN   \n"
+                + "                                      [Feds].[dbo].[Order] O ON B.Bill_id = O.Bill_id  \n"
+                + "                                  JOIN   \n"
+                + "                                      [Feds].[dbo].[Product] P ON O.Product_id = P.Product_id  \n"
+                + "                                  JOIN   \n"
+                + "                                      [Feds].[dbo].[Price] PR ON P.Product_id = PR.Product_id  \n"
+                + "                 				JOIN  \n"
+                + "                 					[Feds].[dbo].[Product_Detail] PD ON P.Product_id = PD.Product_id \n"
+                + "                                  WHERE   \n"
+                + "                                       B.Bill_Id = ? AND P.Product_name LIKE ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            st.setString(2, "%" + name + "%");
+            
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                BillOrder bo = new BillOrder(rs.getInt("Bill_id"), rs.getString("Product_name"), rs.getDouble("Price"),
+                        rs.getString("Product_img"), rs.getString("Status"), rs.getString("Payment"), rs.getString("RAM"), rs.getString("ROM"), rs.getString("Size"),
+                        rs.getString("Color"), rs.getInt("Order_quantity"));
+                list.add(bo);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    
+    
+    
+    
 }
