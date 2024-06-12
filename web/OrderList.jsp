@@ -67,6 +67,19 @@
                 font-size: 13px;
 
             }
+            .btn-center {
+                display: flex;
+                justify-content: center; /* Căn giữa nút trong cột */
+                align-items: center; /* Căn giữa theo chiều dọc */
+            }
+
+            @media (min-width: 768px) {
+                .btn-center {
+                    max-width: 100px; /* Độ rộng tối đa cho cột khi màn hình lớn hơn hoặc bằng 768px */
+                    margin: auto; /* Căn giữa cột */
+                }
+            }
+
 
         </style>
     </head>
@@ -85,7 +98,7 @@
             <!-- Sidebar Start -->
             <div class="sidebar pe-4 pb-3">
                 <nav class="navbar bg-light navbar-light">
-                    <a href="/Feds/saleDashboard" class="navbar-brand mx-4 mb-3">
+                    <a href="/Feds/orderListBillController" class="navbar-brand mx-4 mb-3">
                         <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>ORDER LIST</h3>
                     </a>
                     <div class="d-flex align-items-center ms-4 mb-4">
@@ -101,9 +114,9 @@
                     <div class="navbar-nav w-100">
                         <a href="/Feds/saleDashboard" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                         <a href="/Feds/orderListBillController" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Order List</a>
-                        <a href="#" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Feedback List</a> 
+                        <a href="/Feds/feedbackListFeedbackController" class="nav-item nav-link "><i class="fa fa-th me-2"></i>Feedback List</a> 
                     </div>
-            </div>
+            </div>  
 
         </div>
         <!-- Sidebar End -->
@@ -177,7 +190,7 @@
                             </ul>
                         </div>
 
-                        <a href="/Feds/orderListBillController?action=showAll">Xem Tất Cả</a>
+                        <button class="btn btn-outline-primary m-2"><a href="/Feds/orderListBillController?action=showAll">Xem Tất Cả</a></button>
                     </div>
                     <div class="table-responsive">
                         <table class="table text-start align-middle table-bordered table-hover mb-0">
@@ -202,7 +215,7 @@
                                         <td>${b.address}</td>
                                         <td><fmt:formatNumber value="${b.total_price}" pattern="#,###"/> VNĐ</td>
                                         <td>${b.status}</td>
-                                        <td><a class="btn btn-sm btn-primary" href="/Feds/billDetailBillController?id=${b.bill_id}">Xem đơn</a></td>
+                                        <td style="width: 130px"><a class="btn btn-outline-primary m-2 btn-center" href="/Feds/billDetailBillController?id=${b.bill_id}">Xem đơn</a></td>
                                     </tr>
                                 </c:forEach>
 
