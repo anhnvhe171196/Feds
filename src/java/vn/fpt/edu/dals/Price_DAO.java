@@ -35,7 +35,7 @@ public class Price_DAO extends DBContext {
             if (rs.next()) {
                 Product_DAO p = new Product_DAO();
                 Product1 p1 = p.getProductById(rs.getInt("Product_id"));
-                return new Price(rs.getDouble("Price"), rs.getDate("Date_start"), rs.getDate("Date_start"), rs.getInt("Sale"), p1);
+                return new Price(rs.getDouble("Price"), rs.getDate("Date_start"), rs.getDate("Date_end"), rs.getInt("Sale"), p1);
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -73,24 +73,4 @@ public class Price_DAO extends DBContext {
         return list;
     }
 
-    public static List<RelatedProducts> getRandomPrice(List<RelatedProducts> productList, int x) {
-        List<RelatedProducts> randomProducts = new ArrayList<>();
-        Random rand = new Random();
-        int listSize = productList.size();
-
-        if (listSize < 1) {
-            return randomProducts;
-        }
-
-        while (!productList.isEmpty() && randomProducts.size() < 10) {
-            int randomIndex = rand.nextInt(productList.size());
-            Price product = productList.get(randomIndex);
-            // Check if the product's ID matches the excluded ID
-            if (!(product.getProduct().getProduct_id() == x)) {
-                randomProducts.add(productList.remove(randomIndex));
-            }
-        }
-
-        return randomProducts;
-    }
 }

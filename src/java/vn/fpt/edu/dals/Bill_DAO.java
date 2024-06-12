@@ -296,6 +296,8 @@ public class Bill_DAO extends DBContext {
         }
         return list;
     }
+    
+    
 
     public List<Bill1> getBillAllWithUserSortByValue(String type) {
         List<Bill1> list = new ArrayList<>();
@@ -395,6 +397,7 @@ public class Bill_DAO extends DBContext {
         return list;
     }
 
+
     public void addtoBill(User u, Cart cart, String address, String status, String tinh, String quan, String phuong, String payment) {
         LocalDate curDate = LocalDate.now();
         String date = curDate.toString();
@@ -440,6 +443,23 @@ public class Bill_DAO extends DBContext {
                 st3.executeUpdate();
             }
         } catch (Exception e) {
+        }
+    }
+
+    public void updateStatusBill(String status, String id) {
+        String sql = "UPDATE [dbo].[Bill]\n"
+                + "   SET [Status] = ?\n"
+                + " WHERE Bill_Id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, status);
+            st.setString(2, id);
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println(e);
+
+
         }
     }
 

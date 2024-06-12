@@ -110,7 +110,14 @@ String[] brandId = new String[0];
         Category_DAO categoryDAO = new Category_DAO();
         Brand_DAO BrandDAO = new Brand_DAO();
         List<Category> cates = categoryDAO.getAllCate();
-        List<Brand> brands = BrandDAO.getAllBrand();
+        List<Brand> brands = new ArrayList();
+        if(request.getParameterValues("cateid") == null || request.getParameterValues("cateid").length == 0) {
+            brands = BrandDAO.getAllBrand();
+            request.setAttribute("relatedBrand", 0);
+        } else {
+            brands = BrandDAO.getAllBrandWithCate(cateId);
+            request.setAttribute("relatedBrand", BrandDAO.getRelatedBrandSize(cateId));
+        }
         //Collections.shuffle(brands); //Ngẫu nhiên brand
         session.setAttribute("cates", cates);
         request.setAttribute("brands", brands);

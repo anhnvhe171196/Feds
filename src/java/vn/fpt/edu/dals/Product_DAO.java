@@ -31,7 +31,7 @@ public class Product_DAO extends DBContext {
                 return rs.getInt("Total");
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return 0;
     }
@@ -85,7 +85,7 @@ public class Product_DAO extends DBContext {
                 return rs.getInt("Total");
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return 0;
     }
@@ -120,7 +120,7 @@ public class Product_DAO extends DBContext {
                 return rs.getInt("Total");
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return 0;
     }
@@ -165,7 +165,7 @@ public class Product_DAO extends DBContext {
                 list.add(u);
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return list;
     }
@@ -189,7 +189,7 @@ public class Product_DAO extends DBContext {
                 list.add(u);
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return list;
     }
@@ -252,7 +252,7 @@ public class Product_DAO extends DBContext {
                 list.add(u);
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return list;
     }
@@ -281,7 +281,7 @@ public class Product_DAO extends DBContext {
 
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return list;
     }
@@ -326,7 +326,7 @@ public class Product_DAO extends DBContext {
 
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return list;
     }
@@ -395,7 +395,7 @@ public class Product_DAO extends DBContext {
                 list.add(prd);
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return list;
     }
@@ -424,7 +424,7 @@ public class Product_DAO extends DBContext {
 
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return list;
     }
@@ -452,11 +452,63 @@ public class Product_DAO extends DBContext {
                 list.add(product);
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return list;
     }
 
+    public List<Product> getPopularProducts() {
+        List<Product> list = new ArrayList<>();
+        String sql = "select TOP 3 p.Product_name, p.Product_img, pc.Category_name, pr.Price, p.Product_id, (SELECT Count([Order_id]) FROM [Order] WHERE p.[Product_id] = [Order].[Product_id]) as TotalBought\n"
+                + "From Product p\n"
+                + "Inner Join Brandd b on b.Brand_Id = p.Brand_id\n"
+                + "Inner Join Product_Category pc on pc.Category_id = b.Category_id\n"
+                + "Join Price pr on pr.Product_id = p.Product_id\n"
+                + "Order by TotalBought desc";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setProduct_name(rs.getString(1));
+                product.setProduct_img(rs.getString(2));
+                product.setCategory_name(rs.getString(3));
+                product.setPrice(rs.getFloat(4));
+                product.setProduct_id(rs.getInt(5));
+                list.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
+    public List<Product> getNewProducts() {
+        List<Product> list = new ArrayList<>();
+        String sql = "select TOP 3 p.Product_name, p.Product_img, pc.Category_name, pr.Price, p.Product_id\n"
+                + "From Product p\n"
+                + "Inner Join Brandd b on b.Brand_Id = p.Brand_id\n"
+                + "Inner Join Product_Category pc on pc.Category_id = b.Category_id\n"
+                + "Join Price pr on pr.Product_id = p.Product_id\n"
+                + "Order by p.Product_id desc";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setProduct_name(rs.getString(1));
+                product.setProduct_img(rs.getString(2));
+                product.setCategory_name(rs.getString(3));
+                product.setPrice(rs.getFloat(4));
+                product.setProduct_id(rs.getInt(5));
+                list.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
     public List<Product> getNewProduct() {
         List<Product> list = new ArrayList<>();
         String sql = "select p.Product_name, p.Product_img, pc.Category_name, pr.Price, p.Product_id\n"
@@ -479,7 +531,7 @@ public class Product_DAO extends DBContext {
                 list.add(product);
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return list;
     }
@@ -506,7 +558,7 @@ public class Product_DAO extends DBContext {
                 list.add(product);
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return list;
     }
@@ -533,7 +585,7 @@ public class Product_DAO extends DBContext {
                 list.add(product);
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return list;
     }
@@ -560,7 +612,7 @@ public class Product_DAO extends DBContext {
                 list.add(product);
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return list;
     }
@@ -588,7 +640,7 @@ public class Product_DAO extends DBContext {
                 list.add(product);
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return list;
     }
@@ -603,7 +655,7 @@ public class Product_DAO extends DBContext {
                 totalNumberOfProducts = rs.getInt("TotalCount");
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return totalNumberOfProducts;
     }
@@ -629,7 +681,7 @@ public class Product_DAO extends DBContext {
                 return new Product1(rs.getInt("Product_id"), rs.getInt("Quantity"), rs.getString("Product_name"), rs.getString("Product_img"), u, b);
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return null;
     }
@@ -657,7 +709,7 @@ public class Product_DAO extends DBContext {
                 list.add(product);
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return list;
     }
@@ -687,7 +739,7 @@ public class Product_DAO extends DBContext {
 
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return product;
     }

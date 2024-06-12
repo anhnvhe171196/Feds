@@ -11,8 +11,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.List;
 import vn.fpt.edu.dals.Data_MarketingDashboard_DAO;
 import vn.fpt.edu.dals.Product_DAO;
 import vn.fpt.edu.models.Product1;
@@ -21,8 +19,8 @@ import vn.fpt.edu.models.Product1;
  *
  * @author rimok
  */
-@WebServlet(name = "MarketingProductList", urlPatterns = {"/marketingProductList"})
-public class MarketingProductList extends HttpServlet {
+@WebServlet(name = "MarketingProductDetails", urlPatterns = {"/marketingProductDetails"})
+public class MarketingProductDetails extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +39,10 @@ public class MarketingProductList extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet MarketingProductList</title>");
+            out.println("<title>Servlet MarketingProductDetails</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet MarketingProductList at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet MarketingProductDetails at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,49 +64,16 @@ public class MarketingProductList extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
 
-        HttpSession session = request.getSession();
         Data_MarketingDashboard_DAO dt = new Data_MarketingDashboard_DAO();
         Product_DAO pd = new Product_DAO();
 
-        int count = pd.getTotalNumberOfProducts();
-        int endPage = count / 10;
-        if (count % 10 != 0) {
-            endPage++;
-        }
+        String id = request.getParameter("id");
+        int index = Integer.parseInt(id);
 
-        String indexPage = request.getParameter("index");
-        if (indexPage == null) {
-            indexPage = "1";
-        }
-        int index = Integer.parseInt(indexPage);
+        Product1 product = dt.getProductById(index);
 
-        String search = request.getParameter("search");
-        String sortBy = request.getParameter("sortBy");
-        String sortOrder = request.getParameter("sortOrder");
-        if (sortBy == null) {
-            sortBy = "id";
-            session.setAttribute("sortBy", sortBy);
-
-        } else {
-            session.setAttribute("sortBy", sortBy);
-        }
-
-        List<Product1> products;
-        if (search != null && !search.isEmpty()) {
-            products = dt.getProductsSearchByName(index, sortBy, sortOrder, search);
-        } else {
-            products = dt.getAllProducts1(index, sortBy, sortOrder);
-        }
-
-        request.setAttribute("index", index);
-        request.setAttribute("products", products);
-        request.setAttribute("endPage", endPage);
-        session.setAttribute("sortOrder", sortOrder);
-        session.setAttribute("search", search);
-
-
-        request.getRequestDispatcher("OrderProcessorTable.jsp").forward(request, response);
-
+        request.setAttribute("product", product);
+        request.getRequestDispatcher("MarketingProductDetails.jsp").forward(request, response);
     }
 
     /**
