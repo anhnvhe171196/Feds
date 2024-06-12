@@ -37,7 +37,7 @@ public class UserListController extends HttpServlet {
         if(request.getSession().getAttribute("account") == null || ((User)request.getSession().getAttribute("account")).getRole().getId() != 1) {
             response.sendRedirect(request.getContextPath()+"/login");
             return;
-        }   
+        }
         User_DAO dao = new User_DAO();
         List<User> users = new ArrayList();
         String Spage = request.getParameter("page");
