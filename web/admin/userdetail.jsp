@@ -53,7 +53,7 @@
         User u = (User)request.getAttribute("currUser");
     %>
     <div class="container">
-        <button class="btn-success" onclick="AddNew()" style="margin: 0; left: 30%; top: 32.5%; position: absolute; -ms-transform: translateY(-50%); transform: translateY(-50%);">Add New User</button>
+        <button class="btn-success" onclick="AddNew()" style="margin: 0; left: 54%; top: 77%; position: absolute; -ms-transform: translateY(-50%); transform: translateY(-50%);">Add New User</button>
         <script>
             
                             function AddNew() {
