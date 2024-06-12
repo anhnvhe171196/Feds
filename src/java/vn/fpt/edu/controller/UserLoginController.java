@@ -45,6 +45,12 @@ public class UserLoginController extends HttpServlet {
         if (u == null) {
             request.setAttribute("error", "Tài khoản hoặc mật khẩu không đúng!!!");
             request.getRequestDispatcher("UserLogin.jsp").forward(request, response);
+            return;
+        }
+        if(u.isBanned()) {
+            request.setAttribute("error", "Tài khoản của bạn đã bị ban.");
+            request.getRequestDispatcher("UserLogin.jsp").forward(request, response);
+            return;
         }
         if (pass.equals(u.getPassword())) {
             HttpSession session = request.getSession();
