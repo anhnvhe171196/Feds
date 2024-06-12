@@ -88,6 +88,14 @@
         <servlet-name>ProcessCartController</servlet-name>
         <servlet-class>vn.fpt.edu.controller.ProcessCartController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UserDetailController</servlet-name>
+        <servlet-class>vn.fpt.edu.admin.controller.UserDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserListController</servlet-name>
+        <servlet-class>vn.fpt.edu.admin.controller.UserListController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserRegisterController</servlet-name>
         <url-pattern>/register</url-pattern>
