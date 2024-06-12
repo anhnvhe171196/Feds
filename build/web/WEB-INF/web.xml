@@ -88,6 +88,14 @@
         <servlet-name>ProcessCartController</servlet-name>
         <servlet-class>vn.fpt.edu.controller.ProcessCartController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ContractCartController</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.ContractCartController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddBillController</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.AddBillController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserRegisterController</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -179,6 +187,14 @@
     <servlet-mapping>
         <servlet-name>ProcessCartController</servlet-name>
         <url-pattern>/process</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ContractCartController</servlet-name>
+        <url-pattern>/contract</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddBillController</servlet-name>
+        <url-pattern>/addBill</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home</welcome-file>

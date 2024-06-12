@@ -8,9 +8,13 @@ import vn.fpt.edu.models.Bill1;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import vn.fpt.edu.models.Bill;
+import vn.fpt.edu.models.Cart;
+import vn.fpt.edu.models.Item;
+import vn.fpt.edu.models.User;
 
 /**
  *
@@ -245,6 +249,7 @@ public class Bill_DAO extends DBContext {
         }
         return list.size();
     }
+
     public Bill getBillByUID(int bill_id) {
         String sql = "SELECT [Bill_Id]\n"
                 + "      ,[Total_price]\n"
@@ -267,6 +272,7 @@ public class Bill_DAO extends DBContext {
         }
         return null;
     }
+
     public List<Bill1> searchBills(String value) {
         List<Bill1> list = new ArrayList<>();
         try {
@@ -384,9 +390,57 @@ public class Bill_DAO extends DBContext {
             }
         } catch (SQLException e) {
             System.out.println(e);
-            
+
         }
         return list;
+    }
+
+    public void addtoBill(User u, Cart cart, String address, String status, String tinh, String quan, String phuong, String payment) {
+        LocalDate curDate = LocalDate.now();
+        String date = curDate.toString();
+        try {
+            //add bill
+            String sql = "insert into Bill values(?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setDouble(1, cart.getTotalMoney());
+            st.setString(2, date);
+            st.setInt(3, u.getUser_Id());
+            st.setString(4, address);
+            st.setString(5, status);
+            st.setString(6, tinh);
+            st.setString(7, quan);
+            st.setString(8, phuong);
+            st.executeUpdate();
+            //lay id cua bill vua add
+            String sql1 = "select top 1 Bill_Id\n"
+                    + "from Bill \n"
+                    + "Order by Bill_Id desc";
+            PreparedStatement st1 = connection.prepareStatement(sql1);
+            ResultSet rs = st1.executeQuery();
+            //add bang orderse
+            if(rs.next()) {
+                int id= rs.getInt("Bill_Id");
+                for(Item i: cart.getItems()) {
+                    String sql2 = "insert into [Order] values(?, ?, ?, ?, ?)";
+                    PreparedStatement st2 = connection.prepareStatement(sql2);
+                    st2.setInt(1, i.getProduct().getProduct_id());
+                    st2.setInt(2, i.getQuantity());
+                    st2.setInt(3, id);
+                    st2.setString(4, date);
+                    st2.setString(5, payment);
+                    st2.executeUpdate();                  
+                }
+            }
+            //cap nhat lai so luong san pham
+            String sql3="update Product set Quantity = Quantity - ? where Product_id = ?";
+            PreparedStatement st3 = connection.prepareStatement(sql3);
+            for(Item i : cart.getItems()) {
+                st3.setInt(1, i.getQuantity());
+                st3.setInt(2, i.getProduct().getProduct_id());
+                st3.executeUpdate();
+            }
+        } catch (Exception e) {
+        }
     }
 
 }

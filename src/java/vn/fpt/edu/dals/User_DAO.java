@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import vn.fpt.edu.models.Cart;
 import vn.fpt.edu.models.Role;
 
 /**
@@ -247,4 +248,27 @@ public class User_DAO extends DBContext {
         }
         return totalNumberOfUsers;
     }
+
+    public User getCustomerByID(User u) {
+        String spl = "select User_Id, User_name, Email, Phone_number\n"
+                + "from [User]\n"
+                + "Where User_Id = ?";
+        User user = null;
+        try {
+            PreparedStatement st = connection.prepareStatement(spl);
+            st.setInt(1, u.getUser_Id());
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                user = new User();
+                user.setUser_Id(rs.getInt(1));
+                user.setUser_name(rs.getString(2));
+                user.setEmail(rs.getString(3));
+                user.setPhone_number(rs.getString(4));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return user;
+    }
+    
 }
