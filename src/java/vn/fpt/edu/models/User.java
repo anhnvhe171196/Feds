@@ -16,11 +16,13 @@ public class User {
     private String phone_number;
     private Role role;
     private String avarta;
+    private boolean banned;
+    private boolean gender;
 
     public User() {
     }
 
-    public User(int User_Id, String Password, String User_name, String Email, String Phone_number, Role role, String Avarta) {
+    public User(int User_Id, String Password, String User_name, String Email, String Phone_number, Role role, String Avarta, boolean isBanned, boolean isGender) {
         this.user_Id = User_Id;
         this.password = Password;
         this.user_name = User_name;
@@ -28,6 +30,24 @@ public class User {
         this.phone_number = Phone_number;
         this.role = role;
         this.avarta = Avarta;
+        this.banned = isBanned;
+        this.gender = isGender;
+    }
+
+    public boolean isGender() {
+        return gender;
+    }
+
+    public void setGender(boolean gender) {
+        this.gender = gender;
+    }
+
+    public boolean isBanned() {
+        return banned;
+    }
+
+    public void setBanned(boolean isBanned) {
+        this.banned = isBanned;
     }
 
     public int getUser_Id() {

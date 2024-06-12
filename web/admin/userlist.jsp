@@ -18,7 +18,7 @@
     <%@include file="../component/navbar.jsp" %>
                         <br>
     <div class="container">
-                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                <div>
                     <div class="aside">
                         <form>
                         <%String search = request.getParameter("search");
@@ -70,6 +70,7 @@
                                             <th style='font-family: "Open Sans", sans-serif; font-weight: bold; color: black'>ID</th>
                                             <th style='font-family: "Open Sans", sans-serif; font-weight: bold; color: black'>Fullname</th>
                                             <th style='font-family: "Open Sans", sans-serif; font-weight: bold; color: black'>Email</th>
+                                            <th style='font-family: "Open Sans", sans-serif; font-weight: bold; color: black'>Gender</th>
                                             <th style='font-family: "Open Sans", sans-serif; font-weight: bold; color: black'>Mobile</th>
                                             <th style='font-family: "Open Sans", sans-serif; font-weight: bold; color: black'>Role</th>
                                             <th style='font-family: "Open Sans", sans-serif; font-weight: bold; color: black'>Action</th>
@@ -94,6 +95,9 @@
                                                 <%=u.getEmail()%>
                                             </td>
                                             <td>
+                                                <%=u.isGender() ? "Female" : "Male"%>
+                                            </td>
+                                            <td>
                                                 <%=u.getPhone_number()%>
                                             </td>
                                             <td>
@@ -101,7 +105,7 @@
                                             </td>
                                             <td>
                                                 <button class="btn-success" onclick="window.location.href='detail?id=<%=u.getUser_Id()%>'">View</button>
-                                                <button class="btn-success" onclick="window.location.href='edit?id=<%=u.getUser_Id()%>'">Edit</button>
+                                                <button class="btn-<%=u.isBanned() ? "success" : "danger"%>" onclick="window.location.href='users?id=<%=u.getUser_Id()%>&ban=<%=u.isBanned() ? "false" : "true"%>'"><%=u.isBanned() ? "Unban" : "Ban"%></button>
                                             </td>
                                         </tr> 
                                             <%}%>
@@ -147,7 +151,13 @@
         <label for="phone">Phone Number</label>
         <input type="tel" id="phone" name="phone" required>
         
-        <label for="phone">Role</label>
+        <label>Gender</label>
+        <br>
+        <input type="radio" name="gender" value="Male" required> <span style="margin-right: 20px">Male</span>
+        <input type="radio" name="gender" value="Female" required> <span>Female</span>
+        <br>
+        
+        <label for="phone" style="margin-top: 8px">Role: </label>
         <%ArrayList<Role> roles = (ArrayList)request.getAttribute("roles");%>
         <select name="role">
             <% for(int i = 0; i < roles.size(); i++) {

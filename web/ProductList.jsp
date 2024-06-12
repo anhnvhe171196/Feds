@@ -282,6 +282,48 @@
                     <!-- /aside Widget -->
                     <br>
                     <button style="position: relative; border: 2px solid transparent; height: 40px; padding: 0 30px; background-color: #ef233c; color: #FFF; text-transform: uppercase; font-weight: 700; border-radius: 40px; -webkit-transition: 0.2s all; transition: 0.2s all;" id="filters">Filter</button>
+                    <br>
+                    
+                    <!-- aside Widget -->
+                    <div class="aside">
+                        <h3 class="aside-title">NEW PRODUCTS</h3>
+                        <% ArrayList<Product> newProd = (ArrayList)request.getAttribute("newProduct");%>
+                        <div>
+                            <%for(int i = 0; i < newProd.size(); i++) {
+                                Product p = newProd.get(i);
+                            %>
+                            <div style="border: 1px solid #ddd; margin-bottom: 5px; height:  75px">
+                                <a href="product?pid=<%=p.getProduct_id()%>" target="_blank">
+                                    <img src="images/<%=p.getProduct_img()%>" alt="Product" style="max-height: 75px; max-width: 75px">
+                                    
+                                    <span class="productname"><%=p.getProduct_name().length() > 20 ? p.getProduct_name().substring(0, 17) + "..." : p.getProduct_name()%></span>
+                                    <span style="position: absolute; left: 33%; color: gray; margin-top: 40px;"><%=p.getPriceString()%></span>
+                                </a>
+                            </div>
+                            <% } %>
+                        </div>
+                    </div>
+                    <!-- /aside Widget -->
+                    <!-- aside Widget -->
+                    <div class="aside">
+                        <h3 class="aside-title">POPULAR PRODUCTS</h3>
+                        <% ArrayList<Product> PopProd = (ArrayList)request.getAttribute("PopProduct");%>
+                        <div>
+                            <%for(int i = 0; i < PopProd.size(); i++) {
+                                Product p = PopProd.get(i);
+                            %>
+                            <div style="border: 1px solid #ddd; margin-bottom: 5px; height:  75px">
+                                <a href="product?pid=<%=p.getProduct_id()%>" target="_blank">
+                                    <img src="images/<%=p.getProduct_img()%>" alt="Product" style="max-height: 75px; max-width: 75px">
+                                    
+                                    <span class="productname"><%=p.getProduct_name().length() > 20 ? p.getProduct_name().substring(0, 17) + "..." : p.getProduct_name()%></span>
+                                    <span style="position: absolute; left: 33%; color: gray; margin-top: 40px;"><%=p.getPriceString()%></span>
+                                </a>
+                            </div>
+                            <% } %>
+                        </div>
+                    </div>
+                    <!-- /aside Widget -->
                 </div>
                 <script>
                     let allcate = document.querySelectorAll("input[type=checkbox][name=cateid]");
