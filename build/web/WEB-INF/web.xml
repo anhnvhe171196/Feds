@@ -70,7 +70,7 @@
     </servlet>
     <servlet>
         <servlet-name>OrderListBillController</servlet-name>
-        <servlet-class>vn.fpt.edu.salecontroller.OrderListBillController</servlet-class>
+        <servlet-class>vn.fpt.edu.salecontroller.BillListBillController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ViewProductDetail</servlet-name>
@@ -85,8 +85,8 @@
         <servlet-class>vn.fpt.edu.controller.AddFeedBackController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProcessCartController</servlet-name>
-        <servlet-class>vn.fpt.edu.controller.ProcessCartController</servlet-class>
+        <servlet-name>BillDetailBillController</servlet-name>
+        <servlet-class>vn.fpt.edu.salecontroller.BillDetailBillController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UserDetailController</servlet-name>
@@ -185,16 +185,8 @@
         <url-pattern>/addFeedBack</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ProcessCartController</servlet-name>
-        <url-pattern>/process</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UserDetailController</servlet-name>
-        <url-pattern>/admin/detail</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UserListController</servlet-name>
-        <url-pattern>/admin/users</url-pattern>
+        <servlet-name>BillDetailBillController</servlet-name>
+        <url-pattern>/billDetailBillController</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home</welcome-file>

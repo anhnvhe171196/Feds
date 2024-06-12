@@ -95,7 +95,7 @@ public class UserRandomPassword extends HttpServlet {
             d.chagePassword(pass, email);
 
             // Chuyển hướng người dùng sau khi gửi email thành công
-            request.setAttribute("error", "Bạn đã thay đổi mật khẩu thành công!!!");
+            request.setAttribute("error", "Bạn đã thay đổi mật khẩu thành công, Mật khẩu mới đã được gửi vào email của bạn!!!");
             request.getRequestDispatcher("UserLogin.jsp").forward(request, response);
         } catch (MessagingException mex) {
             // Xử lý lỗi nếu có

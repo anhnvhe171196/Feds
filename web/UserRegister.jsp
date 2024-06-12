@@ -38,7 +38,7 @@
                 <div class="wrap-login100">
                     <form class="login100-form validate-form" action="register" method="post" onsubmit="return validatePasswords()">
                         <div>
-                            <img src="images/logo.jpg" alt="Feds Logo" style="max-width: 100px; max-height: 100px; display: block; margin: 0 auto; border-radius: 30%;">
+                            <a href="home"><img src="images/logo.jpg" alt="Feds Logo" style="max-width: 100px; max-height: 100px; display: block; margin: 0 auto; border-radius: 40%;"></a>
                         </div>
                         <span class="login100-form-title p-b-43">
                             Welcome to FedShop
