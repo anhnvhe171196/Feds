@@ -79,6 +79,13 @@
                             <small style="color: #00000063">Format: 09XXXXXXXX</small>
                         </div>
                         <div class="form-group">
+                            <label style="position: absolute; top: 0%; transform: translateY(-50%); padding: 0 5px; transition: all 0.2s; pointer-events: none; color: #999; background: linear-gradient(to bottom, #F7F7F7 50%, white 50%);">Gender</label>
+                            <input id="male" style="margin-top: 20px" name="gender" value="male" type="radio" required>
+                            <label for="male" class="form-label" style="margin-top: 25px">Male</label>
+                            <input id="female" style="width: 75%;" name="gender" value="female" type="radio" required>
+                            <label for="female" class="form-label" style="margin-top: 25px; margin-left: 175px">Female</label>
+                        </div>
+                        <div class="form-group">
                             <button type="submit" class="form-control btn btn-primary submit px-3">Register</button>
                         </div>
                         <p class="w-100 text-center">&mdash; Have account? &mdash;</p>
