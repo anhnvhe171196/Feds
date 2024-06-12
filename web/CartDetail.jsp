@@ -12,7 +12,7 @@
         <link type="text/css" rel="stylesheet" href="/css/cartdetail.css"/>
 
 
-        <title>JSP Page</title>
+        <title>Cart Detail</title>
 
     </head>
 
@@ -104,7 +104,7 @@
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <p class="mb-2">Giảm giá:</p>
-                                    <p class="mb-2 text-success">00000</p>
+                                    <p class="mb-2 text-success">0000</p>
                                 </div>
                                 <!--                                <div class="d-flex justify-content-between">
                                                                     <p class="mb-2">TAX:</p>
@@ -117,7 +117,7 @@
                                 </div>
 
                                 <div class="mt-3">
-                                    <a href="#" style="background-color: #D10024; border-color: #D10024" class="btn btn-success w-100 shadow-0 mb-2" "> MUA HÀNG </a>
+                                    <a href="contract" style="background-color: #D10024; border-color: #D10024" class="btn btn-success w-100 shadow-0 mb-2" "> MUA HÀNG </a>
                                     <a href="home" class="btn btn-light w-100 border mt-2"> Trở lại trang chủ </a>
                                 </div>
                             </div>
