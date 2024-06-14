@@ -47,15 +47,16 @@ public class UserRegisterController extends HttpServlet {
             request.getRequestDispatcher("UserRegister.jsp").forward(request, response);
         } else {
             String phoneNumber = request.getParameter("phoneNumber");
+            String gender = request.getParameter("gender") == null ? "male" : request.getParameter("gender");
             Role_DAO rd = new Role_DAO();
             Role r = rd.getRoleById(5);
-            User c = new User(0, pass, username1, email, phoneNumber, r, "9-anh-dai-dien-trang-inkythuatso-03-15-27-03.jpg");
+            User c = new User(0, pass, username1, email, phoneNumber, r, "9-anh-dai-dien-trang-inkythuatso-03-15-27-03.jpg", false, gender.equals("female"));
             cd.insertCustomer(c);
             // Cấu hình thông tin email
             String host = "smtp.gmail.com";
             String port = "587";
-            String username = "anhnvhe171196@fpt.edu.vn";
-            String password = "cpautzrmivqsxoiu";
+            final String username = "anhnvhe171196@fpt.edu.vn";
+            final String password = "cpautzrmivqsxoiu";
             String fromAddress = "anhnvhe171196@fpt.edu.vn";
             String toAddress = email;
             String subject = "Subject of the email";

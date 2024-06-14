@@ -122,6 +122,8 @@ String[] brandId = new String[0];
         session.setAttribute("cates", cates);
         request.setAttribute("brands", brands);
         request.setAttribute("List", listProduct);
+        request.setAttribute("newProduct", d.getNewProducts());
+        request.setAttribute("PopProduct", d.getPopularProducts());
         request.getRequestDispatcher("ProductList.jsp").forward(request, response);
     }
 

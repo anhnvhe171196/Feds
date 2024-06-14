@@ -30,7 +30,7 @@ import vn.fpt.edu.models.User;
  *
  * @author admin
  */
-public class UserListController extends HttpServlet {
+public class UserDetailController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -40,45 +40,24 @@ public class UserListController extends HttpServlet {
             return;
         }
         User_DAO dao = new User_DAO();
-        String id = request.getParameter("id");
-        if(id != null) {
-            String ban = request.getParameter("ban");
-            dao.banUser(Integer.parseInt(id), ban.equals("true"));
+        Role_DAO roleDAO = new Role_DAO();
+        String sId = request.getParameter("id");
+        request.setAttribute("roles", roleDAO.getAllRole());
+        if(sId != null) {
+            User u = dao.getCustomerByID(Integer.parseInt(sId));
+            String banned = request.getParameter("banned");
+            String role = request.getParameter("role");
+            if(banned != null) {
+                dao.updateUser(u.getUser_Id(), banned.equals("true"), Integer.parseInt(role));
+                response.sendRedirect("detail?id="+sId);
+                return;
+            }
+            request.setAttribute("currUser", u);
+        } else {
             response.sendRedirect("users");
             return;
         }
-        List<User> users = new ArrayList();
-        String Spage = request.getParameter("page");
-        int p = 1;
-        if(Spage != null) {
-            try {
-                p = Integer.parseInt(Spage);
-            } catch(Exception e) {}
-        }
-        int total = 0;
-        if(request.getParameter("Sort") != null && request.getParameter("search") == null) {
-            total = dao.getUserCount();
-            users = dao.getUserSort(request.getParameter("Sort"), p);
-        } else if(request.getParameter("search") == null) {
-            total = dao.getUserCount();
-            users = dao.getUserPage(p);
-        } else if(request.getParameter("search") != null && request.getParameter("Sort") == null) {
-            total = dao.getUserSearchCount(request.getParameter("search"), request.getParameter("searchBy"));
-            users = dao.getUserSearch(request.getParameter("search"), request.getParameter("searchBy"), p);
-        } else {
-            total = dao.getUserSearchCount(request.getParameter("search"), request.getParameter("searchBy"));
-            users = dao.getUserSearchAndSort(request.getParameter("search"), request.getParameter("searchBy"), request.getParameter("Sort"), p);
-        }
-        int max = (total / 9) + ((total / 9) > (float)(total / 9.0) ? 0 : 1);
-        request.setAttribute("total", total);
-        request.setAttribute("max", max);
-        request.setAttribute("page", p);
-        request.setAttribute("users", users);
-        Role_DAO roleDAO = new Role_DAO();
-        List<Role> roles = roleDAO.getAllRole();
-        request.setAttribute("roles", roles);
-            //System.out.println(users.size());
-        request.getRequestDispatcher("userlist.jsp").forward(request, response);
+        request.getRequestDispatcher("userdetail.jsp").forward(request, response);
     }
 
     /**
