@@ -76,6 +76,10 @@
                 font-size: 16px;
 
             }
+
+            .info-row h6 {
+                text-align: left; /* Ensure all text within customer-info is left-aligned */
+            }
         </style>
     </head>
 
@@ -109,7 +113,7 @@
                     <div class="navbar-nav w-100">
                         <a href="/Feds/saleDashboard" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                         <a href="/Feds/orderListBillController" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Order List</a>
-                        <a href="#" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Feedback List</a> 
+                        <a href="/Feds/feedbackListFeedbackController" class="nav-item nav-link "><i class="fa fa-th me-2"></i>Feedback List</a> 
                     </div>
             </div>
         </nav>
@@ -148,14 +152,14 @@
 
         <!-- Recent Sales Start -->
         <div class="container-fluid pt-4 px-4">
-            <div class="bg-light text-center rounded p-4">
+            <div class="bg-light text-center rounded">
 
-                <div class="d-flex align-items-center justify-content-between mb-4">
+                <div class="d-flex align-items-center justify-content-between" >
                     <div class="d-none d-md-flex ms-4" method="GET" action="">
                         <input id="searchBox" class="form-control border-0" type="search" name="value" placeholder="Tìm kiếm" value="${sessionScope.value}">
                     </div>
 
-                    <form action="billDetailBillController" method="post" style="margin-left: 760px">
+                    <form action="billDetailBillController" method="post" style="margin-left: 640px">
                         <input type="hidden" name="id" value="${sessionScope.idBill}"/>
                         <select name="status" onchange="this.form.submit()" class="border-0" style="width: 170px; color: #000000ad; padding: 6px 0px; border-radius: 5px; padding-left: 7px;"/>
                         <option ${sessionScope.status == "Chờ Xử Lý"?"selected":""} value="Chờ Xử Lý">Chờ Xử Lý</option>
@@ -170,10 +174,41 @@
                         <a class="btn btn-delete btn-sm print-file" type="button" title="In" onclick="myApp.printTable()"><i
                                 class="fas fa-print"></i> In đơn hàng</a>
                     </div>
+
+                    <div><a class="btn btn-outline-success m-2" style="width: 100px" href="/Feds/orderListBillController">Quay lại</a></div>
                 </div>
-
-
             </div>
+
+            <c:forEach var="bill" items="${sessionScope.listBillOrder}" varStatus="status">
+
+                <c:if test="${status.first}">
+                    <c:set var="userName" value="${bill.user_name}" />
+                    <c:set var="email" value="${bill.email}" />
+                    <c:set var="phone" value="${bill.phone}" />
+                    <c:set var="address" value="${bill.address}" />
+                    <c:set var="payment" value="${bill.payment}" />
+                </c:if>
+            </c:forEach>
+
+            <div class="bg-light text-center rounded customer-info">
+                <div class="info-row">
+                    <h6>Khách hàng: <c:out value="${userName}" /></h6>
+                </div>
+                <div class="info-row">
+                    <h6>Email: <c:out value="${email}" /></h6>
+                </div>
+                <div class="info-row">
+                    <h6>Số điện thoại: <c:out value="${phone}" /></h6>
+                </div>
+                <div class="info-row">
+                    <h6>Địa chỉ: <c:out value="${address}" /></h6>
+                </div>
+                <div class="info-row">
+                    <h6>Payment: <c:out value="${payment}" /></h6>
+                </div>
+            </div>
+
+
             <div class="table-responsive">
                 <table class="table text-start align-middle table-bordered table-hover mb-0" id="sampleTable">
                     <thead>
@@ -319,31 +354,31 @@
 </script>
 
 <script>
-     document.getElementById('searchBox').addEventListener('keydown', function (event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                var query = this.value;
+    document.getElementById('searchBox').addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            var query = this.value;
 
-                if (query) {
-                    var table = document.getElementById('sampleTable');
-                    var rows = table.getElementsByTagName('tr');
-                    var productId = null;
+            if (query) {
+                var table = document.getElementById('sampleTable');
+                var rows = table.getElementsByTagName('tr');
+                var productId = null;
 
-                    // Loop through the table rows to find the product ID in the first column
-                    for (var i = 1; i < rows.length; i++) {
-                        var firstCell = rows[i].getElementsByTagName('td')[0];
-                        if (firstCell) {
-                            productId = firstCell.innerText;
-                            break;
-                        }
-                    }
-
-                    if (productId) {
-                        window.location.href = '/Feds/billDetailBillController?action=search&value=' + encodeURIComponent(query) + '&id=' + encodeURIComponent(productId);
+                // Loop through the table rows to find the product ID in the first column
+                for (var i = 1; i < rows.length; i++) {
+                    var firstCell = rows[i].getElementsByTagName('td')[0];
+                    if (firstCell) {
+                        productId = firstCell.innerText;
+                        break;
                     }
                 }
+
+                if (productId) {
+                    window.location.href = '/Feds/billDetailBillController?action=search&value=' + encodeURIComponent(query) + '&id=' + encodeURIComponent(productId);
+                }
             }
-        });
+        }
+    });
 </script>
 </body>
 

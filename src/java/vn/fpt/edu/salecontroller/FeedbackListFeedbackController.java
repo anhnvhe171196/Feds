@@ -12,16 +12,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
-import vn.fpt.edu.dals.BillOrder_DAO;
 import vn.fpt.edu.dals.Bill_DAO;
-import vn.fpt.edu.dals.ProductDetail_DAO;
-import vn.fpt.edu.models.BillOrder;
+import vn.fpt.edu.dals.Feedback_DAO;
+import vn.fpt.edu.models.Bill1;
+import vn.fpt.edu.models.Feedback1;
 
 /**
  *
  * @author Trong
  */
-public class BillDetailBillController extends HttpServlet {
+public class FeedbackListFeedbackController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +40,10 @@ public class BillDetailBillController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet BillDetailBillController1</title>");
+            out.println("<title>Servlet FeedbackListFeedbackController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet BillDetailBillController1 at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet FeedbackListFeedbackController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,33 +61,17 @@ public class BillDetailBillController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        PrintWriter out = response.getWriter();
-
         String action = request.getParameter("action");
-        if (action == null) {
-            Bill_DAO bd = new Bill_DAO();
-            int id = Integer.parseInt(request.getParameter("id"));
-            BillOrder_DAO bod = new BillOrder_DAO();
-            ProductDetail_DAO pd = new ProductDetail_DAO();
-
-            List<BillOrder> listBillOrder = bod.getBillOrder(id);
-            session.setAttribute("status", listBillOrder.get(1).getStatus());
-            session.setAttribute("listBillOrder", listBillOrder);
-            session.setAttribute("idBill", listBillOrder.get(0).getBill_id());
-            request.getRequestDispatcher("OrderDetail.jsp").forward(request, response);
-        } else if (action.equals("search")) {
-            String value = request.getParameter("value");
-            int id = Integer.parseInt(request.getParameter("id"));
-            BillOrder_DAO bod = new BillOrder_DAO();
-
-            List<BillOrder> listBillOrder = bod.getBillOrderByName(1, value);
-            session.setAttribute("listBillOrder", listBillOrder);
-            request.getRequestDispatcher("OrderDetail.jsp").forward(request, response);
-        }
-
+        
+         
+            Feedback_DAO fbd = new Feedback_DAO();
+            List<Feedback1> feedbackList = fbd.getAllFeedbackPagingSQL(1, 2);
+            request.setAttribute("feedbackList", feedbackList);
+            request.getRequestDispatcher("FeedbackList.jsp").forward(request, response);
+        
+        
     }
-
+    
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -99,14 +83,7 @@ public class BillDetailBillController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String id = request.getParameter("id");
-        String status = request.getParameter("status");
-        Bill_DAO bd = new Bill_DAO();
-        bd.updateStatusBill(status, id);
-        session.removeAttribute("status");
-        session.setAttribute("status", status);
-        request.getRequestDispatcher("OrderDetail.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**

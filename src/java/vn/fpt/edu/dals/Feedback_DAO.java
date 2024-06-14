@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import vn.fpt.edu.models.Bill;
+import vn.fpt.edu.models.Bill1;
+import vn.fpt.edu.models.BillOrder;
 import vn.fpt.edu.models.FeedBack;
 import vn.fpt.edu.models.GoogleAcount;
 import vn.fpt.edu.models.Product;
@@ -284,4 +286,25 @@ public class Feedback_DAO extends DBContext {
             System.out.println(e);
         }
     }
+
+    public List<Feedback1> getAllFeedbackPagingSQL(int pageIndex, int numOfFeedback) {
+        List<Feedback1> list = new ArrayList<>();
+        String sql = "exec PagingFeedback ?,?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, pageIndex);
+            st.setInt(2, numOfFeedback);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Feedback1 f = new Feedback1(rs.getString("Date"), rs.getString("User_name"), rs.getInt("Rating"), rs.getInt("FeedbackCount"), rs.getString("Product_name") );
+                list.add(f);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    
+    
+
 }
