@@ -160,7 +160,7 @@
                             <input class="form-control border-0" type="search" name="value" placeholder="Tìm kiếm" value="${sessionScope.value}">
                         </form>
                         <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="margin-left: 400px">
                                 Xếp theo ngày
                             </button>
                             <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton">
@@ -224,7 +224,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Recent Sales End -->
+            <!-- Recent Sales End -->   
 
             <!-- Pagination -->
             <div class="container-fluid pt-4 px-4">

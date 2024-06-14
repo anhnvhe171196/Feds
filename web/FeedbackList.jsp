@@ -86,7 +86,7 @@
             <div class="sidebar pe-4 pb-3">
                 <nav class="navbar bg-light navbar-light">
                     <a href="/Feds/feedbackListFeedbackController" class="navbar-brand mx-4 mb-3">
-                        <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>FEEDBACK LIST</h3>
+                        <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>FEEDBACK</h3>
                     </a>
                     <div class="d-flex align-items-center ms-4 mb-4">
                         <div class="position-relative">
@@ -139,63 +139,87 @@
             </nav>
             <!-- Navbar End -->
 
+
+
+
+            <!-- Recent Sales Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-light text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
-
-                        <div class="col-12">
-
-                            <div class="bg-light rounded h-100 p-4">
-                                <h6 class="mb-4" style="text-align: left    ">Bảng đánh giá của khách hàng</h6>
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">First Name</th>
-                                                <th scope="col">Last Name</th>
-                                                <th scope="col">Email</th>
-                                                <th scope="col">Country</th>
-                                                <th scope="col">ZIP</th>
-                                                <th scope="col">Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>John</td>
-                                                <td>Doe</td>
-                                                <td>jhon@email.com</td>
-                                                <td>USA</td>
-                                                <td>123</td>
-                                                <td>Member</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>mark@email.com</td>
-                                                <td>UK</td>
-                                                <td>456</td>
-                                                <td>Member</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Jacob</td>
-                                                <td>Thornton</td>
-                                                <td>jacob@email.com</td>
-                                                <td>AU</td>
-                                                <td>789</td>
-                                                <td>Member</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                        <form class="d-none d-md-flex ms-4" method="GET" action="orderListBillController">
+                            <input type="hidden" name="action" value="search">
+                            <input class="form-control border-0" type="search" name="value" placeholder="Tìm kiếm" value="${sessionScope.value}">
+                        </form>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="margin-left: 400px">
+                                Xếp theo ngày
+                            </button>
+                            <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item" href="orderListBillController?action=sortByDateAsc">Ngày tăng</a></li>
+                                <li><a class="dropdown-item" href="orderListBillController?action=sortByDateDesc">Ngày giảm</a></li>
+                            </ul>
                         </div>
+
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                Xếp theo Mã đơn
+                            </button>
+                            <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item" href="orderListBillController?action=sortByBillIdAsc">Mã đơn tăng</a></li>
+                                <li><a class="dropdown-item" href="orderListBillController?action=sortByBillIdDesc">Mã đơn giảm</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                Xếp theo Giá trị đơn hàng
+                            </button>
+                            <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item" href="orderListBillController?action=sortByValueAsc">Giá trị tăng</a></li>
+                                <li><a class="dropdown-item" href="orderListBillController?action=sortByValueDesc">Giá trị giảm</a></li>
+                            </ul>
+                        </div>
+
+                        <button class="btn btn-outline-primary m-2"><a href="/Feds/orderListBillController?action=showAll">Xem Tất Cả</a></button>
                     </div>
+
+
+                    <div class="table-responsive">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            <thead>
+                                <tr class="text-dark">
+                                    <th scope="col">Ngày</th>
+                                    <th scope="col">Sản phẩm</th>
+                                    <th scope="col">Số Sao</th>
+                                    <th scope="col">Số đánh giá</th>
+                                    <th scope="col">Người đánh giá</th>
+                                    <th scope="col">Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <c:forEach items="${requestScope.feedbackList}" var="fb"> 
+                                    <tr>
+                                        <td>${fb.date}</td>
+                                        <td>${fb.product_name}</td>
+                                        <td>${fb.rate_star}</td>
+                                        <td>${fb.count_rate}</td>
+                                        <td>${fb.userName}</td>
+                                        <td style="width: 130px"><a class="btn btn-outline-primary m-2 btn-center" href="/Feds/billDetailBillController?id=">Xem đơn</a></td>
+                                    </tr>
+                                </c:forEach>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+
                 </div>
             </div>
+            <!-- Recent Sales End -->
 
 
             <!-- Footer Start -->

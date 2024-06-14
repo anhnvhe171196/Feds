@@ -97,7 +97,7 @@ public class Bill_DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"), rs.getInt("User_id"), rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
+                Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"), rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -115,7 +115,7 @@ public class Bill_DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"), rs.getInt("User_id"), rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
+                Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"), rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -282,8 +282,8 @@ public class Bill_DAO extends DBContext {
             ps.setString(4, "%" + value + "%");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Bill1 u = new Bill1(rs.getInt(1), rs.getDouble(2), rs.getString(3), rs.getInt(4),
-                        rs.getString(5), rs.getString(6), rs.getString(7));
+                Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"), rs.getString("Address"),
+                        rs.getString("Status"), rs.getString("User_name"));
                 list.add(u);
             }
 
@@ -306,7 +306,7 @@ public class Bill_DAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"),
-                        rs.getInt("User_id"), rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
+                         rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -324,8 +324,8 @@ public class Bill_DAO extends DBContext {
             st.setInt(2, numOfBill);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Bill1 u = new Bill1(rs.getInt(1), rs.getDouble(2), rs.getString(3), rs.getInt(4),
-                        rs.getString(5), rs.getString(6), rs.getString(7));
+                Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"), rs.getString("Address"),
+                        rs.getString("Status"), rs.getString("UserName"));
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -363,7 +363,7 @@ public class Bill_DAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"),
-                        rs.getInt("User_id"), rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
+                        rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -383,7 +383,7 @@ public class Bill_DAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"),
-                        rs.getInt("User_id"), rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
+                        rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -408,5 +408,7 @@ public class Bill_DAO extends DBContext {
 
         }
     }
+    
+    
 
 }

@@ -19,17 +19,16 @@ public class Bill1 {
     public Bill1() {
     }
 
-    
-
-    public Bill1(int Bill_id, double Total_price, String Date, int User_id, String Address, String Status, String User_name) {
+    public Bill1(int Bill_id, double Total_price, String Date, String Address, String Status, String User_name) {
         this.Bill_id = Bill_id;
         this.Total_price = Total_price;
         this.Date = Date;
-        this.User_id = User_id;
         this.Address = Address;
         this.Status = Status;
         this.User_name = User_name;
     }
+
+    
 
     public int getBill_id() {
         return Bill_id;
