@@ -61,8 +61,7 @@ public class BillListBillController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-
-        PrintWriter out = response.getWriter();
+        
         String action = request.getParameter("action");
         Bill_DAO bd = new Bill_DAO();
 

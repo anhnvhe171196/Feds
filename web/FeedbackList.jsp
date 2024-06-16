@@ -146,7 +146,7 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-light text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
-                        <form class="d-none d-md-flex ms-4" method="GET" action="orderListBillController">
+                        <form class="d-none d-md-flex ms-4" method="GET" action="feedbackListFeedbackController">
                             <input type="hidden" name="action" value="search">
                             <input class="form-control border-0" type="search" name="value" placeholder="Tìm kiếm" value="${sessionScope.value}">
                         </form>
@@ -155,33 +155,33 @@
                                 Xếp theo ngày
                             </button>
                             <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item" href="orderListBillController?action=sortByDateAsc">Ngày tăng</a></li>
-                                <li><a class="dropdown-item" href="orderListBillController?action=sortByDateDesc">Ngày giảm</a></li>
+                                <li><a class="dropdown-item" href="feedbackListFeedbackController?action=sortByDateAsc">Ngày tăng</a></li>
+                                <li><a class="dropdown-item" href="feedbackListFeedbackController?action=sortByDateDesc">Ngày giảm</a></li>
                             </ul>
                         </div>
 
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                Xếp theo Mã đơn
+                                Xếp theo Số sao
                             </button>
                             <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item" href="orderListBillController?action=sortByBillIdAsc">Mã đơn tăng</a></li>
-                                <li><a class="dropdown-item" href="orderListBillController?action=sortByBillIdDesc">Mã đơn giảm</a></li>
+                                <li><a class="dropdown-item" href="feedbackListFeedbackController?action=sortByRatingAsc">Tăng</a></li>
+                                <li><a class="dropdown-item" href="feedbackListFeedbackController?action=sortByRatingDesc">Giảm</a></li>
 
                             </ul>
                         </div>
 
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                Xếp theo Giá trị đơn hàng
+                                Xếp theo Số đánh giá
                             </button>
                             <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item" href="orderListBillController?action=sortByValueAsc">Giá trị tăng</a></li>
-                                <li><a class="dropdown-item" href="orderListBillController?action=sortByValueDesc">Giá trị giảm</a></li>
+                                <li><a class="dropdown-item" href="feedbackListFeedbackController?action=sortByNumOfFeedbackAsc">Tăng</a></li>
+                                <li><a class="dropdown-item" href="feedbackListFeedbackController?action=sortByNumOfFeedbackDesc">Giảm</a></li>
                             </ul>
                         </div>
 
-                        <button class="btn btn-outline-primary m-2"><a href="/Feds/orderListBillController?action=showAll">Xem Tất Cả</a></button>
+                        <button class="btn btn-outline-primary m-2"><a href="/Feds/feedbackListFeedbackController?action=showAll">Xem Tất Cả</a></button>
                     </div>
 
 
@@ -206,7 +206,7 @@
                                         <td>${fb.rate_star}</td>
                                         <td>${fb.count_rate}</td>
                                         <td>${fb.userName}</td>
-                                        <td style="width: 130px"><a class="btn btn-outline-primary m-2 btn-center" href="/Feds/billDetailBillController?id=">Xem đơn</a></td>
+                                        <td style="width: 130px; text-align: center"><a class="btn btn-outline-primary m-2 btn-center" href="/Feds/billDetailBillController?id=">Chi tiết</a></td>
                                     </tr>
                                 </c:forEach>
 

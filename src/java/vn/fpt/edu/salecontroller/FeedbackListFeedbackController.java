@@ -61,14 +61,72 @@ public class FeedbackListFeedbackController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
         String action = request.getParameter("action");
-        
-         
-            Feedback_DAO fbd = new Feedback_DAO();
+        Feedback_DAO fbd = new Feedback_DAO();
+        PrintWriter out = response.getWriter();
+        if(action == null){ 
+            
             List<Feedback1> feedbackList = fbd.getAllFeedbackPagingSQL(1, 2);
             request.setAttribute("feedbackList", feedbackList);
             request.getRequestDispatcher("FeedbackList.jsp").forward(request, response);
         
+        }
+        else if (action.equals("showAll")) {
+            List<Feedback1> feedbackList = fbd.getFeedbackAllWithUser1();
+            request.setAttribute("feedbackList", feedbackList);
+            request.getRequestDispatcher("FeedbackList.jsp").forward(request, response);
+        } 
+        else if (action.equals("sortByDateAsc")) {
+            List<Feedback1> feedbackList = fbd.getFeedbackAllWithUserSortByDate("Asc");
+            request.setAttribute("feedbackList", feedbackList);
+            request.getRequestDispatcher("FeedbackList.jsp").forward(request, response);
+        } 
+        else if (action.equals("sortByDateDesc")) {
+            List<Feedback1> feedbackList = fbd.getFeedbackAllWithUserSortByDate("Desc");
+            request.setAttribute("feedbackList", feedbackList);
+            request.getRequestDispatcher("FeedbackList.jsp").forward(request, response);
+        }
+        else if (action.equals("sortByRatingAsc")) {
+            List<Feedback1> feedbackList = fbd.getFeedbackAllWithUserSortByRating("Asc");
+            request.setAttribute("feedbackList", feedbackList);
+            request.getRequestDispatcher("FeedbackList.jsp").forward(request, response);
+        } 
+        else if (action.equals("sortByRatingDesc")) {
+            List<Feedback1> feedbackList = fbd.getFeedbackAllWithUserSortByRating("Desc");
+            request.setAttribute("feedbackList", feedbackList);
+            request.getRequestDispatcher("FeedbackList.jsp").forward(request, response);
+        } 
+        else if (action.equals("sortByNumOfFeedbackAsc")) {
+            List<Feedback1> feedbackList = fbd.getFeedbackAllWithUserSortByNumOfRate("Asc");
+            request.setAttribute("feedbackList", feedbackList);
+            request.getRequestDispatcher("FeedbackList.jsp").forward(request, response);
+        } 
+        else if (action.equals("sortByNumOfFeedbackDesc")) {
+            List<Feedback1> feedbackList = fbd.getFeedbackAllWithUserSortByNumOfRate("Desc");
+            request.setAttribute("feedbackList", feedbackList);
+            request.getRequestDispatcher("FeedbackList.jsp").forward(request, response);
+        } 
+        
+        else if (action.equals("search")) {
+            String value = request.getParameter("value");
+            request.setAttribute("value", value);
+
+            List<Bill1> feedbackList = bd.searchBills(value);
+            request.setAttribute("feedbackList", feedbackList);
+            request.getRequestDispatcher("OrderList.jsp").forward(request, response);
+        }
+        else if(action.equals("paging")){ 
+            int page = Integer.parseInt(request.getParameter("page"));
+            List<Bill1> feedbackList = bd.getBillAllWithUserPagingSQL(page, 10);
+            request.setAttribute("feedbackList", feedbackList);
+            
+            request.setAttribute("page", page);
+            int totalPages = bd.getNumOfPageBillList(10);
+            request.setAttribute("totalPages", totalPages);
+            request.getRequestDispatcher("OrderList.jsp").forward(request, response);
+        }
+            
         
     }
     
