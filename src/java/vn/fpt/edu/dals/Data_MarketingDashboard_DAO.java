@@ -457,27 +457,26 @@ public class Data_MarketingDashboard_DAO extends DBContext {
     public UserDetails getUserById(int userId) {
         UserDetails UD = null;
         User user = null;
-        double totalPrice = 0;
-        int totalOrders = 0;
+        double totalPrice = getTotalPriceByUserId(userId);
+        int Order_id = getTotalOrderByUserId(userId);
         List<Order> products = new ArrayList<>();
-        String sql = "SELECT u.User_Id, u.Password, u.User_name, u.Email, u.Phone_number, \n"
-                + "                   r.Role_id, r.Role_Name, u.Avarta, u.isBanned, u.gender, \n"
-                + "                  o.[Order_id], o.[Product_id], o.[Order_quantity], b.[Bill_id], o.[Real_time_price], o.[Payment],\n"
-                + "                   SUM(COALESCE(b.Total_price, 0)) AS total_price, \n"
-                + "                   COUNT(DISTINCT o.Order_id) AS total_orders \n"
-                + "            FROM [dbo].[User] u \n"
-                + "            LEFT JOIN Bill b ON u.User_Id = b.User_id \n"
-                + "            LEFT JOIN [Order] o ON b.Bill_Id = o.Bill_id \n"
-                + "            JOIN [dbo].[Role] r ON u.Role_id = r.Role_id \n"
-                + "            WHERE u.User_Id = ?\n"
-                + "            GROUP BY u.User_Id, u.Password, u.User_name, u.Email, u.Phone_number, \n"
-                + "                   r.Role_id, r.Role_Name, u.Avarta, u.isBanned, u.gender,o.Order_id,\n"
-                + "				   o.Product_id, o.Order_quantity,b.Bill_id, o.Real_time_price, o.Payment;";
+        String sql = "SELECT u.User_Id, u.Password, u.User_name, u.Email, u.Phone_number,\n"
+                + "		r.Role_id, r.Role_Name, u.Avarta, u.isBanned, u.gender,\n"
+                + "		o.[Order_id], o.[Product_id], o.[Order_quantity], b.[Bill_id], o.[Real_time_price], o.[Payment],\n"
+                + "		b.Total_price,o.Order_id\n"
+                + "FROM [dbo].[User] u\n"
+                + "LEFT JOIN Bill b ON u.User_Id = b.User_id \n"
+                + "LEFT JOIN [Order] o ON b.Bill_Id = o.Bill_id\n"
+                + "JOIN [dbo].[Role] r ON u.Role_id = r.Role_id\n"
+                + "WHERE u.User_Id = ?\n"
+                + "GROUP BY u.User_Id, u.Password, u.User_name, u.Email, u.Phone_number,\n"
+                + "		r.Role_id, r.Role_Name, u.Avarta, u.isBanned, u.gender,b.Total_price,o.Order_id,\n"
+                + "        o.Product_id, o.Order_quantity,b.Bill_id, o.Real_time_price, o.Payment;";
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, userId);
             ResultSet rs = st.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 String password = rs.getString("Password");
                 String userName = rs.getString("User_name");
                 String email = rs.getString("Email");
@@ -487,16 +486,7 @@ public class Data_MarketingDashboard_DAO extends DBContext {
                 String avatar = rs.getString("Avarta");
                 boolean isBanned = rs.getBoolean("isBanned");
                 boolean gender = rs.getBoolean("gender");
-
-                totalPrice = rs.getDouble("total_price");
-                if (rs.wasNull()) {
-                    totalPrice = 0.0;
-                }
-
-                totalOrders = rs.getInt("total_orders");
-                if (rs.wasNull()) {
-                    totalOrders = 0;
-                }
+                
                 do {
                     int productId = rs.getInt("Product_id");
                     int orderId = rs.getInt("Order_id");
@@ -513,12 +503,49 @@ public class Data_MarketingDashboard_DAO extends DBContext {
                 Role role = new Role(roleId, roleName);
                 user = new User(userId, password, userName, email, phoneNumber, role, avatar, isBanned, gender);
 
-                UD = new UserDetails(totalPrice, user, totalOrders, products);
+                UD = new UserDetails(totalPrice, user, Order_id, products);
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
         return UD;
+    }
+
+    public double getTotalPriceByUserId(int userId) {
+        double totalPrice = 0.0;
+        String sql = "SELECT SUM(Total_price) AS TotalPrice\n"
+                + "FROM [Feds].[dbo].[Bill]\n"
+                + "WHERE User_id = ?;";
+
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, userId);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                totalPrice = rs.getDouble("TotalPrice");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return totalPrice;
+    }
+
+    public int getTotalOrderByUserId(int userId) {
+        int totalOrder = 0;
+        String sql = "SELECT COUNT(o.[Order_id]) AS TotalOrders\n"
+                + "FROM [Feds].[dbo].[Order] o\n"
+                + "JOIN [Feds].[dbo].[Bill] b ON o.[Bill_id] = b.[Bill_Id]\n"
+                + "WHERE b.[User_id] = ?;";
+
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, userId);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                totalOrder = rs.getInt("TotalOrders");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return totalOrder;
     }
 
     public static void main(String[] args) {

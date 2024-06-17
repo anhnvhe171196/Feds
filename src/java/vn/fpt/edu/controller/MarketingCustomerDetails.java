@@ -76,6 +76,8 @@ public class MarketingCustomerDetails extends HttpServlet {
         int index = Integer.parseInt(id);
 
         UserDetails u = dt.getUserById(index);
+        double totalPrice = u.getTotalPrice();
+        int totalOrders = u.getTotalOrders();
         List<Order> orders = u.getOrder();
         List<UserDetails1> product = new ArrayList<>();
         if (u.getTotalOrders() != 0) {
@@ -89,9 +91,9 @@ public class MarketingCustomerDetails extends HttpServlet {
         }
         // Lưu thông tin vào request
 
-        request.setAttribute("totalPrice", u.getTotalPrice());
+        request.setAttribute("totalPrice",totalPrice );
         request.setAttribute("user", u.getUser());
-        request.setAttribute("totalOrders", u.getTotalOrders());
+        request.setAttribute("totalOrders",totalOrders);
         request.setAttribute("product", product);
 
         // Chuyển hướng đến file JSP
