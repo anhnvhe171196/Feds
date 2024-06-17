@@ -18,6 +18,8 @@ import vn.fpt.edu.models.Price;
 import vn.fpt.edu.models.Product;
 import vn.fpt.edu.models.Product1;
 import vn.fpt.edu.models.ProductDetail;
+import vn.fpt.edu.models.Role;
+import vn.fpt.edu.models.User;
 
 /**
  *
@@ -326,30 +328,144 @@ public class Data_MarketingDashboard_DAO extends DBContext {
         return product;
     }
 
-//    public static void main(String[] args) {
-//        Data_MarketingDashboard_DAO data = new Data_MarketingDashboard_DAO();
-//        List<Product1> products = data.getProductsSearchByName(1, "name", "asc", "xi");
-//
-//        for (Product1 product : products) {
-//            System.out.println("Product ID: " + product.getProduct_id());
-//            System.out.println("Product Name: " + product.getProduct_name());
-//            System.out.println("Product Image: " + product.getProduct_img());
-//            System.out.println("Quantity: " + product.getQuantity());
-//            Brand brand = product.getBrand();
-//            if (brand != null) {
-//                System.out.println("brand: " + brand.getBrandName());
-//            }
-//
-//            Price price = product.getPrice();
-//            if (price != null) {
-//                System.out.println("Price: " + price.getPrice());
-//                System.out.println("Price Start Date: " + price.getDateStart());
-//                System.out.println("Price End Date: " + price.getDateEnd());
-//            } else {
-//                System.out.println("Price: No price available");
-//            }
-//
-//            System.out.println();
-//        }
-//    }
+    public List<User> getAllUsers(int index, String sortBy, String sortOrder) {
+        List<User> userList = new ArrayList<>();
+        String sql = "SELECT u.[User_Id], u.[Password], u.[User_name], u.[Email], u.[Phone_number], r.[Role_id], r.[Role_Name], u.[Avarta], u.[isBanned], u.[gender] \n"
+                + "                FROM [dbo].[User] u\n"
+                + "                JOIN\n"
+                + "                    [dbo].[Role] r\n"
+                + "                ON \n"
+                + "                    u.[Role_id] = r.[Role_id]";
+
+        // Add sorting clause
+        if ("name".equals(sortBy)) {
+            sql += " ORDER BY [User_name] ";
+        } else if ("email".equals(sortBy)) {
+            sql += " ORDER BY [Email] ";
+        } else if ("gender".equals(sortBy)) {
+            sql += " ORDER BY [gender] ";
+        } else if ("phone".equals(sortBy)) {
+            sql += " ORDER BY [Phone_number] ";
+        } else {
+            sql += " ORDER BY [User_Id] ";
+        }
+
+        if ("asc".equals(sortOrder)) {
+            sql += "ASC";
+        } else if ("desc".equals(sortOrder)) {
+            sql += "DESC";
+        }
+        sql += " OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY";
+
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, (index - 1) * 10);
+            try (ResultSet rs = st.executeQuery()) {
+                while (rs.next()) {
+                    int userId = rs.getInt("User_Id");
+                    String password = rs.getString("Password");
+                    String userName = rs.getString("User_name");
+                    String email = rs.getString("Email");
+                    String phoneNumber = rs.getString("Phone_number");
+                    int roleId = rs.getInt("Role_id");
+                    String roleName = rs.getString("Role_Name");
+                    String avatar = rs.getString("Avarta");
+                    boolean isBanned = rs.getBoolean("isBanned");
+                    boolean gender = rs.getBoolean("gender");
+
+                    Role role = new Role(roleId, roleName);
+                    User user = new User(userId, password, userName, email, phoneNumber, role, avatar, isBanned, gender);
+                    userList.add(user);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userList;
+    }
+
+    public List<User> getAllUsersBySearch(int index, String sortBy, String sortOrder, String search, String SearchBy) {
+        List<User> userList = new ArrayList<>();
+        String sql = "SELECT u.[User_Id], u.[Password], u.[User_name], u.[Email], u.[Phone_number], r.[Role_id], r.[Role_Name], u.[Avarta], u.[isBanned], u.[gender] \n"
+                + "                FROM [dbo].[User] u\n"
+                + "                JOIN\n"
+                + "                    [dbo].[Role] r\n"
+                + "                ON \n"
+                + "                    u.[Role_id] = r.[Role_id]";
+
+        if (search != null && !search.isEmpty()) {
+            if ("User".equals(SearchBy)) {
+                sql += "WHERE u.[User_name] LIKE ? ";
+            } else if ("Email".equals(SearchBy)) {
+                sql += "WHERE u.[Email] LIKE ? ";
+            } else if ("Phone".equals(SearchBy)) {
+                sql += "WHERE u.[Phone_number] LIKE ? ";
+            }
+        }
+        
+        if ("name".equals(sortBy)) {
+            sql += " ORDER BY [User_name] ";
+        } else if ("email".equals(sortBy)) {
+            sql += " ORDER BY [Email] ";
+        } else if ("gender".equals(sortBy)) {
+            sql += " ORDER BY [gender] ";
+        } else if ("phone".equals(sortBy)) {
+            sql += " ORDER BY [Phone_number] ";
+        } else {
+            sql += " ORDER BY [User_Id] ";
+        }
+
+        if ("asc".equals(sortOrder)) {
+            sql += "ASC";
+        } else if ("desc".equals(sortOrder)) {
+            sql += "DESC";
+        }else{
+            sql +=" ";
+        }
+        sql += " OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY";
+
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, "%" + search + "%");
+            st.setInt(2, (index - 1) * 10);
+            try (ResultSet rs = st.executeQuery()) {
+                while (rs.next()) {
+                    int userId = rs.getInt("User_Id");
+                    String password = rs.getString("Password");
+                    String userName = rs.getString("User_name");
+                    String email = rs.getString("Email");
+                    String phoneNumber = rs.getString("Phone_number");
+                    int roleId = rs.getInt("Role_id");
+                    String roleName = rs.getString("Role_Name");
+                    String avatar = rs.getString("Avarta");
+                    boolean isBanned = rs.getBoolean("isBanned");
+                    boolean gender = rs.getBoolean("gender");
+
+                    Role role = new Role(roleId, roleName);
+                    User user = new User(userId, password, userName, email, phoneNumber, role, avatar, isBanned, gender);
+                    userList.add(user);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userList;
+    }
+
+    public static void main(String[] args) {
+        Data_MarketingDashboard_DAO data = new Data_MarketingDashboard_DAO();
+        List<User> Users = data.getAllUsers(1, "id", "asc");
+
+        for (User u : Users) {
+            System.out.println("User ID: " + u.getUser_Id());
+            System.out.println("User Name: " + u.getUser_name());
+            System.out.println("User Image: " + u.getAvarta());
+            System.out.println("User Email: " + u.getEmail());
+            System.out.println("User Phone: " + u.getPhone_number());
+            System.out.println("User Role: " + u.getRole());
+
+        }
+
+        System.out.println();
+    }
 }
