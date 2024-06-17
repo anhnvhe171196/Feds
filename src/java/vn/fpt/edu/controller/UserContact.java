@@ -4,6 +4,7 @@
  */
 package vn.fpt.edu.controller;
 
+import com.twilio.rest.api.v2010.Account;
 import jakarta.mail.Authenticator;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
@@ -18,7 +19,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.Properties;
+import vn.fpt.edu.dals.Contact_DAO;
+import vn.fpt.edu.models.User;
 
 /**
  *
@@ -78,71 +82,23 @@ public class UserContact extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String subject1 = request.getParameter("subject");
-        String message1 = request.getParameter("message");
-        String host = "smtp.gmail.com";
-        String port = "587";
-        String username = "anhnvhe171196@fpt.edu.vn";
-        String password = "cpautzrmivqsxoiu";
-        String fromAddress = email;
-        String toAddress = "anhnvhe171196@fpt.edu.vn";
-        String subject = subject1;
-        String messageContent = "<!DOCTYPE html>\n"
-                + "<html lang=\"en\">\n"
-                + "\n"
-                + "<head>\n"
-                + "  <meta charset=\"utf-8\">\n"
-                + "  <meta content=\"width=device-width, initial-scale=1.0\" name=\"viewport\">\n"
-                + "</head>\n"
-                + "\n"
-                + "<body>\n"
-                + "  <div style=\"text-align: center;\">\n"
-                + "      <div style=\"font-size: 20px;\">That is your password : </div>\n"
-                + "      <h2>" + message1 + "</h2>\n"
-                + "  </div>\n"
-                + "</body>\n"
-                + "\n"
-                + "</html>";
-
-        // Cấu hình Jakarta Mail
-        Properties properties = new Properties();
-        properties.put("mail.smtp.host", host);
-        properties.put("mail.smtp.port", port);
-        properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.starttls.required", "true");
-
-        // Xây dựng đối tượng Session để xác thực và kết nối đến SMTP server
-        Session session = Session.getInstance(properties, new Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
-            }
-        });
-
-        try {
-            // Tạo đối tượng MimeMessage
-            MimeMessage message = new MimeMessage(session);
-
-            // Thiết lập thông tin người gửi
-            message.setFrom(new InternetAddress(fromAddress));
-
-            // Thiết lập thông tin người nhận
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(toAddress));
-
-            // Thiết lập tiêu đề và nội dung email
-            message.setSubject(subject);
-            message.setContent(messageContent, "text/html");
-            // Gửi email
-            Transport.send(message);
-            // Chuyển hướng người dùng sau khi gửi email thành công
-            request.setAttribute("error", "Đã gửi thành công!!!");
-            request.getRequestDispatcher("contact.jsp").forward(request, response);
-        } catch (MessagingException mex) {
-            // Xử lý lỗi nếu có
-            mex.printStackTrace();
-            response.sendRedirect("register");
+        HttpSession session = request.getSession();
+        User u = (User)session.getAttribute("account");
+        int user_id;
+        if(u != null){
+            user_id = u.getUser_Id();
+        }else{
+            user_id = 0;
         }
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String subject = request.getParameter("subject");
+        String sdt = request.getParameter("sdt");
+        String message = request.getParameter("message");
+        Contact_DAO d = new Contact_DAO();
+        d.insertFeedBack(user_id, email, subject, name, message);
+        request.setAttribute("error", "Bạn đã gửi thành công!!!");
+        request.getRequestDispatcher("Contact.jsp").forward(request, response);
     }
 
     /**

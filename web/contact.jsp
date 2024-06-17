@@ -86,6 +86,9 @@
                             </div>
                             <div class="row no-gutters">
                                 <div class="col-md-7">
+                                    <c:if test="${requestScope.error!= null}">
+                                        <h2 style="color: red; text-align: center">${requestScope.error}</h2>
+                                    </c:if>
                                     <div class="contact-wrap w-100 p-md-5 p-4">
                                         <h3 class="mb-4">Liên Hệ</h3>
                                         <div id="form-message-warning" class="mb-4"></div>

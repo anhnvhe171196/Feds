@@ -14,27 +14,30 @@ import java.sql.SQLException;
  */
 public class Contact_DAO extends DBContext {
 
-    public void insertFeedBack(int productId, String comment, int Rating, int billId, String img) {
-        String sql = "INSERT INTO [dbo].[FeedBack]\n"
-                + "           ([Product_id]\n"
-                + "           ,[Comment]\n"
-                + "           ,[Date]\n"
-                + "           ,[Rating]\n"
-                + "           ,[Bill_Id]\n"
-                + "           ,[Img])\n"
+    public void insertFeedBack(int user_id, String email, String suject, String phone, String message) {
+        String sql = "INSERT INTO [dbo].[Contact]\n"
+                + "           ([User_Id]\n"
+                + "           ,[Email]\n"
+                + "           ,[Subject]\n"
+                + "           ,[Phone]\n"
+                + "           ,[Message])\n"
                 + "     VALUES\n"
-                + "           (?, ?, GETDATE(), ?, ?, ?)";
+                + "           (?,?,?,?,?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, productId);
-            st.setString(2, comment);
-            st.setInt(3, Rating);
-            st.setInt(4, billId);
-            st.setString(5, img);
+            if (user_id == 0) {
+                st.setString(1, null);
+            } else {
+                st.setInt(1, user_id);
+            }
+            st.setString(2, email);
+            st.setString(3, suject);
+            st.setString(4, phone);
+            st.setString(5, message);
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
         }
     }
-    
+
 }
