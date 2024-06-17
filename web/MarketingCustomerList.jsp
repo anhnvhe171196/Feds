@@ -110,8 +110,13 @@
                     <a href="#" class="sidebar-toggler flex-shrink-0">
                         <i class="fa fa-bars"></i>
                     </a>
-                    <form class="d-none d-md-flex ms-4" action="marketingProductList" method="get"> 
-                        <input class="form-control border-0" type="search" placeholder="Search" name="search">
+                    <form class="d-none d-md-flex ms-4" action="marketingCustomerList" method="get"> 
+                        <input class="form-control border-0" type="search" placeholder="Search" name="search">&nbsp;&nbsp;
+                        <select name="SearchBy" class="btn btn-primary">
+                            <option value="User">User</option>
+                            <option value="Email">Email</option>
+                            <option value="Phone">Phone</option>
+                        </select> &nbsp;&nbsp;
                         <button type="submit" class="btn btn-primary" >Enter</button> 
                     </form> 
                     <div class="navbar-nav align-items-center ms-auto">
@@ -170,18 +175,27 @@
                                                     <button type="button" class="sort-button">Customer name</button>
                                                 </a>
                                             </th>
-                                            <th scope="col" style="color: #009CFF;">Email</th>
+                                            <th scope="col"  style="color: #009CFF;">
+                                                <a href="#" onclick="sortByEmail()">
+                                                    <button type="button" class="sort-button">Email</button>
+                                                </a>
+                                            </th>
                                             <th scope="col">
-                                                <a href="#" onclick="sortByQuantity()">
+                                                <a href="#" onclick="sortByPhone()">
                                                     <button type="button" class="sort-button">Phone number</button>
                                                 </a>
                                             </th>
                                             <th scope="col">
-                                                <a href="#" onclick="sortByPrice()">
+                                                <a href="#" onclick="sortByGender()">
                                                     <button type="button" class="sort-button">Gender</button>
                                                 </a>
                                             </th>
-
+                                            <th scope="col" style="color: #009CFF;">
+                                                Role
+                                            </th>
+                                            <th scope="col" style="color: #009CFF;">
+                                                Status
+                                            </th>
                                             <th scope="col" style="color: #009CFF;">
                                                 Details
                                             </th>
@@ -190,34 +204,30 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <c:forEach items="${products}" var="product">
+                                        <c:forEach items="${users}" var="users">
                                             <tr>
-                                                <td scope="col">${product.product_id}</th>
-                                                <td scope="col"><img src="images/${product.product_img}" style="max-height: 50px"></th>
-                                                <td scope="col"  style="max-width: 200px; word-wrap: break-word;">${product.product_name}</th>
-                                                <td scope="col">${product.brand.brandName}</th>
-                                                <td scope="col">${product.quantity}</th>
-                                                <td scope="col"><fmt:formatNumber value="${product.price.price}" pattern="#,##0 VND" /></th>
+                                                <td scope="col">${users.user_Id}</td>
+                                                <td scope="col">
+                                                    <img src="images/${users.avarta}" style="max-height: 50px" onerror="this.onerror=null;this.src='images/9-anh-dai-dien-trang-inkythuatso-03-15-27-03.jpg';">
+                                                    </th>
+                                                <td scope="col"  style="max-width: 200px; word-wrap: break-word;">${users.user_name}</th>
+                                                <td scope="col">${users.email}</th>
+                                                <td scope="col">${users.phone_number}</th>
+                                                <td scope="col">
+                                                    <c:if test="${users.gender}"> Male</c:if>
+                                                    <c:if test="${!users.gender}"> Female</c:if>
+                                                        </th>
+                                                    <td scope="col">${users.role.roleName}</th>
                                                 <td scope="col">
                                                     <c:choose>
-                                                        <c:when test="${empty product.price.dateStart}">
-                                                            Null
+                                                        <c:when test="${users.banned}">
+                                                            Banned
                                                         </c:when>
                                                         <c:otherwise>
-                                                            ${product.price.dateStart}
+                                                            Active
                                                         </c:otherwise>
                                                     </c:choose>
-                                                </td>
-                                                <td scope="col">
-                                                    <c:choose>
-                                                        <c:when test="${empty product.price.dateEnd}">
-                                                            Null
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            ${product.price.dateEnd}
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </td>
+                                                    </th>
                                                 <td scope="col">
                                                     <a href="#" onclick="ProductDetail(${product.product_id})">
                                                         <button type="button" class="sort-button" id="openModalBtn">Details</button>
@@ -236,7 +246,7 @@
                                                 <!-- Previous Button -->
                                                 <c:if test="${index > 1}">
                                                     <li class="page-item">
-                                                        <a class="page-link" href="marketingCustomerList?index=${index - 1}" aria-label="Previous">
+                                                        <a class="page-link" href="marketingCustomerList?index=${index - 1}&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}&search=${sessionScope.search}&SearchBy=${sessionScope.SearchBy}" " aria-label="Previous">
                                                             <span aria-hidden="true">«</span>
                                                         </a>
                                                     </li>
@@ -244,7 +254,7 @@
 
                                                 <!-- First Page Button -->
                                                 <li class="page-item ${index == 1 ? 'active' : ''}">
-                                                    <a class="page-link" href="marketingCustomerList?index=1">1</a>
+                                                    <a class="page-link" href="marketingCustomerList?index=1&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}&search=${sessionScope.search}&SearchBy=${sessionScope.SearchBy}">1</a>
                                                 </li>
 
                                                 <!-- Page Number Buttons -->
@@ -257,7 +267,7 @@
                                                 <c:forEach begin="2" end="${endPage-1}" var="i">
                                                     <c:if test="${i >= index - 1 && i <= index + 1}">
                                                         <li class="page-item ${i == index ? 'active' : ''}">
-                                                            <a class="page-link" href="marketingCustomerList?index=${i}">${i}</a>
+                                                            <a class="page-link" href="marketingCustomerList?index=${i}&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}&search=${sessionScope.search}&SearchBy=${sessionScope.SearchBy}">${i}</a>
                                                         </li>
                                                     </c:if>
                                                 </c:forEach>
@@ -270,13 +280,13 @@
 
                                                 <!-- Last Page Button -->
                                                 <li class="page-item ${index == endPage ? 'active' : ''}">
-                                                    <a class="page-link" href="marketingCustomerList?index=${endPage}">${endPage}</a>
+                                                    <a class="page-link" href="marketingCustomerList?index=${endPage}&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}&search=${sessionScope.search}&SearchBy=${sessionScope.SearchBy}">${endPage}</a>
                                                 </li>
 
                                                 <!-- Next Button -->
                                                 <c:if test="${index < endPage}">
                                                     <li class="page-item">
-                                                        <a class="page-link" href="marketingCustomerList?index=${index + 1}" aria-label="Next">
+                                                        <a class="page-link" href="marketingCustomerList?index=${index + 1}&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}&search=${sessionScope.search}&SearchBy=${sessionScope.SearchBy}" aria-label="Next">
                                                             <span aria-hidden="true">»</span>
                                                         </a>
                                                     </li>
@@ -323,81 +333,69 @@
             <script>
                 let a = parseInt(localStorage.getItem('a')) || 0;
                 function sortByName() {
-                    let url = "marketingProductList?index=${index}&sortBy=name";
+                    let url = "marketingCustomerList?index=${index}&sortBy=name";
                     if (a === 0) {
                         url = url + "&sortOrder=asc";
                     } else {
                         url = url + "&sortOrder=desc";
                     }
-                    url = url + "&search=${sessionScope.search}";
+                    url = url + "&search=${sessionScope.search}&SearchBy=${sessionScope.SearchBy}";
                     a = (a + 1) % 2;
                     localStorage.setItem('a', a);
                     window.location.href = url;
                 }
                 function sortById() {
 
-                    let url = "marketingProductList?index=${index}&sortBy=id";
+                    let url = "marketingCustomerList?index=${index}&sortBy=id";
                     if (a === 0) {
                         url = url + "&sortOrder=asc";
                     } else {
                         url = url + "&sortOrder=desc";
                     }
-                    url = url + "&search=${sessionScope.search}";
+                    url = url + "&search=${sessionScope.search}&SearchBy=${sessionScope.SearchBy}";
                     a = (a + 1) % 2;
                     localStorage.setItem('a', a);
                     window.location.href = url;
                 }
-                function sortByPrice() {
-                    let url = "marketingProductList?index=${index}&sortBy=price";
+                function sortByEmail() {
+                    let url = "marketingCustomerList?index=${index}&sortBy=email";
                     if (a === 0) {
                         url = url + "&sortOrder=asc";
                     } else {
                         url = url + "&sortOrder=desc";
                     }
-                    url = url + "&search=${sessionScope.search}";
+                    url = url + "&search=${sessionScope.search}&SearchBy=${sessionScope.SearchBy}";
                     a = (a + 1) % 2;
                     localStorage.setItem('a', a);
                     window.location.href = url;
                 }
-                function sortByQuantity() {
-                    let url = "marketingProductList?index=${index}&sortBy=quantity";
+                function sortByGender() {
+                    let url = "marketingCustomerList?index=${index}&sortBy=gender";
                     if (a === 0) {
                         url = url + "&sortOrder=asc";
                     } else {
                         url = url + "&sortOrder=desc";
                     }
-                    url = url + "&search=${sessionScope.search}";
+                    url = url + "&search=${sessionScope.search}&SearchBy=${sessionScope.SearchBy}";
                     a = (a + 1) % 2;
                     localStorage.setItem('a', a);
                     window.location.href = url;
                 }
-                function sortByDateStart() {
-                    let url = "marketingProductList?index=${index}&sortBy=datestart";
+                function sortByPhone() {
+                    let url = "marketingCustomerList?index=${index}&sortBy=phone";
                     if (a === 0) {
                         url = url + "&sortOrder=asc";
                     } else {
                         url = url + "&sortOrder=desc";
                     }
-                    url = url + "&search=${sessionScope.search}";
-                    a = (a + 1) % 2;
-                    localStorage.setItem('a', a);
-                    window.location.href = url;
-                }
-                function sortByDateEnd() {
-                    let url = "marketingProductList?index=${index}&sortBy=dateend";
-                    if (a === 0) {
-                        url = url + "&sortOrder=asc";
-                    } else {
-                        url = url + "&sortOrder=desc";
-                    }
-                    url = url + "&search=${sessionScope.search}";
+                    url = url + "&search=${sessionScope.search}&SearchBy=${sessionScope.SearchBy}";
                     a = (a + 1) % 2;
                     localStorage.setItem('a', a);
                     window.location.href = url;
                 }
 
                 function ProductDetail(id) {
-                    let url = "marketingProductDetails?id=" + id;
+                    let url = "marketingCustomerList?id=" + id;
 
                     window.location.href = url;
                 }
