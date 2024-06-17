@@ -11,11 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import vn.fpt.edu.models.Bill;
-import vn.fpt.edu.models.Bill1;
-import vn.fpt.edu.models.BillOrder;
 import vn.fpt.edu.models.FeedBack;
-import vn.fpt.edu.models.GoogleAcount;
-import vn.fpt.edu.models.Product;
 import vn.fpt.edu.models.Product1;
 
 /**
@@ -296,7 +292,7 @@ public class Feedback_DAO extends DBContext {
             st.setInt(2, numOfFeedback);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Feedback1 f = new Feedback1(rs.getString("Date"), rs.getString("User_name"), rs.getInt("Rating"), rs.getInt("FeedbackCount"), rs.getString("Product_name"));
+                Feedback1 f = new Feedback1(rs.getInt("Feedback_Id"), rs.getString("Date"), rs.getString("User_name"), rs.getInt("Rating"), rs.getInt("FeedbackCount"), rs.getString("Product_name"));
                 list.add(f);
             }
         } catch (SQLException e) {
@@ -308,6 +304,7 @@ public class Feedback_DAO extends DBContext {
     public List<Feedback1> getFeedbackAllWithUserSortByDate(String type) {
         List<Feedback1> list = new ArrayList<>();
         String sql = "SELECT \n"
+                + "    FB.Feedback_Id,\n"
                 + "    FB.Date AS Date,\n"
                 + "    FB.Rating,\n"
                 + "    P.Product_name,\n"
@@ -336,7 +333,7 @@ public class Feedback_DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Feedback1 f = new Feedback1(rs.getString("Date"), rs.getString("User_name"), rs.getInt("Rating"), rs.getInt("FeedbackCount"), rs.getString("Product_name"));
+                Feedback1 f = new Feedback1(rs.getInt("Feedback_Id"), rs.getString("Date"), rs.getString("User_name"), rs.getInt("Rating"), rs.getInt("FeedbackCount"), rs.getString("Product_name"));
                 list.add(f);
             }
         } catch (SQLException e) {
@@ -348,6 +345,7 @@ public class Feedback_DAO extends DBContext {
     public List<Feedback1> getFeedbackAllWithUser1() {
         List<Feedback1> list = new ArrayList<>();
         String sql = "SELECT \n"
+                + "    FB.Feedback_Id,\n"
                 + "    FB.Date AS Date,\n"
                 + "    FB.Rating,\n"
                 + "    P.Product_name,\n"
@@ -374,7 +372,7 @@ public class Feedback_DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Feedback1 f = new Feedback1(rs.getString("Date"), rs.getString("User_name"), rs.getInt("Rating"), rs.getInt("FeedbackCount"), rs.getString("Product_name"));
+                Feedback1 f = new Feedback1(rs.getInt("Feedback_Id"), rs.getString("Date"), rs.getString("User_name"), rs.getInt("Rating"), rs.getInt("FeedbackCount"), rs.getString("Product_name"));
                 list.add(f);
             }
         } catch (SQLException e) {
@@ -386,6 +384,7 @@ public class Feedback_DAO extends DBContext {
     public List<Feedback1> getFeedbackAllWithUserSortByRating(String type) {
         List<Feedback1> list = new ArrayList<>();
         String sql = "SELECT \n"
+                + "    FB.Feedback_Id,\n"
                 + "    FB.Date AS Date,\n"
                 + "    FB.Rating,\n"
                 + "    P.Product_name,\n"
@@ -414,7 +413,7 @@ public class Feedback_DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Feedback1 f = new Feedback1(rs.getString("Date"), rs.getString("User_name"), rs.getInt("Rating"), rs.getInt("FeedbackCount"), rs.getString("Product_name"));
+                Feedback1 f = new Feedback1(rs.getInt("Feedback_Id"), rs.getString("Date"), rs.getString("User_name"), rs.getInt("Rating"), rs.getInt("FeedbackCount"), rs.getString("Product_name"));
                 list.add(f);
             }
         } catch (SQLException e) {
@@ -423,9 +422,10 @@ public class Feedback_DAO extends DBContext {
         return list;
     }
 
-    public List<Feedback1> getFeedbackAllWithUserSortByNumOfRate(String type) {
+    public List<Feedback1> getFeedbackAllWithUserSortByFeedbackID(String type) {
         List<Feedback1> list = new ArrayList<>();
         String sql = "SELECT \n"
+                + "    FB.Feedback_Id,\n"
                 + "    FB.Date AS Date,\n"
                 + "    FB.Rating,\n"
                 + "    P.Product_name,\n"
@@ -449,18 +449,85 @@ public class Feedback_DAO extends DBContext {
                 + "        Product_id\n"
                 + ") AS FBCounts ON FB.Product_id = FBCounts.Product_id\n"
                 + "ORDER BY \n"
-                + "    FeedbackCount " + type + ";";
+                + "   Feedback_Id  " + type + ";";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Feedback1 f = new Feedback1(rs.getString("Date"), rs.getString("User_name"), rs.getInt("Rating"), rs.getInt("FeedbackCount"), rs.getString("Product_name"));
+                Feedback1 f = new Feedback1(rs.getInt("Feedback_Id"), rs.getString("Date"), rs.getString("User_name"), rs.getInt("Rating"), rs.getInt("FeedbackCount"), rs.getString("Product_name"));
                 list.add(f);
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
         return list;
+    }
+
+    public List<Feedback1> searchFeedback(String value) {
+        List<Feedback1> list = new ArrayList<>();
+        try {
+            String sql = """
+                         SELECT                   FB.Feedback_Id,
+                                                  FB.Date AS Date,
+                                                  FB.Rating,
+                                                  P.Product_name,
+                                                  U.User_name AS User_name,
+                                                  COALESCE(FBCounts.Review_Count, 0) AS FeedbackCount
+                                              FROM 
+                                                  [Feds].[dbo].[FeedBack] FB
+                                              JOIN 
+                                                  [Feds].[dbo].[Product] P ON FB.Product_id = P.Product_id
+                                              JOIN 
+                                                  [Feds].[dbo].[Bill] B ON FB.Bill_Id = B.Bill_Id
+                                              JOIN 
+                                                  [Feds].[dbo].[User] U ON B.User_id = U.User_Id
+                                              LEFT JOIN (
+                                                  SELECT 
+                                                      Product_id,
+                                                      COUNT(*) AS Review_Count
+                                                  FROM 
+                                                      [Feds].[dbo].[FeedBack]
+                                                  GROUP BY 
+                                                      Product_id
+                                              ) AS FBCounts ON FB.Product_id = FBCounts.Product_id
+                                              WHERE U.User_name LIKE ? 
+                      OR P.Product_name LIKE ? 
+                      OR FB.Date LIKE ?;""";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, "%" + value + "%");
+            ps.setString(2, "%" + value + "%");
+            ps.setString(3, "%" + value + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Feedback1 f = new Feedback1(rs.getInt("Feedback_Id"), rs.getString("Date"), rs.getString("User_name"), rs.getInt("Rating"), rs.getInt("FeedbackCount"), rs.getString("Product_name"));
+                list.add(f);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public int getNumOfPageFeedbackLists(int numOfFeedbackInScreen) {
+        int numOfPages = 0;
+        String sql = "DECLARE @NumberFeedbackPerPage INT = ?\n"
+                + "SELECT CEILING(COUNT(*) * 1.0 / @NumberFeedbackPerPage) AS TotalPages\n"
+                + "FROM Feedback;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, numOfFeedbackInScreen);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                numOfPages = rs.getInt("TotalPages");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return numOfPages;
+    }
+
+    public int getNumOfPageBillList(int i) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

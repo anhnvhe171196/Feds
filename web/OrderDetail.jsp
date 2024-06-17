@@ -183,14 +183,14 @@
 
                 <c:if test="${status.first}">
                     <c:set var="userName" value="${bill.user_name}" />
-                    <c:set var="email" value="${bill.email}" />
-                    <c:set var="phone" value="${bill.phone}" />
+                    <c:set var="email" value="${bill.phone}" />
+                    <c:set var="phone" value="${bill.email}" />
                     <c:set var="address" value="${bill.address}" />
                     <c:set var="payment" value="${bill.payment}" />
                 </c:if>
             </c:forEach>
 
-            <div class="bg-light text-center rounded customer-info">
+            <div class="bg-light text-center rounded customer-info " style="margin: 5px">
                 <div class="info-row">
                     <h6>Khách hàng: <c:out value="${userName}" /></h6>
                 </div>

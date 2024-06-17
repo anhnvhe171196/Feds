@@ -148,6 +148,10 @@
                                 <td>${sessionScope.account.user_name}</td>
                             </tr>
                             <tr>
+                                <td>Giới tính:</td>
+                                <td>${sessionScope.account.gender?"Nam":"Nữ"}</td>
+                            </tr>
+                            <tr>
                                 <td>E-mail:</td>
                                 <td>${sessionScope.account.email}</td>
                             </tr>

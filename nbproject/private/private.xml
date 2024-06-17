@@ -2,16 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/SWP%20Project/Feds/src/java/vn/fpt/edu/dals/Bill_DAO.java</file>
-            <file>file:/D:/SWP%20Project/Feds/web/OrderList.jsp</file>
-            <file>file:/D:/SWP%20Project/Feds/src/java/vn/fpt/edu/salecontroller/FeedbackListFeedbackController.java</file>
-            <file>file:/D:/SWP%20Project/Feds/src/java/vn/fpt/edu/models/BillOrder.java</file>
-            <file>file:/D:/SWP%20Project/Feds/web/FeedbackList.jsp</file>
-            <file>file:/D:/SWP%20Project/Feds/web/OrderDetail.jsp</file>
-            <file>file:/D:/SWP%20Project/Feds/src/java/vn/fpt/edu/salecontroller/BillListBillController.java</file>
-            <file>file:/D:/SWP%20Project/Feds/src/java/vn/fpt/edu/dals/Feedback_DAO.java</file>
-            <file>file:/D:/SWP%20Project/Feds/src/java/vn/fpt/edu/models/Feedback1.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

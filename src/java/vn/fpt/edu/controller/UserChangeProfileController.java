@@ -50,8 +50,15 @@ public class UserChangeProfileController extends HttpServlet {
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
+        String gender = request.getParameter("gender");
+        boolean gender1;
+        if(gender.equals("nam")){
+            gender1 = true;
+        }else{
+            gender1 = false;
+        }
         User_DAO d = new User_DAO();
-        d.changeInfor(username, email, phone);
+        d.changeInfor(username, email, phone, gender1);
         HttpSession session = request.getSession();
         User u = d.getCustomerByEmail(email);
         session.removeAttribute("account");
