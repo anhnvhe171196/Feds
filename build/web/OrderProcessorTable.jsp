@@ -92,9 +92,19 @@
                     </div>
                     <div class="navbar-nav w-100">
                         <a href="marketingDashBoard" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                        <a href="#" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>Product List</a>
-
                     </div>
+                            <div class="navbar-nav w-100">
+                                <div class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Products List</a>
+                                    <div class="dropdown-menu bg-transparent border-0">
+                                        <a href="marketingProductList" class="dropdown-item">Products List</a>
+                                        <a href="#" class="dropdown-item">Post list</a>
+                                        <a href="#" class="dropdown-item">Sliders List</a>
+                                        <a href="marketingCustomerList" class="dropdown-item">Customer list</a>
+                                        <a href="#" class="dropdown-item">Feedback list</a>
+                                    </div>
+                                </div>
+                            </div>
                 </nav>
             </div>
             <!-- Sidebar End -->

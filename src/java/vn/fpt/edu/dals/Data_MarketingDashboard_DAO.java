@@ -14,12 +14,14 @@ import java.util.Date;
 import java.util.List;
 import vn.fpt.edu.models.Brand;
 import vn.fpt.edu.models.Category;
+import vn.fpt.edu.models.Order;
 import vn.fpt.edu.models.Price;
 import vn.fpt.edu.models.Product;
 import vn.fpt.edu.models.Product1;
 import vn.fpt.edu.models.ProductDetail;
 import vn.fpt.edu.models.Role;
 import vn.fpt.edu.models.User;
+import vn.fpt.edu.models.UserDetails;
 
 /**
  *
@@ -402,7 +404,7 @@ public class Data_MarketingDashboard_DAO extends DBContext {
                 sql += "WHERE u.[Phone_number] LIKE ? ";
             }
         }
-        
+
         if ("name".equals(sortBy)) {
             sql += " ORDER BY [User_name] ";
         } else if ("email".equals(sortBy)) {
@@ -419,8 +421,8 @@ public class Data_MarketingDashboard_DAO extends DBContext {
             sql += "ASC";
         } else if ("desc".equals(sortOrder)) {
             sql += "DESC";
-        }else{
-            sql +=" ";
+        } else {
+            sql += " ";
         }
         sql += " OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY";
 
@@ -452,20 +454,98 @@ public class Data_MarketingDashboard_DAO extends DBContext {
         return userList;
     }
 
+    public UserDetails getUserById(int userId) {
+        UserDetails UD = null;
+        User user = null;
+        double totalPrice = 0;
+        int totalOrders = 0;
+        List<Order> products = new ArrayList<>();
+        String sql = "SELECT u.User_Id, u.Password, u.User_name, u.Email, u.Phone_number, \n"
+                + "                   r.Role_id, r.Role_Name, u.Avarta, u.isBanned, u.gender, \n"
+                + "                  o.[Order_id], o.[Product_id], o.[Order_quantity], b.[Bill_id], o.[Real_time_price], o.[Payment],\n"
+                + "                   SUM(COALESCE(b.Total_price, 0)) AS total_price, \n"
+                + "                   COUNT(DISTINCT o.Order_id) AS total_orders \n"
+                + "            FROM [dbo].[User] u \n"
+                + "            LEFT JOIN Bill b ON u.User_Id = b.User_id \n"
+                + "            LEFT JOIN [Order] o ON b.Bill_Id = o.Bill_id \n"
+                + "            JOIN [dbo].[Role] r ON u.Role_id = r.Role_id \n"
+                + "            WHERE u.User_Id = ?\n"
+                + "            GROUP BY u.User_Id, u.Password, u.User_name, u.Email, u.Phone_number, \n"
+                + "                   r.Role_id, r.Role_Name, u.Avarta, u.isBanned, u.gender,o.Order_id,\n"
+                + "				   o.Product_id, o.Order_quantity,b.Bill_id, o.Real_time_price, o.Payment;";
+
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, userId);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                String password = rs.getString("Password");
+                String userName = rs.getString("User_name");
+                String email = rs.getString("Email");
+                String phoneNumber = rs.getString("Phone_number");
+                int roleId = rs.getInt("Role_id");
+                String roleName = rs.getString("Role_Name");
+                String avatar = rs.getString("Avarta");
+                boolean isBanned = rs.getBoolean("isBanned");
+                boolean gender = rs.getBoolean("gender");
+
+                totalPrice = rs.getDouble("total_price");
+                if (rs.wasNull()) {
+                    totalPrice = 0.0;
+                }
+
+                totalOrders = rs.getInt("total_orders");
+                if (rs.wasNull()) {
+                    totalOrders = 0;
+                }
+                do {
+                    int productId = rs.getInt("Product_id");
+                    int orderId = rs.getInt("Order_id");
+                    int BillId = rs.getInt("Bill_id");
+                    Date Real_time_price = rs.getDate("Real_time_price");
+                    String Payment = rs.getString("Payment");
+                    int orderQuantity = rs.getInt("Order_quantity");
+
+                    Order order = new Order(orderId, productId, orderQuantity, BillId, Real_time_price, Payment);
+                    products.add(order);
+
+                } while (rs.next());
+
+                Role role = new Role(roleId, roleName);
+                user = new User(userId, password, userName, email, phoneNumber, role, avatar, isBanned, gender);
+
+                UD = new UserDetails(totalPrice, user, totalOrders, products);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return UD;
+    }
+
     public static void main(String[] args) {
         Data_MarketingDashboard_DAO data = new Data_MarketingDashboard_DAO();
-        List<User> Users = data.getAllUsers(1, "id", "asc");
+//        List<User> Users = data.getAllUsers(1, "id", "asc");
+        UserDetails u = data.getUserById(10);
 
-        for (User u : Users) {
-            System.out.println("User ID: " + u.getUser_Id());
-            System.out.println("User Name: " + u.getUser_name());
-            System.out.println("User Image: " + u.getAvarta());
-            System.out.println("User Email: " + u.getEmail());
-            System.out.println("User Phone: " + u.getPhone_number());
-            System.out.println("User Role: " + u.getRole());
+        double totalPrice = u.getTotalPrice();
+        User user = u.getUser();
+        int totalOrders = u.getTotalOrders();
+        List<Order> orders = u.getOrder();
+        List<Product1> product = new ArrayList<>();
+//        for (User u : Users) {
+        System.out.println("User ID: " + user.getUser_Id());
+        System.out.println("User Name: " + user.getUser_name());
+        System.out.println("Tổng số đơn hàng: " + totalOrders);
+        System.out.println("Tổng số tiền đã mua: " + totalPrice);
 
+        for (Order order : orders) {
+            Product1 p = data.getProductById(order.getProduct_id());
+            if (p != null) { // Kiểm tra nếu p không null
+                System.out.println("Product name: " + order.getOrder_quantity());
+                product.add(p);
+            }
         }
 
+//        }
         System.out.println();
     }
 }

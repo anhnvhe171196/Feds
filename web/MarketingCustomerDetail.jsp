@@ -120,8 +120,13 @@
                     <a href="#" class="sidebar-toggler flex-shrink-0">
                         <i class="fa fa-bars"></i>
                     </a>
-                    <form class="d-none d-md-flex ms-4" action="marketingProductList" method="get"> 
-                        <input class="form-control border-0" type="search" placeholder="Search" name="search">
+                    <form class="d-none d-md-flex ms-4" action="marketingCustomerList" method="get"> 
+                        <input class="form-control border-0" type="search" placeholder="Search" name="search">&nbsp;&nbsp;
+                        <select name="SearchBy" class="btn btn-primary">
+                            <option value="User">User</option>
+                            <option value="Email">Email</option>
+                            <option value="Phone">Phone</option>
+                        </select> &nbsp;&nbsp;
                         <button type="submit" class="btn btn-primary" >Enter</button> 
                     </form> 
                     <div class="navbar-nav align-items-center ms-auto">
@@ -168,7 +173,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class="mb-4">
-                                            <h6>Products Details</h6>
+                                            <h6>Customer Details</h6>
                                         </div>
                                     </div>
                                     <div class="col" style="text-align: right;" >
@@ -186,123 +191,98 @@
                                             <div class="row gx-5">
                                                 <aside class="col-lg-6">
                                                     <div class="border rounded-4 mb-3 d-flex justify-content-center">
-                                                        <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="images/${product.product_img}" />
+                                                        <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="images/${user.avarta}" onerror="this.onerror=null;this.src='images/9-anh-dai-dien-trang-inkythuatso-03-15-27-03.jpg';" />
                                                     </div>
 
                                                 </aside>
                                                 <main class="col-lg-6">
                                                     <div class="ps-lg-3">
                                                         <h4 class="title text-dark">
-                                                            ${product.product_name} 
+                                                            ${user.user_name} 
                                                         </h4>
-                                                        ( #${product.product_id} )
+                                                        ( #${user.user_Id} )
 
 
                                                         <hr/>
 
                                                         <div class="mb-3">
-                                                            <span class="h5" style="color: #1aa6ff"><fmt:formatNumber value="${product.price.price}" pattern="#,##0 VND" /></span>
+                                                            Tổng giá trị các đơn hàng:
+                                                            <c:if test="${not empty totalPrice}">
+                                                                <span class="h5" style="color: #1aa6ff"><fmt:formatNumber value="${totalPrice}" pattern="#,##0 VND" /></span>
+                                                            </c:if>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            Tổng số đơn hàng:
+                                                            <span class="h5" style="color: #1aa6ff">${totalOrders}</span>
                                                         </div>
 
-                                                        <hr/>
-                                                        <h6>Description:</h6>
-                                                        <c:if test="${not empty product.detail.decription}">
-                                                            <dd class="col-9">${product.detail.decription}</dd>
-                                                        </c:if>
                                                         <hr/>
                                                         <a href="#" id="show-more-details">Show more Details</a>
                                                         <hr/>
 
+
+
                                                         <div class="row" id="product-details" style="display: none;">
-
-                                                            <c:if test="${not empty product.detail.ram}">
+                                                            <c:if test="${not empty user.email}">
                                                                 <div class="row w-100">
-                                                                    <dt class="col-3">Ram</dt>
-                                                                    <dd class="col-9">${product.detail.ram}</dd>
-                                                                </div>                                                                
-                                                            </c:if>
-                                                            <c:if test="${not empty product.detail.rom}">
-                                                                <div class="row w-100">
-
-                                                                    <dt class="col-3">Rom:</dt>
-                                                                    <dd class="col-9">${product.detail.rom}</dd>
+                                                                    <dt class="col-3">Email:</dt>
+                                                                    <dd class="col-9">${user.email}</dd>
                                                                 </div>
                                                             </c:if>
-                                                            <c:if test="${not empty product.detail.size}">
-                                                                <div class="row w-100">
 
-                                                                    <dt class="col-3">Size:</dt>
-                                                                    <dd class="col-9">${product.detail.size}</dd>
+                                                            <c:if test="${not empty user.phone_number}">
+                                                                <div class="row w-100">
+                                                                    <dt class="col-4">Phone Number:</dt>
+                                                                    <dd class="col-8">${user.phone_number}</dd>
                                                                 </div>
                                                             </c:if>
-                                                            <c:if test="${not empty product.detail.battery}">
-                                                                <div class="row w-100">
 
-                                                                    <dt class="col-3">Battery:</dt>
-                                                                    <dd class="col-9">${product.detail.battery}</dd>
-                                                                </div>                                                                
-                                                            </c:if>
-                                                            <c:if test="${not empty product.detail.weight}">
-                                                                <div class="row w-100">
+                                                            <div class="row w-100">
+                                                                <dt class="col-3">Gender:</dt>
+                                                                <c:if test="${user.gender}">
+                                                                    <dd class="col-9">Male</dd>
+                                                                </c:if>
+                                                                <c:if test="${!user.gender}">
+                                                                    <dd class="col-9">Female</dd>
+                                                                </c:if>
+                                                            </div>
 
-                                                                    <dt class="col-3">Weight:</dt>
-                                                                    <dd class="col-9">${product.detail.weight}</dd>
+                                                            <c:if test="${not empty user.role.roleName}">
+                                                                <div class="row w-100">
+                                                                    <dt class="col-3">Role:</dt>
+                                                                    <dd class="col-9">${user.role.roleName}</dd>
                                                                 </div>
                                                             </c:if>
-                                                            <c:if test="${not empty product.detail.color}">
-                                                                <div class="row w-100">
 
-                                                                    <dt class="col-3">Color:</dt>
-                                                                    <dd class="col-9">${product.detail.color}</dd>
-                                                                </div>
-                                                            </c:if>                                                            
-                                                            <c:if test="${not empty product.detail.cpu}">
-                                                                <div class="row w-100">
 
-                                                                    <dt class="col-3">CPU:</dt>
-                                                                    <dd class="col-9">${product.detail.cpu}</dd>
-                                                                </div>
-                                                            </c:if>
-                                                            <c:if test="${not empty product.detail.wattage}">
-                                                                <div class="row w-100">
-
-                                                                    <dt class="col-3">Wattage:</dt>
-                                                                    <dd class="col-9">${product.detail.wattage}</dd>
-                                                                </div>
-                                                            </c:if>
-                                                            <c:if test="${not empty product.detail.status}">
-                                                                <div class="row w-100">
-
-                                                                    <dt class="col-3">Status:</dt>
-                                                                    <dd class="col-9">${product.detail.status}</dd>
-                                                                </div>
-                                                            </c:if>
-                                                            <c:if test="${not empty product.price.dateStart}">
-                                                                <div class="row w-100">
-
-                                                                    <dt class="col-3">Date start:</dt>
-                                                                    <dd class="col-9">${product.price.dateStart}</dd>
-                                                                </div>
-                                                            </c:if>
-                                                            <c:if test="${not empty product.price.dateEnd}">
-                                                                <div class="row w-100">
-
-                                                                    <dt class="col-3">Date End:</dt>
-                                                                    <dd class="col-9">${product.price.dateEnd}</dd>
-                                                                </div>
-                                                            </c:if>
-                                                            <c:if test="${not empty product.price.sale}">
-                                                                <div class="row w-100">
-
-                                                                    <dt class="col-3">Sale:</dt>
-                                                                    <dd class="col-9">${product.price.sale} %</dd>
-                                                                </div>
-                                                            </c:if>
+                                                            <div class="row w-100">
+                                                                <dt class="col-3">Status:</dt>
+                                                                <c:if test="${user.banned}">
+                                                                    <dd class="col-9" style="color: red">Banned</dd>
+                                                                </c:if>
+                                                                <c:if test="${!user.banned}" >
+                                                                    <dd class="col-9" style="color: springgreen">Active</dd>
+                                                                </c:if>
+                                                            </div>
+                                                            <hr/>
+                                                            <a href="#" id="show-more-details1">Displays Purchased Products</a>
                                                             <hr/>
 
+                                                            <div class="row" id="product-details1" style="display: none;">
+                                                                <div class="row w-100">
+                                                                    <dt class="col-2">Id</dt>
+                                                                    <dt class="col-7">Name</dt>
+                                                                    <dt class="col-3">Quantity</dt>
+                                                                </div>                                                                
+                                                                <c:forEach items="${product}" var="product">
+                                                                    <div class="row w-100">
+                                                                        <dd class="col-2">${product.product.product_id}</dd>
+                                                                        <dd class="col-7">${product.product.product_name}</dd>
+                                                                        <dd class="col-3">${product.orderQuantity}</dd>
+                                                                    </div>
+                                                                </c:forEach>
+                                                            </div>
                                                         </div>
-
-
                                                     </div>
                                                 </main>
                                             </div>
@@ -347,6 +327,8 @@
             <script>
                 const detailsDiv = document.getElementById("product-details");
                 const showMoreButton = document.getElementById("show-more-details");
+                const detailsDiv1 = document.getElementById("product-details1");
+                const showMoreButton1 = document.getElementById("show-more-details1");
 
                 showMoreButton.addEventListener("click", function () {
                     if (detailsDiv.style.display === "none") {
@@ -355,6 +337,15 @@
                     } else {
                         detailsDiv.style.display = "none";
                         showMoreButton.textContent = "Show more Details"; // Thay đổi nội dung nút
+                    }
+                });
+                showMoreButton1.addEventListener("click", function () {
+                    if (detailsDiv1.style.display === "none") {
+                        detailsDiv1.style.display = "block";
+                        showMoreButton1.textContent = "Hide Purchased Products"; // Thay đổi nội dung nút
+                    } else {
+                        detailsDiv1.style.display = "none";
+                        showMoreButton1.textContent = "Displays Purchased Products"; // Thay đổi nội dung nút
                     }
                 });
             </script>
