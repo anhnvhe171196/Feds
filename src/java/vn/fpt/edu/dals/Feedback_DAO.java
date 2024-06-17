@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import vn.fpt.edu.models.Bill;
+import vn.fpt.edu.models.Bill1;
+import vn.fpt.edu.models.BillOrder;
 import vn.fpt.edu.models.FeedBack;
 import vn.fpt.edu.models.GoogleAcount;
 import vn.fpt.edu.models.Product;
@@ -284,4 +286,181 @@ public class Feedback_DAO extends DBContext {
             System.out.println(e);
         }
     }
+
+    public List<Feedback1> getAllFeedbackPagingSQL(int pageIndex, int numOfFeedback) {
+        List<Feedback1> list = new ArrayList<>();
+        String sql = "exec PagingFeedback ?,?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, pageIndex);
+            st.setInt(2, numOfFeedback);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Feedback1 f = new Feedback1(rs.getString("Date"), rs.getString("User_name"), rs.getInt("Rating"), rs.getInt("FeedbackCount"), rs.getString("Product_name"));
+                list.add(f);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public List<Feedback1> getFeedbackAllWithUserSortByDate(String type) {
+        List<Feedback1> list = new ArrayList<>();
+        String sql = "SELECT \n"
+                + "    FB.Date AS Date,\n"
+                + "    FB.Rating,\n"
+                + "    P.Product_name,\n"
+                + "    U.User_name AS User_name,\n"
+                + "    COALESCE(FBCounts.Review_Count, 0) AS FeedbackCount\n"
+                + "FROM \n"
+                + "    [Feds].[dbo].[FeedBack] FB\n"
+                + "JOIN \n"
+                + "    [Feds].[dbo].[Product] P ON FB.Product_id = P.Product_id\n"
+                + "JOIN \n"
+                + "    [Feds].[dbo].[Bill] B ON FB.Bill_Id = B.Bill_Id\n"
+                + "JOIN \n"
+                + "    [Feds].[dbo].[User] U ON B.User_id = U.User_Id\n"
+                + "LEFT JOIN (\n"
+                + "    SELECT \n"
+                + "        Product_id,\n"
+                + "        COUNT(*) AS Review_Count\n"
+                + "    FROM \n"
+                + "        [Feds].[dbo].[FeedBack]\n"
+                + "    GROUP BY \n"
+                + "        Product_id\n"
+                + ") AS FBCounts ON FB.Product_id = FBCounts.Product_id\n"
+                + "ORDER BY \n"
+                + "    FB.Date " + type + ";";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Feedback1 f = new Feedback1(rs.getString("Date"), rs.getString("User_name"), rs.getInt("Rating"), rs.getInt("FeedbackCount"), rs.getString("Product_name"));
+                list.add(f);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public List<Feedback1> getFeedbackAllWithUser1() {
+        List<Feedback1> list = new ArrayList<>();
+        String sql = "SELECT \n"
+                + "    FB.Date AS Date,\n"
+                + "    FB.Rating,\n"
+                + "    P.Product_name,\n"
+                + "    U.User_name AS User_name,\n"
+                + "    COALESCE(FBCounts.Review_Count, 0) AS FeedbackCount\n"
+                + "FROM \n"
+                + "    [Feds].[dbo].[FeedBack] FB\n"
+                + "JOIN \n"
+                + "    [Feds].[dbo].[Product] P ON FB.Product_id = P.Product_id\n"
+                + "JOIN \n"
+                + "    [Feds].[dbo].[Bill] B ON FB.Bill_Id = B.Bill_Id\n"
+                + "JOIN \n"
+                + "    [Feds].[dbo].[User] U ON B.User_id = U.User_Id\n"
+                + "LEFT JOIN (\n"
+                + "    SELECT \n"
+                + "        Product_id,\n"
+                + "        COUNT(*) AS Review_Count\n"
+                + "    FROM \n"
+                + "        [Feds].[dbo].[FeedBack]\n"
+                + "    GROUP BY \n"
+                + "        Product_id\n"
+                + ") AS FBCounts ON FB.Product_id = FBCounts.Product_id\n";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Feedback1 f = new Feedback1(rs.getString("Date"), rs.getString("User_name"), rs.getInt("Rating"), rs.getInt("FeedbackCount"), rs.getString("Product_name"));
+                list.add(f);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public List<Feedback1> getFeedbackAllWithUserSortByRating(String type) {
+        List<Feedback1> list = new ArrayList<>();
+        String sql = "SELECT \n"
+                + "    FB.Date AS Date,\n"
+                + "    FB.Rating,\n"
+                + "    P.Product_name,\n"
+                + "    U.User_name AS User_name,\n"
+                + "    COALESCE(FBCounts.Review_Count, 0) AS FeedbackCount\n"
+                + "FROM \n"
+                + "    [Feds].[dbo].[FeedBack] FB\n"
+                + "JOIN \n"
+                + "    [Feds].[dbo].[Product] P ON FB.Product_id = P.Product_id\n"
+                + "JOIN \n"
+                + "    [Feds].[dbo].[Bill] B ON FB.Bill_Id = B.Bill_Id\n"
+                + "JOIN \n"
+                + "    [Feds].[dbo].[User] U ON B.User_id = U.User_Id\n"
+                + "LEFT JOIN (\n"
+                + "    SELECT \n"
+                + "        Product_id,\n"
+                + "        COUNT(*) AS Review_Count\n"
+                + "    FROM \n"
+                + "        [Feds].[dbo].[FeedBack]\n"
+                + "    GROUP BY \n"
+                + "        Product_id\n"
+                + ") AS FBCounts ON FB.Product_id = FBCounts.Product_id\n"
+                + "ORDER BY \n"
+                + "    FB.Rating " + type + ";";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Feedback1 f = new Feedback1(rs.getString("Date"), rs.getString("User_name"), rs.getInt("Rating"), rs.getInt("FeedbackCount"), rs.getString("Product_name"));
+                list.add(f);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public List<Feedback1> getFeedbackAllWithUserSortByNumOfRate(String type) {
+        List<Feedback1> list = new ArrayList<>();
+        String sql = "SELECT \n"
+                + "    FB.Date AS Date,\n"
+                + "    FB.Rating,\n"
+                + "    P.Product_name,\n"
+                + "    U.User_name AS User_name,\n"
+                + "    COALESCE(FBCounts.Review_Count, 0) AS FeedbackCount\n"
+                + "FROM \n"
+                + "    [Feds].[dbo].[FeedBack] FB\n"
+                + "JOIN \n"
+                + "    [Feds].[dbo].[Product] P ON FB.Product_id = P.Product_id\n"
+                + "JOIN \n"
+                + "    [Feds].[dbo].[Bill] B ON FB.Bill_Id = B.Bill_Id\n"
+                + "JOIN \n"
+                + "    [Feds].[dbo].[User] U ON B.User_id = U.User_Id\n"
+                + "LEFT JOIN (\n"
+                + "    SELECT \n"
+                + "        Product_id,\n"
+                + "        COUNT(*) AS Review_Count\n"
+                + "    FROM \n"
+                + "        [Feds].[dbo].[FeedBack]\n"
+                + "    GROUP BY \n"
+                + "        Product_id\n"
+                + ") AS FBCounts ON FB.Product_id = FBCounts.Product_id\n"
+                + "ORDER BY \n"
+                + "    FeedbackCount " + type + ";";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Feedback1 f = new Feedback1(rs.getString("Date"), rs.getString("User_name"), rs.getInt("Rating"), rs.getInt("FeedbackCount"), rs.getString("Product_name"));
+                list.add(f);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
 }

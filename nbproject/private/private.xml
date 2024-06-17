@@ -3,17 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-
-            <file>file:/C:/Users/Nguyen%20Tuan%20Anh/Documents/GitHub/Feds/src/java/vn/fpt/edu/models/RelatedProducts.java</file>
-            <file>file:/C:/Users/Nguyen%20Tuan%20Anh/Documents/GitHub/Feds/src/java/vn/fpt/edu/dals/Brand_DAO.java</file>
-            <file>file:/C:/Users/Nguyen%20Tuan%20Anh/Documents/GitHub/Feds/src/java/vn/fpt/edu/models/Price.java</file>
-            <file>file:/C:/Users/Nguyen%20Tuan%20Anh/Documents/GitHub/Feds/src/java/vn/fpt/edu/admin/controller/UserListController.java</file>
-            <file>file:/C:/Users/Nguyen%20Tuan%20Anh/Documents/GitHub/Feds/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/Nguyen%20Tuan%20Anh/Documents/GitHub/Feds/src/java/vn/fpt/edu/dals/Data_MarketingDashboard_DAO.java</file>
-            <file>file:/C:/Users/Nguyen%20Tuan%20Anh/Documents/GitHub/Feds/src/java/vn/fpt/edu/dals/User_DAO.java</file>
-            <file>file:/C:/Users/Nguyen%20Tuan%20Anh/Documents/GitHub/Feds/web/ProductList.jsp</file>
-            <file>file:/C:/Users/Nguyen%20Tuan%20Anh/Documents/GitHub/Feds/src/java/vn/fpt/edu/dals/Price_DAO.java</file>
-
+            <file>file:/D:/SWP%20Project/Feds/src/java/vn/fpt/edu/dals/Bill_DAO.java</file>
+            <file>file:/D:/SWP%20Project/Feds/web/OrderList.jsp</file>
+            <file>file:/D:/SWP%20Project/Feds/src/java/vn/fpt/edu/salecontroller/FeedbackListFeedbackController.java</file>
+            <file>file:/D:/SWP%20Project/Feds/src/java/vn/fpt/edu/models/BillOrder.java</file>
+            <file>file:/D:/SWP%20Project/Feds/web/FeedbackList.jsp</file>
+            <file>file:/D:/SWP%20Project/Feds/web/OrderDetail.jsp</file>
+            <file>file:/D:/SWP%20Project/Feds/src/java/vn/fpt/edu/salecontroller/BillListBillController.java</file>
+            <file>file:/D:/SWP%20Project/Feds/src/java/vn/fpt/edu/dals/Feedback_DAO.java</file>
+            <file>file:/D:/SWP%20Project/Feds/src/java/vn/fpt/edu/models/Feedback1.java</file>
         </group>
     </open-files>
 </project-private>
