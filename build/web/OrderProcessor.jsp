@@ -92,7 +92,7 @@
                                 <a href="marketingProductList" class="dropdown-item">Products List</a>
                                 <a href="#" class="dropdown-item">Post list</a>
                                 <a href="#" class="dropdown-item">Sliders List</a>
-                                <a href="#" class="dropdown-item">Customer list</a>
+                                <a href="marketingCustomerList" class="dropdown-item">Customer list</a>
                                 <a href="#" class="dropdown-item">Feedback list</a>
                             </div>
                         </div>

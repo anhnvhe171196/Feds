@@ -92,7 +92,7 @@
                     </div>
                     <div class="navbar-nav w-100">
                         <a href="marketingDashBoard" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                        <a href="#" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>Product List</a>
+                        <a href="#" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>Customer list</a>
 
                     </div>
                 </nav>
@@ -155,7 +155,7 @@
                     <div class="row g-4">
                         <div class="col-sm-12">
                             <div class="bg-light rounded h-100 p-4">
-                                <h6 class="mb-4">Products list</h6>
+                                <h6 class="mb-4">Customer list</h6>
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -164,33 +164,24 @@
                                                     <button type="button" class="sort-button">ID</button>
                                                 </a>
                                             </th>
-                                            <th scope="col" style="color: #009CFF;">Image</th>
+                                            <th scope="col" style="color: #009CFF;">Avatar</th>
                                             <th scope="col">
                                                 <a href="#" onclick="sortByName()">
-                                                    <button type="button" class="sort-button">Product name</button>
+                                                    <button type="button" class="sort-button">Customer name</button>
                                                 </a>
                                             </th>
-                                            <th scope="col" style="color: #009CFF;">Category</th>
+                                            <th scope="col" style="color: #009CFF;">Email</th>
                                             <th scope="col">
                                                 <a href="#" onclick="sortByQuantity()">
-                                                    <button type="button" class="sort-button">Quantity</button>
+                                                    <button type="button" class="sort-button">Phone number</button>
                                                 </a>
                                             </th>
                                             <th scope="col">
                                                 <a href="#" onclick="sortByPrice()">
-                                                    <button type="button" class="sort-button">Price</button>
+                                                    <button type="button" class="sort-button">Gender</button>
                                                 </a>
                                             </th>
-                                            <th scope="col">
-                                                <a href="#" onclick="sortByDateStart()">
-                                                    <button type="button" class="sort-button">Date Start</button>
-                                                </a>
-                                            </th>
-                                            <th scope="col">
-                                                <a href="#" onclick="sortByDateEnd()">
-                                                    <button type="button" class="sort-button">Date End</button>
-                                                </a>
-                                            </th>
+
                                             <th scope="col" style="color: #009CFF;">
                                                 Details
                                             </th>
@@ -237,8 +228,7 @@
 
                                     </tbody>
                                 </table>
-                                
-                                
+
                                 <div class="d-flex justify-content-center">
                                     <c:if test="${endPage > 1}">
                                         <nav aria-label="Page navigation">
@@ -246,7 +236,7 @@
                                                 <!-- Previous Button -->
                                                 <c:if test="${index > 1}">
                                                     <li class="page-item">
-                                                        <a class="page-link" href="marketingProductList?index=${index - 1}&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}&search=${sessionScope.search}" aria-label="Previous">
+                                                        <a class="page-link" href="marketingCustomerList?index=${index - 1}" aria-label="Previous">
                                                             <span aria-hidden="true">«</span>
                                                         </a>
                                                     </li>
@@ -254,7 +244,7 @@
 
                                                 <!-- First Page Button -->
                                                 <li class="page-item ${index == 1 ? 'active' : ''}">
-                                                    <a class="page-link" href="marketingProductList?index=1&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}&search=${sessionScope.search}">1</a>
+                                                    <a class="page-link" href="marketingCustomerList?index=1">1</a>
                                                 </li>
 
                                                 <!-- Page Number Buttons -->
@@ -267,7 +257,7 @@
                                                 <c:forEach begin="2" end="${endPage-1}" var="i">
                                                     <c:if test="${i >= index - 1 && i <= index + 1}">
                                                         <li class="page-item ${i == index ? 'active' : ''}">
-                                                            <a class="page-link" href="marketingProductList?index=${i}&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}&search=${sessionScope.search}">${i}</a>
+                                                            <a class="page-link" href="marketingCustomerList?index=${i}">${i}</a>
                                                         </li>
                                                     </c:if>
                                                 </c:forEach>
@@ -280,13 +270,13 @@
 
                                                 <!-- Last Page Button -->
                                                 <li class="page-item ${index == endPage ? 'active' : ''}">
-                                                    <a class="page-link" href="marketingProductList?index=${endPage}&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}&search=${sessionScope.search}">${endPage}</a>
+                                                    <a class="page-link" href="marketingCustomerList?index=${endPage}">${endPage}</a>
                                                 </li>
 
                                                 <!-- Next Button -->
                                                 <c:if test="${index < endPage}">
                                                     <li class="page-item">
-                                                        <a class="page-link" href="marketingProductList?index=${index + 1}&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}&search=${sessionScope.search}" aria-label="Next">
+                                                        <a class="page-link" href="marketingCustomerList?index=${index + 1}" aria-label="Next">
                                                             <span aria-hidden="true">»</span>
                                                         </a>
                                                     </li>
@@ -295,6 +285,8 @@
                                         </nav>
                                     </c:if>
                                 </div>
+
+
                             </div>
                         </div>
 
