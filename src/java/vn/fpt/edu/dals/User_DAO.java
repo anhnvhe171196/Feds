@@ -145,7 +145,7 @@ public class User_DAO extends DBContext {
             Role_DAO rd = new Role_DAO();
             if (rs.next()) {
                 Role r = rd.getRoleById(rs.getInt("Role_id"));
-                User u = new User(rs.getInt("User_Id"), rs.getString("Password"), rs.getString("User_name"), rs.getString("Email"), rs.getString("Phone_number"), r, rs.getString("Avarta"), rs.getInt("isBanned") == 1, rs.getInt("gender") == 1);
+                User u = new User(rs.getInt("User_Id"), rs.getString("Password"), rs.getString("User_name"), rs.getString("Email"), rs.getString("Phone_number"), r, rs.getString("Avarta"), rs.getInt("isBanned") == 1, rs.getBoolean("gender"));
                 return u;
             }
         } catch (SQLException e) {
@@ -211,16 +211,18 @@ public class User_DAO extends DBContext {
         }
     }
 
-    public void changeInfor(String username, String email, String phone) {
+    public void changeInfor(String username, String email, String phone, boolean gender) {
         String spl = "UPDATE [dbo].[User]\n"
                 + "   SET [User_name] = ?\n"
                 + "      ,[Phone_number] = ?\n"
+                + "      ,[gender] = ?\n"
                 + " WHERE Email = ?";
         try {
             PreparedStatement st = connection.prepareStatement(spl);
             st.setString(1, username);
             st.setString(2, phone);
-            st.setString(3, email);
+            st.setBoolean(3, gender);
+            st.setString(4, email);
             st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

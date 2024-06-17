@@ -104,6 +104,14 @@
                                         <input class="form-control" id="inputPhone" type="tel" pattern="[0]{1}[3,5,7,8,9]{1}[0-9]{8}" placeholder="Enter your phone number" name="phone" value="${account.phone_number}">
                                     </div>
                                 </div>
+                                <div class="row gx-3 mb-3">
+                                    <!-- Form Group (phone number)-->
+                                    <div class="col-md-12">
+                                        <label class="small mb-1" for="inputPhone">Giới tính</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input ${account.gender?"checked":""} type="radio" name="gender" value="nam">Nam &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input ${account.gender?"":"checked"} type="radio" name="gender" value="nu">Nữ
+                                    </div>
+                                </div>
                                 <div class="row" style="padding: 0px 350px;">
                                     <button class="btn btn-primary" type="submit">Lưu thay đổi</button>
                                 </div>
