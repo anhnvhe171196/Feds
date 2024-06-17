@@ -67,13 +67,13 @@ public class BillListBillController extends HttpServlet {
 
         if (action == null) {   
             List<Bill1> listBill = bd.getBillAllWithUserPagingSQL(1, 10);
-            session.setAttribute("listBill", listBill);
             
             int totalPages = bd.getNumOfPageBillList(10);
             int currentPage = 1;
-            session.setAttribute("page", currentPage);
-            request.setAttribute("totalPages", totalPages);
             
+            session.setAttribute("listBill", listBill);
+            session.setAttribute("page", currentPage);
+            session.setAttribute("totalPages", totalPages);
             request.getRequestDispatcher("OrderList.jsp").forward(request, response);
         } else if (action.equals("sortByDateAsc")) {
             List<Bill1> listBill = bd.getBillAllWithUserSortByDate("Asc");
@@ -117,7 +117,7 @@ public class BillListBillController extends HttpServlet {
             
             session.setAttribute("page", page);
             int totalPages = bd.getNumOfPageBillList(10);
-            request.setAttribute("totalPages", totalPages);
+            session.setAttribute("totalPages", totalPages);
             request.getRequestDispatcher("OrderList.jsp").forward(request, response);
         }
     }

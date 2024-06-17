@@ -92,6 +92,10 @@
         <servlet-name>FeedbackListFeedbackController</servlet-name>
         <servlet-class>vn.fpt.edu.salecontroller.FeedbackListFeedbackController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FeedbackDetailFeedbackController</servlet-name>
+        <servlet-class>vn.fpt.edu.salecontroller.FeedbackDetailFeedbackController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserRegisterController</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -187,6 +191,10 @@
     <servlet-mapping>
         <servlet-name>FeedbackListFeedbackController</servlet-name>
         <url-pattern>/feedbackListFeedbackController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FeedbackDetailFeedbackController</servlet-name>
+        <url-pattern>/feedbackDetailFeedbackController</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home</welcome-file>
