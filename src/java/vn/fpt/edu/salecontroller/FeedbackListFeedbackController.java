@@ -12,9 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
-import vn.fpt.edu.dals.Bill_DAO;
 import vn.fpt.edu.dals.Feedback_DAO;
-import vn.fpt.edu.models.Bill1;
 import vn.fpt.edu.models.Feedback1;
 
 /**
@@ -61,14 +59,76 @@ public class FeedbackListFeedbackController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
         String action = request.getParameter("action");
-        
-         
-            Feedback_DAO fbd = new Feedback_DAO();
-            List<Feedback1> feedbackList = fbd.getAllFeedbackPagingSQL(1, 2);
-            request.setAttribute("feedbackList", feedbackList);
+        Feedback_DAO fbd = new Feedback_DAO();
+        PrintWriter out = response.getWriter();
+        if(action == null){ 
+            
+            List<Feedback1> feedbackList = fbd.getAllFeedbackPagingSQL(1, 10);
+            int totalPages = fbd.getNumOfPageFeedbackLists(10);
+            int currentPage = 1;
+            
+            session.setAttribute("totalPages", totalPages);
+            session.setAttribute("page", currentPage);
+            session.setAttribute("feedbackList", feedbackList);
             request.getRequestDispatcher("FeedbackList.jsp").forward(request, response);
         
+        }
+        else if (action.equals("showAll")) {
+            List<Feedback1> feedbackList = fbd.getFeedbackAllWithUser1();
+            session.setAttribute("feedbackList", feedbackList);
+            request.getRequestDispatcher("FeedbackList.jsp").forward(request, response);
+        } 
+        else if (action.equals("sortByDateAsc")) {
+            List<Feedback1> feedbackList = fbd.getFeedbackAllWithUserSortByDate("Asc");
+            session.setAttribute("feedbackList", feedbackList);
+            request.getRequestDispatcher("FeedbackList.jsp").forward(request, response);
+        } 
+        else if (action.equals("sortByDateDesc")) {
+            List<Feedback1> feedbackList = fbd.getFeedbackAllWithUserSortByDate("Desc");
+            session.setAttribute("feedbackList", feedbackList);
+            request.getRequestDispatcher("FeedbackList.jsp").forward(request, response);
+        }
+        else if (action.equals("sortByRatingAsc")) {
+            List<Feedback1> feedbackList = fbd.getFeedbackAllWithUserSortByRating("Asc");
+            session.setAttribute("feedbackList", feedbackList);
+            request.getRequestDispatcher("FeedbackList.jsp").forward(request, response);
+        } 
+        else if (action.equals("sortByRatingDesc")) {
+            List<Feedback1> feedbackList = fbd.getFeedbackAllWithUserSortByRating("Desc");
+            session.setAttribute("feedbackList", feedbackList);
+            request.getRequestDispatcher("FeedbackList.jsp").forward(request, response);
+        } 
+        else if (action.equals("sortByNumOfFeedbackAsc")) {
+            List<Feedback1> feedbackList = fbd.getFeedbackAllWithUserSortByFeedbackID("Asc");
+            session.setAttribute("feedbackList", feedbackList);
+            request.getRequestDispatcher("FeedbackList.jsp").forward(request, response);
+        } 
+        else if (action.equals("sortByNumOfFeedbackDesc")) {
+            List<Feedback1> feedbackList = fbd.getFeedbackAllWithUserSortByFeedbackID("Desc");
+            session.setAttribute("feedbackList", feedbackList);
+            request.getRequestDispatcher("FeedbackList.jsp").forward(request, response);
+        } 
+        
+        else if (action.equals("search")) {
+            String value = request.getParameter("value");
+            request.setAttribute("value", value);
+            List<Feedback1> feedbackList = fbd.searchFeedback(value);
+            session.setAttribute("feedbackList", feedbackList);
+            request.getRequestDispatcher("FeedbackList.jsp").forward(request, response);
+        }
+        else if(action.equals("paging")){ 
+            int page = Integer.parseInt(request.getParameter("page"));
+            List<Feedback1> feedbackList = fbd.getAllFeedbackPagingSQL(page, 10);
+            session.setAttribute("feedbackList", feedbackList);
+            
+            session.setAttribute("page", page);
+            int totalPages = fbd.getNumOfPageFeedbackLists(10);
+            session.setAttribute("totalPages", totalPages);
+            request.getRequestDispatcher("FeedbackList.jsp").forward(request, response);
+        }
+            
         
     }
     

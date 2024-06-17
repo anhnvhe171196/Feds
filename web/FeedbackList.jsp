@@ -146,7 +146,7 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-light text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
-                        <form class="d-none d-md-flex ms-4" method="GET" action="orderListBillController">
+                        <form class="d-none d-md-flex ms-4" method="GET" action="feedbackListFeedbackController">
                             <input type="hidden" name="action" value="search">
                             <input class="form-control border-0" type="search" name="value" placeholder="Tìm kiếm" value="${sessionScope.value}">
                         </form>
@@ -155,33 +155,33 @@
                                 Xếp theo ngày
                             </button>
                             <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item" href="orderListBillController?action=sortByDateAsc">Ngày tăng</a></li>
-                                <li><a class="dropdown-item" href="orderListBillController?action=sortByDateDesc">Ngày giảm</a></li>
+                                <li><a class="dropdown-item" href="feedbackListFeedbackController?action=sortByDateAsc">Ngày tăng</a></li>
+                                <li><a class="dropdown-item" href="feedbackListFeedbackController?action=sortByDateDesc">Ngày giảm</a></li>
                             </ul>
                         </div>
 
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                Xếp theo Mã đơn
+                                Xếp theo Số sao
                             </button>
                             <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item" href="orderListBillController?action=sortByBillIdAsc">Mã đơn tăng</a></li>
-                                <li><a class="dropdown-item" href="orderListBillController?action=sortByBillIdDesc">Mã đơn giảm</a></li>
+                                <li><a class="dropdown-item" href="feedbackListFeedbackController?action=sortByRatingAsc">Tăng</a></li>
+                                <li><a class="dropdown-item" href="feedbackListFeedbackController?action=sortByRatingDesc">Giảm</a></li>
 
                             </ul>
                         </div>
 
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                Xếp theo Giá trị đơn hàng
+                                Xếp theo Mã đánh giá
                             </button>
                             <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item" href="orderListBillController?action=sortByValueAsc">Giá trị tăng</a></li>
-                                <li><a class="dropdown-item" href="orderListBillController?action=sortByValueDesc">Giá trị giảm</a></li>
+                                <li><a class="dropdown-item" href="feedbackListFeedbackController?action=sortByNumOfFeedbackAsc">Tăng</a></li>
+                                <li><a class="dropdown-item" href="feedbackListFeedbackController?action=sortByNumOfFeedbackDesc">Giảm</a></li>
                             </ul>
                         </div>
 
-                        <button class="btn btn-outline-primary m-2"><a href="/Feds/orderListBillController?action=showAll">Xem Tất Cả</a></button>
+                        <button class="btn btn-outline-primary m-2"><a href="/Feds/feedbackListFeedbackController?action=showAll">Xem Tất Cả</a></button>
                     </div>
 
 
@@ -189,6 +189,7 @@
                         <table class="table text-start align-middle table-bordered table-hover mb-0">
                             <thead>
                                 <tr class="text-dark">
+                                    <th scope="col">Mã đánh giá</th>
                                     <th scope="col">Ngày</th>
                                     <th scope="col">Sản phẩm</th>
                                     <th scope="col">Số Sao</th>
@@ -199,27 +200,78 @@
                             </thead>
                             <tbody>
 
-                                <c:forEach items="${requestScope.feedbackList}" var="fb"> 
+                                <c:forEach items="${sessionScope.feedbackList}" var="fb"> 
                                     <tr>
+                                        <td>${fb.feedbackId}</td>
                                         <td>${fb.date}</td>
                                         <td>${fb.product_name}</td>
                                         <td>${fb.rate_star}</td>
                                         <td>${fb.count_rate}</td>
                                         <td>${fb.userName}</td>
-                                        <td style="width: 130px"><a class="btn btn-outline-primary m-2 btn-center" href="/Feds/billDetailBillController?id=">Xem đơn</a></td>
+                                        <td style="width: 130px; text-align: center"><a class="btn btn-outline-primary m-2 btn-center" href="/Feds/feedbackDetailFeedbackController?id=${fb.feedbackId}">Chi tiết</a></td>
                                     </tr>
                                 </c:forEach>
 
                             </tbody>
                         </table>
                     </div>
-
-
-
-
                 </div>
             </div>
             <!-- Recent Sales End -->
+            
+            <!-- Pagination -->
+            <div class="container-fluid pt-4 px-4">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <!-- First Button -->
+                        <c:if test="${sessionScope.page > 1}">
+                            <li class="page-item">
+                                <a class="page-link" href="/Feds/feedbackListFeedbackController?action=paging&page=1">Trang đầu</a>
+                            </li>
+                        </c:if>
+                        <!-- Previous Button -->
+                        <c:if test="${sessionScope.page > 1}">
+                            <li class="page-item">
+                                <a class="page-link" href="/Feds/feedbackListFeedbackController?action=paging&page=${sessionScope.page - 1}">Trước</a>
+                            </li>
+                        </c:if>
+                        <!-- Page Numbers Logic -->
+                        <c:choose>
+                            <c:when test="${sessionScope.page <= 2}">
+                                <c:set var="start" value="1"/>
+                                <c:set var="end" value="${totalPages < 3 ? totalPages : 3}"/>
+                            </c:when>
+                            <c:when test="${sessionScope.page >= totalPages - 1}">
+                                <c:set var="start" value="${totalPages - 2 > 0 ? totalPages - 2 : 1}"/>
+                                <c:set var="end" value="${totalPages}"/>
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="start" value="${sessionScope.page - 1}"/>
+                                <c:set var="end" value="${sessionScope.page + 1}"/>
+                            </c:otherwise>
+                        </c:choose>
+                        <c:forEach var="i" begin="${start}" end="${end}">
+                            <li class="page-item ${i == sessionScope.page ? 'active' : ''}">
+                                <a class="page-link" href="/Feds/feedbackListFeedbackController?action=paging&page=${i}">
+                                    <button type="button" class="btn btn-primary btn-sm1">${i}</button>
+                                </a>
+                            </li>
+                        </c:forEach>
+                        <!-- Next Button -->
+                        <c:if test="${sessionScope.page < totalPages}">
+                            <li class="page-item">
+                                <a class="page-link" href="/Feds/feedbackListFeedbackController?action=paging&page=${sessionScope.page + 1}">Sau</a>
+                            </li>
+                        </c:if>
+                        <!-- Last Button -->
+                        <c:if test="${sessionScope.page < totalPages}">
+                            <li class="page-item">
+                                <a class="page-link" href="/Feds/feedbackListFeedbackController?action=paging&page=${totalPages}">Trang cuối</a>
+                            </li>
+                        </c:if>
+                    </ul>
+                </nav>
+            </div>
 
 
             <!-- Footer Start -->

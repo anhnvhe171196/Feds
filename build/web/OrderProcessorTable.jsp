@@ -237,6 +237,8 @@
 
                                     </tbody>
                                 </table>
+                                
+                                
                                 <div class="d-flex justify-content-center">
                                     <c:if test="${endPage > 1}">
                                         <nav aria-label="Page navigation">

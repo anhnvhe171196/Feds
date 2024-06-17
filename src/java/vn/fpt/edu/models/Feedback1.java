@@ -47,7 +47,10 @@ public class Feedback1 {
         this.product_name = product_name;
     }
 
-    public Feedback1(String date, String userName, int rate_star, int count_rate, String product_name) {
+    
+
+    public Feedback1(int feedbackId, String date, String userName, int rate_star, int count_rate, String product_name) {
+        this.feedbackId = feedbackId;
         this.date = date;
         this.userName = userName;
         this.rate_star = rate_star;
