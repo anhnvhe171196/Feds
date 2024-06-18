@@ -69,6 +69,7 @@ public class FeedbackDetailFeedbackController extends HttpServlet {
             List<Feedback1> feedbackDetail = fbd.getFeedbackDetail(id);
             session.setAttribute("feedbackId", feedbackDetail.get(0).getFeedbackId());
             session.setAttribute("feedbackDetail", feedbackDetail);
+//            out.print("abc");
             request.getRequestDispatcher("FeedbackDetail.jsp").forward(request, response);
         } 
     } 
