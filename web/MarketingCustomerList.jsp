@@ -231,10 +231,10 @@
                                                 <td scope="col">
                                                     <c:choose>
                                                         <c:when test="${users.banned}">
-                                                            Banned
+                                                            <span style="color: red">Banned</span>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            Active
+                                                            <span style="color: springgreen">Active</span>
                                                         </c:otherwise>
                                                     </c:choose>
                                                     </th>
