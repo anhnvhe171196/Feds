@@ -112,8 +112,8 @@
                     </div>
                     <div class="navbar-nav w-100">
                         <a href="/Feds/saleDashboard" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                        <a href="/Feds/orderListBillController" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Order List</a>
-                        <a href="/Feds/feedbackListFeedbackController" class="nav-item nav-link "><i class="fa fa-th me-2"></i>Feedback List</a> 
+                        <a href="/Feds/orderListBillController" class="nav-item nav-link "><i class="fa fa-th me-2"></i>Order List</a>
+                        <a href="/Feds/feedbackListFeedbackController" class="nav-item nav-link active "><i class="fa fa-th me-2"></i>Feedback List</a> 
                     </div>
             </div>
         </nav>
@@ -152,116 +152,60 @@
 
         <!-- Recent Sales Start -->
         <div class="container-fluid pt-4 px-4">
-            <div class="bg-light text-center rounded">
+            <div class="bg-light text-center rounded" style="margin-top: 20px; margin-bottom: 20px">
 
-                <div class="d-flex align-items-center justify-content-between" >
-                    <div class="d-none d-md-flex ms-4" method="GET" action="">
-                        <input id="searchBox" class="form-control border-0" type="search" name="value" placeholder="Tìm kiếm" value="${sessionScope.value}">
-                    </div>
-
-                    <form action="billDetailBillController" method="post" style="margin-left: 640px">
-                        <input type="hidden" name="id" value="${sessionScope.idBill}"/>
+                <div class="d-flex align-items-center justify-content-between mb-4" >
+                    
+                    
+                    <form action="feedbackDetailFeedbackController" method="post" style=" display: flex; align-items: center;">
+                        <div style="margin-right: 5px; margin-left: 5px; color: red; font-weight: bold">Trạng thái:</div>
+                        <input type="hidden" style="margin-left: 5px" name="id" value="${sessionScope.feedbackId}"/>
                         <select name="status" onchange="this.form.submit()" class="border-0" style="width: 170px; color: #000000ad; padding: 6px 0px; border-radius: 5px; padding-left: 7px;"/>
-                        <option ${sessionScope.status == "Chờ Xử Lý"?"selected":""} value="Chờ Xử Lý">Chờ Xử Lý</option>
-                        <option ${sessionScope.status == "Đang Xử Lý"?"selected":""} value="Đang Xử Lý">Đang Xử Lý</option>
-                        <option ${sessionScope.status == "Đang Giao Hàng"?"selected":""} value="Đang Giao Hàng">Đang Giao Hàng</option>
-                        <option ${sessionScope.status == "Hoàn Thành"?"selected":""} value="Hoàn Thành">Hoàn Thành</option>
-                        <option ${sessionScope.status == "Hủy"?"selected":""} value="Hủy">Hủy</option>
+                        <option ${sessionScope.status == "Hiện"?"selected":""} value="Hiện">Hiện</option>
+                        <option ${sessionScope.status == "Ẩn"?"selected":""} value="Ẩn">Ẩn</option>
+                        
                         </select>
                     </form>
 
-                    <div class="col-sm-2">
-                        <a class="btn btn-delete btn-sm print-file" type="button" title="In" onclick="myApp.printTable()"><i
-                                class="fas fa-print"></i> In đơn hàng</a>
-                    </div>
-
-                    <div><a class="btn btn-outline-success m-2" style="width: 100px" href="/Feds/orderListBillController">Quay lại</a></div>
+                    <div style="margin-right: 20px"><a class="btn btn-outline-success m-2" style="width: 100px" href="/Feds/feedbackListFeedbackController">Quay lại</a></div>
                 </div>
-            </div>
-
-            <c:forEach var="bill" items="${sessionScope.listBillOrder}" varStatus="status">
-
-                <c:if test="${status.first}">
-                    <c:set var="userName" value="${bill.user_name}" />
-                    <c:set var="email" value="${bill.phone}" />
-                    <c:set var="phone" value="${bill.email}" />
-                    <c:set var="address" value="${bill.address}" />
-                    <c:set var="payment" value="${bill.payment}" />
-                </c:if>
-            </c:forEach>
-
-            <div class="bg-light text-center rounded customer-info " >
-                <div class="info-row"  style="margin-left: 20px; margin-top:10px">
-                    <h6>Khách hàng: <c:out value="${userName}" /></h6>
-                </div>
-                <div class="info-row"  style="margin-left: 20px">
-                    <h6>Email: <c:out value="${email}" /></h6>
-                </div>
-                <div class="info-row" style="margin-left: 20px">
-                    <h6>Số điện thoại: <c:out value="${phone}" /></h6>
-                </div>
-                <div class="info-row" style="margin-left: 20px">
-                    <h6>Địa chỉ: <c:out value="${address}" /></h6>
-                </div>
-                <div class="info-row" style="margin-left: 20px">
-                    <h6>Payment: <c:out value="${payment}" /></h6>
-                </div>
-            </div>
 
 
-            <div class="table-responsive">
-                <table class="table text-start align-middle table-bordered table-hover mb-0" id="sampleTable">
-                    <thead>
-                        <tr class="text-dark">
-                            <th scope="col">Mã Đơn</th>
-                            <th scope="col">Tên Sản Phẩm</th>
-                            <th scope="col">Ảnh Sản Phẩm</th>
-                            <th scope="col">RAM</th>
-                            <th scope="col">ROM</th>
-                            <th scope="col" width="200px">Size</th>
-                            <th scope="col">Màu</th>
-                            <th scope="col">Số lượng</th>
-                            <th scope="col">Giá Sản Phẩm</th>
-                        </tr>
-                    </thead>
-                    <tbody>
 
-                        <c:forEach items="${sessionScope.listBillOrder}" var="b"> 
-                            <tr>
-                                <td>${b.bill_id}</td>
-                                <td>${b.product_name}</td>
-                                <td><img src="images/${b.product_img}" alt="" width="150px"></td>
 
-                                <c:if test="${b.ram == null}">
-                                    <td></td>
-                                </c:if>
-                                <c:if test="${b.ram != null}">
-                                    <td>${b.ram}</td>
-                                </c:if>
-                                <c:if test="${b.rom == null}">
-                                    <td></td>
-                                </c:if>
-                                <c:if test="${b.rom != null}">
-                                    <td>${b.rom}</td>
-                                </c:if>
-                                <c:if test="${b.size == null}">
-                                    <td></td>
-                                </c:if>
-                                <c:if test="${b.size != null}">
-                                    <td>${b.size}</td>
-                                </c:if>
-                                <c:if test="${b.color == null}">
-                                    <td></td>
-                                </c:if>
-                                <c:if test="${b.color != null}">
-                                    <td>${b.color}</td>
-                                </c:if>
-                                <td>${b.order_quantity}</td>
-                                <td><fmt:formatNumber value="${b.price}" pattern="#,###"/> VNĐ</td>
+
+                <div class="table-responsive">
+                    <table class="table text-start align-middle table-bordered table-hover mb-0" id="sampleTable">
+                        <thead>
+                            <tr class="text-dark">
+                                <th scope="col">Mã đánh giá</th>
+                                <th scope="col">Ngày đánh giá</th>
+                                <th scope="col">Tên Sản Phẩm</th>
+                                <th scope="col" width="200px">Ảnh Đánh giá</th>
+                                <th scope="col" width="400px">Nội dung đánh giá</th>
+                                <th scope="col" width="120px">Khánh hàng</th>
+                                <th scope="col" width="200px">Thông tin khách hàng</th>
                             </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+
+                            <c:forEach items="${sessionScope.feedbackDetail}" var="fbd"> 
+                                <tr>
+                                    <td>${fbd.feedbackId}</td>
+                                    <td>${fbd.date}</td>
+                                    <td>${fbd.product_name}</td>
+                                    <td><img src="images/${fbd.img}" alt="" width="195px"></td>
+                                    <td>${fbd.comment}</td>
+                                    <td>${fbd.userName}</td>
+                                    <td>
+                                        ${fbd.phone_number}<br>
+                                        ${fbd.email}
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -309,35 +253,35 @@
 <!-- Template Javascript -->
 <script src="js/mainsale.js"></script>
 <script>
-                            $('#sampleTable').DataTable();
-                            function time() {
-                                var today = new Date();
-                                var weekday = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
-                                var day = weekday[today.getDay()];
-                                var dd = today.getDate();
-                                var mm = today.getMonth() + 1;
-                                var yyyy = today.getFullYear();
-                                var h = today.getHours();
-                                var m = today.getMinutes();
-                                var s = today.getSeconds();
-                                m = checkTime(m);
-                                s = checkTime(s);
-                                var nowTime = h + " giờ " + m + " phút " + s + " giây";
-                                if (dd < 10)
-                                    dd = '0' + dd;
-                                if (mm < 10)
-                                    mm = '0' + mm;
-                                var todayString = day + ', ' + dd + '/' + mm + '/' + yyyy;
-                                var tmp = '<span class="date"> ' + todayString + ' - ' + nowTime + '</span>';
-                                document.getElementById("clock").innerHTML = tmp;
-                                setTimeout(time, 1000);
-                            }
+        $('#sampleTable').DataTable();
+        function time() {
+            var today = new Date();
+            var weekday = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
+            var day = weekday[today.getDay()];
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1;
+            var yyyy = today.getFullYear();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            var nowTime = h + " giờ " + m + " phút " + s + " giây";
+            if (dd < 10)
+                dd = '0' + dd;
+            if (mm < 10)
+                mm = '0' + mm;
+            var todayString = day + ', ' + dd + '/' + mm + '/' + yyyy;
+            var tmp = '<span class="date"> ' + todayString + ' - ' + nowTime + '</span>';
+            document.getElementById("clock").innerHTML = tmp;
+            setTimeout(time, 1000);
+        }
 
-                            function checkTime(i) {
-                                if (i < 10)
-                                    i = "0" + i;
-                                return i;
-                            }
+        function checkTime(i) {
+            if (i < 10)
+                i = "0" + i;
+            return i;
+        }
 </script>
 
 <script>

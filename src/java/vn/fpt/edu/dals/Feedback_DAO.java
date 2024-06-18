@@ -292,7 +292,7 @@ public class Feedback_DAO extends DBContext {
             st.setInt(2, numOfFeedback);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Feedback1 f = new Feedback1(rs.getInt("Feedback_Id"), rs.getString("Date"), rs.getString("User_name"), rs.getInt("Rating"), rs.getInt("FeedbackCount"), rs.getString("Product_name"));
+                Feedback1 f = new Feedback1(rs.getInt("Feedback_Id"), rs.getString("Date"), rs.getString("User_name"), rs.getInt("Rating"), rs.getInt("FeedbackCount"), rs.getString("Product_name"), rs.getString("Status"));
                 list.add(f);
             }
         } catch (SQLException e) {
@@ -307,6 +307,7 @@ public class Feedback_DAO extends DBContext {
                 + "    FB.Feedback_Id,\n"
                 + "    FB.Date AS Date,\n"
                 + "    FB.Rating,\n"
+                + "    FB.Status,\n"
                 + "    P.Product_name,\n"
                 + "    U.User_name AS User_name,\n"
                 + "    COALESCE(FBCounts.Review_Count, 0) AS FeedbackCount\n"
@@ -333,7 +334,7 @@ public class Feedback_DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Feedback1 f = new Feedback1(rs.getInt("Feedback_Id"), rs.getString("Date"), rs.getString("User_name"), rs.getInt("Rating"), rs.getInt("FeedbackCount"), rs.getString("Product_name"));
+                Feedback1 f = new Feedback1(rs.getInt("Feedback_Id"), rs.getString("Date"), rs.getString("User_name"), rs.getInt("Rating"), rs.getInt("FeedbackCount"), rs.getString("Product_name"), rs.getString("Status"));
                 list.add(f);
             }
         } catch (SQLException e) {
@@ -348,6 +349,7 @@ public class Feedback_DAO extends DBContext {
                 + "    FB.Feedback_Id,\n"
                 + "    FB.Date AS Date,\n"
                 + "    FB.Rating,\n"
+                + "    FB.Status,\n"
                 + "    P.Product_name,\n"
                 + "    U.User_name AS User_name,\n"
                 + "    COALESCE(FBCounts.Review_Count, 0) AS FeedbackCount\n"
@@ -372,7 +374,7 @@ public class Feedback_DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Feedback1 f = new Feedback1(rs.getInt("Feedback_Id"), rs.getString("Date"), rs.getString("User_name"), rs.getInt("Rating"), rs.getInt("FeedbackCount"), rs.getString("Product_name"));
+                Feedback1 f = new Feedback1(rs.getInt("Feedback_Id"), rs.getString("Date"), rs.getString("User_name"), rs.getInt("Rating"), rs.getInt("FeedbackCount"), rs.getString("Product_name"), rs.getString("Status"));
                 list.add(f);
             }
         } catch (SQLException e) {
@@ -387,6 +389,7 @@ public class Feedback_DAO extends DBContext {
                 + "    FB.Feedback_Id,\n"
                 + "    FB.Date AS Date,\n"
                 + "    FB.Rating,\n"
+                + "    FB.Status,\n"
                 + "    P.Product_name,\n"
                 + "    U.User_name AS User_name,\n"
                 + "    COALESCE(FBCounts.Review_Count, 0) AS FeedbackCount\n"
@@ -413,7 +416,7 @@ public class Feedback_DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Feedback1 f = new Feedback1(rs.getInt("Feedback_Id"), rs.getString("Date"), rs.getString("User_name"), rs.getInt("Rating"), rs.getInt("FeedbackCount"), rs.getString("Product_name"));
+                Feedback1 f = new Feedback1(rs.getInt("Feedback_Id"), rs.getString("Date"), rs.getString("User_name"), rs.getInt("Rating"), rs.getInt("FeedbackCount"), rs.getString("Product_name"), rs.getString("Status"));
                 list.add(f);
             }
         } catch (SQLException e) {
@@ -428,6 +431,7 @@ public class Feedback_DAO extends DBContext {
                 + "    FB.Feedback_Id,\n"
                 + "    FB.Date AS Date,\n"
                 + "    FB.Rating,\n"
+                + "    FB.Status,\n"
                 + "    P.Product_name,\n"
                 + "    U.User_name AS User_name,\n"
                 + "    COALESCE(FBCounts.Review_Count, 0) AS FeedbackCount\n"
@@ -454,7 +458,7 @@ public class Feedback_DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Feedback1 f = new Feedback1(rs.getInt("Feedback_Id"), rs.getString("Date"), rs.getString("User_name"), rs.getInt("Rating"), rs.getInt("FeedbackCount"), rs.getString("Product_name"));
+                Feedback1 f = new Feedback1(rs.getInt("Feedback_Id"), rs.getString("Date"), rs.getString("User_name"), rs.getInt("Rating"), rs.getInt("FeedbackCount"), rs.getString("Product_name"), rs.getString("Status"));
                 list.add(f);
             }
         } catch (SQLException e) {
@@ -470,6 +474,7 @@ public class Feedback_DAO extends DBContext {
                          SELECT                   FB.Feedback_Id,
                                                   FB.Date AS Date,
                                                   FB.Rating,
+                                                  FB.Status,
                                                   P.Product_name,
                                                   U.User_name AS User_name,
                                                   COALESCE(FBCounts.Review_Count, 0) AS FeedbackCount
@@ -491,15 +496,17 @@ public class Feedback_DAO extends DBContext {
                                                       Product_id
                                               ) AS FBCounts ON FB.Product_id = FBCounts.Product_id
                                               WHERE U.User_name LIKE ? 
-                      OR P.Product_name LIKE ? 
-                      OR FB.Date LIKE ?;""";
+                                              OR P.Product_name LIKE ? 
+                                              OR FB.Feedback_Id LIKE ?
+                                              OR FB.Date LIKE ?;""";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, "%" + value + "%");
             ps.setString(2, "%" + value + "%");
             ps.setString(3, "%" + value + "%");
+            ps.setString(4, "%" + value + "%");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Feedback1 f = new Feedback1(rs.getInt("Feedback_Id"), rs.getString("Date"), rs.getString("User_name"), rs.getInt("Rating"), rs.getInt("FeedbackCount"), rs.getString("Product_name"));
+                Feedback1 f = new Feedback1(rs.getInt("Feedback_Id"), rs.getString("Date"), rs.getString("User_name"), rs.getInt("Rating"), rs.getInt("FeedbackCount"), rs.getString("Product_name"), rs.getString("Status"));
                 list.add(f);
             }
         } catch (SQLException e) {
@@ -526,8 +533,63 @@ public class Feedback_DAO extends DBContext {
         return numOfPages;
     }
 
-    public int getNumOfPageBillList(int i) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<Feedback1> getFeedbackDetail(int id) {
+        List<Feedback1> list = new ArrayList<>();
+        String sql = "SELECT \n"
+                + "    fb.Feedback_Id,\n"
+                + "    fb.Date AS Feedback_Date,\n"
+                + "    p.Product_name,\n"
+                + "    fb.Img,\n"
+                + "    FB.Status,\n"
+                + "    fb.Comment AS Feedback_Content,\n"
+                + "    u.User_name AS Customer_Name,\n"
+                + "    u.Phone_number AS Customer_Phone,\n"
+                + "    u.Email AS Customer_Email\n"
+                + "FROM \n"
+                + "    [Feds].[dbo].[FeedBack] fb\n"
+                + "JOIN \n"
+                + "    [Feds].[dbo].[Bill] b ON fb.Bill_Id = b.Bill_Id\n"
+                + "JOIN \n"
+                + "    [Feds].[dbo].[User] u ON b.User_id = u.User_Id\n"
+                + "JOIN \n"
+                + "    [Feds].[dbo].[Product] p ON fb.Product_id = p.Product_id\n"
+                + "WHERE \n"
+                + "	Feedback_Id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Feedback1 fb1 = new Feedback1(rs.getInt("Feedback_Id"), rs.getString("Feedback_Date"), rs.getString("Customer_Name"), rs.getString("Product_name"), rs.getString(4),
+                        rs.getString("Feedback_Content"), rs.getString("Customer_Email"), rs.getString("Customer_Phone"), rs.getString("Status"));
+                list.add(fb1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
     }
 
+    public void updateStatusFeedback(String status, String id) {
+        String sql = "UPDATE [Feds].[dbo].[FeedBack]\n"
+                + "SET [Status] = ?\n"
+                + "WHERE [Feedback_Id] = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, status);
+            st.setString(2, id);
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e);
+
+        }
+    }
+
+    public static void main(String[] args) {
+        Feedback_DAO dao = new Feedback_DAO();
+        dao.updateStatusFeedback("Hiện", "10");
+
+        
+    }
 }

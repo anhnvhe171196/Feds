@@ -18,8 +18,8 @@ public class Feedback1 {
     private String userName; 
     private int rate_star;
     private int count_rate;
-    private String product_name;
-    // Constructor không tham số
+    private String product_name, Img, Comment, Email, Phone_number;
+     
     public Feedback1() {
     }
 
@@ -47,20 +47,31 @@ public class Feedback1 {
         this.product_name = product_name;
     }
 
+    public Feedback1(int feedbackId, String date, String userName, String product_name, String Img, String Comment, String Email, String Phone_number, String status) {
+        this.feedbackId = feedbackId;
+        this.date = date;
+        this.userName = userName;
+        this.product_name = product_name;
+        this.Img = Img;
+        this.Comment = Comment;
+        this.Email = Email;
+        this.Phone_number = Phone_number;
+        this.status = status;
+    }
+
     
 
-    public Feedback1(int feedbackId, String date, String userName, int rate_star, int count_rate, String product_name) {
+    public Feedback1(int feedbackId, String date, String userName, int rate_star, int count_rate, String product_name, String status) {
         this.feedbackId = feedbackId;
         this.date = date;
         this.userName = userName;
         this.rate_star = rate_star;
         this.count_rate = count_rate;
         this.product_name = product_name;
+        this.status = status;
     }
     
     
-
-    // Constructor có tham số
     public Feedback1(int feedbackId, double totalPrice, String date, int userId, String address, String status, String userName) {
         this.feedbackId = feedbackId;
         this.totalPrice = totalPrice;
@@ -69,6 +80,38 @@ public class Feedback1 {
         this.address = address;
         this.status = status;
         this.userName = userName;
+    }
+
+    public String getImg() {
+        return Img;
+    }
+
+    public void setImg(String Img) {
+        this.Img = Img;
+    }
+
+    public String getComment() {
+        return Comment;
+    }
+
+    public void setComment(String Comment) {
+        this.Comment = Comment;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String Email) {
+        this.Email = Email;
+    }
+
+    public String getPhone_number() {
+        return Phone_number;
+    }
+
+    public void setPhone_number(String Phone_number) {
+        this.Phone_number = Phone_number;
     }
 
     public int getFeedbackId() {

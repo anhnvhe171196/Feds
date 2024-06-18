@@ -195,6 +195,7 @@
                                     <th scope="col">Số Sao</th>
                                     <th scope="col">Số đánh giá</th>
                                     <th scope="col">Người đánh giá</th>
+                                    <th scope="col">Trạng thái</th>
                                     <th scope="col">Hành động</th>
                                 </tr>
                             </thead>
@@ -208,6 +209,7 @@
                                         <td>${fb.rate_star}</td>
                                         <td>${fb.count_rate}</td>
                                         <td>${fb.userName}</td>
+                                        <td> Đang ${fb.status}</td>
                                         <td style="width: 130px; text-align: center"><a class="btn btn-outline-primary m-2 btn-center" href="/Feds/feedbackDetailFeedbackController?id=${fb.feedbackId}">Chi tiết</a></td>
                                     </tr>
                                 </c:forEach>

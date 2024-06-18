@@ -11,6 +11,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import vn.fpt.edu.dals.BillOrder_DAO;
+import vn.fpt.edu.dals.Feedback_DAO;
+import vn.fpt.edu.models.BillOrder;
+import vn.fpt.edu.models.Feedback1;
 
 /**
  *
@@ -53,7 +59,18 @@ public class FeedbackDetailFeedbackController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        PrintWriter out = response.getWriter();
+        String action = request.getParameter("action");
+        if (action == null) {
+            Feedback_DAO fbd = new Feedback_DAO();
+            int id = Integer.parseInt(request.getParameter("id"));
+            
+            List<Feedback1> feedbackDetail = fbd.getFeedbackDetail(id);
+            session.setAttribute("feedbackId", feedbackDetail.get(0).getFeedbackId());
+            session.setAttribute("feedbackDetail", feedbackDetail);
+            request.getRequestDispatcher("FeedbackDetail.jsp").forward(request, response);
+        } 
     } 
 
     /** 
@@ -66,7 +83,14 @@ public class FeedbackDetailFeedbackController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        String id = request.getParameter("id");
+        String status = request.getParameter("status");
+        Feedback_DAO fbd = new Feedback_DAO();
+        fbd.updateStatusFeedback(status, id);
+        session.removeAttribute("status");
+        session.setAttribute("status", status);
+        request.getRequestDispatcher("FeedbackDetail.jsp").forward(request, response);
     }
 
     /** 
