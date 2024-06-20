@@ -4,12 +4,14 @@
  */
 package vn.fpt.edu.dals;
 
+import java.sql.Date;
 import vn.fpt.edu.models.Bill1;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import vn.fpt.edu.models.Bill;
 import vn.fpt.edu.models.Cart;
@@ -21,6 +23,36 @@ import vn.fpt.edu.models.User;
  * @author Trong
  */
 public class Bill_DAO extends DBContext {
+    
+    public HashMap<Date, Integer> TrendDone() {
+        HashMap<Date, Integer> hash = new HashMap();
+        String Sql = "SELECT [Date], Count(Bill_Id) as Total FROM [Bill] WHERE [Status] = 'Hoàn Thành' GROUP BY [Date] ORDER BY [Date]";
+        try {
+            PreparedStatement st = connection.prepareStatement(Sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                hash.put(rs.getDate("Date"), rs.getInt("Total"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return hash;
+    }
+    
+    public HashMap<Date, Integer> TrendAll() {
+        HashMap<Date, Integer> hash = new HashMap();
+        String Sql = "SELECT [Date], Count(Bill_Id) as Total FROM [Bill] GROUP BY [Date] ORDER BY [Date]";
+        try {
+            PreparedStatement st = connection.prepareStatement(Sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                hash.put(rs.getDate("Date"), rs.getInt("Total"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return hash;
+    }
 
     public int getNumOfBillCurrentDate() {
         int numOfBill = 0;
@@ -37,6 +69,40 @@ public class Bill_DAO extends DBContext {
             System.out.println(e);
         }
         return numOfBill;
+    }
+    
+    public int totalRevenue() {
+        int total = 0;
+        String sql = "SELECT SUM(Total_price) as Total FROM Bill WHERE Status = 'Hoàn Thành'";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+
+                total = rs.getInt("Total");
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return total;
+    }
+    
+    public HashMap<Integer, Integer> totalRevenueByCate() {
+        HashMap<Integer, Integer> total = new HashMap();
+        String sql = "SELECT SUM(Total_price) as Total, Brandd.Category_id FROM Bill join [Order] on [Order].Bill_id = Bill.Bill_Id join Product on Product.Product_id = [Order].Product_id join Brandd on Brandd.Brand_Id = Product.Brand_id WHERE [Bill].[Status] = 'Hoàn Thành' GROUP BY Brandd.Category_id";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+
+                total.put(rs.getInt("Category_id"), rs.getInt("Total"));
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return total;
     }
 
     public List<Bill1> getSumRevenueByDay(String startDate, String endDate) {
@@ -297,7 +363,56 @@ public class Bill_DAO extends DBContext {
         return list;
     }
     
+    public int getTotalSuccessOrder() {
+        int totalDone = 0;
+        String sql = "SELECT Count(Bill_Id) as Total \n"
+                + "FROM [Feds].[dbo].[Bill] \n"
+                + "WHERE Status = 'Hoàn Thành'";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                totalDone = rs.getInt("Total");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return totalDone;
+    }
     
+    public int getTotalSubmitedOrder() {
+        int totalDone = 0;
+        String sql = "SELECT Count(Bill_Id) as Total \n"
+                + "FROM [Feds].[dbo].[Bill] \n"
+                + "WHERE Status = 'Chờ xử lý'";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                totalDone = rs.getInt("Total");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return totalDone;
+    }
+    
+    public int getTotalCanceledOrder() {
+        int totalDone = 0;
+        String sql = "SELECT Count(Bill_Id) as Total \n"
+                + "FROM [Feds].[dbo].[Bill] \n"
+                + "WHERE Status = 'Đã hủy'";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                totalDone = rs.getInt("Total");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return totalDone;
+    }
 
     public List<Bill1> getBillAllWithUserSortByValue(String type) {
         List<Bill1> list = new ArrayList<>();
@@ -463,6 +578,20 @@ public class Bill_DAO extends DBContext {
         }
     }
     
-    
+    public int newlyBoughtUser() {
+        int total = 0;
+        String sql = "SELECT count(User_id) as Total FROM [dbo].[Bill]\n"
+                + " WHERE Date >= (getdate() - 7)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()) {
+                total = rs.getInt("Total");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return total;
+    }
 
 }

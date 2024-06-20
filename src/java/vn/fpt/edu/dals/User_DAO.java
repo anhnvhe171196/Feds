@@ -66,7 +66,7 @@ public class User_DAO extends DBContext {
                 + "           ,[Email]\n"
                 + "           ,[Phone_number]\n"
                 + "           ,[Role_id]\n"
-                + "           ,[Avarta]\n"
+                + "           ,[Avarta])\n"
                 + "           ,[gender])\n"
                 + "     VALUES\n"
                 + "           (?, ?, ?, ?, ?, ?, ?)";
@@ -108,7 +108,7 @@ public class User_DAO extends DBContext {
                 + "           ,[Email]\n"
                 + "           ,[Phone_number]\n"
                 + "           ,[Role_id]\n"
-                + "           ,[Avarta])\n"
+                + "           ,[Avarta]\n"
                 + "           ,[gender])\n"
                 + "     VALUES\n"
                 + "           (?, ?, ?, ?, ?, ?, 0)";
@@ -525,6 +525,21 @@ public class User_DAO extends DBContext {
             e.printStackTrace();
         }
         return list;
+    }
+      
+    public int newlyRegistered() {
+        int total = 0;
+        String sql = "SELECT Count(User_Id) as Total FROM [User] WHERE CreateAt >= getdate() - 7";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                total = rs.getInt("Total");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return total;
     }
 
 }
