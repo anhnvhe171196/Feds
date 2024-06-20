@@ -401,7 +401,7 @@ public class Bill_DAO extends DBContext {
         int totalDone = 0;
         String sql = "SELECT Count(Bill_Id) as Total \n"
                 + "FROM [Feds].[dbo].[Bill] \n"
-                + "WHERE Status LIKES '%Đã hủy%'";
+               + "WHERE Status LIKE N'%Đã hủy%'";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
