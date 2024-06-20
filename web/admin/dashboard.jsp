@@ -113,6 +113,7 @@ const trendData = {
     "<%=format.format(d)%>": { success: <%=trendDone.containsKey(d) ? trendDone.get(d) : 0%>, all: <%=trendAll.get(d)%> },
     <% } %>
 };
+
     </script>
     <script src="scripts.js"></script>
 </body>
