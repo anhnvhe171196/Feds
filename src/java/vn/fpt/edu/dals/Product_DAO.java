@@ -148,7 +148,7 @@ public class Product_DAO extends DBContext {
         if (max != null) {
             sql += " AND Price.Price <= " + max;
         }
-        sql += " ORDER BY Product.Product_id OFFSET " + ((page - 1) * 9) + " ROWS FETCH NEXT 9 ROWS ONLY;";
+        sql += " ORDER BY Product.Product_id OFFSET " + ((page - 1) * 15) + " ROWS FETCH NEXT 15 ROWS ONLY;";
         System.out.println(sql);
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -173,7 +173,7 @@ public class Product_DAO extends DBContext {
     public List<Product> getAllProducts(int page) {
         List<Product> list = new ArrayList<>();
         String sql = "SELECT Product.Product_name, Product.Product_img, Product.Product_id, Product_Detail.Decription, Price.Price, [Product_Category].[Category_name] FROM Product join Product_Detail ON Product.Product_id = Product_Detail.Product_id join Price on Product.Product_id = [Price].Product_id join Brandd on [Brandd].[Brand_Id] = [Product].[Brand_id] join [Product_Category] on [Product_Category].[Category_id] = [Brandd].[Category_id]";
-        sql += " ORDER BY Product.Product_id OFFSET " + ((page - 1) * 9) + " ROWS FETCH NEXT 9 ROWS ONLY;";
+        sql += " ORDER BY Product.Product_id OFFSET " + ((page - 1) * 15) + " ROWS FETCH NEXT 15 ROWS ONLY;";
         System.out.println(sql);
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -236,7 +236,7 @@ public class Product_DAO extends DBContext {
                 sql += " WHERE Price.Price <= " + max;
             }
         }
-        sql += " ORDER BY Product.Product_id OFFSET " + ((page - 1) * 9) + " ROWS FETCH NEXT 9 ROWS ONLY;";
+        sql += " ORDER BY Product.Product_id OFFSET " + ((page - 1) * 15) + " ROWS FETCH NEXT 15 ROWS ONLY;";
         System.out.println(sql);
         try {
             PreparedStatement st = connection.prepareStatement(sql);
