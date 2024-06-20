@@ -1,8 +1,4 @@
-<%-- 
-    Document   : dashboard
-    Created on : Jun 20, 2024, 5:45:21 PM
-    Author     : TGDD
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.text.SimpleDateFormat, java.util.HashMap, java.util.ArrayList, vn.fpt.edu.models.Category, java.sql.Date" %>
