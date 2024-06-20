@@ -92,8 +92,18 @@
                     </div>
                     <div class="navbar-nav w-100">
                         <a href="marketingDashBoard" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                        <a href="marketingProductList" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>Product List</a>
-
+                    </div>
+                    <div class="navbar-nav w-100">
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Products List</a>
+                            <div class="dropdown-menu bg-transparent border-0">
+                                <a href="marketingProductList" class="dropdown-item">Products List</a>
+                                <a href="#" class="dropdown-item">Post list</a>
+                                <a href="#" class="dropdown-item">Sliders List</a>
+                                <a href="marketingCustomerList" class="dropdown-item">Customer list</a>
+                                <a href="#" class="dropdown-item">Feedback list</a>
+                            </div>
+                        </div>
                     </div>
                 </nav>
             </div>
@@ -155,7 +165,21 @@
                     <div class="row g-4">
                         <div class="col-sm-12">
                             <div class="bg-light rounded h-100 p-4">
-                                <h6 class="mb-4">Products Details</h6>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="mb-4">
+                                            <h6>Products Details</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col" style="text-align: right;" >
+                                        <div class="mb-4">
+                                            <a onclick="history.back()">
+                                                <h6 class="sort-button" style="color: #009CFF;">Back</h6>                                              
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="mb-3"> 
                                     <section class="py-5">
                                         <div class="container">
@@ -192,52 +216,87 @@
                                                         <div class="row" id="product-details" style="display: none;">
 
                                                             <c:if test="${not empty product.detail.ram}">
-                                                                <dt class="col-3">Ram</dt>
-                                                                <dd class="col-9">${product.detail.ram}</dd>
+                                                                <div class="row w-100">
+                                                                    <dt class="col-3">Ram</dt>
+                                                                    <dd class="col-9">${product.detail.ram}</dd>
+                                                                </div>                                                                
                                                             </c:if>
                                                             <c:if test="${not empty product.detail.rom}">
-                                                                <dt class="col-3">Rom:</dt>
-                                                                <dd class="col-9">${product.detail.rom}</dd>
+                                                                <div class="row w-100">
+
+                                                                    <dt class="col-3">Rom:</dt>
+                                                                    <dd class="col-9">${product.detail.rom}</dd>
+                                                                </div>
                                                             </c:if>
                                                             <c:if test="${not empty product.detail.size}">
-                                                                <dt class="col-3">Size:</dt>
-                                                                <dd class="col-9">${product.detail.size}</dd>
+                                                                <div class="row w-100">
+
+                                                                    <dt class="col-3">Size:</dt>
+                                                                    <dd class="col-9">${product.detail.size}</dd>
+                                                                </div>
                                                             </c:if>
                                                             <c:if test="${not empty product.detail.battery}">
-                                                                <dt class="col-3">Battery:</dt>
-                                                                <dd class="col-9">${product.detail.battery}</dd>
+                                                                <div class="row w-100">
+
+                                                                    <dt class="col-3">Battery:</dt>
+                                                                    <dd class="col-9">${product.detail.battery}</dd>
+                                                                </div>                                                                
                                                             </c:if>
                                                             <c:if test="${not empty product.detail.weight}">
-                                                                <dt class="col-3">Weight:</dt>
-                                                                <dd class="col-9">${product.detail.weight}</dd>
+                                                                <div class="row w-100">
+
+                                                                    <dt class="col-3">Weight:</dt>
+                                                                    <dd class="col-9">${product.detail.weight}</dd>
+                                                                </div>
                                                             </c:if>
                                                             <c:if test="${not empty product.detail.color}">
-                                                                <dt class="col-3">Color:</dt>
-                                                                <dd class="col-9">${product.detail.color}</dd>
+                                                                <div class="row w-100">
+
+                                                                    <dt class="col-3">Color:</dt>
+                                                                    <dd class="col-9">${product.detail.color}</dd>
+                                                                </div>
                                                             </c:if>                                                            
                                                             <c:if test="${not empty product.detail.cpu}">
-                                                                <dt class="col-3">CPU:</dt>
-                                                                <dd class="col-9">${product.detail.cpu}</dd>
+                                                                <div class="row w-100">
+
+                                                                    <dt class="col-3">CPU:</dt>
+                                                                    <dd class="col-9">${product.detail.cpu}</dd>
+                                                                </div>
                                                             </c:if>
                                                             <c:if test="${not empty product.detail.wattage}">
-                                                                <dt class="col-3">Wattage:</dt>
-                                                                <dd class="col-9">${product.detail.wattage}</dd>
+                                                                <div class="row w-100">
+
+                                                                    <dt class="col-3">Wattage:</dt>
+                                                                    <dd class="col-9">${product.detail.wattage}</dd>
+                                                                </div>
                                                             </c:if>
                                                             <c:if test="${not empty product.detail.status}">
-                                                                <dt class="col-3">Status:</dt>
-                                                                <dd class="col-9">${product.detail.status}</dd>
+                                                                <div class="row w-100">
+
+                                                                    <dt class="col-3">Status:</dt>
+                                                                    <dd class="col-9">${product.detail.status}</dd>
+                                                                </div>
                                                             </c:if>
                                                             <c:if test="${not empty product.price.dateStart}">
-                                                                <dt class="col-3">Date start:</dt>
-                                                                <dd class="col-9">${product.price.dateStart}</dd>
+                                                                <div class="row w-100">
+
+                                                                    <dt class="col-3">Date start:</dt>
+                                                                    <dd class="col-9">${product.price.dateStart}</dd>
+                                                                </div>
                                                             </c:if>
                                                             <c:if test="${not empty product.price.dateEnd}">
-                                                                <dt class="col-3">Date End:</dt>
-                                                                <dd class="col-9">${product.price.dateEnd}</dd>
+                                                                <div class="row w-100">
+
+                                                                    <dt class="col-3">Date End:</dt>
+                                                                    <dd class="col-9">${product.price.dateEnd}</dd>
+                                                                </div>
                                                             </c:if>
                                                             <c:if test="${not empty product.price.sale}">
-                                                                <dt class="col-3">Sale:</dt>
-                                                                <dd class="col-9">${product.price.sale} %</dd>
+                                                                <div class="row w-100">
+
+                                                                    <dt class="col-3">Sale:</dt>
+                                                                    <dd class="col-9">${product.price.sale} %</dd>
+                                                                </div>
                                                             </c:if>
                                                             <hr/>
 
@@ -280,10 +339,10 @@
             <!-- Template Javascript -->
             <script src="js/main.js"></script>
             <script>
-                $('.sidebar-toggler').click(function () {
-                    $('.sidebar, .content').toggleClass("open");
-                    return false;
-                });
+                                                $('.sidebar-toggler').click(function () {
+                                                    $('.sidebar, .content').toggleClass("open");
+                                                    return false;
+                                                });
             </script>
             <script>
                 const detailsDiv = document.getElementById("product-details");

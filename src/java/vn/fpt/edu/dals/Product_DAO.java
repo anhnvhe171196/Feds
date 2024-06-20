@@ -744,12 +744,4 @@ public class Product_DAO extends DBContext {
         return product;
     }
 
-    public static void main(String[] args) {
-        // Khởi tạo đối tượng DAO
-        Product_DAO productDAO = new Product_DAO();
-
-        // Gọi phương thức getSellingProduct với các tham số: startDate, endDate, numberOfTop
-        System.out.println(productDAO.getAllProductinCart().size());
-    }
-
 }

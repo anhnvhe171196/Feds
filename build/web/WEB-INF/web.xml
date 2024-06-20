@@ -15,7 +15,7 @@
     <servlet>
         <servlet-name>UserLogin</servlet-name>
         <servlet-class>vn.fpt.edu.controller.UserLoginController</servlet-class>
-    </servlet> 
+    </servlet>
     <servlet>
         <servlet-name>UserLoginGoogleController</servlet-name>
         <servlet-class>vn.fpt.edu.controller.UserLoginGoogleController</servlet-class>
@@ -31,14 +31,6 @@
     <servlet>
         <servlet-name>CustomerChangePasswordController</servlet-name>
         <servlet-class>vn.fpt.edu.controller.UserChangePasswordController</servlet-class>
-    </servlet>
-     <servlet>
-        <servlet-name>UserDetailController</servlet-name>
-        <servlet-class>vn.fpt.edu.admin.controller.UserDetailController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>UserListController</servlet-name>
-        <servlet-class>vn.fpt.edu.admin.controller.UserListController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UserChangeImageController</servlet-name>
@@ -97,12 +89,16 @@
         <servlet-class>vn.fpt.edu.salecontroller.BillDetailBillController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ContractCartController</servlet-name>
-        <servlet-class>vn.fpt.edu.controller.ContractCartController</servlet-class>
+        <servlet-name>FeedbackDetailFeedbackController</servlet-name>
+        <servlet-class>vn.fpt.edu.salecontroller.FeedbackDetailFeedbackController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddBillController</servlet-name>
-        <servlet-class>vn.fpt.edu.controller.AddBillController</servlet-class>
+        <servlet-name>FeedbackListFeedbackController</servlet-name>
+        <servlet-class>vn.fpt.edu.salecontroller.FeedbackListFeedbackController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserContact</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.UserContact</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserRegisterController</servlet-name>
@@ -115,14 +111,6 @@
     <servlet-mapping>
         <servlet-name>CustomerHomeController</servlet-name>
         <url-pattern>/home</url-pattern>
-    </servlet-mapping>
-     <servlet-mapping>
-        <servlet-name>UserDetailController</servlet-name>
-        <url-pattern>/admin/detail</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UserListController</servlet-name>
-        <url-pattern>/admin/users</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserLogin</servlet-name>
@@ -205,12 +193,16 @@
         <url-pattern>/billDetailBillController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ContractCartController</servlet-name>
-        <url-pattern>/contract</url-pattern>
+        <servlet-name>FeedbackListFeedbackController</servlet-name>
+        <url-pattern>/feedbackListFeedbackController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddBillController</servlet-name>
-        <url-pattern>/addBill</url-pattern>
+        <servlet-name>FeedbackDetailFeedbackController</servlet-name>
+        <url-pattern>/feedbackDetailFeedbackController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserContact</servlet-name>
+        <url-pattern>/contact</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home</welcome-file>

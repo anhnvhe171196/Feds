@@ -31,9 +31,9 @@
             <div id="top-header">
                 <div class="container">
                     <ul class="header-links pull-left">
-                        <li><a href="#"><i class="fa fa-phone"></i> 0357129704</a></li>
-                        <li><a href="#"><i class="fa fa-envelope-o"></i> Feds@gmail.com</a></li>
-                        <li><a href="#"><i class="fa fa-map-marker"></i>Thạch Thất, Hà Nội</a></li>
+                        <li><a href="contact"><i class="fa fa-phone"></i> 0357129704</a></li>
+                        <li><a href="contact"><i class="fa fa-envelope-o"></i> Feds@gmail.com</a></li>
+                        <li><a href="contact"><i class="fa fa-map-marker"></i>Thạch Thất, Hà Nội</a></li>
                     </ul>
                     <ul class="header-links pull-right">
                         <!--<li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>-->

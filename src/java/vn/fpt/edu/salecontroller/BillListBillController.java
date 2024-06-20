@@ -61,19 +61,19 @@ public class BillListBillController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-
-        PrintWriter out = response.getWriter();
+        
         String action = request.getParameter("action");
-        Bill_DAO bd = new Bill_DAO();;
+        Bill_DAO bd = new Bill_DAO();
 
         if (action == null) {   
             List<Bill1> listBill = bd.getBillAllWithUserPagingSQL(1, 10);
-            session.setAttribute("listBill", listBill);
             
             int totalPages = bd.getNumOfPageBillList(10);
             int currentPage = 1;
+            
+            session.setAttribute("listBill", listBill);
             session.setAttribute("page", currentPage);
-            request.setAttribute("totalPages", totalPages);
+            session.setAttribute("totalPages", totalPages);
             request.getRequestDispatcher("OrderList.jsp").forward(request, response);
         } else if (action.equals("sortByDateAsc")) {
             List<Bill1> listBill = bd.getBillAllWithUserSortByDate("Asc");
@@ -117,7 +117,7 @@ public class BillListBillController extends HttpServlet {
             
             session.setAttribute("page", page);
             int totalPages = bd.getNumOfPageBillList(10);
-            request.setAttribute("totalPages", totalPages);
+            session.setAttribute("totalPages", totalPages);
             request.getRequestDispatcher("OrderList.jsp").forward(request, response);
         }
     }

@@ -14,10 +14,14 @@ import java.util.Date;
 import java.util.List;
 import vn.fpt.edu.models.Brand;
 import vn.fpt.edu.models.Category;
+import vn.fpt.edu.models.Order;
 import vn.fpt.edu.models.Price;
 import vn.fpt.edu.models.Product;
 import vn.fpt.edu.models.Product1;
 import vn.fpt.edu.models.ProductDetail;
+import vn.fpt.edu.models.Role;
+import vn.fpt.edu.models.User;
+import vn.fpt.edu.models.UserDetails;
 
 /**
  *
@@ -326,30 +330,249 @@ public class Data_MarketingDashboard_DAO extends DBContext {
         return product;
     }
 
-//    public static void main(String[] args) {
-//        Data_MarketingDashboard_DAO data = new Data_MarketingDashboard_DAO();
-//        List<Product1> products = data.getProductsSearchByName(1, "name", "asc", "xi");
-//
-//        for (Product1 product : products) {
-//            System.out.println("Product ID: " + product.getProduct_id());
-//            System.out.println("Product Name: " + product.getProduct_name());
-//            System.out.println("Product Image: " + product.getProduct_img());
-//            System.out.println("Quantity: " + product.getQuantity());
-//            Brand brand = product.getBrand();
-//            if (brand != null) {
-//                System.out.println("brand: " + brand.getBrandName());
-//            }
-//
-//            Price price = product.getPrice();
-//            if (price != null) {
-//                System.out.println("Price: " + price.getPrice());
-//                System.out.println("Price Start Date: " + price.getDateStart());
-//                System.out.println("Price End Date: " + price.getDateEnd());
-//            } else {
-//                System.out.println("Price: No price available");
-//            }
-//
-//            System.out.println();
+    public List<User> getAllUsers(int index, String sortBy, String sortOrder) {
+        List<User> userList = new ArrayList<>();
+        String sql = "SELECT u.[User_Id], u.[Password], u.[User_name], u.[Email], u.[Phone_number], r.[Role_id], r.[Role_Name], u.[Avarta], u.[isBanned], u.[gender] \n"
+                + "                FROM [dbo].[User] u\n"
+                + "                JOIN\n"
+                + "                    [dbo].[Role] r\n"
+                + "                ON \n"
+                + "                    u.[Role_id] = r.[Role_id]";
+
+        // Add sorting clause
+        if ("name".equals(sortBy)) {
+            sql += " ORDER BY [User_name] ";
+        } else if ("email".equals(sortBy)) {
+            sql += " ORDER BY [Email] ";
+        } else if ("gender".equals(sortBy)) {
+            sql += " ORDER BY [gender] ";
+        } else if ("phone".equals(sortBy)) {
+            sql += " ORDER BY [Phone_number] ";
+        } else {
+            sql += " ORDER BY [User_Id] ";
+        }
+
+        if ("asc".equals(sortOrder)) {
+            sql += "ASC";
+        } else if ("desc".equals(sortOrder)) {
+            sql += "DESC";
+        }
+        sql += " OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY";
+
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, (index - 1) * 10);
+            try (ResultSet rs = st.executeQuery()) {
+                while (rs.next()) {
+                    int userId = rs.getInt("User_Id");
+                    String password = rs.getString("Password");
+                    String userName = rs.getString("User_name");
+                    String email = rs.getString("Email");
+                    String phoneNumber = rs.getString("Phone_number");
+                    int roleId = rs.getInt("Role_id");
+                    String roleName = rs.getString("Role_Name");
+                    String avatar = rs.getString("Avarta");
+                    boolean isBanned = rs.getBoolean("isBanned");
+                    boolean gender = rs.getBoolean("gender");
+
+                    Role role = new Role(roleId, roleName);
+                    User user = new User(userId, password, userName, email, phoneNumber, role, avatar, isBanned, gender);
+                    userList.add(user);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userList;
+    }
+
+    public List<User> getAllUsersBySearch(int index, String sortBy, String sortOrder, String search, String SearchBy) {
+        List<User> userList = new ArrayList<>();
+        String sql = "SELECT u.[User_Id], u.[Password], u.[User_name], u.[Email], u.[Phone_number], r.[Role_id], r.[Role_Name], u.[Avarta], u.[isBanned], u.[gender] \n"
+                + "                FROM [dbo].[User] u\n"
+                + "                JOIN\n"
+                + "                    [dbo].[Role] r\n"
+                + "                ON \n"
+                + "                    u.[Role_id] = r.[Role_id]";
+
+        if (search != null && !search.isEmpty()) {
+            if ("User".equals(SearchBy)) {
+                sql += "WHERE u.[User_name] LIKE ? ";
+            } else if ("Email".equals(SearchBy)) {
+                sql += "WHERE u.[Email] LIKE ? ";
+            } else if ("Phone".equals(SearchBy)) {
+                sql += "WHERE u.[Phone_number] LIKE ? ";
+            }
+        }
+
+        if ("name".equals(sortBy)) {
+            sql += " ORDER BY [User_name] ";
+        } else if ("email".equals(sortBy)) {
+            sql += " ORDER BY [Email] ";
+        } else if ("gender".equals(sortBy)) {
+            sql += " ORDER BY [gender] ";
+        } else if ("phone".equals(sortBy)) {
+            sql += " ORDER BY [Phone_number] ";
+        } else {
+            sql += " ORDER BY [User_Id] ";
+        }
+
+        if ("asc".equals(sortOrder)) {
+            sql += "ASC";
+        } else if ("desc".equals(sortOrder)) {
+            sql += "DESC";
+        } else {
+            sql += " ";
+        }
+        sql += " OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY";
+
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, "%" + search + "%");
+            st.setInt(2, (index - 1) * 10);
+            try (ResultSet rs = st.executeQuery()) {
+                while (rs.next()) {
+                    int userId = rs.getInt("User_Id");
+                    String password = rs.getString("Password");
+                    String userName = rs.getString("User_name");
+                    String email = rs.getString("Email");
+                    String phoneNumber = rs.getString("Phone_number");
+                    int roleId = rs.getInt("Role_id");
+                    String roleName = rs.getString("Role_Name");
+                    String avatar = rs.getString("Avarta");
+                    boolean isBanned = rs.getBoolean("isBanned");
+                    boolean gender = rs.getBoolean("gender");
+
+                    Role role = new Role(roleId, roleName);
+                    User user = new User(userId, password, userName, email, phoneNumber, role, avatar, isBanned, gender);
+                    userList.add(user);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userList;
+    }
+
+    public UserDetails getUserById(int userId) {
+        UserDetails UD = null;
+        User user = null;
+        double totalPrice = getTotalPriceByUserId(userId);
+        int Order_id = getTotalOrderByUserId(userId);
+        List<Order> products = new ArrayList<>();
+        String sql = "SELECT u.User_Id, u.Password, u.User_name, u.Email, u.Phone_number,\n"
+                + "		r.Role_id, r.Role_Name, u.Avarta, u.isBanned, u.gender,\n"
+                + "		o.[Order_id], o.[Product_id], o.[Order_quantity], b.[Bill_id], o.[Real_time_price], o.[Payment],\n"
+                + "		b.Total_price,o.Order_id\n"
+                + "FROM [dbo].[User] u\n"
+                + "LEFT JOIN Bill b ON u.User_Id = b.User_id \n"
+                + "LEFT JOIN [Order] o ON b.Bill_Id = o.Bill_id\n"
+                + "JOIN [dbo].[Role] r ON u.Role_id = r.Role_id\n"
+                + "WHERE u.User_Id = ?\n"
+                + "GROUP BY u.User_Id, u.Password, u.User_name, u.Email, u.Phone_number,\n"
+                + "		r.Role_id, r.Role_Name, u.Avarta, u.isBanned, u.gender,b.Total_price,o.Order_id,\n"
+                + "        o.Product_id, o.Order_quantity,b.Bill_id, o.Real_time_price, o.Payment;";
+
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, userId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                String password = rs.getString("Password");
+                String userName = rs.getString("User_name");
+                String email = rs.getString("Email");
+                String phoneNumber = rs.getString("Phone_number");
+                int roleId = rs.getInt("Role_id");
+                String roleName = rs.getString("Role_Name");
+                String avatar = rs.getString("Avarta");
+                boolean isBanned = rs.getBoolean("isBanned");
+                boolean gender = rs.getBoolean("gender");
+                
+                do {
+                    int productId = rs.getInt("Product_id");
+                    int orderId = rs.getInt("Order_id");
+                    int BillId = rs.getInt("Bill_id");
+                    Date Real_time_price = rs.getDate("Real_time_price");
+                    String Payment = rs.getString("Payment");
+                    int orderQuantity = rs.getInt("Order_quantity");
+
+                    Order order = new Order(orderId, productId, orderQuantity, BillId, Real_time_price, Payment);
+                    products.add(order);
+
+                } while (rs.next());
+
+                Role role = new Role(roleId, roleName);
+                user = new User(userId, password, userName, email, phoneNumber, role, avatar, isBanned, gender);
+
+                UD = new UserDetails(totalPrice, user, Order_id, products);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return UD;
+    }
+
+    public double getTotalPriceByUserId(int userId) {
+        double totalPrice = 0.0;
+        String sql = "SELECT SUM(Total_price) AS TotalPrice\n"
+                + "FROM [Feds].[dbo].[Bill]\n"
+                + "WHERE User_id = ?;";
+
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, userId);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                totalPrice = rs.getDouble("TotalPrice");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return totalPrice;
+    }
+
+    public int getTotalOrderByUserId(int userId) {
+        int totalOrder = 0;
+        String sql = "SELECT COUNT(o.[Order_id]) AS TotalOrders\n"
+                + "FROM [Feds].[dbo].[Order] o\n"
+                + "JOIN [Feds].[dbo].[Bill] b ON o.[Bill_id] = b.[Bill_Id]\n"
+                + "WHERE b.[User_id] = ?;";
+
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, userId);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                totalOrder = rs.getInt("TotalOrders");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return totalOrder;
+    }
+
+    public static void main(String[] args) {
+        Data_MarketingDashboard_DAO data = new Data_MarketingDashboard_DAO();
+//        List<User> Users = data.getAllUsers(1, "id", "asc");
+        UserDetails u = data.getUserById(10);
+
+        double totalPrice = u.getTotalPrice();
+        User user = u.getUser();
+        int totalOrders = u.getTotalOrders();
+        List<Order> orders = u.getOrder();
+        List<Product1> product = new ArrayList<>();
+//        for (User u : Users) {
+        System.out.println("User ID: " + user.getUser_Id());
+        System.out.println("User Name: " + user.getUser_name());
+        System.out.println("Tổng số đơn hàng: " + totalOrders);
+        System.out.println("Tổng số tiền đã mua: " + totalPrice);
+
+        for (Order order : orders) {
+            Product1 p = data.getProductById(order.getProduct_id());
+            if (p != null) { // Kiểm tra nếu p không null
+                System.out.println("Product name: " + order.getOrder_quantity());
+                product.add(p);
+            }
+        }
+
 //        }
-//    }
+        System.out.println();
+    }
 }
