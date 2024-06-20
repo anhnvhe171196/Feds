@@ -26,7 +26,7 @@
         <!-- /HEADER -->
 
         <!-- NAVIGATION -->
-        <header>
+        <header class="header">
             <!-- TOP HEADER -->
             <div id="top-header">
                 <div class="container">
@@ -57,6 +57,7 @@
                                                     <li><a href="${pageContext.request.contextPath}/marketingDashBoard">Marketing Management</a></li>
                                                     </c:if>
                                                     <c:if test="${sessionScope.account != null && sessionScope.account.role.id == 1}">
+                                                    <li><a href="${pageContext.request.contextPath}/admin/dashboard">Admin Dashboard</a></li>
                                                     <li><a href="${pageContext.request.contextPath}/admin/users">Danh sách người dùng</a></li>
                                                     </c:if>
                                                 <li><a href="${pageContext.request.contextPath}/changePassword">Thay đổi mật khẩu</a></li>
@@ -103,24 +104,14 @@
                                     }
                                 </script>
                                 <form class="col-md-4">
-    <select class="input-select" name="cateid" style="width: 216px;" onchange="ChangeCate(this)">
-        <c:choose>
-            <c:when test="${empty param.cateid}">
-                <option selected>Loại Sản Phẩm</option>
-            </c:when>
-            <c:otherwise>
-                <option>Loại Sản Phẩm</option>
-            </c:otherwise>
-        </c:choose>
-        <c:forEach items="${sessionScope.cates}" var="cate">
-            <option value="${cate.getCategory_id()}"
-                <c:if test="${param.cateid == cate.getCategory_id()}">selected</c:if>>
-                ${cate.getCategory_name()}
-            </option>
-        </c:forEach>
-    </select>
-</form>
-                                   
+                                    <select class="input-select" name="cateid"  style="width: 216px;" onchange="ChangeCate(this)">
+                                        <option selected>Loại Sản Phẩm</option>
+                                        <c:forEach items="${sessionScope.cates}" var="cate">
+
+                                            <option value="${cate.getCategory_id()}">${cate.getCategory_name()}</option>
+                                        </c:forEach>
+                                    </select>
+                                </form>                                    
                                 <form method="get" class="col-md-8" action="ListProduct">
                                     <input name="search" class="input" placeholder="Search here" style="width: 200px" value="<c:if test="${param.search != null}">${param.search}</c:if>">
                                     <c:if test="${param.cateid != null}">
