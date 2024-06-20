@@ -33,7 +33,7 @@ public class DashboardController extends HttpServlet {
         Bill_DAO bDAO = new Bill_DAO();
         request.setAttribute("doneOrder", bDAO.getTotalSuccessOrder()); 
         request.setAttribute("cancelOrder", bDAO.getTotalCanceledOrder()); 
-        request.setAttribute("submitOrder", bDAO.getTotalCanceledOrder()); 
+        request.setAttribute("submitOrder", bDAO.getTotalOrder()); 
         
         HashMap<Date, Integer> trendAll = bDAO.TrendAll();
         HashMap<Date, Integer> trendDone = bDAO.TrendDone();

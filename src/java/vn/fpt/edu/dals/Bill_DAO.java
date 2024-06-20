@@ -401,7 +401,7 @@ public class Bill_DAO extends DBContext {
         int totalDone = 0;
         String sql = "SELECT Count(Bill_Id) as Total \n"
                 + "FROM [Feds].[dbo].[Bill] \n"
-                + "WHERE Status = 'Đã hủy'";
+                + "WHERE Status LIKES '%Đã hủy%'";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -593,5 +593,19 @@ public class Bill_DAO extends DBContext {
         }
         return total;
     }
-
+public int getTotalOrder() {
+        int totalDone = 0;
+        String sql = "SELECT Count(Bill_Id) as Total \n"
+                + "FROM [Feds].[dbo].[Bill] \n";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                totalDone = rs.getInt("Total");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return totalDone;
+    }
 }
