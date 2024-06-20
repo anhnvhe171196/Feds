@@ -65,6 +65,22 @@
         <servlet-class>vn.fpt.edu.common.UserRandomPassword</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>UserListController</servlet-name>
+        <servlet-class>vn.fpt.edu.admin.controller.UserListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserDetailController</servlet-name>
+        <servlet-class>vn.fpt.edu.admin.controller.UserDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DashboardController</servlet-name>
+        <servlet-class>vn.fpt.edu.admin.controller.DashboardController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserRandomPassword</servlet-name>
+        <servlet-class>vn.fpt.edu.common.UserRandomPassword</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AddToCartController</servlet-name>
         <servlet-class>vn.fpt.edu.controller.AddToCartController</servlet-class>
     </servlet>
@@ -123,6 +139,18 @@
     <servlet-mapping>
         <servlet-name>UserForgotPasswordController</servlet-name>
         <url-pattern>/forgotpass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserListController</servlet-name>
+        <url-pattern>/admin/users</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserDetailController</servlet-name>
+        <url-pattern>/admin/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DashboardController</servlet-name>
+        <url-pattern>/admin/dashboard</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserChangeProfileController</servlet-name>

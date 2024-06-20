@@ -66,7 +66,7 @@ public class User_DAO extends DBContext {
                 + "           ,[Email]\n"
                 + "           ,[Phone_number]\n"
                 + "           ,[Role_id]\n"
-                + "           ,[Avarta])\n"
+                + "           ,[Avarta]\n"
                 + "           ,[gender])\n"
                 + "     VALUES\n"
                 + "           (?, ?, ?, ?, ?, ?, ?)";
