@@ -12,7 +12,7 @@
     <head>
         <meta charset="utf-8">
         <title>ORDER DETAIL FOR SALER</title>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="width=device-width, Arial=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
 
@@ -152,7 +152,7 @@
 
         <!-- Recent Sales Start -->
         <div class="container-fluid pt-4 px-4">
-            <div class="bg-light text-center rounded">
+            <div class="bg-light text-center rounded" style="    padding: 10px;">
 
                 <div class="d-flex align-items-center justify-content-between" >
                     <div class="d-none d-md-flex ms-4" method="GET" action="">
@@ -176,37 +176,39 @@
                     </div>
 
                     <div><a class="btn btn-outline-success m-2" style="width: 100px" href="/Feds/orderListBillController">Quay lại</a></div>
+
                 </div>
-            </div>
+                <c:forEach var="bill" items="${sessionScope.listBillOrder}" varStatus="status">
 
-            <c:forEach var="bill" items="${sessionScope.listBillOrder}" varStatus="status">
+                    <c:if test="${status.first}">
+                        <c:set var="userName" value="${bill.user_name}" />
+                        <c:set var="email" value="${bill.phone}" />
+                        <c:set var="phone" value="${bill.email}" />
+                        <c:set var="address" value="${bill.address}" />
+                        <c:set var="payment" value="${bill.payment}" />
+                    </c:if>
+                </c:forEach>
 
-                <c:if test="${status.first}">
-                    <c:set var="userName" value="${bill.user_name}" />
-                    <c:set var="email" value="${bill.phone}" />
-                    <c:set var="phone" value="${bill.email}" />
-                    <c:set var="address" value="${bill.address}" />
-                    <c:set var="payment" value="${bill.payment}" />
-                </c:if>
-            </c:forEach>
-
-            <div class="bg-light text-center rounded customer-info " >
-                <div class="info-row"  style="margin-left: 20px; margin-top:10px">
-                    <h6>Khách hàng: <c:out value="${userName}" /></h6>
+                <div class="info-row"  style=" margin-left: 20px; margin-top:10px" >
+                    <h6 style ="font-family: Arial; font-weight: bolder; font-size: 15px" >Khách hàng: <c:out value="${userName}" /></h6>
                 </div>
                 <div class="info-row"  style="margin-left: 20px">
-                    <h6>Email: <c:out value="${email}" /></h6>
+                    <h6 style ="font-family: Arial; font-weight: bolder; font-size: 15px" >Email: <c:out value="${email}" /></h6>
                 </div>
                 <div class="info-row" style="margin-left: 20px">
-                    <h6>Số điện thoại: <c:out value="${phone}" /></h6>
+                    <h6 style ="font-family: Arial; font-weight: bolder; font-size: 15px" >Số điện thoại: <c:out value="${phone}" /></h6>
                 </div>
                 <div class="info-row" style="margin-left: 20px">
-                    <h6>Địa chỉ: <c:out value="${address}" /></h6>
+                    <h6 style ="font-family: Arial; font-weight: bolder; font-size: 15px" >Địa chỉ: <c:out value="${address}" /></h6>
                 </div>
                 <div class="info-row" style="margin-left: 20px">
-                    <h6>Payment: <c:out value="${payment}" /></h6>
+                    <h6 style ="font-family: Arial; font-weight: bolder; font-size: 15px" >Payment: <c:out value="${payment}" /></h6>
                 </div>
             </div>
+                
+                
+
+
 
 
             <div class="table-responsive">
