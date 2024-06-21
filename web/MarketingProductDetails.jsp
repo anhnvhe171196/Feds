@@ -95,13 +95,13 @@
                     </div>
                     <div class="navbar-nav w-100">
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Products List</a>
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Sản phẩm</a>
                             <div class="dropdown-menu bg-transparent border-0">
-                                <a href="marketingProductList" class="dropdown-item">Products List</a>
-                                <a href="#" class="dropdown-item">Post list</a>
-                                <a href="#" class="dropdown-item">Sliders List</a>
-                                <a href="marketingCustomerList" class="dropdown-item">Customer list</a>
-                                <a href="#" class="dropdown-item">Feedback list</a>
+                                <a href="marketingProductList" class="dropdown-item">Sản phẩm</a>
+<!--                                <a href="#" class="dropdown-item">Post list</a>
+                                <a href="#" class="dropdown-item">Sliders List</a>-->
+                                <a href="marketingCustomerList" class="dropdown-item">Người dùng</a>
+<!--                                <a href="#" class="dropdown-item">Feedback list</a>-->
                             </div>
                         </div>
                     </div>
@@ -121,40 +121,41 @@
                         <i class="fa fa-bars"></i>
                     </a>
                     <form class="d-none d-md-flex ms-4" action="marketingProductList" method="get"> 
-                        <input class="form-control border-0" type="search" placeholder="Search" name="search">
+                        <input class="form-control border-0" type="search" placeholder="Search" name="search">&nbsp;&nbsp;&nbsp;
                         <button type="submit" class="btn btn-primary" >Enter</button> 
                     </form> 
                     <div class="navbar-nav align-items-center ms-auto">
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                                 <i class="fa fa-envelope me-lg-2"></i>
-                                <span class="d-none d-lg-inline-flex">Message</span>
+                                <span class="d-none d-lg-inline-flex">Tin nhắn</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
 
                                 <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item text-center">See all message</a>
+                                <a href="#" class="dropdown-item text-center">Xem tất cả tin nhắn</a>
                             </div>
                         </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                                 <i class="fa fa-bell me-lg-2"></i>
-                                <span class="d-none d-lg-inline-flex">Notificatin</span>
+                                <span class="d-none d-lg-inline-flex">Thông báo</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
 
                                 <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item text-center">See all notifications</a>
+                                <a href="#" class="dropdown-item text-center">Xem tất cả thông báo</a>
                             </div>
                         </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                                 <img class="rounded-circle me-lg-2" src="images/${sessionScope.account.avarta}" alt="" style="width: 40px; height: 40px;">
-                                <span class="d-none d-lg-inline-flex">${sessionScope.account.getUser_name()}</span>
+                                <span class="d-none d-lg-inline-flex">${sessionScope.account.user_name}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                                <a href="roleProfile.jsp" class="dropdown-item">My Profile</a>
-                                <a href="#" class="dropdown-item">Settings</a>
+                                <a href="userProfile" class="dropdown-item">Hồ sơ cá nhân</a>
+                                <a href="#" class="dropdown-item">Cài đặt</a>
+                                <a href="home" class="dropdown-item">Trang chủ</a>
                                 <a href="login.jsp" class="dropdown-item">Log Out</a>
                             </div>
                         </div>
@@ -168,7 +169,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class="mb-4">
-                                            <h6>Products Details</h6>
+                                            <h6>Thông tin sản phẩm</h6>
                                         </div>
                                     </div>
                                     <div class="col" style="text-align: right;" >
@@ -205,7 +206,7 @@
                                                         </div>
 
                                                         <hr/>
-                                                        <h6>Description:</h6>
+                                                        <h6>Mô tả:</h6>
                                                         <c:if test="${not empty product.detail.decription}">
                                                             <dd class="col-9">${product.detail.decription}</dd>
                                                         </c:if>
