@@ -233,7 +233,7 @@
 
                                                             <c:if test="${not empty user.phone_number}">
                                                                 <div class="row w-100">
-                                                                    <dt class="col-4">SDT:</dt>
+                                                                    <dt class="col-3">SDT:</dt>
                                                                     <dd class="col-8">${user.phone_number}</dd>
                                                                 </div>
                                                             </c:if>
