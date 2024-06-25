@@ -11,6 +11,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import vn.fpt.edu.dals.Bill_DAO;
+import vn.fpt.edu.models.User;
 
 /**
  *
@@ -54,6 +57,13 @@ public class ViewMyOrderDetailController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         processRequest(request, response);
+//        HttpSession session = request.getSession();
+//        User u = (User) session.getAttribute("account");
+//        Bill_DAO bill = new Bill_DAO();
+//        String userid = request.getParameter("userid");
+//        
+//        session.setAttribute("billinfo", bill.getBillAndOrderByUserId(u.getUser_Id()));
+//        request.getRequestDispatcher("MyOrderList.jsp").forward(request, response);
     } 
 
     /** 
