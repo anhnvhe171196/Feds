@@ -57,13 +57,7 @@ public class ViewMyOrderDetailController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         processRequest(request, response);
-//        HttpSession session = request.getSession();
-//        User u = (User) session.getAttribute("account");
-//        Bill_DAO bill = new Bill_DAO();
-//        String userid = request.getParameter("userid");
-//        
-//        session.setAttribute("billinfo", bill.getBillAndOrderByUserId(u.getUser_Id()));
-//        request.getRequestDispatcher("MyOrderList.jsp").forward(request, response);
+
     } 
 
     /** 
