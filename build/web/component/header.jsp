@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Home</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css"/>
@@ -26,7 +26,7 @@
         <!-- /HEADER -->
 
         <!-- NAVIGATION -->
-        <header>
+        <header class="header">
             <!-- TOP HEADER -->
             <div id="top-header">
                 <div class="container">
@@ -57,6 +57,7 @@
                                                     <li><a href="${pageContext.request.contextPath}/marketingDashBoard">Marketing Management</a></li>
                                                     </c:if>
                                                     <c:if test="${sessionScope.account != null && sessionScope.account.role.id == 1}">
+                                                    <li><a href="${pageContext.request.contextPath}/admin/dashboard">Admin Dashboard</a></li>
                                                     <li><a href="${pageContext.request.contextPath}/admin/users">Danh sách người dùng</a></li>
                                                     </c:if>
                                                 <li><a href="${pageContext.request.contextPath}/changePassword">Thay đổi mật khẩu</a></li>
@@ -99,22 +100,46 @@
                             <div class="header-search">
                                 <script>
                                     function ChangeCate(e) {
-                                        window.location.href = "${pageContext.request.contextPath}/ListProduct?cateid="+e.value+"<c:if test="${param.search != null}">&search=${param.search}</c:if>";
-                                    }
-                                </script>
-                                <form class="col-md-4">
-                                    <select class="input-select" name="cateid"  style="width: 216px;" onchange="ChangeCate(this)">
-                                        <option selected>Loại Sản Phẩm</option>
+
+                                        window.location.href = "${pageContext.request.contextPath}/ListProduct?cateid=" + e.value + "<c:if test="${param.search != null}">&search=${param.search}</c:if>";
+                                            }
+                                    </script>
+<!--                                    <form class="col-md-4">
+                                        <select class="input-select" name="cateid"  style="width: 216px;" onchange="ChangeCate(this)">
+                                            <option selected>Loại Sản Phẩm</option>
                                         <c:forEach items="${sessionScope.cates}" var="cate">
 
                                             <option value="${cate.getCategory_id()}">${cate.getCategory_name()}</option>
                                         </c:forEach>
                                     </select>
-                                </form>                                    
+                                </form>                                    -->
+
+                                        
+                                    
+<form class="col-md-4">
+    <select class="input-select" name="cateid" style="width: 216px;" onchange="ChangeCate(this)">
+        <c:choose>
+            <c:when test="${empty param.cateid}">
+                <option selected>Loại Sản Phẩm</option>
+            </c:when>
+            <c:otherwise>
+                <option>Loại Sản Phẩm</option>
+            </c:otherwise>
+        </c:choose>
+        <c:forEach items="${sessionScope.cates}" var="cate">
+            <option value="${cate.getCategory_id()}"
+                <c:if test="${param.cateid == cate.getCategory_id()}">selected</c:if>>
+                ${cate.getCategory_name()}
+            </option>
+        </c:forEach>
+    </select>
+</form>
+                                    
+
                                 <form method="get" class="col-md-8" action="ListProduct">
                                     <input name="search" class="input" placeholder="Search here" style="width: 200px" value="<c:if test="${param.search != null}">${param.search}</c:if>">
                                     <c:if test="${param.cateid != null}">
-                                    <input name="cateid" type="hidden" value="${param.cateid}">
+                                        <input name="cateid" type="hidden" value="${param.cateid}">
                                     </c:if>
                                     <button type="submit" class="search-btn">Search</button>
                                 </form>
@@ -139,45 +164,55 @@
 
                                 <!-- Cart -->
                                 <div class="dropdown">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                    <a href="cart" aria-expanded="true">
                                         <i class="fa fa-shopping-cart"></i>
                                         <span>Giỏ Hàng</span>
                                         <div class="qty">${requestScope.size}</div>
                                     </a>
-                                    <div class="cart-dropdown">
-                                        <div class="cart-list">
-                                            <div class="product-widget">
-                                                <div class="product-img">
-                                                    <img src="${pageContext.request.contextPath}/./img/product01.png" alt="">
-                                                </div>
-                                                <div class="product-body">
-                                                    <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                                    <h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
-                                                </div>
-                                                <button class="delete"><i class="fa fa-close"></i></button>
-                                            </div>
-
-                                            <div class="product-widget">
-                                                <div class="product-img">
-                                                    <img src="${pageContext.request.contextPath}/./img/product02.png" alt="">
-                                                </div>
-                                                <div class="product-body">
-                                                    <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                                    <h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
-                                                </div>
-                                                <button class="delete"><i class="fa fa-close"></i></button>
-                                            </div>
-                                        </div>
-                                        <div class="cart-summary">
-                                            <small>3 Item(s) selected</small>
-                                            <h5>SUBTOTAL: $2940.00</h5>
-                                        </div>
-                                        <div class="cart-btns">
-                                            <a href="#">View Cart</a>
-                                            <a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
-                                        </div>
-                                    </div>
                                 </div>
+                                <!--                                <div class="dropdown">
+                                                                    <a href="cart">
+                                                                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                                                        <i class="fa fa-shopping-cart"></i>
+                                                                        <span>Giỏ Hàng</span>
+                                                                        <div class="qty">${requestScope.size}</div>
+                                                                    </a>
+                                                                    </a>
+                                                                    
+                                                                    <div class="cart-dropdown">
+                                                                        <div class="cart-list">
+                                                                            <div class="product-widget">
+                                                                                <div class="product-img">
+                                                                                    <img src="${pageContext.request.contextPath}/./img/product01.png" alt="">
+                                                                                </div>
+                                                                                <div class="product-body">
+                                                                                    <h3 class="product-name"><a href="#">product name goes here</a></h3>
+                                                                                    <h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
+                                                                                </div>
+                                                                                <button class="delete"><i class="fa fa-close"></i></button>
+                                                                            </div>
+                                
+                                                                            <div class="product-widget">
+                                                                                <div class="product-img">
+                                                                                    <img src="${pageContext.request.contextPath}/./img/product02.png" alt="">
+                                                                                </div>
+                                                                                <div class="product-body">
+                                                                                    <h3 class="product-name"><a href="#">product name goes here</a></h3>
+                                                                                    <h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
+                                                                                </div>
+                                                                                <button class="delete"><i class="fa fa-close"></i></button>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="cart-summary">
+                                                                            <small>3 Item(s) selected</small>
+                                                                            <h5>SUBTOTAL: $2940.00</h5>
+                                                                        </div>
+                                                                        <div class="cart-btns">
+                                                                            <a href="#">View Cart</a>
+                                                                            <a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>-->
                                 <!-- /Cart -->
 
                                 <!-- Menu Toogle -->

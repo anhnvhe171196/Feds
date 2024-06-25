@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import vn.fpt.edu.models.Bill;
 import vn.fpt.edu.models.FeedBack;
@@ -19,6 +20,38 @@ import vn.fpt.edu.models.Product1;
  * @author Trong
  */
 public class Feedback_DAO extends DBContext {
+    
+    public float AverageFeedback() {
+        float numOfFeedback = 0;
+        String sql = "SELECT CAST(AVG(Rating) AS float) as Average FROM FeedBack";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                numOfFeedback = rs.getFloat("Average");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return numOfFeedback;
+
+    }
+    
+    public HashMap<Integer, Float> AverageFeedbackByCate() {
+        HashMap<Integer, Float> numOfFeedback = new HashMap();
+        String sql = "SELECT CAST(AVG(Rating) AS float) as Average, Brandd.Category_id FROM FeedBack join [Bill] on [Bill].[Bill_Id] = FeedBack.[Bill_Id] join [Order] on [Order].Bill_id = Bill.Bill_Id join Product on Product.Product_id = [Order].Product_id join Brandd on Brandd.Brand_Id = Product.Brand_id GROUP BY Brandd.Category_id";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                numOfFeedback.put(rs.getInt("Category_id"), rs.getFloat("Average"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return numOfFeedback;
+
+    }
 
     public int getNumOfFeedbackCurrentDate() {
         int numOfFeedback = 0;
@@ -470,35 +503,7 @@ public class Feedback_DAO extends DBContext {
     public List<Feedback1> searchFeedback(String value) {
         List<Feedback1> list = new ArrayList<>();
         try {
-            String sql = """
-                         SELECT                   FB.Feedback_Id,
-                                                  FB.Date AS Date,
-                                                  FB.Rating,
-                                                  FB.Status,
-                                                  P.Product_name,
-                                                  U.User_name AS User_name,
-                                                  COALESCE(FBCounts.Review_Count, 0) AS FeedbackCount
-                                              FROM 
-                                                  [Feds].[dbo].[FeedBack] FB
-                                              JOIN 
-                                                  [Feds].[dbo].[Product] P ON FB.Product_id = P.Product_id
-                                              JOIN 
-                                                  [Feds].[dbo].[Bill] B ON FB.Bill_Id = B.Bill_Id
-                                              JOIN 
-                                                  [Feds].[dbo].[User] U ON B.User_id = U.User_Id
-                                              LEFT JOIN (
-                                                  SELECT 
-                                                      Product_id,
-                                                      COUNT(*) AS Review_Count
-                                                  FROM 
-                                                      [Feds].[dbo].[FeedBack]
-                                                  GROUP BY 
-                                                      Product_id
-                                              ) AS FBCounts ON FB.Product_id = FBCounts.Product_id
-                                              WHERE U.User_name LIKE ? 
-                                              OR P.Product_name LIKE ? 
-                                              OR FB.Feedback_Id LIKE ?
-                                              OR FB.Date LIKE ?;""";
+            String sql = "SELECT                   FB.Feedback_Id, FB.Date AS Date, FB.Rating, FB.Status, P.Product_name, U.User_name AS User_name, COALESCE(FBCounts.Review_Count, 0) AS FeedbackCount FROM  [Feds].[dbo].[FeedBack] FB JOIN  [Feds].[dbo].[Product] P ON FB.Product_id = P.Product_id JOIN [Feds].[dbo].[Bill] B ON FB.Bill_Id = B.Bill_Id JOIN  [Feds].[dbo].[User] U ON B.User_id = U.User_Id LEFT JOIN ( SELECT  Product_id, COUNT(*) AS Review_Count FROM  [Feds].[dbo].[FeedBack] GROUP BY  Product_id ) AS FBCounts ON FB.Product_id = FBCounts.Product_id WHERE U.User_name LIKE ?  OR P.Product_name LIKE ?  OR FB.Feedback_Id LIKE ? OR FB.Date LIKE ?;";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, "%" + value + "%");
             ps.setString(2, "%" + value + "%");

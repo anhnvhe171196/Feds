@@ -54,6 +54,36 @@ public class Order_DAO extends DBContext {
         return numOfProductsSold;
     }
     
+    public void updateQuantityProduct(String id) {
+        List<Order> list = new ArrayList<>();
+
+        try {
+            String sql = "select Order_id, Product_id, Order_quantity, Bill_id\n"
+                    + "From [Order]\n"
+                    + "where Bill_id = ?";
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Order order = new Order();
+                order.setOrder_id(rs.getInt(1));
+                order.setProduct_id(rs.getInt(2));
+                order.setOrder_quantity(rs.getInt(3));
+                order.setBill_id(rs.getInt(4));
+                list.add(order);
+            }
+            String sql1 ="update Product set Quantity = Quantity + ? where Product_id = ?";
+            PreparedStatement st1 = connection.prepareStatement(sql1);
+            for (Order order : list) {
+                st1.setInt(1, order.getOrder_quantity());
+                st1.setInt(2, order.getProduct_id());
+                st1.executeUpdate();
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    
     
 
 }

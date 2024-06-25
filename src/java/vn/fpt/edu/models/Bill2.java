@@ -20,11 +20,14 @@ public class Bill2 {
     private String District;
     private String Country;
     private User user;
+    private Order order;
+    private Product1 product1;
+    
 
     public Bill2() {
     }
 
-    public Bill2(int Bill_id, double Total_price, Date Date, String Address, String Status, String Province, String District, String Country, User user) {
+    public Bill2(int Bill_id, double Total_price, Date Date, String Address, String Status, String Province, String District, String Country, User user, Order order, Product1 product1) {
         this.Bill_id = Bill_id;
         this.Total_price = Total_price;
         this.Date = Date;
@@ -34,7 +37,27 @@ public class Bill2 {
         this.District = District;
         this.Country = Country;
         this.user = user;
+        this.order = order;
+        this.product1 = product1;
     }
+
+    public Product1 getProduct1() {
+        return product1;
+    }
+
+    public void setProduct1(Product1 product1) {
+        this.product1 = product1;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    
 
     public String getProvince() {
         return Province;

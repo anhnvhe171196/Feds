@@ -120,7 +120,7 @@ public class VNPayController extends HttpServlet {
         job.addProperty("code", "00");
         job.addProperty("message", "success");
         if (req.getParameter("paymentMethod").equals("cash")) {
-            job.addProperty("data", "http://localhost:9999/Feds/");
+            job.addProperty("data", "http://localhost:9999/Feds/complete");
         } else if (req.getParameter("paymentMethod").equals("vnpay")) {
             job.addProperty("data", paymentUrl);
         }

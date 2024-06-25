@@ -65,13 +65,13 @@
     <body>
 
         <div class="container-xxl position-relative bg-white d-flex p-0">
-            <!-- Spinner Start -->
-            <!--            <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+<!--             Spinner Start -->
+                        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
                             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                                 <span class="sr-only">Loading...</span>
                             </div>
-                        </div>-->
-            <!-- Spinner End -->
+                        </div>
+<!--             Spinner End -->
 
             <!-- Sidebar Start -->
             <div class="sidebar pe-4 pb-3">
@@ -95,13 +95,13 @@
                     </div>
                     <div class="navbar-nav w-100">
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Customer list</a>
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Người dùng</a>
                             <div class="dropdown-menu bg-transparent border-0">
-                                <a href="marketingProductList" class="dropdown-item">Products List</a>
-                                <a href="#" class="dropdown-item">Post list</a>
-                                <a href="#" class="dropdown-item">Sliders List</a>
-                                <a href="marketingCustomerList" class="dropdown-item">Customer list</a>
-                                <a href="#" class="dropdown-item">Feedback list</a>
+                                <a href="marketingProductList" class="dropdown-item">Sản phẩm</a>
+<!--                                <a href="#" class="dropdown-item">Post list</a>
+                                <a href="#" class="dropdown-item">Sliders List</a>-->
+                                <a href="marketingCustomerList" class="dropdown-item">Người dùng</a>
+<!--                                <a href="#" class="dropdown-item">Feedback list</a>-->
                             </div>
                         </div>
                     </div>
@@ -123,7 +123,7 @@
                     <form class="d-none d-md-flex ms-4" action="marketingCustomerList" method="get"> 
                         <input class="form-control border-0" type="search" placeholder="Search" name="search">&nbsp;&nbsp;
                         <select name="SearchBy" class="btn btn-primary">
-                            <option value="User">User</option>
+                            <option value="User">Tên</option>
                             <option value="Email">Email</option>
                             <option value="Phone">Phone</option>
                         </select> &nbsp;&nbsp;
@@ -133,33 +133,34 @@
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                                 <i class="fa fa-envelope me-lg-2"></i>
-                                <span class="d-none d-lg-inline-flex">Message</span>
+                                <span class="d-none d-lg-inline-flex">Tin nhắn</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
 
                                 <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item text-center">See all message</a>
+                                <a href="#" class="dropdown-item text-center">Xem tất cả tin nhắn</a>
                             </div>
                         </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                                 <i class="fa fa-bell me-lg-2"></i>
-                                <span class="d-none d-lg-inline-flex">Notificatin</span>
+                                <span class="d-none d-lg-inline-flex">Thông báo</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
 
                                 <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item text-center">See all notifications</a>
+                                <a href="#" class="dropdown-item text-center">Xem tất cả thông báo</a>
                             </div>
                         </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                                 <img class="rounded-circle me-lg-2" src="images/${sessionScope.account.avarta}" alt="" style="width: 40px; height: 40px;">
-                                <span class="d-none d-lg-inline-flex">${sessionScope.account.getUser_name()}</span>
+                                <span class="d-none d-lg-inline-flex">${sessionScope.account.user_name}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                                <a href="roleProfile.jsp" class="dropdown-item">My Profile</a>
-                                <a href="#" class="dropdown-item">Settings</a>
+                                <a href="userProfile" class="dropdown-item">Hồ sơ cá nhân</a>
+                                <a href="#" class="dropdown-item">Cài đặt</a>
+                                <a href="home" class="dropdown-item">Trang chủ</a>
                                 <a href="login.jsp" class="dropdown-item">Log Out</a>
                             </div>
                         </div>
@@ -182,7 +183,7 @@
                                             <th scope="col" style="color: #009CFF;">Avatar</th>
                                             <th scope="col">
                                                 <a href="#" onclick="sortByName()">
-                                                    <button type="button" class="sort-button">Customer name</button>
+                                                    <button type="button" class="sort-button">Tên người dùng</button>
                                                 </a>
                                             </th>
                                             <th scope="col"  style="color: #009CFF;">
@@ -192,12 +193,12 @@
                                             </th>
                                             <th scope="col">
                                                 <a href="#" onclick="sortByPhone()">
-                                                    <button type="button" class="sort-button">Phone number</button>
+                                                    <button type="button" class="sort-button">Số điện thoại</button>
                                                 </a>
                                             </th>
                                             <th scope="col">
                                                 <a href="#" onclick="sortByGender()">
-                                                    <button type="button" class="sort-button">Gender</button>
+                                                    <button type="button" class="sort-button">Giới tính</button>
                                                 </a>
                                             </th>
                                             <th scope="col" style="color: #009CFF;">
@@ -207,7 +208,7 @@
                                                 Status
                                             </th>
                                             <th scope="col" style="color: #009CFF;">
-                                                Details
+                                                Thông tin
                                             </th>
 
 
@@ -224,23 +225,23 @@
                                                 <td scope="col">${users.email}</th>
                                                 <td scope="col">${users.phone_number}</th>
                                                 <td scope="col">
-                                                    <c:if test="${users.gender}"> Male</c:if>
-                                                    <c:if test="${!users.gender}"> Female</c:if>
+                                                    <c:if test="${users.gender}"><label style="color: #0d6efd" >Nam</label></c:if>
+                                                    <c:if test="${!users.gender}"><label style="color: palevioletred" >Nữ</label></c:if>
                                                         </th>
-                                                    <td scope="col">${users.role.roleName}</th>
+                                                <td scope="col">${users.role.roleName}</th>
                                                 <td scope="col">
                                                     <c:choose>
                                                         <c:when test="${users.banned}">
-                                                            Banned
+                                                            <span style="color: red">Banned</span>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            Active
+                                                            <span style="color: springgreen">Active</span>
                                                         </c:otherwise>
                                                     </c:choose>
                                                     </th>
                                                 <td scope="col">
                                                     <a href="#" onclick="UserDetail(${users.user_Id})">
-                                                        <button type="button" class="sort-button" id="openModalBtn">Details</button>
+                                                        <button type="button" class="sort-button" id="openModalBtn">Chi tiết</button>
                                                     </a>
                                                 </td>
                                             </tr>

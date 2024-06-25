@@ -66,11 +66,11 @@
 
         <div class="container-xxl position-relative bg-white d-flex p-0">
             <!-- Spinner Start -->
-            <!--            <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+                        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
                             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                                 <span class="sr-only">Loading...</span>
                             </div>
-                        </div>-->
+                        </div>
             <!-- Spinner End -->
 
             <!-- Sidebar Start -->
@@ -95,13 +95,13 @@
                     </div>
                     <div class="navbar-nav w-100">
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Products List</a>
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Người dùng</a>
                             <div class="dropdown-menu bg-transparent border-0">
-                                <a href="marketingProductList" class="dropdown-item">Products List</a>
-                                <a href="#" class="dropdown-item">Post list</a>
-                                <a href="#" class="dropdown-item">Sliders List</a>
-                                <a href="marketingCustomerList" class="dropdown-item">Customer list</a>
-                                <a href="#" class="dropdown-item">Feedback list</a>
+                                <a href="marketingProductList" class="dropdown-item">Sản phẩm</a>
+<!--                                <a href="#" class="dropdown-item">Post list</a>
+                                <a href="#" class="dropdown-item">Sliders List</a>-->
+                                <a href="marketingCustomerList" class="dropdown-item">Người dùng</a>
+<!--                                <a href="#" class="dropdown-item">Feedback list</a>-->
                             </div>
                         </div>
                     </div>
@@ -123,7 +123,7 @@
                     <form class="d-none d-md-flex ms-4" action="marketingCustomerList" method="get"> 
                         <input class="form-control border-0" type="search" placeholder="Search" name="search">&nbsp;&nbsp;
                         <select name="SearchBy" class="btn btn-primary">
-                            <option value="User">User</option>
+                            <option value="User">Tên</option>
                             <option value="Email">Email</option>
                             <option value="Phone">Phone</option>
                         </select> &nbsp;&nbsp;
@@ -133,33 +133,34 @@
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                                 <i class="fa fa-envelope me-lg-2"></i>
-                                <span class="d-none d-lg-inline-flex">Message</span>
+                                <span class="d-none d-lg-inline-flex">Tin nhắn</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
 
                                 <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item text-center">See all message</a>
+                                <a href="#" class="dropdown-item text-center">Xem tất cả tin nhắn</a>
                             </div>
                         </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                                 <i class="fa fa-bell me-lg-2"></i>
-                                <span class="d-none d-lg-inline-flex">Notificatin</span>
+                                <span class="d-none d-lg-inline-flex">Thông báo</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
 
                                 <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item text-center">See all notifications</a>
+                                <a href="#" class="dropdown-item text-center">Xem tất cả thông báo</a>
                             </div>
                         </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                                 <img class="rounded-circle me-lg-2" src="images/${sessionScope.account.avarta}" alt="" style="width: 40px; height: 40px;">
-                                <span class="d-none d-lg-inline-flex">${sessionScope.account.getUser_name()}</span>
+                                <span class="d-none d-lg-inline-flex">${sessionScope.account.user_name}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                                <a href="roleProfile.jsp" class="dropdown-item">My Profile</a>
-                                <a href="#" class="dropdown-item">Settings</a>
+                                <a href="userProfile" class="dropdown-item">Hồ sơ cá nhân</a>
+                                <a href="#" class="dropdown-item">Cài đặt</a>
+                                <a href="home" class="dropdown-item">Trang chủ</a>
                                 <a href="login.jsp" class="dropdown-item">Log Out</a>
                             </div>
                         </div>
@@ -232,18 +233,18 @@
 
                                                             <c:if test="${not empty user.phone_number}">
                                                                 <div class="row w-100">
-                                                                    <dt class="col-4">Phone Number:</dt>
+                                                                    <dt class="col-3">SDT:</dt>
                                                                     <dd class="col-8">${user.phone_number}</dd>
                                                                 </div>
                                                             </c:if>
 
                                                             <div class="row w-100">
-                                                                <dt class="col-3">Gender:</dt>
+                                                                <dt class="col-3">Giới tính:</dt>
                                                                 <c:if test="${user.gender}">
-                                                                    <dd class="col-9">Male</dd>
+                                                                    <dd class="col-9" style="color: #0d6efd">Nam</dd>
                                                                 </c:if>
                                                                 <c:if test="${!user.gender}">
-                                                                    <dd class="col-9">Female</dd>
+                                                                    <dd class="col-9" style="color: palevioletred">Nữ</dd>
                                                                 </c:if>
                                                             </div>
 
@@ -271,8 +272,8 @@
                                                             <div class="row" id="product-details1" style="display: none;">
                                                                 <div class="row w-100">
                                                                     <dt class="col-2">Id</dt>
-                                                                    <dt class="col-7">Name</dt>
-                                                                    <dt class="col-3">Quantity</dt>
+                                                                    <dt class="col-7">Tên</dt>
+                                                                    <dt class="col-3">Số lượng</dt>
                                                                 </div>                                                                
                                                                 <c:forEach items="${product}" var="product">
                                                                     <div class="row w-100">
