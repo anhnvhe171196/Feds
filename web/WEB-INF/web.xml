@@ -15,10 +15,14 @@
     <servlet>
         <servlet-name>UserLogin</servlet-name>
         <servlet-class>vn.fpt.edu.controller.UserLoginController</servlet-class>
-    </servlet> 
+    </servlet>
     <servlet>
         <servlet-name>UserLoginGoogleController</servlet-name>
         <servlet-class>vn.fpt.edu.controller.UserLoginGoogleController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessCartController</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.ProcessCartController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UserForgotPasswordController</servlet-name>
@@ -32,7 +36,7 @@
         <servlet-name>CustomerChangePasswordController</servlet-name>
         <servlet-class>vn.fpt.edu.controller.UserChangePasswordController</servlet-class>
     </servlet>
-     <servlet>
+    <servlet>
         <servlet-name>UserDetailController</servlet-name>
         <servlet-class>vn.fpt.edu.admin.controller.UserDetailController</servlet-class>
     </servlet>
@@ -104,6 +108,26 @@
         <servlet-name>AddBillController</servlet-name>
         <servlet-class>vn.fpt.edu.controller.AddBillController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CompleteCartController</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.CompleteCartController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CancelCartController</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.CancelCartController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeDeliveryAddressController</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.ChangeDeliveryAddressController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewMyOrderListController</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.ViewMyOrderListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewMyOrderDetailController</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.ViewMyOrderDetailController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserRegisterController</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -116,7 +140,7 @@
         <servlet-name>CustomerHomeController</servlet-name>
         <url-pattern>/home</url-pattern>
     </servlet-mapping>
-     <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>UserDetailController</servlet-name>
         <url-pattern>/admin/detail</url-pattern>
     </servlet-mapping>
@@ -135,6 +159,10 @@
     <servlet-mapping>
         <servlet-name>UserForgotPasswordController</servlet-name>
         <url-pattern>/forgotpass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessCartController</servlet-name>
+        <url-pattern>/process</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserChangeProfileController</servlet-name>
@@ -211,6 +239,26 @@
     <servlet-mapping>
         <servlet-name>AddBillController</servlet-name>
         <url-pattern>/addBill</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompleteCartController</servlet-name>
+        <url-pattern>/complete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CancelCartController</servlet-name>
+        <url-pattern>/cancelcart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeDeliveryAddressController</servlet-name>
+        <url-pattern>/changedelivery</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewMyOrderListController</servlet-name>
+        <url-pattern>/viewmyorder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewMyOrderDetailController</servlet-name>
+        <url-pattern>/viewMyOrderDetail</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home</welcome-file>

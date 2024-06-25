@@ -149,7 +149,7 @@
                                         <img src="images/${l.getProduct_img()}" class="card-img-top rounded-2" style="height: 200px;" />
                                     </a>
                                     <div class="card-body d-flex flex-column pt-3 border-top">
-                                        <a href="product?pid=${l.getProduct_id()}" class="nav-link" style="text-align: center;">${l.getProduct_name()}</a>
+                                        <a href="product?pid=${l.getProduct_id()}" class="nav-link" style="text-align: center;height: 40px">${l.getProduct_name()}</a>
                                         <div class="price-wrap mb-2">
                                             <strong class=""><fmt:formatNumber value="${l.getPrice()}" pattern="#,###"/> VNĐ</strong>
                                             <del class="">$24.99</del>
