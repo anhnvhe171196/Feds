@@ -66,7 +66,7 @@ public class BillDetailBillController extends HttpServlet {
 
         String action = request.getParameter("action");
         if (action == null) {
-            Bill_DAO bd = new Bill_DAO();;
+            Bill_DAO bd = new Bill_DAO();
             int id = Integer.parseInt(request.getParameter("id"));
             BillOrder_DAO bod = new BillOrder_DAO();
             ProductDetail_DAO pd = new ProductDetail_DAO();

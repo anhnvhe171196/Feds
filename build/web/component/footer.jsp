@@ -87,7 +87,7 @@
                                 <h3 class="footer-title">Thông tin</h3>
                                 <ul class="footer-links">
                                     <li><a href="#">Nhóm</a></li>
-                                    <li><a href="#">Liên hệ</a></li>
+                                    <li><a href="contact">Liên hệ</a></li>
                                     <li><a href="#">Chính sách bảo mật</a></li>
                                     <li><a href="#">Chính sách hoàn trả hàng</a></li>
                                     <li><a href="#">Điều khoản</a></li>

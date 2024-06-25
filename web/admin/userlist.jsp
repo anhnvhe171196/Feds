@@ -15,7 +15,7 @@
     </head>
     <body>
     <%@include file="../component/header.jsp" %>
-    <%@include file="../component/navbar.jsp" %>
+
                         <br>
     <div class="container">
                 <div>

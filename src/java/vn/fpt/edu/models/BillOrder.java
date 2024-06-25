@@ -1,17 +1,15 @@
 package vn.fpt.edu.models;
 
-
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 /**
  *
  * @author Trong
  */
 public class BillOrder {
+
     private int Bill_id;
     private String Product_name;
     private double price;
@@ -20,8 +18,59 @@ public class BillOrder {
     private String Payment;
     private String Ram, Rom, Size, Color;
     private int Order_quantity;
+    private String user_name, phone, email, address;
 
     public BillOrder() {
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public BillOrder(int Bill_id, String Product_name, double price, String Product_img, String Status, String Payment, String Ram, String Rom, String Size, String Color, int Order_quantity, String user_name, String phone, String email, String address) {
+        this.Bill_id = Bill_id;
+        this.Product_name = Product_name;
+        this.price = price;
+        this.Product_img = Product_img;
+        this.Status = Status;
+        this.Payment = Payment;
+        this.Ram = Ram;
+        this.Rom = Rom;
+        this.Size = Size;
+        this.Color = Color;
+        this.Order_quantity = Order_quantity;
+        this.user_name = user_name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
     }
 
     public BillOrder(int Bill_id, String Product_name, double price, String Product_img, String Status, String Payment, String Ram, String Rom, String Size, String Color, int Order_quantity) {
@@ -45,8 +94,6 @@ public class BillOrder {
     public void setOrder_quantity(int Order_quantity) {
         this.Order_quantity = Order_quantity;
     }
-
-    
 
     public String getRam() {
         return Ram;
@@ -80,7 +127,6 @@ public class BillOrder {
         this.Color = Color;
     }
 
-    
     public int getBill_id() {
         return Bill_id;
     }
@@ -128,7 +174,5 @@ public class BillOrder {
     public void setPayment(String Payment) {
         this.Payment = Payment;
     }
-    
-    
-    
+
 }

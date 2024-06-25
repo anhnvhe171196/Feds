@@ -361,7 +361,6 @@
                                         <p>${i.quantity} ${i.product.getProductdetail().getColor()} ${i.product.getProductdetail().getBattery()}</p>
                                         <h6><fmt:formatNumber value="${i.price * i.quantity}" pattern="#,###" />VNĐ </h6>
                                     </div>
-
                                 </div>
                             </c:forEach>
 

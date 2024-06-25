@@ -87,13 +87,13 @@
                     </div>
                     <div class="navbar-nav w-100">
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>List</a>
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Dánh sách</a>
                             <div class="dropdown-menu bg-transparent border-0">
-                                <a href="marketingProductList" class="dropdown-item">Products List</a>
-                                <a href="#" class="dropdown-item">Post list</a>
-                                <a href="#" class="dropdown-item">Sliders List</a>
-                                <a href="#" class="dropdown-item">Customer list</a>
-                                <a href="#" class="dropdown-item">Feedback list</a>
+                                <a href="marketingProductList" class="dropdown-item">Sản phẩm</a>
+<!--                                <a href="#" class="dropdown-item">Post list</a>
+                                <a href="#" class="dropdown-item">Sliders List</a>-->
+                                <a href="marketingCustomerList" class="dropdown-item">Người dùng</a>
+<!--                                <a href="#" class="dropdown-item">Feedback list</a>-->
                             </div>
                         </div>
                     </div>
@@ -114,29 +114,29 @@
                         <i class="fa fa-bars"></i>
                     </a>
                     <form class="d-none d-md-flex ms-4">
-                        <input class="form-control border-0" type="search" placeholder="Search">
+                        <input class="form-control border-0" type="search" placeholder="Tìm kiếm">
                     </form>
                     <div class="navbar-nav align-items-center ms-auto">
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                                 <i class="fa fa-envelope me-lg-2"></i>
-                                <span class="d-none d-lg-inline-flex">Message</span>
+                                <span class="d-none d-lg-inline-flex">Tin nhắn</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
 
                                 <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item text-center">See all message</a>
+                                <a href="#" class="dropdown-item text-center">Xem tất cả tin nhắn</a>
                             </div>
                         </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                                 <i class="fa fa-bell me-lg-2"></i>
-                                <span class="d-none d-lg-inline-flex">Notificatin</span>
+                                <span class="d-none d-lg-inline-flex">Thông báo</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
 
                                 <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item text-center">See all notifications</a>
+                                <a href="#" class="dropdown-item text-center">Xem tất cả thông báo</a>
                             </div>
                         </div>
                         <div class="nav-item dropdown">
@@ -145,9 +145,10 @@
                                 <span class="d-none d-lg-inline-flex">${sessionScope.account.user_name}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                                <a href="userProfile" class="dropdown-item">My Profile</a>
-                                <a href="#" class="dropdown-item">Settings</a>
-                                <a href="home" class="dropdown-item">Back to Home</a>
+                                <a href="userProfile" class="dropdown-item">Hồ sơ cá nhân</a>
+                                <a href="#" class="dropdown-item">Cài đặt</a>
+                                <a href="home" class="dropdown-item">Trang chủ</a>
+                                <a href="login.jsp" class="dropdown-item">Log Out</a>
                             </div>
                         </div>
                     </div>
