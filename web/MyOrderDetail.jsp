@@ -1,6 +1,6 @@
 <%-- 
-    Document   : ViewMyOrderDetail
-    Created on : Jun 25, 2024, 10:14:15 AM
+    Document   : MyOrderDetail
+    Created on : Jun 25, 2024, 10:16:22 AM
     Author     : admin
 --%>
 
