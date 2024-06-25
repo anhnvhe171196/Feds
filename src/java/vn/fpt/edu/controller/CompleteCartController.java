@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package vn.fpt.edu.salecontroller;
+package vn.fpt.edu.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,17 +11,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.List;
-import vn.fpt.edu.dals.BillOrder_DAO;
 import vn.fpt.edu.dals.Bill_DAO;
-import vn.fpt.edu.dals.ProductDetail_DAO;
-import vn.fpt.edu.models.BillOrder;
+import vn.fpt.edu.models.User;
 
 /**
  *
- * @author Trong
+ * @author admin
  */
-public class BillDetailBillController extends HttpServlet {
+public class CompleteCartController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +37,10 @@ public class BillDetailBillController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet BillDetailBillController1</title>");
+            out.println("<title>Servlet CompleteCartController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet BillDetailBillController1 at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CompleteCartController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,28 +59,14 @@ public class BillDetailBillController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        PrintWriter out = response.getWriter();
-
-        String action = request.getParameter("action");
-        if (action == null) {
-            int id = Integer.parseInt(request.getParameter("id"));
-            BillOrder_DAO bod = new BillOrder_DAO();
-
-            List<BillOrder> listBillOrder = bod.getBillOrder(id);
-            session.setAttribute("status", listBillOrder.get(1).getStatus());
-            session.setAttribute("listBillOrder", listBillOrder);
-            session.setAttribute("idBill", listBillOrder.get(0).getBill_id());
-            request.getRequestDispatcher("OrderDetail.jsp").forward(request, response);
-        } else if (action.equals("search")) {
-            String value = request.getParameter("value");
-            int id = Integer.parseInt(request.getParameter("id"));
-            BillOrder_DAO bod = new BillOrder_DAO();
-
-            List<BillOrder> listBillOrder = bod.getBillOrderByName(1, value);
-            session.setAttribute("listBillOrder", listBillOrder);
-            request.getRequestDispatcher("OrderDetail.jsp").forward(request, response);
-        }
-
+        User u = (User) session.getAttribute("account");
+        Bill_DAO bill = new Bill_DAO();
+//        int id = Integer.parseInt(request.getParameter("Bill_id"));
+        int id = bill.getBillIdByUserId(u.getUser_Id());
+        session.setAttribute("userid", u.getUser_Id());        
+        session.setAttribute("orderinfo1", bill.getInfoBillByBillId(id));
+        session.setAttribute("billinfo", bill.getInfoDeliveryByBillId(id));
+        request.getRequestDispatcher("CompleteCart.jsp").forward(request, response);
     }
 
     /**
@@ -97,14 +80,7 @@ public class BillDetailBillController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String id = request.getParameter("id");
-        String status = request.getParameter("status");
-        Bill_DAO bd = new Bill_DAO();
-        bd.updateStatusBill(status, id);
-        session.removeAttribute("status");
-        session.setAttribute("status", status);
-        request.getRequestDispatcher("OrderDetail.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**

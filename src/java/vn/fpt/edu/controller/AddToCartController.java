@@ -138,7 +138,8 @@ public class AddToCartController extends HttpServlet {
         Cookie c = new Cookie("cart", txt);
         c.setMaxAge(1 * 24 * 60 * 60);
         response.addCookie(c);
-        request.getRequestDispatcher("home").forward(request, response);
+        response.sendRedirect("home");
+//        request.getRequestDispatcher("home").forward(request, response);
     }
 
     /** 

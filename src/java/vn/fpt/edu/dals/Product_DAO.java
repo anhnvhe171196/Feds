@@ -482,7 +482,7 @@ public class Product_DAO extends DBContext {
         }
         return list;
     }
-    
+
     public List<Product> getNewProducts() {
         List<Product> list = new ArrayList<>();
         String sql = "select TOP 3 p.Product_name, p.Product_img, pc.Category_name, pr.Price, p.Product_id\n"
@@ -508,7 +508,7 @@ public class Product_DAO extends DBContext {
         }
         return list;
     }
-    
+
     public List<Product> getNewProduct() {
         List<Product> list = new ArrayList<>();
         String sql = "select p.Product_name, p.Product_img, pc.Category_name, pr.Price, p.Product_id\n"

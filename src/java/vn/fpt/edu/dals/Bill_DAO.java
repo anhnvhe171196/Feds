@@ -14,8 +14,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import vn.fpt.edu.models.Bill;
+import vn.fpt.edu.models.Bill2;
 import vn.fpt.edu.models.Cart;
 import vn.fpt.edu.models.Item;
+import vn.fpt.edu.models.Order;
+import vn.fpt.edu.models.Price;
+import vn.fpt.edu.models.Product1;
+import vn.fpt.edu.models.ProductDetail;
 import vn.fpt.edu.models.User;
 
 /**
@@ -23,7 +28,7 @@ import vn.fpt.edu.models.User;
  * @author Trong
  */
 public class Bill_DAO extends DBContext {
-    
+
     public HashMap<Date, Integer> TrendDone() {
         HashMap<Date, Integer> hash = new HashMap();
         String Sql = "SELECT [Date], Count(Bill_Id) as Total FROM [Bill] WHERE [Status] = 'Hoàn Thành' GROUP BY [Date] ORDER BY [Date]";
@@ -38,7 +43,7 @@ public class Bill_DAO extends DBContext {
         }
         return hash;
     }
-    
+
     public HashMap<Date, Integer> TrendAll() {
         HashMap<Date, Integer> hash = new HashMap();
         String Sql = "SELECT [Date], Count(Bill_Id) as Total FROM [Bill] GROUP BY [Date] ORDER BY [Date]";
@@ -70,7 +75,7 @@ public class Bill_DAO extends DBContext {
         }
         return numOfBill;
     }
-    
+
     public int totalRevenue() {
         int total = 0;
         String sql = "SELECT SUM(Total_price) as Total FROM Bill WHERE Status = 'Hoàn Thành'";
@@ -87,7 +92,7 @@ public class Bill_DAO extends DBContext {
         }
         return total;
     }
-    
+
     public HashMap<Integer, Integer> totalRevenueByCate() {
         HashMap<Integer, Integer> total = new HashMap();
         String sql = "SELECT SUM(Total_price) as Total, Brandd.Category_id FROM Bill join [Order] on [Order].Bill_id = Bill.Bill_Id join Product on Product.Product_id = [Order].Product_id join Brandd on Brandd.Brand_Id = Product.Brand_id WHERE [Bill].[Status] = 'Hoàn Thành' GROUP BY Brandd.Category_id";
@@ -362,7 +367,7 @@ public class Bill_DAO extends DBContext {
         }
         return list;
     }
-    
+
     public int getTotalSuccessOrder() {
         int totalDone = 0;
         String sql = "SELECT Count(Bill_Id) as Total \n"
@@ -379,7 +384,7 @@ public class Bill_DAO extends DBContext {
         }
         return totalDone;
     }
-    
+
     public int getTotalSubmitedOrder() {
         int totalDone = 0;
         String sql = "SELECT Count(Bill_Id) as Total \n"
@@ -396,12 +401,12 @@ public class Bill_DAO extends DBContext {
         }
         return totalDone;
     }
-    
+
     public int getTotalCanceledOrder() {
         int totalDone = 0;
         String sql = "SELECT Count(Bill_Id) as Total \n"
                 + "FROM [Feds].[dbo].[Bill] \n"
-               + "WHERE Status LIKE N'%Đã hủy%'";
+                + "WHERE Status LIKE N'%Đã hủy%'";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -425,7 +430,7 @@ public class Bill_DAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"),
-                         rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
+                        rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -512,6 +517,20 @@ public class Bill_DAO extends DBContext {
         return list;
     }
 
+    public void updateStatusBill(String status, String id) {
+        String sql = "UPDATE [dbo].[Bill]\n"
+                + "   SET [Status] = ?\n"
+                + " WHERE Bill_Id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, status);
+            st.setString(2, id);
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
 
     public void addtoBill(User u, Cart cart, String address, String status, String tinh, String quan, String phuong, String payment) {
         LocalDate curDate = LocalDate.now();
@@ -536,9 +555,9 @@ public class Bill_DAO extends DBContext {
             PreparedStatement st1 = connection.prepareStatement(sql1);
             ResultSet rs = st1.executeQuery();
             //add bang orderse
-            if(rs.next()) {
-                int id= rs.getInt("Bill_Id");
-                for(Item i: cart.getItems()) {
+            if (rs.next()) {
+                int id = rs.getInt("Bill_Id");
+                for (Item i : cart.getItems()) {
                     String sql2 = "insert into [Order] values(?, ?, ?, ?, ?)";
                     PreparedStatement st2 = connection.prepareStatement(sql2);
                     st2.setInt(1, i.getProduct().getProduct_id());
@@ -546,13 +565,13 @@ public class Bill_DAO extends DBContext {
                     st2.setInt(3, id);
                     st2.setString(4, date);
                     st2.setString(5, payment);
-                    st2.executeUpdate();                  
+                    st2.executeUpdate();
                 }
             }
             //cap nhat lai so luong san pham
-            String sql3="update Product set Quantity = Quantity - ? where Product_id = ?";
+            String sql3 = "update Product set Quantity = Quantity - ? where Product_id = ?";
             PreparedStatement st3 = connection.prepareStatement(sql3);
-            for(Item i : cart.getItems()) {
+            for (Item i : cart.getItems()) {
                 st3.setInt(1, i.getQuantity());
                 st3.setInt(2, i.getProduct().getProduct_id());
                 st3.executeUpdate();
@@ -561,23 +580,129 @@ public class Bill_DAO extends DBContext {
         }
     }
 
-    public void updateStatusBill(String status, String id) {
-        String sql = "UPDATE [dbo].[Bill]\n"
-                + "   SET [Status] = ?\n"
-                + " WHERE Bill_Id = ?";
+    public Bill2 getInfoDeliveryByBillId(int bill_id) {
+        String sql = "Select TOP 1  u.User_NAME, u.Email, u.Phone_number, b.Province, b.District, b.Country, b.Address, b.Date, o.Payment, b.Bill_Id\n"
+                + "From [User] u join Bill b on u.User_Id = b.User_id\n"
+                + "Join [Order] o on o.Bill_id = b.Bill_Id\n"
+                + "Where b.Bill_Id = ?";
+        Bill2 bill = null;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, bill_id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                bill = new Bill2();
+                User user = new User();
+                user.setUser_name(rs.getString(1));
+                user.setEmail(rs.getString(2));
+                user.setPhone_number(rs.getString(3));
+                bill.setUser(user);
+                bill.setProvince(rs.getString(4));
+                bill.setDistrict(rs.getString(5));
+                bill.setCountry(rs.getString(6));
+                bill.setAddress(rs.getString(7));
+                bill.setDate(rs.getDate(8));
+                Order order = new Order();
+                order.setPayment(rs.getString(9));
+                bill.setOrder(order);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bill;
+    }
+
+    public List<Bill2> getInfoBillByBillId(int bill_id) {
+        List<Bill2> list = new ArrayList<>();
+        String sql = "Select b.Bill_Id, b.Total_price, o.Order_id, o.Product_id, o.Order_quantity,p.Product_name, p.Product_img, pd.Color, pr.Price, b.Status\n"
+                + "From [Order] o Join Bill b on o.Bill_id = b.Bill_Id\n"
+                + "Join Product p on o.Product_id = p.Product_id\n"
+                + "Join Product_Detail pd on p.Product_id = pd.Product_id\n"
+                + "Join Price pr on pr.Product_id= p.Product_id\n"
+                + "Where b.Bill_Id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, bill_id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Bill2 bill = new Bill2();
+                bill.setBill_id(rs.getInt(1));
+                bill.setTotal_price(rs.getDouble(2));
+                Order order = new Order();
+                order.setOrder_id(rs.getInt(3));
+                order.setProduct_id(rs.getInt(4));
+                order.setOrder_quantity(rs.getInt(5));
+                bill.setOrder(order);
+                Product1 product = new Product1();
+                product.setProduct_name(rs.getString(6));
+                product.setProduct_img(rs.getString(7));
+                ProductDetail pd = new ProductDetail();
+                pd.setColor(rs.getString(8));
+                product.setDetail(pd);
+                Price pr = new Price();
+                pr.setPrice(rs.getDouble(9));
+                product.setPrice(pr);
+                bill.setProduct1(product);
+                bill.setStatus(rs.getString(10));
+                list.add(bill);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+
+        }
+        return list;
+    }
+
+    public void changeStatusBill(String status, String id) {
+        String sql = "Update Bill set Status = ? where Bill_Id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, status);
             st.setString(2, id);
             st.executeUpdate();
-            
         } catch (SQLException e) {
             System.out.println(e);
-
-
         }
     }
-    
+
+    public void changeDeliveryAddress(String province, String district, String country, String address, String id) {
+        String sql = "update Bill set Province = ?, District =?, Country=?, Address=?\n"
+                + "where Bill_Id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, province);
+            st.setString(2, district);
+            st.setString(3, country);
+            st.setString(4, address);
+            st.setString(5, id);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public int getBillIdByUserId(int u) {
+        String sql = "select top 1 Bill_Id \n"
+                + "from Bill b join [User] u on b.User_id = u.User_Id\n"
+                + "Where u.User_Id = ?\n"
+                + "Order by b.Bill_Id desc";
+        Bill2 bill = null;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, u);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                bill = new Bill2();
+                bill.setBill_id(rs.getInt(1));
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return bill.getBill_id();
+    }
+
     public int newlyBoughtUser() {
         int total = 0;
         String sql = "SELECT count(User_id) as Total FROM [dbo].[Bill]\n"
@@ -585,7 +710,7 @@ public class Bill_DAO extends DBContext {
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-            if(rs.next()) {
+            if (rs.next()) {
                 total = rs.getInt("Total");
             }
         } catch (SQLException e) {
@@ -593,7 +718,8 @@ public class Bill_DAO extends DBContext {
         }
         return total;
     }
-public int getTotalOrder() {
+
+    public int getTotalOrder() {
         int totalDone = 0;
         String sql = "SELECT Count(Bill_Id) as Total \n"
                 + "FROM [Feds].[dbo].[Bill] \n";
@@ -607,5 +733,57 @@ public int getTotalOrder() {
             System.out.println(e);
         }
         return totalDone;
+
     }
+
+    public List<Bill2> getBillAndOrderByUserId(int u) {
+        List<Bill2> list = new ArrayList<>();
+        String sql = "WITH BillOrderDetails AS (\n"
+                + "    SELECT\n"
+                + "        b.Bill_Id, b.Total_price, b.Status, b.Date, o.Product_id, o.Order_id, o.Order_quantity, p.Product_name, p.Product_img, pd.Color, ROW_NUMBER() OVER(PARTITION BY b.Bill_Id ORDER BY o.Order_id) AS RowNum\n"
+                + "    FROM \n"
+                + "        Bill b\n"
+                + "    JOIN [User] u ON b.User_id = u.User_Id\n"
+                + "    LEFT JOIN [Order] o ON b.Bill_Id = o.Bill_id\n"
+                + "    LEFT JOIN Product p ON p.Product_id = o.Product_id\n"
+                + "    LEFT JOIN Product_Detail pd ON p.Product_id = pd.Product_id\n"
+                + "    WHERE u.User_Id = ?\n"
+                + ")\n"
+                + "SELECT\n"
+                + "    Bill_Id, Total_price, Status, Date, Product_id, Order_id, Order_quantity, Product_name, Product_img, Color\n"
+                + "FROM BillOrderDetails\n"
+                + "WHERE RowNum = 1\n"
+                + "ORDER BY Bill_Id DESC;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, u);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Bill2 bill = new Bill2();
+                bill.setBill_id(rs.getInt(1));
+                bill.setTotal_price(rs.getDouble(2));
+                bill.setStatus(rs.getString(3));
+                bill.setDate(rs.getDate(4));
+                Order order = new Order();
+
+                order.setProduct_id(rs.getInt(5));
+                order.setOrder_id(rs.getInt(6));
+                order.setOrder_quantity(rs.getInt(7));
+                bill.setOrder(order);
+                Product1 product = new Product1();
+                product.setProduct_name(rs.getString(8));
+                product.setProduct_img(rs.getString(9));
+                ProductDetail pd = new ProductDetail();
+                pd.setColor(rs.getString(10));
+                product.setDetail(pd);
+                bill.setProduct1(product);
+                list.add(bill);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+
+        }
+        return list;
+    }
+
 }

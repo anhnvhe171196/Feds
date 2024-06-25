@@ -289,6 +289,7 @@ public class User_DAO extends DBContext {
         return totalNumberOfUsers;
     }
 
+
     public User getCustomerByID(User u) {
         String spl = "select User_Id, User_name, Email, Phone_number\n"
                 + "from [User]\n"
@@ -311,7 +312,6 @@ public class User_DAO extends DBContext {
         return user;
     }
     
-
       
         public List<User> getUserSort(String sortBy, int page) {
         List<User> list = new ArrayList<>();
