@@ -155,19 +155,18 @@
             <div class="bg-light text-center rounded" style="margin-top: 20px; margin-bottom: 20px">
 
                 <div class="d-flex align-items-center justify-content-between mb-4" >
-                    
-                    
+
+
                     <form action="feedbackDetailFeedbackController" method="post" style=" display: flex; align-items: center;">
-                        <div style="margin-right: 5px; margin-left: 5px; color: red; font-weight: bold">Trạng thái:</div>
+                        <div style="margin-right: 5px; margin-left: 15px; margin-top: 1rem; color: red; font-weight: bold">Trạng thái:</div>
                         <input type="hidden" style="margin-left: 5px" name="id" value="${sessionScope.feedbackId}"/>
-                        <select name="status" onchange="this.form.submit()" class="border-0" style="width: 170px; color: #000000ad; padding: 6px 0px; border-radius: 5px; padding-left: 7px;"/>
+                        <select name="status" onchange="this.form.submit()" class="border-0" style="width: 100px; color: #000000ad; padding: 6px 0px; border-radius: 5px; padding-left: 7px; margin-top: 1rem"/>
                         <option ${sessionScope.status == "Hiện"?"selected":""} value="Hiện">Hiện</option>
                         <option ${sessionScope.status == "Ẩn"?"selected":""} value="Ẩn">Ẩn</option>
-                        
                         </select>
                     </form>
 
-                    <div style="margin-right: 20px"><a class="btn btn-outline-success m-2" style="width: 100px" href="/Feds/feedbackListFeedbackController">Quay lại</a></div>
+                    <div style="margin-right: 20px; margin-top: 1rem"><a class="btn btn-outline-success m-2" style="width: 100px" href="/Feds/feedbackListFeedbackController">Quay lại</a></div>
                 </div>
 
 
@@ -178,7 +177,6 @@
                     <table class="table text-start align-middle table-bordered table-hover mb-0" id="sampleTable">
                         <thead>
                             <tr class="text-dark">
-                                <th scope="col">Mã đánh giá</th>
                                 <th scope="col">Ngày đánh giá</th>
                                 <th scope="col">Tên Sản Phẩm</th>
                                 <th scope="col" width="200px">Ảnh Đánh giá</th>
@@ -191,7 +189,6 @@
 
                             <c:forEach items="${sessionScope.feedbackDetail}" var="fbd"> 
                                 <tr>
-                                    <td>${fbd.feedbackId}</td>
                                     <td>${fbd.date}</td>
                                     <td>${fbd.product_name}</td>
                                     <td><img src="images/${fbd.img}" alt="" width="195px"></td>
@@ -253,36 +250,38 @@
 <!-- Template Javascript -->
 <script src="js/mainsale.js"></script>
 <script>
-        $('#sampleTable').DataTable();
-        function time() {
-            var today = new Date();
-            var weekday = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
-            var day = weekday[today.getDay()];
-            var dd = today.getDate();
-            var mm = today.getMonth() + 1;
-            var yyyy = today.getFullYear();
-            var h = today.getHours();
-            var m = today.getMinutes();
-            var s = today.getSeconds();
-            m = checkTime(m);
-            s = checkTime(s);
-            var nowTime = h + " giờ " + m + " phút " + s + " giây";
-            if (dd < 10)
-                dd = '0' + dd;
-            if (mm < 10)
-                mm = '0' + mm;
-            var todayString = day + ', ' + dd + '/' + mm + '/' + yyyy;
-            var tmp = '<span class="date"> ' + todayString + ' - ' + nowTime + '</span>';
-            document.getElementById("clock").innerHTML = tmp;
-            setTimeout(time, 1000);
-        }
+                        $('#sampleTable').DataTable();
+                        function time() {
+                            var today = new Date();
+                            var weekday = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
+                            var day = weekday[today.getDay()];
+                            var dd = today.getDate();
+                            var mm = today.getMonth() + 1;
+                            var yyyy = today.getFullYear();
+                            var h = today.getHours();
+                            var m = today.getMinutes();
+                            var s = today.getSeconds();
+                            m = checkTime(m);
+                            s = checkTime(s);
+                            var nowTime = h + " giờ " + m + " phút " + s + " giây";
+                            if (dd < 10)
+                                dd = '0' + dd;
+                            if (mm < 10)
+                                mm = '0' + mm;
+                            var todayString = day + ', ' + dd + '/' + mm + '/' + yyyy;
+                            var tmp = '<span class="date"> ' + todayString + ' - ' + nowTime + '</span>';
+                            document.getElementById("clock").innerHTML = tmp;
+                            setTimeout(time, 1000);
+                        }
 
-        function checkTime(i) {
-            if (i < 10)
-                i = "0" + i;
-            return i;
-        }
+                        function checkTime(i) {
+                            if (i < 10)
+                                i = "0" + i;
+                            return i;
+                        }
+
 </script>
+
 
 <script>
     var myApp = new function () {
@@ -296,6 +295,7 @@
     };
 
 </script>
+
 
 <script>
     document.getElementById('searchBox').addEventListener('keydown', function (event) {

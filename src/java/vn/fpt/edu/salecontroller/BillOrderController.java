@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import vn.fpt.edu.dals.Product_DAO;
 import vn.fpt.edu.models.Product;
+import java.time.LocalDate;
+import java.time.Month;
 
 /**
  *
@@ -49,15 +51,14 @@ public class BillOrderController extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8");
         HttpSession session = request.getSession(true);
         String action = request.getParameter("action");
-        String quantity = request.getParameter("quantity");
-        PrintWriter out = response.getWriter();
+        
+        LocalDate today = LocalDate.now();
         Bill_DAO bd = new Bill_DAO();
 
         if (action == null) {
             int numOfBills = bd.getNumOfBillCurrentDate();
             int sumOfDoneBills = bd.getSumOfDoneBill();
-            double sumOfBillByMonth = bd.getSumOfBillByMonth(1);
-            
+            double sumOfBillByMonth = bd.getSumOfBillByMonth(today.getMonthValue());
             
             session.setAttribute("numOfBills", numOfBills);
             session.setAttribute("sumOfDoneBills", sumOfDoneBills);
