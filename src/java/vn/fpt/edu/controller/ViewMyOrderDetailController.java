@@ -57,7 +57,7 @@ public class ViewMyOrderDetailController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         processRequest(request, response);
-
+        
     } 
 
     /** 
