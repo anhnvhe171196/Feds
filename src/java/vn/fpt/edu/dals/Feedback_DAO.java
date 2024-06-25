@@ -285,7 +285,7 @@ public class Feedback_DAO extends DBContext {
 
     public List<Feedback1> getAllFeedbackPagingSQL(int pageIndex, int numOfFeedback) {
         List<Feedback1> list = new ArrayList<>();
-        String sql = "exec PagingFeedback ?,?";
+        String sql = "exec PagingFeedback ?,?"; 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, pageIndex);

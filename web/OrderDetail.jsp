@@ -215,7 +215,7 @@
                 <table class="table text-start align-middle table-bordered table-hover mb-0" id="sampleTable">
                     <thead>
                         <tr class="text-dark">
-                            <th scope="col">Mã Đơn</th>
+                            <th scope="col" >Mã Đơn</th>
                             <th scope="col">Tên Sản Phẩm</th>
                             <th scope="col">Ảnh Sản Phẩm</th>
                             <th scope="col">RAM</th>
