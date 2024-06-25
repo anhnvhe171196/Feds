@@ -182,7 +182,7 @@
                             <p>x ${b.order.getOrder_quantity()}</p>
                             <div class="item-price">
                                 <p class="">Ngày đặt hàng: ${b.getDate()}</p>
-                                
+
                             </div>
                             <div class="total-price">Tổng số tiền: <fmt:formatNumber value="${b.getTotal_price()}" pattern="#,###" />VNĐ</div>
                         </div>
@@ -196,8 +196,22 @@
                 </div>
             </c:forEach>
 
+<!--                <div class="item-content">
+                        <div class="item-image">
+                            <img src="images/" alt="Product Image">
+                        </div>
+                        <div class="item-details">
+                            <h3></h3>
+                            <p>Phân loại hàng:</p>
+                            <p>x</p>
+                            <div class="item-price">
+                                <p class="">Ngày đặt hàng:</p>
 
-            
+                            </div>
+                            <div class="total-price">Tổng số tiền: VNĐ</div>
+                        </div>
+                    </div>-->
+
         </div>
 
 
