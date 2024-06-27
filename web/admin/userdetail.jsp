@@ -73,7 +73,7 @@
     </div>
         <div class="container detail-div">
     <div class="avatar">
-        <img src="${pageContext.request.contextPath}/images/<%=u.getAvarta()%>" alt="User Avatar">
+        <img src="${pageContext.request.contextPath}/images/<%=u.getAvarta()%>" alt="User Avatar" onerror="this.onerror=null;this.src='${pageContext.request.contextPath}/images/9-anh-dai-dien-trang-inkythuatso-03-15-27-03.jpg';">
     </div>
     <div class="details">
         <div class="detail-item">

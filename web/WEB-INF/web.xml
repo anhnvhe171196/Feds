@@ -112,6 +112,10 @@
         <servlet-name>FeedbackListFeedbackController</servlet-name>
         <servlet-class>vn.fpt.edu.salecontroller.FeedbackListFeedbackController</servlet-class>
     </servlet>
+     <servlet>
+        <servlet-name>SettingController</servlet-name>
+        <servlet-class>vn.fpt.edu.admin.controller.SettingController</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>UserContact</servlet-name>
         <servlet-class>vn.fpt.edu.controller.UserContact</servlet-class>
@@ -221,6 +225,10 @@
         <url-pattern>/product</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>SettingController</servlet-name>
+        <url-pattern>/admin/setting</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>CartController</servlet-name>
         <url-pattern>/cart</url-pattern>
     </servlet-mapping>
@@ -264,6 +272,15 @@
         <servlet-name>ViewMyOrderDetailController</servlet-name>
         <url-pattern>/viewMyOrderDetail</url-pattern>
     </servlet-mapping>
+      <servlet-mapping>
+        <servlet-name>UserDetailController</servlet-name>
+        <url-pattern>/admin/detail</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>UserListController</servlet-name>
+        <url-pattern>/admin/users</url-pattern>
+    </servlet-mapping>
+    
     <welcome-file-list>
         <welcome-file>home</welcome-file>
     </welcome-file-list>
