@@ -1,8 +1,4 @@
-<%-- 
-    Document   : settings
-    Created on : Jun 25, 2024, 5:05:20 PM
-    Author     : TGDD
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -377,8 +373,8 @@
                 const page = document.querySelector('ul[class=pagination]');
                 page.innerHTML = '<li class="paginate_button page-item previous disabled" id="dataTable_previous"><a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item next" id="dataTable_next"><a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">Next</a></li>';
                 currentPage = 1;
-                if(max > 1) {
-                    page.children[1].classList.remove("disabled");
+               if(max <= 1) {
+                    page.children[1].classList.add("disabled");
                 }
                 let temp = page.children[1];
                 page.removeChild(temp);
@@ -491,8 +487,8 @@
                 const info = document.getElementById('dataTable_info');
                 info.innerHTML = "Showing 1 to "+(total >= 9 ? 9 : total)+" of "+total+" entries";
                 page.innerHTML = '<li class="paginate_button page-item previous disabled" id="dataTable_previous"><a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item next" id="dataTable_next"><a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">Next</a></li>';
-                if(max > 1) {
-                    page.children[1].classList.remove("disabled");
+               if(max <= 1) {
+                    page.children[1].classList.add("disabled");
                 }
                 let temp = page.children[1];
                 page.removeChild(temp);
