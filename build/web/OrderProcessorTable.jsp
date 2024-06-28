@@ -66,11 +66,11 @@
 
         <div class="container-xxl position-relative bg-white d-flex p-0">
             <!-- Spinner Start -->
-            <!--            <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+                        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
                             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                                 <span class="sr-only">Loading...</span>
                             </div>
-                        </div>-->
+                        </div>
             <!-- Spinner End -->
 
             <!-- Sidebar Start -->
@@ -98,10 +98,10 @@
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Sản phẩm</a>
                             <div class="dropdown-menu bg-transparent border-0">
                                 <a href="marketingProductList" class="dropdown-item">Sản phẩm</a>
-<!--                                <a href="#" class="dropdown-item">Post list</a>
-                                <a href="#" class="dropdown-item">Sliders List</a>-->
+                                <!--                                <a href="#" class="dropdown-item">Post list</a>
+                                                                <a href="#" class="dropdown-item">Sliders List</a>-->
                                 <a href="marketingCustomerList" class="dropdown-item">Người dùng</a>
-<!--                                <a href="#" class="dropdown-item">Feedback list</a>-->
+                                <!--                                <a href="#" class="dropdown-item">Feedback list</a>-->
                             </div>
                         </div>
                     </div>
@@ -166,7 +166,13 @@
                     <div class="row g-4">
                         <div class="col-sm-12">
                             <div class="bg-light rounded h-100 p-4">
-                                <h6 class="mb-4">Danh sách sản phẩm</h6>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="mb-4">
+                                            <h6>Danh sách sản phẩm</h6>
+                                        </div>
+                                    </div>
+                                </div>
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -189,7 +195,7 @@
                                             </th>
                                             <th scope="col">
                                                 <a href="#" onclick="sortByPrice()">
-                                                    <button type="button" class="sort-button">Giá</button>
+                                                    <button type="button" class="sort-button">Giá gốc</button>
                                                 </a>
                                             </th>
                                             <th scope="col">
@@ -202,11 +208,17 @@
                                                     <button type="button" class="sort-button">Kết thúc</button>
                                                 </a>
                                             </th>
-                                            <th scope="col" style="color: #009CFF;">
+                                            <th scope="col">
+                                                <a href="#" onclick="sortByDateEnd()">
+                                                    <button type="button" class="sort-button">Sale</button>
+                                                </a>
+                                            </th>
+                                            <th scope="col" style="color: #009CFF;" class="Details1">
                                                 Thông tin
                                             </th>
-
-
+                                            <th scope="col" style="color: red;" class="Update1">
+                                                Sửa
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -239,8 +251,23 @@
                                                     </c:choose>
                                                 </td>
                                                 <td scope="col">
+                                                    <c:choose>
+                                                        <c:when test="${empty product.price.sale}">
+                                                            0%
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            ${product.price.sale}%
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </td>
+                                                <td scope="col" class="Details">
                                                     <a href="#" onclick="ProductDetail(${product.product_id})">
                                                         <button type="button" class="sort-button" id="openModalBtn">Chi tiết</button>
+                                                    </a>
+                                                </td>
+                                                <td scope="col" class="Update">
+                                                    <a href="#" onclick="ProductUpdate(${product.product_id})">
+                                                        <button type="button" class="sort-button" id="openModalBtn" style="color: red">Sửa</button>
                                                     </a>
                                                 </td>
                                             </tr>
@@ -248,8 +275,8 @@
 
                                     </tbody>
                                 </table>
-                                
-                                
+
+
                                 <div class="d-flex justify-content-center">
                                     <c:if test="${endPage > 1}">
                                         <nav aria-label="Page navigation">
@@ -417,6 +444,11 @@
 
                 function ProductDetail(id) {
                     let url = "marketingProductDetails?id=" + id;
+
+                    window.location.href = url;
+                }
+                function ProductUpdate(id) {
+                    let url = "marketingProductUpdate?id=" + id;
 
                     window.location.href = url;
                 }

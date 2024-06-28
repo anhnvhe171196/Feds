@@ -547,6 +547,65 @@ public class Data_MarketingDashboard_DAO extends DBContext {
         }
         return totalOrder;
     }
+    public boolean updateProduct(Product1 product) {
+        String sql = "UPDATE Product SET Quantity = ?, Product_name = ?, Product_img = ? WHERE Product_id = ?";
+
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, product.getQuantity());
+            st.setString(2, product.getProduct_name());
+            st.setString(3, product.getProduct_img());
+            st.setInt(4, product.getProduct_id());
+
+            int rowsAffected = st.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean updateProductDetail(ProductDetail detail) {
+        String sql = "UPDATE Product_Detail SET RAM = ?, ROM = ?, Size = ?, Battery = ?, Weight = ?, Color = ?, Decription = ?, CPU = ?, Wattage = ?, Status = ? WHERE Product_id = ?";
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, detail.getRam());
+            st.setString(2, detail.getRom());
+            st.setString(3, detail.getSize());
+            st.setString(4, detail.getBattery());
+            st.setString(5, detail.getWeight());
+            st.setString(6, detail.getColor());
+            st.setString(7, detail.getDecription());
+            st.setString(8, detail.getCpu());
+            st.setString(9, detail.getWattage());
+            st.setString(10, detail.getStatus());
+            st.setInt(11, detail.getProduct().getProduct_id());
+
+            int rowsAffected = st.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean updatePrice(Price price) {
+        String sql = "UPDATE Price SET Price = ?, Date_start = ?, Date_end = ?, Sale = ? WHERE Product_id = ?";
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setDouble(1, price.getPrice());
+            st.setDate(2, new java.sql.Date(price.getDateStart().getTime()));
+            st.setDate(3, new java.sql.Date(price.getDateEnd().getTime()));
+            st.setInt(4, price.getSale());
+            st.setInt(5, price.getProduct().getProduct_id());
+
+            int rowsAffected = st.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     public static void main(String[] args) {
         Data_MarketingDashboard_DAO data = new Data_MarketingDashboard_DAO();
