@@ -172,8 +172,14 @@
                                             <h6>Thông tin sản phẩm</h6>
                                         </div>
                                     </div>
-                                    <div class="col" style="text-align: right;" >
-                                        <div class="mb-4">
+                                    <div class="col" style="display: flex; justify-content: flex-end; align-items: center;">
+                                        <div class="mb-2" style="margin-right: 10px;">
+                                            <a onclick="ProductUpdate(${product.product_id})">
+                                                <h6 class="sort-button" style="color: red;">Hoàn tác</h6>                                              
+                                            </a>
+                                        </div>
+                                        <div style="margin: 0 10px; display: flex; align-items: center;"></div>
+                                        <div class="mb-2">
                                             <a onclick="history.back()">
                                                 <h6 class="sort-button" style="color: #009CFF;">Back</h6>                                              
                                             </a>
@@ -182,20 +188,35 @@
                                 </div>
 
                                 <div class="mb-3"> 
-                                    <form method="post" action="marketingUpdateProduct">
-                                        <section class="py-5">
-                                            <div class="container">
-                                                <div class="row gx-5">
-                                                    <aside class="col-lg-6">
-                                                        <div class="border rounded-4 mb-3 d-flex justify-content-center">
-                                                            
+
+                                    <section class="py-5">
+                                        <div class="container">
+                                            <div class="row gx-5">
+                                                <aside class="col-lg-6">
+                                                    <form id="UpdateImg" action="marketingUpdateProductImage" method="post" enctype="multipart/form-data" onsubmit="return checkFileExtension()">
+                                                        <div class="border rounded-4 mb-3 d-flex justify-content-center"> 
                                                             <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="images/${product.product_img}"/>
-                                                            <input type="text" name="product_img" value="${product.product_img}" class="form-control" style="display: none" readonly/>
                                                         </div>
-                                                        <button type="submit" class="btn btn-primary" >Enter</button>
-                                                    </aside>
-                                                    <main class="col-lg-6">
-                                                        <div class="ps-lg-3">
+
+                                                        <input type="file" name="image" accept="image/*" id="imageMain"><br><br>
+                                                        <input type="hidden" name="product_id" value="${product.product_id}" />
+                                                        <div class="small font-italic text-muted mb-4">JPG hoặc PNG không lớn hơn 5 MB</div>
+                                                        <c:if test="${requestScope.error != null}">
+                                                            <h6 style="color: red; text-align: center; margin-bottom: 20px">${requestScope.error}</h6>
+                                                        </c:if>
+                                                        <!-- Profile picture upload button-->
+
+                                                    </form>
+                                                    <div class="row w-100">
+                                                        <dt class="col-6"><button class="btn btn-primary" type="submit" form="UpdateImg">Tải lên hình ảnh mới</button></dt>
+                                                        <dd class="col-6"><button type="submit" class="btn btn-primary" form="UpdateForm" >Enter</button></dd>
+                                                    </div>
+
+                                                </aside>
+
+                                                <main class="col-lg-6">
+                                                    <div class="ps-lg-3">
+                                                        <form id="UpdateForm" method="post" action="marketingUpdateProduct">
                                                             <h4 class="title text-dark">
                                                                 <input type="text" name="product_name" value="${product.product_name}" class="form-control" />
                                                             </h4>
@@ -266,14 +287,17 @@
                                                                     <dt class="col-3">Sale:</dt>
                                                                     <dd class="col-9"><input type="text" name="sale" value="${product.price.sale}" class="form-control" /></dd>
                                                                 </div>
+                                                                <input type="text" name="product_img" value="${product.product_img}" class="form-control" style="display: none" readonly/>
                                                                 <hr/>
                                                             </div>
-                                                        </div>
-                                                    </main>
-                                                </div>
+                                                        </form> 
+                                                    </div>
+                                                </main>
+
                                             </div>
-                                        </section>
-                                    </form>
+                                        </div>
+                                    </section>
+
 
                                     <!-- content -->
 
@@ -306,10 +330,10 @@
             <!-- Template Javascript -->
             <script src="js/main.js"></script>
             <script>
-                                                $('.sidebar-toggler').click(function () {
-                                                    $('.sidebar, .content').toggleClass("open");
-                                                    return false;
-                                                });
+                                                        $('.sidebar-toggler').click(function () {
+                                                            $('.sidebar, .content').toggleClass("open");
+                                                            return false;
+                                                        });
             </script>
             <script>
                 const detailsDiv = document.getElementById("product-details");
@@ -324,6 +348,29 @@
                         showMoreButton.textContent = "Show more Details"; // Thay đổi nội dung nút
                     }
                 });
+                function checkFileExtension() {
+                    var fileInput = document.getElementById('imageMain');
+                    var filePath = fileInput.value;
+                    var allowedExtensions = /(\.jsp|\.png|\.jpg)$/i;
+                    if (!allowedExtensions.exec(filePath)) {
+                        alert('Vui lòng chọn một tệp có phần mở rộng là .jsp,.png hoặc .jpg');
+                        fileInput.value = '';
+                        return false;
+                    }
+                }
+                function ProductUpdate(id) {
+                    if (confirm("Bạn có chắc muốn hoàn tác? Mọi thao tác của bạn sẽ không được lưu.")) {
+                        // Nếu người dùng click "OK", chuyển hướng
+                        let url = "marketingProductDetails?id=" + id;
+                        window.location.href = url;
+                    } else {
+                        // Nếu người dùng click "Cancel", không làm gì cả
+                        // (Hoặc bạn có thể thêm code để xử lý hành động khác)
+                    }
+                }
+
+
+
             </script>
 
 

@@ -121,7 +121,7 @@
                         <i class="fa fa-bars"></i>
                     </a>
                     <form class="d-none d-md-flex ms-4" action="marketingProductList" method="get"> 
-                        <input class="form-control border-0" type="search" placeholder="Search" name="search">&nbsp;&nbsp;&nbsp;
+                        <input class="form-control border-0" type="search" placeholder="Search" name="search" value="${sessionScope.search}">&nbsp;&nbsp;&nbsp;
                         <button type="submit" class="btn btn-primary" >Enter</button> 
                     </form> 
                     <div class="navbar-nav align-items-center ms-auto">

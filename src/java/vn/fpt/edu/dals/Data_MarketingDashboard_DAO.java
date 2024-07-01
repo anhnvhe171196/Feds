@@ -606,6 +606,19 @@ public class Data_MarketingDashboard_DAO extends DBContext {
             return false;
         }
     }
+    public void UpdateImg(int productid, String img) {
+        String spl = "UPDATE [dbo].[Product]\n"
+                + "   SET [Product_img] = ?\n"
+                + " WHERE Product_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(spl);
+            st.setString(1, img);
+            st.setInt(2, productid);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) {
         Data_MarketingDashboard_DAO data = new Data_MarketingDashboard_DAO();
