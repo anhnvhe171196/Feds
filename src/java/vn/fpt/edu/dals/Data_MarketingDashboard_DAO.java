@@ -7,6 +7,7 @@ package vn.fpt.edu.dals;
 import vn.fpt.edu.models.Bill1;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -486,7 +487,7 @@ public class Data_MarketingDashboard_DAO extends DBContext {
                 String avatar = rs.getString("Avarta");
                 boolean isBanned = rs.getBoolean("isBanned");
                 boolean gender = rs.getBoolean("gender");
-                
+
                 do {
                     int productId = rs.getInt("Product_id");
                     int orderId = rs.getInt("Order_id");
@@ -547,6 +548,7 @@ public class Data_MarketingDashboard_DAO extends DBContext {
         }
         return totalOrder;
     }
+
     public boolean updateProduct(Product1 product) {
         String sql = "UPDATE Product SET Quantity = ?, Product_name = ?, Product_img = ? WHERE Product_id = ?";
 
@@ -606,6 +608,7 @@ public class Data_MarketingDashboard_DAO extends DBContext {
             return false;
         }
     }
+
     public void UpdateImg(int productid, String img) {
         String spl = "UPDATE [dbo].[Product]\n"
                 + "   SET [Product_img] = ?\n"
@@ -618,6 +621,128 @@ public class Data_MarketingDashboard_DAO extends DBContext {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Category> getAllCategories() {
+        List<Category> categories = new ArrayList<>();
+        String sql = "SELECT Category_id, Category_name FROM Product_Category";
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                int categoryId = rs.getInt("Category_id");
+                String categoryName = rs.getString("Category_name");
+                Category category = new Category(categoryId, categoryName);
+                categories.add(category);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return categories;
+    }
+
+    public List<Brand> getAllBrand() {
+        List<Brand> brands = new ArrayList<>();
+        String sql = "SELECT [Category_id], [Brand_Name], [Brand_Id] FROM [Feds].[dbo].[Brandd]";
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                int categoryId = rs.getInt("Category_id");
+                String brandName = rs.getString("Brand_Name");
+                int brandId = rs.getInt("Brand_Id");
+
+                // Tạo đối tượng Category
+                Category category = new Category(categoryId, null); // Thay null bằng tên thuộc tính của Category nếu có
+
+                // Tạo đối tượng Brand
+                Brand brand = new Brand(brandId, brandName, category);
+                brands.add(brand);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return brands;
+    }
+
+    public boolean AddPrice(Price price) {
+        String sql = "INSERT INTO Price (Price, Date_start, Date_end, Sale, Product_id) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setDouble(1, price.getPrice());
+            st.setDate(2, new java.sql.Date(price.getDateStart().getTime()));
+            st.setDate(3, new java.sql.Date(price.getDateEnd().getTime()));
+            st.setInt(4, price.getSale());
+            st.setInt(5, price.getProduct().getProduct_id());
+
+            int rowsAffected = st.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean AddProductDetail(ProductDetail detail) {
+        String sql = "INSERT INTO Product_Detail (RAM, ROM, Size, Battery, Weight, Color, Decription, CPU, Wattage, Status, Product_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, detail.getRam());
+            st.setString(2, detail.getRom());
+            st.setString(3, detail.getSize());
+            st.setString(4, detail.getBattery());
+            st.setString(5, detail.getWeight());
+            st.setString(6, detail.getColor());
+            st.setString(7, detail.getDecription());
+            st.setString(8, detail.getCpu());
+            st.setString(9, detail.getWattage());
+            st.setString(10, detail.getStatus());
+            st.setInt(11, detail.getProduct().getProduct_id());
+
+            int rowsAffected = st.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean AddProduct(Product1 product, User user) {
+        String sql = "INSERT INTO Product (Quantity, Product_name, Product_img,[User_Id], Brand_id) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) { // Sử dụng Statement.RETURN_GENERATED_KEYS
+            st.setInt(1, product.getQuantity());
+            st.setString(2, product.getProduct_name());
+            st.setString(3, product.getProduct_img());
+            st.setInt(4, user.getUser_Id());
+            st.setInt(5, product.getBrand().getBrandId());
+
+            int rowsAffected = st.executeUpdate();
+            if (rowsAffected > 0) {
+                try (ResultSet generatedKeys = st.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        int productId = generatedKeys.getInt(1); // Lấy ID tự động tạo
+                        product.setProduct_id(productId); // Lưu ID vào đối tượng Product
+                        return true;
+                    }
+                }
+            }
+            return false;
+        } catch (SQLException e) {
+            // Xử lý exception
+            throw new RuntimeException(e);
+        }
+    }
+
+    public int getLastInsertedProductId() {
+        String sql = "SELECT @@IDENTITY";
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            try (ResultSet rs = st.executeQuery()) {
+                while (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
     }
 
     public static void main(String[] args) {

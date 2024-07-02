@@ -66,11 +66,11 @@
 
         <div class="container-xxl position-relative bg-white d-flex p-0">
             <!-- Spinner Start -->
-                        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-                            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                                <span class="sr-only">Loading...</span>
-                            </div>
-                        </div>
+            <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
             <!-- Spinner End -->
 
             <!-- Sidebar Start -->
@@ -172,6 +172,13 @@
                                             <h6>Danh sách sản phẩm</h6>
                                         </div>
                                     </div>
+                                    <div class="col" style="display: flex; justify-content: flex-end; align-items: center;">
+                                        <div class="mb-4" style="margin-right: 10px;">
+                                            <a onclick="AddProduct()">
+                                                <img  src="images/icons/AddIcon.png" alt="Thêm sản phẩm" style="width: 40px; height: 40px;">                                             
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                                 <table class="table">
                                     <thead>
@@ -217,7 +224,7 @@
                                                 Thông tin
                                             </th>
                                             <th scope="col" style="color: red;" class="Update1">
-                                                Sửa
+                                                Chỉnh Sửa
                                             </th>
                                         </tr>
                                     </thead>
@@ -262,12 +269,12 @@
                                                 </td>
                                                 <td scope="col" class="Details">
                                                     <a href="#" onclick="ProductDetail(${product.product_id})">
-                                                        <button type="button" class="sort-button" id="openModalBtn">Chi tiết</button>
+                                                        <img  src="images/icons/DetailsIcon.png" alt="Thông tin sản phẩm" style="width: 25px; height: 25px;"> 
                                                     </a>
                                                 </td>
                                                 <td scope="col" class="Update">
                                                     <a href="#" onclick="ProductUpdate(${product.product_id})">
-                                                        <button type="button" class="sort-button" id="openModalBtn" style="color: red">Sửa</button>
+                                                        <img  src="images/icons/FixIcon.png" alt="Sửa sản phẩm" style="width: 25px; height: 25px;">                                    
                                                     </a>
                                                 </td>
                                             </tr>
@@ -449,6 +456,11 @@
                 }
                 function ProductUpdate(id) {
                     let url = "marketingProductUpdate?id=" + id;
+
+                    window.location.href = url;
+                }
+                function AddProduct() {
+                    let url = "marketingAddProduct";
 
                     window.location.href = url;
                 }

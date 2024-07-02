@@ -169,12 +169,12 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class="mb-4">
-                                            <h6>Thông tin sản phẩm</h6>
+                                            <h6>Thêm sản phẩm</h6>
                                         </div>
                                     </div>
                                     <div class="col" style="display: flex; justify-content: flex-end; align-items: center;">
                                         <div class="mb-2" style="margin-right: 10px;">
-                                            <a onclick="ProductUpdate(${product.product_id})">
+                                            <a onclick="Back()">
                                                 <h6 class="sort-button" style="color: red;">Hoàn tác</h6>                                              
                                             </a>
                                         </div>
@@ -193,43 +193,46 @@
                                         <div class="container">
                                             <div class="row gx-5">
                                                 <aside class="col-lg-6">
-                                                    <form id="UpdateImg" action="marketingUpdateProductImage" method="post" enctype="multipart/form-data" onsubmit="return checkFileExtension()">
-                                                        <div class="border rounded-4 mb-3 d-flex justify-content-center"> 
-                                                            <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="images/${product.product_img}"/>
-                                                        </div>
 
-                                                        <input type="file" name="image" accept="image/*" id="imageMain"><br><br>
-                                                        <input type="hidden" name="product_id" value="${product.product_id}" />
-                                                        <div class="small font-italic text-muted mb-4">JPG hoặc PNG không lớn hơn 5 MB</div>
-                                                        <c:if test="${requestScope.error != null}">
-                                                            <h6 style="color: red; text-align: center; margin-bottom: 20px">${requestScope.error}</h6>
-                                                        </c:if>
-                                                        <!-- Profile picture upload button-->
-
-                                                    </form>
                                                     <div class="row w-100">
-                                                        <dt class="col-6"><button class="btn btn-primary" type="submit" form="UpdateImg">Tải lên hình ảnh mới</button></dt>
-                                                        <dd class="col-6"><button type="submit" class="btn btn-primary" form="UpdateForm" >Enter</button></dd>
+                                                        <dd class="col-6"><button type="button" class="btn btn-primary" form="AddForm" onclick="confirmSubmit()">Enter</button></dd>
                                                     </div>
 
                                                 </aside>
 
                                                 <main class="col-lg-6">
                                                     <div class="ps-lg-3">
-                                                        <form id="UpdateForm" method="post" action="marketingUpdateProduct">
+                                                        <form id="AddForm" method="post" action="marketingAddProduct">
                                                             <h4 class="title text-dark">
-                                                                <input type="text" name="product_name" value="${product.product_name}" class="form-control" />
+                                                                <h5 class="title text-dark" >Tên sản phẩm:</h5>
+                                                                <input type="text" name="product_name" placeholder="Tên sản phẩm" class="form-control" />
                                                             </h4>
-                                                            ( #<input type="text" name="product_id" value="${product.product_id}" class="form-control" readonly/>
-                                                            )
                                                             <hr/>
                                                             <div class="mb-3">
-                                                                <input type="text" name="price" value="<fmt:formatNumber value="${product.price.price}" pattern="#,##0 VND" />" class="form-control" />
+                                                                <h6 class="title text-dark" >Giá:</h6>                                                                
+                                                                <input type="text" name="price" placeholder="Giá" class="form-control" />
                                                             </div>
                                                             <hr/>
                                                             <h6>Mô tả:</h6>
-                                                                <textarea name="decription" class="form-control">${product.detail.decription}</textarea>
+                                                            <textarea name="decription" class="form-control">${product.detail.decription}</textarea>
                                                             <hr/>
+                                                            <div class="mb-3">
+                                                                <h6 class="title text-dark" >Danh mục:</h6>
+                                                                <select name="category_id" id="category" class="form-control">
+                                                                    <c:forEach items="${categories}" var="category">
+                                                                        <option value="${category.category_id}">${category.category_name}</option>
+                                                                    </c:forEach>
+                                                                </select>                                                                   
+                                                            </div>
+                                                            <hr/>
+                                                            <div class="mb-3">
+                                                                <h6 class="title text-dark" >Nhà cung cấp:</h6>                                                                
+                                                                <select name="brandId" id="brand" class="form-control">
+                                                                    <c:forEach items="${brands}" var="brands">
+                                                                        <option value="${brands.brandId}">${brands.brandName}</option>
+                                                                    </c:forEach>
+                                                                </select> 
+                                                            </div> 
                                                             <a href="#" id="show-more-details">Show more Details</a>
                                                             <hr/>
                                                             <div class="row" id="product-details" style="display: none;">
@@ -286,6 +289,8 @@
                                                                     <dd class="col-9"><input type="text" name="sale" value="${product.price.sale}" class="form-control" /></dd>
                                                                 </div>
                                                                 <input type="text" name="product_img" value="${product.product_img}" class="form-control" style="display: none" readonly/>
+                                                                <input type="text" name="userId" value="${sessionScope.account.user_Id}" class="form-control" style="display: none" readonly/>
+
                                                                 <hr/>
                                                             </div>
                                                         </form> 
@@ -328,10 +333,10 @@
             <!-- Template Javascript -->
             <script src="js/main.js"></script>
             <script>
-                                                        $('.sidebar-toggler').click(function () {
-                                                            $('.sidebar, .content').toggleClass("open");
-                                                            return false;
-                                                        });
+                                                            $('.sidebar-toggler').click(function () {
+                                                                $('.sidebar, .content').toggleClass("open");
+                                                                return false;
+                                                            });
             </script>
             <script>
                 const detailsDiv = document.getElementById("product-details");
@@ -357,13 +362,28 @@
                     }
                 }
                 function ProductUpdate(id) {
-                    if (confirm("Bạn có chắc muốn hoàn tác? Mọi thao tác của bạn sẽ không được lưu.")) {
+                    if (confirm("Bạn có chắc muốn hoàn tác? Mọi thao tác của bạn sẽ không được lưu!")) {
                         // Nếu người dùng click "OK", chuyển hướng
                         let url = "marketingProductDetails?id=" + id;
                         window.location.href = url;
                     } else {
                         // Nếu người dùng click "Cancel", không làm gì cả
                         // (Hoặc bạn có thể thêm code để xử lý hành động khác)
+                    }
+                }
+                function Back() {
+                    if (confirm("Bạn có chắc muốn hoàn tác? Mọi thao tác của bạn sẽ không được lưu!")) {
+                        // Nếu người dùng click "OK", chuyển hướng
+                        let url = "marketingProductList";
+                        window.location.href = url;
+                    } else {
+                        // Nếu người dùng click "Cancel", không làm gì cả
+                        // (Hoặc bạn có thể thêm code để xử lý hành động khác)
+                    }
+                }
+                function confirmSubmit() {
+                    if (confirm("Thêm sản phẩm và chuyển hướng tới chỉnh sửa?")) {
+                            document.getElementById('AddForm').submit();
                     }
                 }
 
