@@ -156,7 +156,10 @@
                                 <a href="userProfile" class="dropdown-item">Hồ sơ cá nhân</a>
                                 <a href="#" class="dropdown-item">Cài đặt</a>
                                 <a href="home" class="dropdown-item">Trang chủ</a>
-                                <a href="login.jsp" class="dropdown-item">Log Out</a>
+                                <c:choose>
+                                    <c:when test="${ not empty sessionScope.account}"><a href="${pageContext.request.contextPath}/userLogout" class="dropdown-item">Đăng xuất</a></c:when>
+                                    <c:otherwise><a href="${pageContext.request.contextPath}/login" class="dropdown-item">Đăng nhập</a></c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
                     </div>
@@ -203,18 +206,23 @@
                                                     <main class="col-lg-6">
                                                         <div class="ps-lg-3">
                                                             <h4 class="title text-dark">
-                                                                <h5 class="title text-dark" >Tên sản phẩm:</h5>
-                                                                <input type="text" name="product_name" placeholder="Tên sản phẩm" class="form-control" required/>
+
+                                                                <h5 class="title text-dark">Tên sản phẩm:</h5>
+                                                                <input type="text" name="product_name" placeholder="Nhập tên sản phẩm" class="form-control" required/>
+                                                                <label style="color: red; display: none;" id="productNameError">*Vui lòng nhập Tên sản phẩm</label>
                                                             </h4>
                                                             <hr/>
                                                             <div class="mb-3">
                                                                 <h6 class="title text-dark" >Giá:</h6>                                                                
                                                                 <input type="text" name="price" placeholder="Vui lòng nhập giá > 0" class="form-control" required/>
+                                                                <label style="color: red; display: none;" id="productPriceError">*Vui lòng nhập Giá</label>
+
                                                             </div>
                                                             <hr/>
                                                             <div class="mb-3">
                                                                 <h6 class="title text-dark" >Quantity:</h6>                                                                
                                                                 <input type="number" name="quantity" placeholder="Vui lòng nhập Số lượng > 0" class="form-control" min="1" required />
+                                                                <label style="color: red; display: none;" id="productQuantityError">*Vui lòng nhập Số lượng</label>
                                                             </div>
                                                             <hr/>
                                                             <h6>Mô tả:</h6>
@@ -236,7 +244,21 @@
                                                                         <option value="${brands.brandId}">${brands.brandName}</option>
                                                                     </c:forEach>
                                                                 </select> 
-                                                            </div> 
+                                                            </div>
+                                                            <hr/>
+                                                            <div class="mb-3">
+                                                                <h6 class="title text-dark" >Ngày bắt đầu:</h6>                                                                
+                                                                <input type="date" name="dateStart"  class="form-control" />
+                                                                <label style="color: red; display: none;" id="dateStartError">*Vui lòng chọn Ngày bắt đầu</label>
+                                                            </div>
+                                                            <hr/>
+                                                            <div class="mb-3">
+                                                                <h6 class="title text-dark" >Ngày kết thúc:</h6>                                                                
+                                                                <input type="date" name="dateEnd"  class="form-control" />
+                                                                <label style="color: red; display: none;" id="dateEndError">*Vui lòng chọn Ngày kết thúc</label>
+                                                            </div>
+                                                                                                                        <hr/>
+
                                                             <a href="#" id="show-more-details">Show more Details</a>
                                                             <hr/>
                                                             <div class="row" id="product-details" style="display: none;">                                                                
@@ -275,18 +297,6 @@
                                                                 <div class="row w-100">
                                                                     <dt class="col-3">Status:</dt>
                                                                     <dd class="col-9"><input type="text" name="status"  class="form-control" /></dd>
-                                                                </div>
-                                                                <div class="row w-100">
-                                                                    <dt class="col-3">Date start:</dt>
-                                                                    <dd class="col-9"><input type="date" name="dateStart"  class="form-control" /></dd>
-                                                                </div>
-                                                                <div class="row w-100">
-                                                                    <dt class="col-3">Date End:</dt>
-                                                                    <dd class="col-9"><input type="date" name="dateEnd"  class="form-control" /></dd>
-                                                                </div>
-                                                                <div class="row w-100">
-                                                                    <dt class="col-3">Sale:</dt>
-                                                                    <dd class="col-9"><input type="text" name="sale" placeholder="%" class="form-control" /></dd>
                                                                 </div>
                                                                 <!--                                                                <input type="text" name="product_img"  class="form-control" style="display: none" readonly/>-->
                                                                 <input type="text" name="userId" value="${sessionScope.account.user_Id}" class="form-control" style="display: none" readonly/>
@@ -384,12 +394,47 @@
                     }
                 }
                 function confirmSubmit() {
-                    if(checkFileExtension()){
-                    if (confirm("Thêm sản phẩm và chuyển hướng tới chỉnh sửa?")) {
-                        document.getElementById('AddForm').submit();
-                    }}
+                    if (checkFileExtension()) {
+                        if (checkInput()) {
+                            document.getElementById('AddForm').submit();
+                        }
+                    }
                 }
 
+                function checkInput() {
+                    var productName = document.getElementsByName("product_name")[0].value.trim();
+                    var productPrice = document.getElementsByName("price")[0].value.trim();
+                    var productQuantity = document.getElementsByName("quantity")[0].value.trim();
+                    var dateStart = document.getElementsByName("dateStart")[0].value;
+                    var dateEnd = document.getElementsByName("dateEnd")[0].value;
+
+                    if (productName === "") {
+                        document.getElementById("productNameError").style.display = "block";
+                    } else {
+                        document.getElementById("productNameError").style.display = "none";
+                    }
+                    if (productPrice === "") {
+                        document.getElementById("productPriceError").style.display = "block";
+                    } else {
+                        document.getElementById("productPriceError").style.display = "none";
+                    }
+                    if (productQuantity === "") {
+                        document.getElementById("productQuantityError").style.display = "block";
+                    } else {
+                        document.getElementById("productQuantityError").style.display = "none";
+                    }
+                    if (dateStart === "") {
+                        document.getElementById("dateStartError").style.display = "block";
+                    } else {
+                        document.getElementById("dateStartError").style.display = "none";
+                    }
+
+                    if (dateEnd === "") {
+                        document.getElementById("dateEndError").style.display = "block";
+                    } else {
+                        document.getElementById("dateEndError").style.display = "none";
+                    }
+                }
 
 
             </script>

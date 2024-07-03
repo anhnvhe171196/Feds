@@ -156,7 +156,10 @@
                                 <a href="userProfile" class="dropdown-item">Hồ sơ cá nhân</a>
                                 <a href="#" class="dropdown-item">Cài đặt</a>
                                 <a href="home" class="dropdown-item">Trang chủ</a>
-                                <a href="login.jsp" class="dropdown-item">Log Out</a>
+                                <c:choose>
+                                    <c:when test="${ not empty sessionScope.account}"><a href="${pageContext.request.contextPath}/userLogout" class="dropdown-item">Đăng xuất</a></c:when>
+                                    <c:otherwise><a href="${pageContext.request.contextPath}/login" class="dropdown-item">Đăng nhập</a></c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
                     </div>
@@ -220,9 +223,6 @@
                                                     <button type="button" class="sort-button">Sale</button>
                                                 </a>
                                             </th>
-                                            <th scope="col" style="color: #009CFF;" class="Details1">
-                                                Thông tin
-                                            </th>
                                             <th scope="col" style="color: red;" class="Update1">
                                                 Chỉnh Sửa
                                             </th>
@@ -231,13 +231,13 @@
                                     <tbody>
                                         <c:forEach items="${products}" var="product">
                                             <tr>
-                                                <td scope="col">${product.product_id}</th>
-                                                <td scope="col"><img src="images/${product.product_img}" style="max-height: 50px"></th>
-                                                <td scope="col"  style="max-width: 200px; word-wrap: break-word;">${product.product_name}</th>
-                                                <td scope="col">${product.brand.brandName}</th>
-                                                <td scope="col">${product.quantity}</th>
-                                                <td scope="col"><fmt:formatNumber value="${product.price.price}" pattern="#,##0 VND" /></th>
-                                                <td scope="col">
+                                                <td scope="col" onclick="ProductDetail(${product.product_id})">${product.product_id}</th>
+                                                <td scope="col" onclick="ProductDetail(${product.product_id})"><img src="images/${product.product_img}" style="max-height: 50px"></th>
+                                                <td scope="col"  style="max-width: 200px; word-wrap: break-word;" onclick="ProductDetail(${product.product_id})">${product.product_name}</th>
+                                                <td scope="col" onclick="ProductDetail(${product.product_id})">${product.brand.brandName}</th>
+                                                <td scope="col" onclick="ProductDetail(${product.product_id})">${product.quantity}</th>
+                                                <td scope="col" onclick="ProductDetail(${product.product_id})"><fmt:formatNumber value="${product.price.price}" pattern="#,##0 VND" /></th>
+                                                <td scope="col" onclick="ProductDetail(${product.product_id})">
                                                     <c:choose>
                                                         <c:when test="${empty product.price.dateStart}">
                                                             Null
@@ -247,7 +247,7 @@
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </td>
-                                                <td scope="col">
+                                                <td scope="col" onclick="ProductDetail(${product.product_id})">
                                                     <c:choose>
                                                         <c:when test="${empty product.price.dateEnd}">
                                                             Null
@@ -257,7 +257,7 @@
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </td>
-                                                <td scope="col">
+                                                <td scope="col" onclick="ProductDetail(${product.product_id})">
                                                     <c:choose>
                                                         <c:when test="${empty product.price.sale}">
                                                             0%
@@ -267,14 +267,9 @@
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </td>
-                                                <td scope="col" class="Details">
-                                                    <a href="#" onclick="ProductDetail(${product.product_id})">
-                                                        <img  src="images/icons/DetailsIcon.png" alt="Thông tin sản phẩm" style="width: 25px; height: 25px;"> 
-                                                    </a>
-                                                </td>
                                                 <td scope="col" class="Update">
                                                     <a href="#" onclick="ProductUpdate(${product.product_id})">
-                                                        <img  src="images/icons/FixIcon.png" alt="Sửa sản phẩm" style="width: 25px; height: 25px;">                                    
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;<img  src="images/icons/EditsIcon.png" alt="Sửa sản phẩm" style="width: 25px; height: 25px;">                                    
                                                     </a>
                                                 </td>
                                             </tr>

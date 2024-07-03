@@ -148,7 +148,10 @@
                                 <a href="userProfile" class="dropdown-item">Hồ sơ cá nhân</a>
                                 <a href="#" class="dropdown-item">Cài đặt</a>
                                 <a href="home" class="dropdown-item">Trang chủ</a>
-                                <a href="login.jsp" class="dropdown-item">Log Out</a>
+                                <c:choose>
+                                    <c:when test="${ not empty sessionScope.account}"><a href="${pageContext.request.contextPath}/userLogout" class="dropdown-item">Đăng xuất</a></c:when>
+                                    <c:otherwise><a href="${pageContext.request.contextPath}/login" class="dropdown-item">Đăng nhập</a></c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
                     </div>
