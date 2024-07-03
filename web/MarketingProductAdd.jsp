@@ -188,29 +188,33 @@
                                 </div>
 
                                 <div class="mb-3"> 
-
                                     <section class="py-5">
-                                        <div class="container">
-                                            <div class="row gx-5">
-                                                <aside class="col-lg-6">
+                                        <form id="AddForm" method="post" action="marketingAddProduct" enctype="multipart/form-data" >
+                                            <div class="container">
+                                                <div class="row gx-5">
+                                                    <aside class="col-lg-6">
+                                                        <div class="row w-100">
+                                                            <input type="file" name="image" accept="image/*" id="imageMain">
+                                                            <dd class="col-6"><button type="button" class="btn btn-primary" form="AddForm" onclick="confirmSubmit()" >Enter</button></dd>
+                                                        </div>
 
-                                                    <div class="row w-100">
-                                                        <dd class="col-6"><button type="button" class="btn btn-primary" form="AddForm" onclick="confirmSubmit()">Enter</button></dd>
-                                                    </div>
+                                                    </aside>
 
-                                                </aside>
-
-                                                <main class="col-lg-6">
-                                                    <div class="ps-lg-3">
-                                                        <form id="AddForm" method="post" action="marketingAddProduct">
+                                                    <main class="col-lg-6">
+                                                        <div class="ps-lg-3">
                                                             <h4 class="title text-dark">
                                                                 <h5 class="title text-dark" >Tên sản phẩm:</h5>
-                                                                <input type="text" name="product_name" placeholder="Tên sản phẩm" class="form-control" />
+                                                                <input type="text" name="product_name" placeholder="Tên sản phẩm" class="form-control" required/>
                                                             </h4>
                                                             <hr/>
                                                             <div class="mb-3">
                                                                 <h6 class="title text-dark" >Giá:</h6>                                                                
-                                                                <input type="text" name="price" placeholder="Giá" class="form-control" />
+                                                                <input type="text" name="price" placeholder="Vui lòng nhập giá > 0" class="form-control" required/>
+                                                            </div>
+                                                            <hr/>
+                                                            <div class="mb-3">
+                                                                <h6 class="title text-dark" >Quantity:</h6>                                                                
+                                                                <input type="number" name="quantity" placeholder="Vui lòng nhập Số lượng > 0" class="form-control" min="1" required />
                                                             </div>
                                                             <hr/>
                                                             <h6>Mô tả:</h6>
@@ -235,70 +239,67 @@
                                                             </div> 
                                                             <a href="#" id="show-more-details">Show more Details</a>
                                                             <hr/>
-                                                            <div class="row" id="product-details" style="display: none;">
-                                                                <div class="row w-100">
-                                                                    <dt class="col-3">Quantity</dt>
-                                                                    <dd class="col-9"><input type="text" name="quantity" value="${product.quantity}" class="form-control" /></dd>
-                                                                </div>
+                                                            <div class="row" id="product-details" style="display: none;">                                                                
                                                                 <div class="row w-100">
                                                                     <dt class="col-3">Ram</dt>
-                                                                    <dd class="col-9"><input type="text" name="ram" value="${product.detail.ram}" class="form-control" /></dd>
+                                                                    <dd class="col-9"><input type="text" name="ram" class="form-control" /></dd>
                                                                 </div>
                                                                 <div class="row w-100">
                                                                     <dt class="col-3">Rom:</dt>
-                                                                    <dd class="col-9"><input type="text" name="rom" value="${product.detail.rom}" class="form-control" /></dd>
+                                                                    <dd class="col-9"><input type="text" name="rom"  class="form-control" /></dd>
                                                                 </div>
                                                                 <div class="row w-100">
                                                                     <dt class="col-3">Size:</dt>
-                                                                    <dd class="col-9"><input type="text" name="size" value="${product.detail.size}" class="form-control" /></dd>
+                                                                    <dd class="col-9"><input type="text" name="size"  class="form-control" /></dd>
                                                                 </div>
                                                                 <div class="row w-100">
                                                                     <dt class="col-3">Battery:</dt>
-                                                                    <dd class="col-9"><input type="text" name="battery" value="${product.detail.battery}" class="form-control" /></dd>
+                                                                    <dd class="col-9"><input type="text" name="battery"  class="form-control" /></dd>
                                                                 </div>
                                                                 <div class="row w-100">
                                                                     <dt class="col-3">Weight:</dt>
-                                                                    <dd class="col-9"><input type="text" name="weight" value="${product.detail.weight}" class="form-control" /></dd>
+                                                                    <dd class="col-9"><input type="text" name="weight"  class="form-control" /></dd>
                                                                 </div>
                                                                 <div class="row w-100">
                                                                     <dt class="col-3">Color:</dt>
-                                                                    <dd class="col-9"><input type="text" name="color" value="${product.detail.color}" class="form-control" /></dd>
+                                                                    <dd class="col-9"><input type="text" name="color"  class="form-control" /></dd>
                                                                 </div>
                                                                 <div class="row w-100">
                                                                     <dt class="col-3">CPU:</dt>
-                                                                    <dd class="col-9"><input type="text" name="cpu" value="${product.detail.cpu}" class="form-control" /></dd>
+                                                                    <dd class="col-9"><input type="text" name="cpu"  class="form-control" /></dd>
                                                                 </div>
                                                                 <div class="row w-100">
                                                                     <dt class="col-3">Wattage:</dt>
-                                                                    <dd class="col-9"><input type="text" name="wattage" value="${product.detail.wattage}" class="form-control" /></dd>
+                                                                    <dd class="col-9"><input type="text" name="wattage"  class="form-control" /></dd>
                                                                 </div>
                                                                 <div class="row w-100">
                                                                     <dt class="col-3">Status:</dt>
-                                                                    <dd class="col-9"><input type="text" name="status" value="${product.detail.status}" class="form-control" /></dd>
+                                                                    <dd class="col-9"><input type="text" name="status"  class="form-control" /></dd>
                                                                 </div>
                                                                 <div class="row w-100">
                                                                     <dt class="col-3">Date start:</dt>
-                                                                    <dd class="col-9"><input type="date" name="dateStart" value="${product.price.dateStart}" class="form-control" /></dd>
+                                                                    <dd class="col-9"><input type="date" name="dateStart"  class="form-control" /></dd>
                                                                 </div>
                                                                 <div class="row w-100">
                                                                     <dt class="col-3">Date End:</dt>
-                                                                    <dd class="col-9"><input type="date" name="dateEnd" value="${product.price.dateEnd}" class="form-control" /></dd>
+                                                                    <dd class="col-9"><input type="date" name="dateEnd"  class="form-control" /></dd>
                                                                 </div>
                                                                 <div class="row w-100">
                                                                     <dt class="col-3">Sale:</dt>
-                                                                    <dd class="col-9"><input type="text" name="sale" value="${product.price.sale}" class="form-control" /></dd>
+                                                                    <dd class="col-9"><input type="text" name="sale" placeholder="%" class="form-control" /></dd>
                                                                 </div>
-                                                                <input type="text" name="product_img" value="${product.product_img}" class="form-control" style="display: none" readonly/>
+                                                                <!--                                                                <input type="text" name="product_img"  class="form-control" style="display: none" readonly/>-->
                                                                 <input type="text" name="userId" value="${sessionScope.account.user_Id}" class="form-control" style="display: none" readonly/>
 
                                                                 <hr/>
                                                             </div>
-                                                        </form> 
-                                                    </div>
-                                                </main>
 
+                                                        </div>
+                                                    </main>
+
+                                                </div>
                                             </div>
-                                        </div>
+                                        </form>
                                     </section>
 
 
@@ -333,10 +334,10 @@
             <!-- Template Javascript -->
             <script src="js/main.js"></script>
             <script>
-                                                            $('.sidebar-toggler').click(function () {
-                                                                $('.sidebar, .content').toggleClass("open");
-                                                                return false;
-                                                            });
+                                                                $('.sidebar-toggler').click(function () {
+                                                                    $('.sidebar, .content').toggleClass("open");
+                                                                    return false;
+                                                                });
             </script>
             <script>
                 const detailsDiv = document.getElementById("product-details");
@@ -360,6 +361,7 @@
                         fileInput.value = '';
                         return false;
                     }
+                    return true;
                 }
                 function ProductUpdate(id) {
                     if (confirm("Bạn có chắc muốn hoàn tác? Mọi thao tác của bạn sẽ không được lưu!")) {
@@ -382,9 +384,10 @@
                     }
                 }
                 function confirmSubmit() {
+                    if(checkFileExtension()){
                     if (confirm("Thêm sản phẩm và chuyển hướng tới chỉnh sửa?")) {
-                            document.getElementById('AddForm').submit();
-                    }
+                        document.getElementById('AddForm').submit();
+                    }}
                 }
 
 

@@ -7,10 +7,14 @@ package vn.fpt.edu.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Date;
 import java.util.List;
 import vn.fpt.edu.dals.Data_MarketingDashboard_DAO;
@@ -27,6 +31,7 @@ import vn.fpt.edu.models.User;
  * @author rimok
  */
 @WebServlet(name = "MarketingAddProduct", urlPatterns = {"/marketingAddProduct"})
+@MultipartConfig
 public class MarketingAddProduct extends HttpServlet {
 
     /**
@@ -96,61 +101,124 @@ public class MarketingAddProduct extends HttpServlet {
         Data_MarketingDashboard_DAO dt = new Data_MarketingDashboard_DAO();
 
         User_DAO ud = new User_DAO();
-        int userId = Integer.parseInt(request.getParameter("userId"));
-        int categoryId = Integer.parseInt(request.getParameter("category_id"));
-        int brandId = Integer.parseInt(request.getParameter("brandId"));
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-        String productName = request.getParameter("product_name");
-        String productImg = request.getParameter("product_img");
-        String ram = request.getParameter("ram");
-        String rom = request.getParameter("rom");
-        String size = request.getParameter("size");
-        String battery = request.getParameter("battery");
-        String weight = request.getParameter("weight");
-        String color = request.getParameter("color");
-        String decription = request.getParameter("decription");
-        String cpu = request.getParameter("cpu");
-        String wattage = request.getParameter("wattage");
-        String status = request.getParameter("status");
-        String priceString = request.getParameter("price");
-        priceString = priceString.replace(" VND", ""); // Loại bỏ " VND"
-        double price = Double.parseDouble(priceString.replace(",", ""));
-        String dateStartString = request.getParameter("dateStart");
-        String dateEndString = request.getParameter("dateEnd");
+        try {
+            Part part = request.getPart("image");
 
-        Date dateStart = null;
-        Date dateEnd = null;
+            // Lưu ảnh vào thư mục images
+            String readpath = getServletContext().getRealPath("/images");
+            String filename = Path.of(part.getSubmittedFileName()).getFileName().toString();
 
-        if (dateStartString != null && !dateStartString.isEmpty()) {
-            dateStart = java.sql.Date.valueOf(dateStartString);
+            // Thêm timestamp vào tên file để tránh trùng lặp
+            filename = filename.substring(0, filename.lastIndexOf(".")) + "_" + System.currentTimeMillis() + filename.substring(filename.lastIndexOf("."));
+
+            // Kiểm tra thư mục images
+            if (!Files.exists(Path.of(readpath))) {
+                Files.createDirectories(Path.of(readpath));
+            }
+            part.write(readpath + "/" + filename);
+
+            // Cập nhật đường dẫn ảnh trong database
+            String img = filename;
+            String UserId = request.getParameter("userId");
+            if (UserId == null || UserId.isEmpty()) {
+                request.setAttribute("error", "Vui lòng đăng nhập!");
+                request.getRequestDispatcher("Page404.jsp").forward(request, response);
+                return;
+            }
+            int userId = Integer.parseInt(UserId);
+            int categoryId = Integer.parseInt(request.getParameter("category_id"));
+            int brandId = Integer.parseInt(request.getParameter("brandId"));
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+            String productName = request.getParameter("product_name");
+//        String productImg = request.getParameter("product_img");
+            String ram = request.getParameter("ram");
+            String rom = request.getParameter("rom");
+            String size = request.getParameter("size");
+            String battery = request.getParameter("battery");
+            String weight = request.getParameter("weight");
+            String color = request.getParameter("color");
+            String decription = request.getParameter("decription");
+            String cpu = request.getParameter("cpu");
+            String wattage = request.getParameter("wattage");
+            String status = request.getParameter("status");
+            String priceString = request.getParameter("price");
+            priceString = priceString.replace(" VND", ""); // Loại bỏ " VND"
+            double price = Double.parseDouble(priceString.replace(",", ""));
+            String dateStartString = request.getParameter("dateStart");
+            String dateEndString = request.getParameter("dateEnd");
+
+            Date dateStart = null;
+            Date dateEnd = null;
+
+            if (dateStartString != null && !dateStartString.isEmpty()) {
+                dateStart = java.sql.Date.valueOf(dateStartString);
+            } else {
+                request.setAttribute("error", "Vui lòng Nhập ngày bắt đầu");
+                request.getRequestDispatcher("Page404.jsp").forward(request, response);
+                return;
+            }
+
+            if (dateEndString != null && !dateEndString.isEmpty()) {
+                dateEnd = java.sql.Date.valueOf(dateEndString);
+            } else {
+                request.setAttribute("error", "Vui lòng nhập ngày kết thúc");
+                request.getRequestDispatcher("Page404.jsp").forward(request, response);
+                return;
+            }
+            String Sale = request.getParameter("sale");
+            if (Sale == null || Sale.isBlank()) {
+                Sale = "0";
+            }
+            int sale = Integer.parseInt(Sale);
+
+            if (productName == null || productName.isEmpty()) {
+                // Hiển thị thông báo lỗi
+                request.setAttribute("error", "Vui lòng điền đầy đủ thông tin sản phẩm.");
+                request.getRequestDispatcher("Page404.jsp").forward(request, response);
+                return;
+            }
+            if (price <= 0) {
+                // Hiển thị thông báo lỗi
+                request.setAttribute("error", "Vui lòng nhập Giá > 0");
+                request.getRequestDispatcher("Page404.jsp").forward(request, response);
+                return;
+            }
+            if (quantity <= 0) {
+                // Hiển thị thông báo lỗi
+                request.setAttribute("error", "Vui lòng nhập Số lượng > 0");
+                request.getRequestDispatcher("Page404.jsp").forward(request, response);
+                return;
+            }
+
+            Category category = new Category(categoryId, null);
+            User user = ud.getCustomerByID(userId);
+            Brand brand = new Brand(brandId, null, category);
+            Product1 product = new Product1(0, quantity, productName, img, user, brand);
+            ProductDetail detail = new ProductDetail(ram, rom, size, battery, weight, color, decription, cpu, wattage, status, product);
+            Price priceObj = new Price(price, dateStart, dateEnd, sale, product);
+
+            boolean success = dt.AddProduct(product, user);
+            if (success) {
+                // Lấy Product_id vừa được tạo
+                product.setProduct_id(dt.getLastInsertedProductId()); // Giả sử bạn có hàm getLastInsertedProductId() trong DAO
+                success &= dt.AddProductDetail(detail);
+                success &= dt.AddPrice(priceObj);
+                request.setAttribute("product", product);
+                String redirectURL = "marketingProductUpdate?id=" + product.getProduct_id();
+                response.sendRedirect(redirectURL);
+                // ... (Kiểm tra kết quả thêm sản phẩm và chuyển hướng)
+            } else {
+                response.sendRedirect("error404.html");
+
+            }
+
+        } catch (NumberFormatException e) {
+            request.setAttribute("error", "Số lượng phải là một số nguyên.");
+            request.getRequestDispatcher("Page404.jsp").forward(request, response);
+        } catch (Exception e) {
+            request.setAttribute("error", "Đã sảy ra lỗi! Vui lòng thử lại");
+            request.getRequestDispatcher("Page404.jsp").forward(request, response);
         }
-
-        if (dateEndString != null && !dateEndString.isEmpty()) {
-            dateEnd = java.sql.Date.valueOf(dateEndString);
-        }
-        int sale = Integer.parseInt(request.getParameter("sale"));
-        Category category = new Category(categoryId, null);
-        User user = ud.getCustomerByID(userId);
-        Brand brand = new Brand(brandId, null, category);
-        Product1 product = new Product1(0, quantity, productName, productImg, user, brand);
-        ProductDetail detail = new ProductDetail(ram, rom, size, battery, weight, color, decription, cpu, wattage, status, product);
-        Price priceObj = new Price(price, dateStart, dateEnd, sale, product);
-
-        boolean success = dt.AddProduct(product,user);
-        if (success) {
-            // Lấy Product_id vừa được tạo
-            product.setProduct_id(dt.getLastInsertedProductId()); // Giả sử bạn có hàm getLastInsertedProductId() trong DAO
-            success &= dt.AddProductDetail(detail);
-            success &= dt.AddPrice(priceObj);
-            request.setAttribute("product", product);
-            String redirectURL = "marketingProductUpdate?id=" + product.getProduct_id();
-            response.sendRedirect(redirectURL);
-            // ... (Kiểm tra kết quả thêm sản phẩm và chuyển hướng)
-        }else{
-            response.sendRedirect("error404.html");
-
-        }
-
     }
 
     /**
