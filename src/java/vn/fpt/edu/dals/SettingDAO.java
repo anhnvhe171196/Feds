@@ -122,12 +122,12 @@ public class SettingDAO extends DBContext {
 
     public Setting getSettingById(int parseInt) {
         Setting arr = null;
-        String sql = "SELECT settings.*, [Role].Role_Name FROM settings join [Role] on settings.Role_Id = [Role].Role_Id WHERE [Role].Role_Id = ? ORDER BY Role_Id OFFSET ? ROWS FETCH NEXT ? ROW ONLY;";
+        String sql = "SELECT settings.*, [Role].Role_Name FROM settings join [Role] on settings.Role_Id = [Role].Role_Id WHERE [Role].Role_Id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, parseInt);
             ResultSet rs = st.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
                 Role r = new Role(rs.getInt("Role_Id"), rs.getString("Role_Name"));
                 arr = new Setting(r, rs.getInt("View") == 1, rs.getInt("Buy") == 1, rs.getInt("Feedback") == 1, rs.getInt("Sell") == 1, rs.getInt("Edit") == 1, rs.getInt("Delete") == 1, rs.getInt("Create") == 1);
             }

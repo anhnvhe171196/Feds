@@ -256,6 +256,7 @@
         <script src="../js/sb-admin-2.min.js"></script>
         <script>
             setTimeout(async () => {
+                console.log(window.location.search.replace("?", ""));
                 const Resp = await fetch("detail", {
                     method: 'POST',
                     headers: {
@@ -265,7 +266,7 @@
                     body: window.location.search.replace("?", "")
                 });
                 const data = await Resp.json();
-                //console.log(data);
+                console.log(data);
                 document.getElementById("role-id").value = data["ID"];
                 document.getElementById("role-name").value = data["Name"];
                 document.getElementById("permission-view").selectedIndex = data["View"] ? 0 : 1;
