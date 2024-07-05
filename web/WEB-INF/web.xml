@@ -117,6 +117,10 @@
         <servlet-class>vn.fpt.edu.admin.controller.SettingController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>SettingDetailController</servlet-name>
+        <servlet-class>vn.fpt.edu.admin.controller.SettingDetailController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>UserContact</servlet-name>
         <servlet-class>vn.fpt.edu.controller.UserContact</servlet-class>
     </servlet>
@@ -231,6 +235,10 @@
     <servlet-mapping>
         <servlet-name>SettingController</servlet-name>
         <url-pattern>/admin/setting</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SettingDetailController</servlet-name>
+        <url-pattern>/admin/setting/detail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CartController</servlet-name>

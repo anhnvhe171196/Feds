@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Date;
 import java.util.HashMap;
+import java.util.Random;
 import vn.fpt.edu.dals.Bill_DAO;
 import vn.fpt.edu.dals.Category_DAO;
 import vn.fpt.edu.dals.Feedback_DAO;
@@ -56,6 +57,19 @@ public class DashboardController extends HttpServlet {
         //Category_DAO cateDAO = new Category_DAO();
         //request.setAttribute("cates", cateDAO.getAllCate()); 
         request.getRequestDispatcher("dashboard.jsp").forward(request, response);
+    }
+    public static String randomColor() {
+        
+        
+        // create random object - reuse this as often as possible
+        Random random = new Random();
+        
+        // create a big random number - maximum is ffffff (hex) = 16777215 (dez)
+        int nextInt = random.nextInt(0xffffff + 1);
+        
+        // format it as hexadecimal string (with hashtag and leading zeros)
+        String colorCode = String.format("#%06x", nextInt);
+        return colorCode;
     }
 
     /**

@@ -47,7 +47,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../home">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -487,7 +487,7 @@
                     tbody.innerHTML = "";
                     for(let i = 0; i < data["list"].length; i++) {
                             let setting = data["list"][i];
-                            tbody.innerHTML += '<tr class="'+(i%2==0?'odd':'even')+'"><td>'+setting["ID"]+'</td><td><a href="detail?id='+setting["ID"]+'">'+setting["Name"]+'</a></td><td>'+setting["Email"]+'</td><td>'+setting["Gender"]+'</td><td>'+setting["Mobile"]+'</td><td>'+setting["Role"]+'</td><td><button class="btn-success" onclick="window.location.href=\'detail?id='+setting["ID"]+'\'">View</button><button class="btn-'+(setting["isBanned"] ? "success" : "danger")+'" onclick="window.location.href=\'users?id='+setting["ID"]+'&ban='+(setting["isBanned"] ? "false" : "true")+'\'">'+(setting["isBanned"] ? "unBan" : "Ban")+'</button></td></tr>';
+                            tbody.innerHTML += '<tr class="'+(i%2==0?'odd':'even')+'"><td>'+setting["ID"]+'</td><td><a href="detail?id='+setting["ID"]+'">'+setting["Name"]+'</a></td><td>'+setting["Email"]+'</td><td>'+setting["Gender"]+'</td><td>'+setting["Mobile"]+'</td><td>'+setting["Role"]+'</td><td><button class="btn-success" onclick="window.location.href=\'detail?id='+setting["ID"]+'\'">View</button><button class="btn-'+(setting["isBanned"] ? "success" : "danger")+'" onclick="window.location.href=\'users?id='+setting["ID"]+'&ban='+(setting["isBanned"] ? "false" : "true")+'\'">'+(setting["isBanned"] ? "Unban" : "Ban")+'</button></td></tr>';
                         }
             }
                     }, 0);
@@ -598,7 +598,7 @@
                     tbody.innerHTML = "";
                     for(let i = 0; i < data["list"].length; i++) {
                             let setting = data["list"][i];
-                            tbody.innerHTML += '<tr class="'+(i%2==0?'odd':'even')+'"><td>'+setting["ID"]+'</td><td><a href="detail?id='+setting["ID"]+'">'+setting["Name"]+'</a></td><td>'+setting["Email"]+'</td><td>'+setting["Gender"]+'</td><td>'+setting["Mobile"]+'</td><td>'+setting["Role"]+'</td><td><button class="btn-success" onclick="window.location.href=\'detail?id='+setting["ID"]+'\'">View</button><button class="btn-'+(setting["isBanned"] ? "success" : "danger")+'" onclick="window.location.href=\'users?id='+setting["ID"]+'&ban='+(setting["isBanned"] ? "false" : "true")+'\'">'+(setting["isBanned"] ? "unBan" : "Ban")+'</button></td></tr>';
+                            tbody.innerHTML += '<tr class="'+(i%2==0?'odd':'even')+'"><td>'+setting["ID"]+'</td><td><a href="detail?id='+setting["ID"]+'">'+setting["Name"]+'</a></td><td>'+setting["Email"]+'</td><td>'+setting["Gender"]+'</td><td>'+setting["Mobile"]+'</td><td>'+setting["Role"]+'</td><td><button class="btn-success" onclick="window.location.href=\'detail?id='+setting["ID"]+'\'">View</button><button class="btn-'+(setting["isBanned"] ? "success" : "danger")+'" onclick="window.location.href=\'users?id='+setting["ID"]+'&ban='+(setting["isBanned"] ? "false" : "true")+'\'">'+(setting["isBanned"] ? "Unban" : "Ban")+'</button></td></tr>';
                         }
             
             }
@@ -619,10 +619,11 @@
         body: 'get=1&page='+currentPage+(sort.length > 0 ? "&sort="+sort : "")
     });
                     const data = await listResp.json();
+                    //console.log(sort);
                     tbody.innerHTML = "";
                     for(let i = 0; i < data["list"].length; i++) {
                             let setting = data["list"][i];
-                            tbody.innerHTML += '<tr class="'+(i%2==0?'odd':'even')+'"><td>'+setting["ID"]+'</td><td><a href="detail?id='+setting["ID"]+'">'+setting["Name"]+'</a></td><td>'+setting["Email"]+'</td><td>'+setting["Gender"]+'</td><td>'+setting["Mobile"]+'</td><td>'+setting["Role"]+'</td><td><button class="btn-success" onclick="window.location.href=\'detail?id='+setting["ID"]+'\'">View</button><button class="btn-'+(setting["isBanned"] ? "success" : "danger")+'" onclick="window.location.href=\'users?id='+setting["ID"]+'&ban='+(setting["isBanned"] ? "false" : "true")+'\'">'+(setting["isBanned"] ? "unBan" : "Ban")+'</button></td></tr>';
+                            tbody.innerHTML += '<tr class="'+(i%2==0?'odd':'even')+'"><td>'+setting["ID"]+'</td><td><a href="detail?id='+setting["ID"]+'">'+setting["Name"]+'</a></td><td>'+setting["Email"]+'</td><td>'+setting["Gender"]+'</td><td>'+setting["Mobile"]+'</td><td>'+setting["Role"]+'</td><td><button class="btn-success" onclick="window.location.href=\'detail?id='+setting["ID"]+'\'">View</button><button class="btn-'+(setting["isBanned"] ? "success" : "danger")+'" onclick="window.location.href=\'users?id='+setting["ID"]+'&ban='+(setting["isBanned"] ? "false" : "true")+'\'">'+(setting["isBanned"] ? "Unban" : "Ban")+'</button></td></tr>';
                         }
                 }
                 else {
@@ -639,7 +640,7 @@
                     tbody.innerHTML = "";
                     for(let i = 0; i < data["list"].length; i++) {
                             let setting = data["list"][i];
-                            tbody.innerHTML += '<tr class="'+(i%2==0?'odd':'even')+'"><td>'+setting["ID"]+'</td><td><a href="detail?id='+setting["ID"]+'">'+setting["Name"]+'</a></td><td>'+setting["Email"]+'</td><td>'+setting["Gender"]+'</td><td>'+setting["Mobile"]+'</td><td>'+setting["Role"]+'</td><td><button class="btn-success" onclick="window.location.href=\'detail?id='+setting["ID"]+'\'">View</button><button class="btn-'+(setting["isBanned"] ? "success" : "danger")+'" onclick="window.location.href=\'users?id='+setting["ID"]+'&ban='+(setting["isBanned"] ? "false" : "true")+'\'">'+(setting["isBanned"] ? "unBan" : "Ban")+'</button></td></tr>';
+                            tbody.innerHTML += '<tr class="'+(i%2==0?'odd':'even')+'"><td>'+setting["ID"]+'</td><td><a href="detail?id='+setting["ID"]+'">'+setting["Name"]+'</a></td><td>'+setting["Email"]+'</td><td>'+setting["Gender"]+'</td><td>'+setting["Mobile"]+'</td><td>'+setting["Role"]+'</td><td><button class="btn-success" onclick="window.location.href=\'detail?id='+setting["ID"]+'\'">View</button><button class="btn-'+(setting["isBanned"] ? "success" : "danger")+'" onclick="window.location.href=\'users?id='+setting["ID"]+'&ban='+(setting["isBanned"] ? "false" : "true")+'\'">'+(setting["isBanned"] ? "Unban" : "Ban")+'</button></td></tr>';
                         }
                 }
             }, 0);

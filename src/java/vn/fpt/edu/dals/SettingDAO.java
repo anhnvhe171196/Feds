@@ -53,7 +53,7 @@ public class SettingDAO extends DBContext {
     
     public int allSettingsCount() {
         int total = 0;
-        String sql = "SELECT Count(settings.Role_Id) as Count FROM settings WHERE [Role].Role_Id != 1";
+        String sql = "SELECT Count(settings.Role_Id) as Count FROM settings WHERE [settings].Role_Id != 1";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();

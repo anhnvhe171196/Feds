@@ -16,50 +16,17 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>User Detail</title>
+        <title>Dashboard</title>
 
         <!-- Custom fonts for this template-->
-        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
         <link
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
 
         <!-- Custom styles for this template-->
-        <link href="css/sb-admin-2.min.css" rel="stylesheet">
+        <link href="../css/sb-admin-2.min.css" rel="stylesheet">
 
-        <style>
-        body .detail-div {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .container.detail-div {
-            max-width: 600px;
-            margin: auto;
-            border: 1px solid #ddd;
-            padding: 20px;
-            border-radius: 5px;
-        }
-        .avatar {
-            text-align: center;
-        }
-        .avatar img {
-            border-radius: 50%;
-            width: 150px;
-            height: 150px;
-        }
-        .details {
-            margin-top: 20px;
-        }
-        .details label {
-            font-weight: bold;
-        }
-        .details p {
-            margin: 5px 0 15px 0;
-        }
-        .details select {
-            margin: 5px 0 15px 0;
-        }
-    </style>
     </head>
 
     <body id="page-top">
@@ -71,7 +38,7 @@
             <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
                 <!-- Sidebar - Brand -->
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../home">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../../home">
                     <div class="sidebar-brand-icon rotate-n-15">
                         <i class="fas fa-laugh-wink"></i>
                     </div>
@@ -83,7 +50,7 @@
 
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item">
-                    <a class="nav-link" href="dashboard">
+                    <a class="nav-link" href="../dashboard">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span></a>
                 </li>
@@ -97,15 +64,15 @@
                 </div>
 
                 <!-- Nav Item - Tables -->
-                <li class="nav-item active">
-                    <a class="nav-link" href="users">
+                <li class="nav-item">
+                    <a class="nav-link" href="../users">
                         <i class="fas fa-fw fa-table"></i>
                         <span>User List</span></a>
                 </li>
 
                 <!-- Nav Item - Tables -->
-                <li class="nav-item ">
-                    <a class="nav-link" href="setting">
+                <li class="nav-item active">
+                    <a class="nav-link" href="../setting">
                         <i class="fas fa-fw fa-table"></i>
                         <span>Settings</span></a>
                 </li>
@@ -146,7 +113,7 @@
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
                                     <img class="img-profile rounded-circle"
-                                         src="img/undraw_profile.svg">
+                                         src="../img/undraw_profile.svg">
                                 </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -169,47 +136,67 @@
                         <!-- Page Heading -->
                         <h1 class="h3 mb-4 text-gray-800">Setting Detail</h1>
                         <div class="container detail-content">
-        <div class="container detail-div">
-    <div class="avatar">
-        <img id='avatar' src="${pageContext.request.contextPath}/images/9-anh-dai-dien-trang-inkythuatso-03-15-27-03.jpg" alt="User Avatar" onerror="this.onerror=null;this.src='${pageContext.request.contextPath}/images/9-anh-dai-dien-trang-inkythuatso-03-15-27-03.jpg';">
-    </div>
-    <div class="details">
-        <div class="detail-item">
-            <label>User ID:</label>
-            <p id="user_id">2</p>
-        </div>
-        <div class="detail-item">
-            <label>Username:</label>
-            <p id="user_name">3</p>
-        </div>
-        <div class="detail-item">
-            <label>Email:</label>
-            <p id="email">3</p>
-        </div>
-        <div class="detail-item">
-            <label>Phone Number:</label>
-            <p id="phone_number">4</p>
-        </div>
-        <div class="detail-item">
-            <label>Role:</label>
-            <select id='role'>
-            </select>
-        </div>
-        <div class="detail-item">
-            <label>Banned:</label>
-            <select id='banned'>
-                <option value='true' selected="">Yes</option>
-                <option value='false'>No</option>
-            </select>
-        </div>
-        <div class="detail-item">
-            <label>Gender:</label>
-            <p id="gender">Male</p>
-        </div>
-    </div>
-        <button class='btn-success' style='background-color: #ef233c; border-color: #000000;' id='update-user'>UPDATE USER DETAIL</button>
-        <button class="btn-success" onclick="AddNew()" style='margin-top: 10px'>Add New User</button>
-</div>
+                            <h1>Update Role Permissions</h1>
+                            <form id="role-permission-form">
+                                <div class="form-group">
+                                    <label for="role-id"><strong>Role ID</strong></label>
+                                    <input type="text" id="role-id" name="role-id" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="role-name"><strong>Role Name</strong></label>
+                                    <input type="text" id="role-name" name="role-name" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="permission-view">View</label>
+                                    <select id="permission-view" name="permission-view">
+                                        <option value="active">Active</option>
+                                        <option value="disable">Disable</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="permission-buy">Buy</label>
+                                    <select id="permission-buy" name="permission-buy">
+                                        <option value="active">Active</option>
+                                        <option value="disable">Disable</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="permission-feedback">Feedback</label>
+                                    <select id="permission-feedback" name="permission-feedback">
+                                        <option value="active">Active</option>
+                                        <option value="disable">Disable</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="permission-sell">Sell</label>
+                                    <select id="permission-sell" name="permission-sell">
+                                        <option value="active">Active</option>
+                                        <option value="disable">Disable</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="permission-edit">Edit</label>
+                                    <select id="permission-edit" name="permission-edit">
+                                        <option value="active">Active</option>
+                                        <option value="disable">Disable</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="permission-delete">Delete</label>
+                                    <select id="permission-delete" name="permission-delete">
+                                        <option value="active">Active</option>
+                                        <option value="disable">Disable</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="permission-create">Create</label>
+                                    <select id="permission-create" name="permission-create">
+                                        <option value="active">Active</option>
+                                        <option value="disable">Disable</option>
+                                    </select>
+                                </div>
+                                <button type="submit">Update Permissions</button>
+                            </form>
                         </div>
                     </div>
                     <!-- /.container-fluid -->
@@ -252,87 +239,63 @@
                     <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="../userLogout">Logout</a>
+                        <a class="btn btn-primary" href="../../userLogout">Logout</a>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Bootstrap core JavaScript-->
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="../vendor/jquery/jquery.min.js"></script>
+        <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
         <!-- Core plugin JavaScript-->
-        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+        <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
         <!-- Custom scripts for all pages-->
-        <script src="js/sb-admin-2.min.js"></script>
+        <script src="../js/sb-admin-2.min.js"></script>
         <script>
-                            function AddNew() {
-                                var modal = document.getElementById("myModal");
-    var span = document.getElementsByClassName("modelClose")[0];
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-                                modal.style.display = "block";
-                                setTimeout(async () => {
-                                    const resp = await fetch("users",{
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: 'roles=1'
-    });
-    const data = await resp.json();
-    document.getElementById('addRole').innerHTML = "";
-    for(let i = 0; i < data["list"].length; i++) {
-        let dat = data["list"][i];
-        document.getElementById('addRole').innerHTML += '<option value="'+dat["ID"]+'" '+(dat["ID"] == 5 ? "selected" : "")+' '+(dat["ID"] == 1 ? "disabled" : "")+'>'+dat["Name"]+'</option>';
-    }
-                                }, 1);
-                            }
             setTimeout(async () => {
-                const UserRep = await fetch("detail", {
-                    method: 'POST',
-                    headers: {
-                        Accept: 'application/json',
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: window.location.search.replace("?","")
-                });
-                const UserData = await UserRep.json();
-                console.log(UserData);
-                document.getElementById("avatar").src = UserData["Avatar"];
-                document.getElementById("user_id").innerHTML = UserData["ID"];
-                document.getElementById("user_name").innerHTML = UserData["Name"];
-                document.getElementById("email").innerHTML = UserData["Email"];
-                document.getElementById("phone_number").innerHTML = UserData["Mobile"];
-                document.getElementById("gender").innerHTML = UserData["Gender"];
-                document.getElementById("banned").selectedIndex = UserData["isBanned"] ? 0 : 1;
                 const Resp = await fetch("detail", {
                     method: 'POST',
                     headers: {
                         Accept: 'application/json',
                         'Content-Type': 'application/x-www-form-urlencoded',
                     },
-                    body: 'roles=1'
+                    body: window.location.search.replace("?", "")
                 });
                 const data = await Resp.json();
-    document.getElementById('role').innerHTML = "";
-    for(let i = 0; i < data["list"].length; i++) {
-        let dat = data["list"][i];
-        document.getElementsByTagName('select')[0].innerHTML += '<option value="'+dat["ID"]+'" '+(dat["ID"] == UserData["Role"] ? "selected" : "")+' '+(dat["ID"] == 1 ? "disabled" : "")+'>'+dat["Name"]+'</option>';
-    }
+                //console.log(data);
+                document.getElementById("role-id").value = data["ID"];
+                document.getElementById("role-name").value = data["Name"];
+                document.getElementById("permission-view").selectedIndex = data["View"] ? 0 : 1;
+                document.getElementById("permission-buy").selectedIndex = data["Buy"] ? 0 : 1;
+                document.getElementById("permission-feedback").selectedIndex = data["Feedback"] ? 0 : 1;
+                document.getElementById("permission-sell").selectedIndex = data["Sell"] ? 0 : 1;
+                document.getElementById("permission-edit").selectedIndex = data["Edit"] ? 0 : 1;
+                document.getElementById("permission-delete").selectedIndex = data["Delete"] ? 0 : 1;
+                document.getElementById("permission-create").selectedIndex = data["Create"] ? 0 : 1;
             }, 0);
-            document.getElementById('update-user').onclick = async (event) => {
+            document.getElementById('role-permission-form').onsubmit = async (event) => {
                 event.preventDefault();
-                window.location.href = "detail"+window.location.search+"&banned="+document.getElementById('banned').options[document.getElementById('banned').selectedIndex].value+"&role="+document.getElementById('role').options[document.getElementById('role').selectedIndex].value
+                let id = document.getElementById("role-id").value;
+                let view = document.getElementById("permission-view");
+                let buy = document.getElementById("permission-buy");
+                let feedback = document.getElementById("permission-feedback");
+                let sell = document.getElementById("permission-sell");
+                let edit = document.getElementById("permission-edit");
+                let del = document.getElementById("permission-delete");
+                let create = document.getElementById("permission-create");
+                const Resp = await fetch("detail", {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: "id="+id+"&update=1&view="+view.selectedIndex+"&buy="+buy.selectedIndex+"&feedback="+feedback.selectedIndex+"&sell="+sell.selectedIndex+"&edit="+edit.selectedIndex+"&delete="+del.selectedIndex+"&create="+create.selectedIndex
+                });
+                const data = await Resp.json();
+                alert(data["status"]);
             };
         </script>
         <style>
@@ -392,107 +355,6 @@
                 background-color: #218838;
             }
         </style>
-    
-    <div id="myModal" class="myModal">
-
-  <!-- Modal content -->
-  <div class="modalContent">
-    <span class="modelClose">&times;</span>
-    <form id="modalForm" method="post">
-        <input type="hidden" name="add" value="1">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" required>
-
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
-
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
-
-        <label for="phone">Phone Number</label>
-        <input type="tel" id="phone" name="phone" required>
-        
-        <label>Gender</label>
-        <br>
-        <input type="radio" name="gender" value="Male" required> <span style="margin-right: 20px">Male</span>
-        <input type="radio" name="gender" value="Female" required> <span>Female</span>
-        <br>
-        
-        <label for="phone" style="margin-top: 8px">Role: </label>
-        <select id='addRole' name="role">
-            <!--5 selected-->
-            <!--1 disabled-->
-            
-        </select>
-
-        <button type="submit">Submit</button>
-    </form>
-  </div>
-    <style>
-        /* Modal container */
-        .myModal {
-            display: none; 
-            position: fixed; 
-            z-index: 4; 
-            left: 0;
-            top: 0;
-            width: 100%; 
-            height: 100%; 
-            overflow: auto; 
-            background-color: rgb(0,0,0); 
-            background-color: rgba(0,0,0,0.4); 
-            padding-top: 60px; 
-        }
-
-        /* Modal content */
-        .myModal .modalContent {
-            background-color: #fefefe;
-            margin: 5% auto; 
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%; 
-        }
-
-        /* Close button */
-        .myModal .modelClose {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .myModal .modelClose:hover,
-        .myModal .modelClose:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        /* Input styles */
-        .myModal input[type=text], .myModal input[type=password], .myModal input[type=email], .myModal input[type=tel] {
-            width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-        }
-
-        /* Button styles */
-        .myModal button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        .myModal button:hover {
-            opacity: 0.8;
-        }
-    </style>
     </body>
 
 </html>
