@@ -72,10 +72,10 @@
                                 <h3 class="footer-title">Phân loại</h3>
                                 <ul class="footer-links">
                                     <li><a href="#">Ưu đãi lớn</a></li>
-                                    <li><a href="#">Laptops</a></li>
-                                    <li><a href="#">Điện Thoại</a></li>
-                                    <li><a href="#">Máy tính bảng</a></li>
-                                    <li><a href="#">PC</a></li>
+                                    <li><a href="ListProduct?cateid=2">Laptops</a></li>
+                                    <li><a href="ListProduct?cateid=1">Điện Thoại</a></li>
+                                    <li><a href="ListProduct?cateid=10">Máy tính bảng</a></li>
+                                    <li><a href="ListProduct?cateid=7">PC</a></li>
                                 </ul>
                             </div>
                         </div>
