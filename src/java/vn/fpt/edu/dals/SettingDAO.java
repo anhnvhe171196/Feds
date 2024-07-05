@@ -17,7 +17,7 @@ import vn.fpt.edu.models.Setting;
 public class SettingDAO extends DBContext {
     public ArrayList<Setting> getAllSettings(int page, int itemCount) {
         ArrayList<Setting> arr = new ArrayList();
-        String sql = "SELECT settings.*, [Role].Role_Name FROM settings join [Role] on settings.Role_Id = [Role].Role_Id ORDER BY Role_Id OFFSET ? ROWS FETCH NEXT ? ROW ONLY;";
+        String sql = "SELECT settings.*, [Role].Role_Name FROM settings join [Role] on settings.Role_Id = [Role].Role_Id WHERE [Role].Role_Id != 1 ORDER BY Role_Id OFFSET ? ROWS FETCH NEXT ? ROW ONLY;";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, (page-1)*itemCount);
@@ -35,7 +35,7 @@ public class SettingDAO extends DBContext {
     
     public ArrayList<Setting> getAllSettingSort(int page, int itemCount, String sort, String type) {
         ArrayList<Setting> arr = new ArrayList();
-        String sql = "SELECT settings.*, [Role].Role_Name FROM settings join [Role] on settings.Role_Id = [Role].Role_Id ORDER BY "+sort+" "+type+" OFFSET ? ROWS FETCH NEXT ? ROW ONLY;";
+        String sql = "SELECT settings.*, [Role].Role_Name FROM settings join [Role] on settings.Role_Id = [Role].Role_Id WHERE [Role].Role_Id != 1 ORDER BY "+sort+" "+type+" OFFSET ? ROWS FETCH NEXT ? ROW ONLY;";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, (page-1)*itemCount);
@@ -53,7 +53,7 @@ public class SettingDAO extends DBContext {
     
     public int allSettingsCount() {
         int total = 0;
-        String sql = "SELECT Count(settings.Role_Id) as Count FROM settings";
+        String sql = "SELECT Count(settings.Role_Id) as Count FROM settings WHERE [Role].Role_Id != 1";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -87,7 +87,7 @@ public class SettingDAO extends DBContext {
     
     public ArrayList<Setting> getSearchSettingSort(int page, int itemCount, String search, String sort, String type) {
         ArrayList<Setting> arr = new ArrayList();
-        String sql = "SELECT settings.*, [Role].Role_Name FROM settings join [Role] on settings.Role_Id = [Role].Role_Id WHERE [Role].Role_Name LIKE ? ORDER BY "+sort+" "+type+" OFFSET ? ROWS FETCH NEXT ? ROW ONLY;";
+        String sql = "SELECT settings.*, [Role].Role_Name FROM settings join [Role] on settings.Role_Id = [Role].Role_Id WHERE [Role].Role_Name LIKE ? AND [Role].Role_Id != 1 ORDER BY "+sort+" "+type+" OFFSET ? ROWS FETCH NEXT ? ROW ONLY;";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, "%"+search+"%");
@@ -106,7 +106,7 @@ public class SettingDAO extends DBContext {
     
     public int searchSettingsCount(String search) {
         int total = 0;
-        String sql = "SELECT Count(settings.Role_Id) as Count FROM settings join [Role] on settings.Role_Id = [Role].Role_Id WHERE [Role].Role_Name LIKE ?";
+        String sql = "SELECT Count(settings.Role_Id) as Count FROM settings join [Role] on settings.Role_Id = [Role].Role_Id WHERE [Role].Role_Name LIKE ? AND [Role].Role_Id != 1";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, "%"+search+"%");
@@ -118,5 +118,34 @@ public class SettingDAO extends DBContext {
             System.out.println(e);
         }
         return total;
+    }
+
+    public Setting getSettingById(int parseInt) {
+        Setting arr = null;
+        String sql = "SELECT settings.*, [Role].Role_Name FROM settings join [Role] on settings.Role_Id = [Role].Role_Id WHERE [Role].Role_Id = ? ORDER BY Role_Id OFFSET ? ROWS FETCH NEXT ? ROW ONLY;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, parseInt);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Role r = new Role(rs.getInt("Role_Id"), rs.getString("Role_Name"));
+                arr = new Setting(r, rs.getInt("View") == 1, rs.getInt("Buy") == 1, rs.getInt("Feedback") == 1, rs.getInt("Sell") == 1, rs.getInt("Edit") == 1, rs.getInt("Delete") == 1, rs.getInt("Create") == 1);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return arr;
+    }
+    public String updateSettingById(int parseInt, int view, int buy, int feedback, int sell, int edit, int delete, int create) {
+        String arr = "Successfully update Role Id " + parseInt;
+        String sql = "UPDATE settings SET [View] = "+view+", [Buy]="+buy+", [FeedBack]="+feedback+", [Sell]="+sell+", [Edit]="+edit+", [Delete]="+delete+", [Create]="+create+" WHERE [Role_Id] = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, parseInt);
+            st.executeUpdate();
+        } catch (Exception e) {
+            return "Error: "+ e.getMessage();
+        }
+        return arr;
     }
 }
