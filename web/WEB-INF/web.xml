@@ -112,7 +112,7 @@
         <servlet-name>FeedbackListFeedbackController</servlet-name>
         <servlet-class>vn.fpt.edu.salecontroller.FeedbackListFeedbackController</servlet-class>
     </servlet>
-     <servlet>
+    <servlet>
         <servlet-name>SettingController</servlet-name>
         <servlet-class>vn.fpt.edu.admin.controller.SettingController</servlet-class>
     </servlet>
@@ -139,6 +139,10 @@
     <servlet>
         <servlet-name>ViewMyOrderDetailController</servlet-name>
         <servlet-class>vn.fpt.edu.controller.ViewMyOrderDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserRandomPassController</servlet-name>
+        <servlet-class>vn.fpt.edu.common.UserRandomPassController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserRegisterController</servlet-name>
@@ -272,15 +276,18 @@
         <servlet-name>ViewMyOrderDetailController</servlet-name>
         <url-pattern>/viewMyOrderDetail</url-pattern>
     </servlet-mapping>
-      <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>UserDetailController</servlet-name>
         <url-pattern>/admin/detail</url-pattern>
     </servlet-mapping>
-     <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>UserListController</servlet-name>
         <url-pattern>/admin/users</url-pattern>
     </servlet-mapping>
-    
+    <servlet-mapping>
+        <servlet-name>UserRandomPassController</servlet-name>
+        <url-pattern>/UserRandomPassController</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home</welcome-file>
     </welcome-file-list>
