@@ -58,7 +58,6 @@
                                                     </c:if>
                                                     <c:if test="${sessionScope.account != null && sessionScope.account.role.id == 1}">
                                                     <li><a href="${pageContext.request.contextPath}/admin/dashboard">Admin Dashboard</a></li>
-                                                    <li><a href="${pageContext.request.contextPath}/admin/users">Danh sách người dùng</a></li>
                                                     </c:if>
                                                 <li><a href="${pageContext.request.contextPath}/changePassword">Thay đổi mật khẩu</a></li>
                                                 <li><a href="${pageContext.request.contextPath}/userLogout">Đăng xuất</a></li>
