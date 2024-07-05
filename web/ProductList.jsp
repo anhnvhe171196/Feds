@@ -79,6 +79,44 @@
         </style>-->
 
         <style>
+            
+.add-to-cart-btn {
+  position: relative;
+  border: 2px solid transparent;
+  height: 40px;
+  padding: 0 30px;
+  background-color: #ef233c;
+  color: #FFF;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-radius: 40px;
+  -webkit-transition: 0.2s all;
+  transition: 0.2s all;
+}
+
+.add-to-cart-btn>i {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  line-height: 38px;
+  color: #D10024;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #FFF;
+  color: #D10024;
+  border-color: #D10024;
+  padding: 0px 30px 0px 50px;
+}
+
+.add-to-cart-btn:hover>i {
+  opacity: 1;
+  visibility: visible;
+}
             .product-info:hover {
                 border: 2px solid darkslategray;
             }
@@ -473,13 +511,10 @@
                                     <%=product.getPriceString()%>
                                 </p>
                                 <form method="post">
-                                    <button type="submit"
-                                            formaction="AddtoCart?pid=<%=product.getProduct_id()%>&pqty=1"
-                                            class="btn btn-success">Add to Cart</button>
-                                    &nbsp;&nbsp;&nbsp;
-                                    <button type="submit"
+                                    <button type="submit" formaction="AddtoCart?pid=<%=product.getProduct_id()%>&pqty=1" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                    <!--<button type="submit"
                                             formaction="AddtoCart?pid=<%=product.getProduct_id()%>&pqty=1&buy=true"
-                                            class="btn btn-primary">Buy & Feedback</button>
+                                            class="btn btn-primary">Buy & Feedback</button>-->
                                 </form>
                                 <br />
                             </div>
