@@ -79,6 +79,23 @@
         </style>-->
 
         <style>
+            .product-info:hover {
+                border: 2px solid darkslategray;
+            }
+            
+.product-img {
+    overflow: hidden;
+    transition: 0.5s;
+    border-radius: 10px 10px 0 0;
+}
+
+.product-img img {
+    transition: 0.5s;
+}
+
+.product-img img:hover {
+    transform: scale(1.3);
+}
             ._JmL__ {
                 margin-top: 2.5rem;
             }
@@ -426,11 +443,13 @@
                         for (int i = 0; i < products.size(); i++) {
                             Product product = products.get(i);
                         %>
-                        <div class="col-sm-4" style='height: 350px;'>
-                            <div class="thumbnail">
-                                <a href="product?pid=<%=product.getProduct_id()%>">
-                                    <img src="images/<%=product.getProduct_img()%>" alt="Product"
+                        <div class="col-sm-4" style='height: 350px; margin-top: 10px;'>
+                            <div class="thumbnail product-info">
+                                <a href="product?pid=<%=product.getProduct_id()%>" >
+                                    <div class="product-img" >
+                                    <img  src="images/<%=product.getProduct_img()%>" alt="Product"
                                          style="height: 150px; max-width: 180px">
+                                    </div>
                                     <%
                                     String prodName = product.getProduct_name();
                                     prodName = prodName.substring(0, Math.min(prodName.length(), 20));
