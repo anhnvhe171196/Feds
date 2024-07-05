@@ -22,7 +22,7 @@ import vn.fpt.edu.models.User;
 public class Product_DAO extends DBContext {
 
     public int getAllProductsSize() {
-        String sql = "SELECT Count(Product.Product_id) as Total FROM Product join Brandd on Brandd.Brand_id = Product.Brand_id join Product_Category on Product_Category.Category_id = Brandd.Category_id join Price On Price.Product_id = Product.Product_id";
+        String sql = "SELECT Count(Product.Product_id) as Total FROM Product join Brandd on Brandd.Brand_id = Product.Brand_id join Product_Category on Product_Category.Category_id = Brandd.Category_id join Price On Price.Product_id = Product.Product_id WHERE Product.Status != 'deleted'";
         System.out.println(sql);
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -75,9 +75,15 @@ public class Product_DAO extends DBContext {
                 sql += " AND Price.Price <= " + max;
             } else if (max != null) {
                 sql += " WHERE Price.Price <= " + max;
+                where = true;
             }
         }
-        System.out.println(sql);
+        if(where) {
+            sql += " AND Product.Status != 'deleted'";
+        } else {
+            sql += " WHERE Product.Status != 'deleted'";
+        }
+        //System.out.println(sql);
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -91,7 +97,7 @@ public class Product_DAO extends DBContext {
     }
 
     public int getProductByTittleSize(String strSearch, String[] cateId, String[] brandId, String min, String max) {
-        String sql = "SELECT  Count(Product.Product_id) as Total FROM Product join Brandd on Brandd.Brand_id = Product.Brand_id join Product_Category on Product_Category.Category_id = Brandd.Category_id join Price On Price.Product_id = Product.Product_id WHERE Product_name LIKE ?";
+        String sql = "SELECT  Count(Product.Product_id) as Total FROM Product join Brandd on Brandd.Brand_id = Product.Brand_id join Product_Category on Product_Category.Category_id = Brandd.Category_id join Price On Price.Product_id = Product.Product_id WHERE Product_name LIKE ? AND Product.Status != 'deleted'";
         if (cateId.length > 0) {
             sql += " AND ([Product_Category].[Category_id] = " + cateId[0];
             for (int i = 1; i < cateId.length; i++) {
@@ -127,7 +133,7 @@ public class Product_DAO extends DBContext {
 
     public List<Product> getProductByTittle(String strSearch, String[] cateId, int page, String[] brandId, String min, String max) {
         List<Product> list = new ArrayList<>();
-        String sql = "SELECT Product.Product_name, Product.Product_img, Product.Product_id, Product_Detail.Decription, Price.Price, [Product_Category].[Category_name] FROM Product join Product_Detail ON Product.Product_id = Product_Detail.Product_id join Price on Product.Product_id = [Price].Product_id join Brandd on [Brandd].[Brand_Id] = [Product].[Brand_id] join [Product_Category] on [Product_Category].[Category_id] = [Brandd].[Category_id] WHERE Product_name LIKE ?";
+        String sql = "SELECT Product.Product_name, Product.Product_img, Product.Product_id, Product_Detail.Decription, Price.Price, [Product_Category].[Category_name] FROM Product join Product_Detail ON Product.Product_id = Product_Detail.Product_id join Price on Product.Product_id = [Price].Product_id join Brandd on [Brandd].[Brand_Id] = [Product].[Brand_id] join [Product_Category] on [Product_Category].[Category_id] = [Brandd].[Category_id] WHERE Product_name LIKE ? AND Product.Status != 'deleted'";
         if (cateId.length > 0) {
             sql += " AND ([Product_Category].[Category_id] = " + cateId[0];
             for (int i = 1; i < cateId.length; i++) {
@@ -172,7 +178,7 @@ public class Product_DAO extends DBContext {
 
     public List<Product> getAllProducts(int page) {
         List<Product> list = new ArrayList<>();
-        String sql = "SELECT Product.Product_name, Product.Product_img, Product.Product_id, Product_Detail.Decription, Price.Price, [Product_Category].[Category_name] FROM Product join Product_Detail ON Product.Product_id = Product_Detail.Product_id join Price on Product.Product_id = [Price].Product_id join Brandd on [Brandd].[Brand_Id] = [Product].[Brand_id] join [Product_Category] on [Product_Category].[Category_id] = [Brandd].[Category_id]";
+        String sql = "SELECT Product.Product_name, Product.Product_img, Product.Product_id, Product_Detail.Decription, Price.Price, [Product_Category].[Category_name] FROM Product join Product_Detail ON Product.Product_id = Product_Detail.Product_id join Price on Product.Product_id = [Price].Product_id join Brandd on [Brandd].[Brand_Id] = [Product].[Brand_id] join [Product_Category] on [Product_Category].[Category_id] = [Brandd].[Category_id] WHERE Product.Status != 'deleted'";
         sql += " ORDER BY Product.Product_id OFFSET " + ((page - 1) * 15) + " ROWS FETCH NEXT 15 ROWS ONLY;";
         System.out.println(sql);
         try {
@@ -234,7 +240,13 @@ public class Product_DAO extends DBContext {
                 sql += " AND Price.Price <= " + max;
             } else if (max != null) {
                 sql += " WHERE Price.Price <= " + max;
+                where = true;
             }
+        }
+        if(where) {
+            sql += " AND Product.Status != 'deleted'";
+        } else {
+            sql += " WHERE Product.Status != 'deleted'";
         }
         sql += " ORDER BY Product.Product_id OFFSET " + ((page - 1) * 15) + " ROWS FETCH NEXT 15 ROWS ONLY;";
         System.out.println(sql);
