@@ -41,20 +41,20 @@ public class DashboardController extends HttpServlet {
         request.setAttribute("trendDone", trendDone);
         
         request.setAttribute("Revenues", bDAO.totalRevenue()); 
-        HashMap<Integer, Integer> h = bDAO.totalRevenueByCate();
+        HashMap<String, Integer> h = bDAO.totalRevenueByCate();
         request.setAttribute("RevenueCate", h); 
         
         Feedback_DAO fDAO = new Feedback_DAO();
-        HashMap<Integer, Float> f = fDAO.AverageFeedbackByCate();
+        //HashMap<Integer, Float> f = fDAO.AverageFeedbackByCate();
         request.setAttribute("Feedback", fDAO.AverageFeedback()); 
-        request.setAttribute("FeedbackCate", f); 
+        //request.setAttribute("FeedbackCate", f); 
         
         User_DAO uDAO = new User_DAO();
-        request.setAttribute("newlyBought", bDAO.newlyBoughtUser()); 
+        //request.setAttribute("newlyBought", bDAO.newlyBoughtUser()); 
         request.setAttribute("newlyRegistered", uDAO.newlyRegistered()); 
         
-        Category_DAO cateDAO = new Category_DAO();
-        request.setAttribute("cates", cateDAO.getAllCate()); 
+        //Category_DAO cateDAO = new Category_DAO();
+        //request.setAttribute("cates", cateDAO.getAllCate()); 
         request.getRequestDispatcher("dashboard.jsp").forward(request, response);
     }
 
