@@ -199,6 +199,19 @@
                                                     <div class="border rounded-4 mb-3 d-flex justify-content-center">
                                                         <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="images/${product.product_img}" />
                                                     </div>
+                                                    <div>
+                                                        <c:choose>
+                                                        <c:when test="${product.status eq 'active'}">
+                                                            <h5 style="color: springgreen">${product.status}</h5>
+                                                        </c:when>
+                                                            <c:when test="${product.status eq 'pending'}">
+                                                            <h5 style="color: gold">${product.status}</h5>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <h5 style="color: red">${product.status}</h5>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                    </div>
 
                                                 </aside>
                                                 <main class="col-lg-6">
@@ -218,7 +231,7 @@
                                                         <hr/>
                                                         <h6>Mô tả:</h6>
                                                         <c:if test="${not empty product.detail.decription}">
-                                                            <dd class="col-9">${product.detail.decription}</dd>
+                                                            <dd class="col-9" >${product.detail.decription}</dd>
                                                         </c:if>
                                                         <hr/>
                                                         <a href="#" id="show-more-details">Show more Details</a>
@@ -350,10 +363,10 @@
             <!-- Template Javascript -->
             <script src="js/main.js"></script>
             <script>
-            $('.sidebar-toggler').click(function () {
-                $('.sidebar, .content').toggleClass("open");
-                return false;
-            });
+                                                $('.sidebar-toggler').click(function () {
+                                                    $('.sidebar, .content').toggleClass("open");
+                                                    return false;
+                                                });
             </script>
             <script>
                 const detailsDiv = document.getElementById("product-details");

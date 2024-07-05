@@ -59,6 +59,53 @@
                 text-decoration: none; /* Loại bỏ gạch chân khi di chuột qua */
             }
 
+            .switch {
+                position: relative;
+                display: inline-block;
+                width: 60px;
+                height: 34px;
+            }
+            .switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+            .slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #ccc;
+                transition: .4s;
+            }
+            .slider:before {
+                position: absolute;
+                content: "";
+                height: 26px;
+                width: 26px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                transition: .4s;
+            }
+            input:checked + .slider {
+                background-color: #2196F3;
+            }
+            input:focus + .slider {
+                box-shadow: 0 0 1px #2196F3;
+            }
+            input:checked + .slider:before {
+                transform: translateX(26px);
+            }
+            .slider.round {
+                border-radius: 34px;
+            }
+            .slider.round:before {
+                border-radius: 50%;
+            }
+
         </style>
 
     </head>
@@ -66,11 +113,11 @@
 
         <div class="container-xxl position-relative bg-white d-flex p-0">
             <!-- Spinner Start -->
-            <!--            <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-                            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                                <span class="sr-only">Loading...</span>
-                            </div>
-                        </div>-->
+            <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
             <!-- Spinner End -->
 
             <!-- Sidebar Start -->
@@ -221,17 +268,32 @@
                                                     <div class="ps-lg-3">
                                                         <form id="UpdateForm" method="post" action="marketingUpdateProduct">
                                                             <h4 class="title text-dark">
+                                                                <h6>Tên: </h6>
                                                                 <input type="text" name="product_name" value="${product.product_name}" class="form-control" />
                                                             </h4>
-                                                            ( #<input type="text" name="product_id" value="${product.product_id}" class="form-control" readonly/>
-                                                            )
+                                                            <hr/>
+                                                            <input type="hidden" name="product_id" value="${product.product_id}" class="form-control" readonly/>
+                                                            <h6>Trạng thái sản phẩm: </h6>
+                                                            <label class="switch">
+                                                                <input type="checkbox" id="Pstatus" name="Pstatus" value="active" ${product.status == 'active' ? 'checked' : ''}>
+                                                                <span class="slider round"></span>
+                                                            </label>
+                                                            <span id="status-text" class="status-text">
+                                                                ${product.status == 'active' ? 'Hoạt động' : 
+                                                                  product.status == 'pending' ? 'Đang nhập hàng' : 
+                                                                  'Bị vô hiệu hóa'}
+                                                            </span>
+                                                            <hr/>
+
+                                                            </div>
                                                             <hr/>
                                                             <div class="mb-3">
+                                                                <h6>Giá: </h6>
                                                                 <input type="text" name="price" value="<fmt:formatNumber value="${product.price.price}" pattern="#,##0 VND" />" class="form-control" />
                                                             </div>
                                                             <hr/>
                                                             <h6>Mô tả:</h6>
-                                                            <textarea name="decription" class="form-control">${product.detail.decription}</textarea>
+                                                            <textarea name="decription" class="form-control" style="height: 200px ; overflow: auto">${product.detail.decription}</textarea>
                                                             <hr/>
                                                             <a href="#" id="show-more-details">Show more Details</a>
                                                             <hr/>
@@ -370,9 +432,17 @@
                     }
                 }
 
+                // Update the hidden input based on the checkbox state
+                document.getElementById('Pstatus').addEventListener('change', function () {
+                    this.value = this.checked ? 'active' : 'Deleted';
+                    document.getElementById('status-text').innerText = this.checked ? 'Hoạt động' : 'Bị vô hiệu hóa';
+                });
+
+
 
 
             </script>
+
 
 
     </body>

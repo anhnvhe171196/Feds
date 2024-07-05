@@ -19,6 +19,7 @@ public class Product1 {
     private Price price;
     private Category category;
     private ProductDetail detail;
+    private String status;
     public Product1() {
     }
 
@@ -29,6 +30,15 @@ public class Product1 {
         this.product_img = Product_img;
         this.user = user;
         this.brand = brand;
+    }
+    public Product1(int Product_id, int Quantity, String Product_name, String Product_img, User user, Brand brand, String status) {
+        this.product_id = Product_id;
+        this.quantity = Quantity;
+        this.product_name = Product_name;
+        this.product_img = Product_img;
+        this.user = user;
+        this.brand = brand;
+        this.status = status;
     }
 
     public int getProduct_id() {
@@ -101,4 +111,13 @@ public class Product1 {
         this.detail = detail;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    
 }

@@ -223,6 +223,11 @@
                                                     <button type="button" class="sort-button">Sale</button>
                                                 </a>
                                             </th>
+                                            <th scope="col">
+                                                <a href="#" >
+                                                    <button type="button" class="sort-button">Status</button>
+                                                </a>
+                                            </th>
                                             <th scope="col" style="color: red;" class="Update1">
                                                 Chỉnh Sửa
                                             </th>
@@ -267,6 +272,19 @@
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </td>
+                                                <td scope="col" onclick="ProductDetail(${product.product_id})" >
+                                                    <c:choose>
+                                                        <c:when test="${product.status eq 'active'}">
+                                                            <label style="color: springgreen">${product.status}</label>
+                                                        </c:when>
+                                                            <c:when test="${product.status eq 'pending'}">
+                                                            <label style="color: gold">${product.status}</label>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <label style="color: red">${product.status}</label>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                    </th>
                                                 <td scope="col" class="Update">
                                                     <a href="#" onclick="ProductUpdate(${product.product_id})">
                                                         &nbsp;&nbsp;&nbsp;&nbsp;<img  src="images/icons/EditsIcon.png" alt="Sửa sản phẩm" style="width: 25px; height: 25px;">                                    

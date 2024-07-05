@@ -59,6 +59,53 @@
                 text-decoration: none; /* Loại bỏ gạch chân khi di chuột qua */
             }
 
+            .switch {
+                position: relative;
+                display: inline-block;
+                width: 60px;
+                height: 34px;
+            }
+            .switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+            .slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #ccc;
+                transition: .4s;
+            }
+            .slider:before {
+                position: absolute;
+                content: "";
+                height: 26px;
+                width: 26px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                transition: .4s;
+            }
+            input:checked + .slider {
+                background-color: #2196F3;
+            }
+            input:focus + .slider {
+                box-shadow: 0 0 1px #2196F3;
+            }
+            input:checked + .slider:before {
+                transform: translateX(26px);
+            }
+            .slider.round {
+                border-radius: 34px;
+            }
+            .slider.round:before {
+                border-radius: 50%;
+            }
+
         </style>
 
     </head>
@@ -196,9 +243,19 @@
                                             <div class="container">
                                                 <div class="row gx-5">
                                                     <aside class="col-lg-6">
+                                                        <h6>Hàng có sẵn?</h6>
+                                                        <label class="switch">
+                                                            <input type="checkbox" id="Pstatus" name="Pstatus" value="pending">
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                        <span id="status-text" class="status-text">Có sẵn</span>
+
+                                                        <hr/>
+
+
                                                         <div class="row w-100">
                                                             <input type="file" name="image" accept="image/*" id="imageMain">
-                                                            <dd class="col-6"><button type="button" class="btn btn-primary" form="AddForm" onclick="confirmSubmit()" >Enter</button></dd>
+                                                            <dd class="col-6"><button type="submit" class="btn btn-primary" form="AddForm" onclick="confirmSubmit()" >Enter</button></dd>
                                                         </div>
 
                                                     </aside>
@@ -257,7 +314,7 @@
                                                                 <input type="date" name="dateEnd"  class="form-control" />
                                                                 <label style="color: red; display: none;" id="dateEndError">*Vui lòng chọn Ngày kết thúc</label>
                                                             </div>
-                                                                                                                        <hr/>
+                                                            <hr/>
 
                                                             <a href="#" id="show-more-details">Show more Details</a>
                                                             <hr/>
@@ -435,6 +492,10 @@
                         document.getElementById("dateEndError").style.display = "none";
                     }
                 }
+                document.getElementById('Pstatus').addEventListener('change', function () {
+                    this.value = this.checked ? 'pending' : 'active';
+                    document.getElementById('status-text').innerText = this.checked ? 'Đang nhập hàng' : 'Có sẵn';
+                });
 
 
             </script>

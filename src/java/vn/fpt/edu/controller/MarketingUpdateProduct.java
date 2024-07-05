@@ -92,6 +92,10 @@ public class MarketingUpdateProduct extends HttpServlet {
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         String productName = request.getParameter("product_name");
         String productImg = request.getParameter("product_img");
+        String Pstatus = request.getParameter("Pstatus");
+        if (Pstatus == null ) {
+            Pstatus = "Deleted"; // Thay đổi trạng thái thành Deleted
+        }
         String ram = request.getParameter("ram");
         String rom = request.getParameter("rom");
         String size = request.getParameter("size");
@@ -120,8 +124,7 @@ public class MarketingUpdateProduct extends HttpServlet {
         }
         int sale = Integer.parseInt(request.getParameter("sale"));
 
-        
-        Product1 product = new Product1(productId, quantity, productName, productImg, null, null);
+        Product1 product = new Product1(productId, quantity, productName, productImg, null, null, Pstatus);
         ProductDetail detail = new ProductDetail(ram, rom, size, battery, weight, color, decription, cpu, wattage, status, product);
         Price priceObj = new Price(price, dateStart, dateEnd, sale, product);
 

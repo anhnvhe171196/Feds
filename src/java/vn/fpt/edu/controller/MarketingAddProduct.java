@@ -130,7 +130,10 @@ public class MarketingAddProduct extends HttpServlet {
             int brandId = Integer.parseInt(request.getParameter("brandId"));
             int quantity = Integer.parseInt(request.getParameter("quantity"));
             String productName = request.getParameter("product_name");
-//        String productImg = request.getParameter("product_img");
+            String Pstatus = request.getParameter("Pstatus");
+            if (Pstatus == null ) {
+            Pstatus = "active"; // Thay đổi trạng thái thành Deleted
+            }
             String ram = request.getParameter("ram");
             String rom = request.getParameter("rom");
             String size = request.getParameter("size");
@@ -193,7 +196,7 @@ public class MarketingAddProduct extends HttpServlet {
             Category category = new Category(categoryId, null);
             User user = ud.getCustomerByID(userId);
             Brand brand = new Brand(brandId, null, category);
-            Product1 product = new Product1(0, quantity, productName, img, user, brand);
+            Product1 product = new Product1(0, quantity, productName, img, user, brand,Pstatus);
             ProductDetail detail = new ProductDetail(ram, rom, size, battery, weight, color, decription, cpu, wattage, status, product);
             Price priceObj = new Price(price, dateStart, dateEnd, sale, product);
 
@@ -204,7 +207,7 @@ public class MarketingAddProduct extends HttpServlet {
                 success &= dt.AddProductDetail(detail);
                 success &= dt.AddPrice(priceObj);
                 request.setAttribute("product", product);
-                String redirectURL = "marketingProductUpdate?id=" + product.getProduct_id();
+                String redirectURL = "marketingProductDetails?id=" + product.getProduct_id();
                 response.sendRedirect(redirectURL);
                 // ... (Kiểm tra kết quả thêm sản phẩm và chuyển hướng)
             } else {
