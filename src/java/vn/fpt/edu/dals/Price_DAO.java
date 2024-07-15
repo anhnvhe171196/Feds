@@ -43,7 +43,7 @@ public class Price_DAO extends DBContext {
         return null;
     }
 
-    public List<RelatedProducts> getListPriceByBrandId(int productId) {
+    public List<RelatedProducts> getListPriceByBrandId(int brand_id, int product_id) {
         List<RelatedProducts> list = new ArrayList<>();
         String sql = "SELECT p.Product_id,\n"
                 + "       [Price],\n"
@@ -55,11 +55,12 @@ public class Price_DAO extends DBContext {
                 + "JOIN Product AS pd ON pd.Product_id = p.Product_id\n"
                 + "JOIN Brandd AS b ON b.Brand_Id = pd.Brand_id\n"
                 + "LEFT JOIN FeedBack AS f ON f.Product_id = p.Product_id\n"
-                + "WHERE b.Brand_id = ?\n"
+                + "WHERE b.Brand_id = ? and p.Product_id != ?\n"
                 + "GROUP BY p.Product_id, [Price], [Date_start], [Date_end], [Sale]";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, productId);
+            st.setInt(1, brand_id);
+            st.setInt(2, product_id);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Product_DAO p = new Product_DAO();
