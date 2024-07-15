@@ -373,13 +373,13 @@
                                 <p>Miễn phí</p>
                             </div>
                             <div class="d-flex justify-content-between">
-                                <p>Giảm giá (2%)</p>
-                                <p><fmt:formatNumber value="${o.getTotalMoney() * 2/100}" pattern="#,###" />VNĐ</p>
+                                <p>Giảm giá (0%)</p>
+                                <p><fmt:formatNumber value="${o.getTotalMoney() * 0/100}" pattern="#,###" />VNĐ</p>
                             </div>
                             <hr>
                             <div class="d-flex justify-content-between">
                                 <h5>Tổng cộng</h5>
-                                <h5><fmt:formatNumber value="${o.getTotalMoney() - (o.getTotalMoney() * 2/100)}" pattern="#,###" />VNĐ</h5>
+                                <h5><fmt:formatNumber value="${o.getTotalMoney() - (o.getTotalMoney() * 0/100)}" pattern="#,###" />VNĐ</h5>
 
                             </div>
                         </div>

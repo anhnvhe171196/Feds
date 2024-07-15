@@ -59,8 +59,7 @@ public class ViewMyOrderListController extends HttpServlet {
         HttpSession session = request.getSession();
         User u = (User) session.getAttribute("account");
         Bill_DAO bill = new Bill_DAO();
-        String userid = request.getParameter("userid");
-        
+        String userid = request.getParameter("userid");        
         session.setAttribute("billinfo", bill.getBillAndOrderByUserId(u.getUser_Id()));
         request.getRequestDispatcher("MyOrderList.jsp").forward(request, response);
     } 
