@@ -66,11 +66,11 @@
 
         <div class="container-xxl position-relative bg-white d-flex p-0">
             <!-- Spinner Start -->
-            <!--            <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-                            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                                <span class="sr-only">Loading...</span>
-                            </div>
-                        </div>-->
+            <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
             <!-- Spinner End -->
 
             <!-- Sidebar Start -->
@@ -98,10 +98,10 @@
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Sản phẩm</a>
                             <div class="dropdown-menu bg-transparent border-0">
                                 <a href="marketingProductList" class="dropdown-item">Sản phẩm</a>
-<!--                                <a href="#" class="dropdown-item">Post list</a>
-                                <a href="#" class="dropdown-item">Sliders List</a>-->
+                                <!--                                <a href="#" class="dropdown-item">Post list</a>
+                                                                <a href="#" class="dropdown-item">Sliders List</a>-->
                                 <a href="marketingCustomerList" class="dropdown-item">Người dùng</a>
-<!--                                <a href="#" class="dropdown-item">Feedback list</a>-->
+                                <!--                                <a href="#" class="dropdown-item">Feedback list</a>-->
                             </div>
                         </div>
                     </div>
@@ -121,7 +121,7 @@
                         <i class="fa fa-bars"></i>
                     </a>
                     <form class="d-none d-md-flex ms-4" action="marketingProductList" method="get"> 
-                        <input class="form-control border-0" type="search" placeholder="Search" name="search">&nbsp;&nbsp;&nbsp;
+                        <input class="form-control border-0" type="search" placeholder="Search" name="search" value="${sessionScope.search}">&nbsp;&nbsp;&nbsp;
                         <button type="submit" class="btn btn-primary" >Enter</button> 
                     </form> 
                     <div class="navbar-nav align-items-center ms-auto">
@@ -156,7 +156,10 @@
                                 <a href="userProfile" class="dropdown-item">Hồ sơ cá nhân</a>
                                 <a href="#" class="dropdown-item">Cài đặt</a>
                                 <a href="home" class="dropdown-item">Trang chủ</a>
-                                <a href="login.jsp" class="dropdown-item">Log Out</a>
+                                <c:choose>
+                                    <c:when test="${ not empty sessionScope.account}"><a href="${pageContext.request.contextPath}/userLogout" class="dropdown-item">Đăng xuất</a></c:when>
+                                    <c:otherwise><a href="${pageContext.request.contextPath}/login" class="dropdown-item">Đăng nhập</a></c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
                     </div>
@@ -166,7 +169,20 @@
                     <div class="row g-4">
                         <div class="col-sm-12">
                             <div class="bg-light rounded h-100 p-4">
-                                <h6 class="mb-4">Danh sách sản phẩm</h6>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="mb-4">
+                                            <h6>Danh sách sản phẩm</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col" style="display: flex; justify-content: flex-end; align-items: center;">
+                                        <div class="mb-4" style="margin-right: 10px;">
+                                            <a onclick="AddProduct()">
+                                                <img  src="images/icons/AddIcon.png" alt="Thêm sản phẩm" style="width: 40px; height: 40px;">                                             
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -189,7 +205,7 @@
                                             </th>
                                             <th scope="col">
                                                 <a href="#" onclick="sortByPrice()">
-                                                    <button type="button" class="sort-button">Giá</button>
+                                                    <button type="button" class="sort-button">Giá gốc</button>
                                                 </a>
                                             </th>
                                             <th scope="col">
@@ -202,23 +218,31 @@
                                                     <button type="button" class="sort-button">Kết thúc</button>
                                                 </a>
                                             </th>
-                                            <th scope="col" style="color: #009CFF;">
-                                                Thông tin
+                                            <th scope="col">
+                                                <a href="#" onclick="sortByDateEnd()">
+                                                    <button type="button" class="sort-button">Sale</button>
+                                                </a>
                                             </th>
-
-
+                                            <th scope="col">
+                                                <a href="#" >
+                                                    <button type="button" class="sort-button">Status</button>
+                                                </a>
+                                            </th>
+                                            <th scope="col" style="color: red;" class="Update1">
+                                                Chỉnh Sửa
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <c:forEach items="${products}" var="product">
                                             <tr>
-                                                <td scope="col">${product.product_id}</th>
-                                                <td scope="col"><img src="images/${product.product_img}" style="max-height: 50px"></th>
-                                                <td scope="col"  style="max-width: 200px; word-wrap: break-word;">${product.product_name}</th>
-                                                <td scope="col">${product.brand.brandName}</th>
-                                                <td scope="col">${product.quantity}</th>
-                                                <td scope="col"><fmt:formatNumber value="${product.price.price}" pattern="#,##0 VND" /></th>
-                                                <td scope="col">
+                                                <td scope="col" onclick="ProductDetail(${product.product_id})">${product.product_id}</th>
+                                                <td scope="col" onclick="ProductDetail(${product.product_id})"><img src="images/${product.product_img}" style="max-height: 50px"></th>
+                                                <td scope="col"  style="max-width: 200px; word-wrap: break-word;" onclick="ProductDetail(${product.product_id})">${product.product_name}</th>
+                                                <td scope="col" onclick="ProductDetail(${product.product_id})">${product.brand.brandName}</th>
+                                                <td scope="col" onclick="ProductDetail(${product.product_id})">${product.quantity}</th>
+                                                <td scope="col" onclick="ProductDetail(${product.product_id})"><fmt:formatNumber value="${product.price.price}" pattern="#,##0 VND" /></th>
+                                                <td scope="col" onclick="ProductDetail(${product.product_id})">
                                                     <c:choose>
                                                         <c:when test="${empty product.price.dateStart}">
                                                             Null
@@ -228,7 +252,7 @@
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </td>
-                                                <td scope="col">
+                                                <td scope="col" onclick="ProductDetail(${product.product_id})">
                                                     <c:choose>
                                                         <c:when test="${empty product.price.dateEnd}">
                                                             Null
@@ -238,9 +262,32 @@
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </td>
-                                                <td scope="col">
-                                                    <a href="#" onclick="ProductDetail(${product.product_id})">
-                                                        <button type="button" class="sort-button" id="openModalBtn">Chi tiết</button>
+                                                <td scope="col" onclick="ProductDetail(${product.product_id})">
+                                                    <c:choose>
+                                                        <c:when test="${empty product.price.sale}">
+                                                            0%
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            ${product.price.sale}%
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </td>
+                                                <td scope="col" onclick="ProductDetail(${product.product_id})" >
+                                                    <c:choose>
+                                                        <c:when test="${product.status eq 'active'}">
+                                                            <label style="color: springgreen">${product.status}</label>
+                                                        </c:when>
+                                                            <c:when test="${product.status eq 'pending'}">
+                                                            <label style="color: gold">${product.status}</label>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <label style="color: red">${product.status}</label>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                    </th>
+                                                <td scope="col" class="Update">
+                                                    <a href="#" onclick="ProductUpdate(${product.product_id})">
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;<img  src="images/icons/EditsIcon.png" alt="Sửa sản phẩm" style="width: 25px; height: 25px;">                                    
                                                     </a>
                                                 </td>
                                             </tr>
@@ -248,8 +295,8 @@
 
                                     </tbody>
                                 </table>
-                                
-                                
+
+
                                 <div class="d-flex justify-content-center">
                                     <c:if test="${endPage > 1}">
                                         <nav aria-label="Page navigation">
@@ -417,6 +464,16 @@
 
                 function ProductDetail(id) {
                     let url = "marketingProductDetails?id=" + id;
+
+                    window.location.href = url;
+                }
+                function ProductUpdate(id) {
+                    let url = "marketingProductUpdate?id=" + id;
+
+                    window.location.href = url;
+                }
+                function AddProduct() {
+                    let url = "marketingAddProduct";
 
                     window.location.href = url;
                 }

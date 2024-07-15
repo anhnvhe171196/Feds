@@ -130,6 +130,7 @@ public class ViewProductDetailController extends HttpServlet {
             request.setAttribute(nowDateStr, d);
             request.getRequestDispatcher("ViewProductDetail.jsp").forward(request, response);
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

@@ -98,10 +98,10 @@
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Sản phẩm</a>
                             <div class="dropdown-menu bg-transparent border-0">
                                 <a href="marketingProductList" class="dropdown-item">Sản phẩm</a>
-<!--                                <a href="#" class="dropdown-item">Post list</a>
-                                <a href="#" class="dropdown-item">Sliders List</a>-->
+                                <!--                                <a href="#" class="dropdown-item">Post list</a>
+                                                                <a href="#" class="dropdown-item">Sliders List</a>-->
                                 <a href="marketingCustomerList" class="dropdown-item">Người dùng</a>
-<!--                                <a href="#" class="dropdown-item">Feedback list</a>-->
+                                <!--                                <a href="#" class="dropdown-item">Feedback list</a>-->
                             </div>
                         </div>
                     </div>
@@ -156,7 +156,10 @@
                                 <a href="userProfile" class="dropdown-item">Hồ sơ cá nhân</a>
                                 <a href="#" class="dropdown-item">Cài đặt</a>
                                 <a href="home" class="dropdown-item">Trang chủ</a>
-                                <a href="login.jsp" class="dropdown-item">Log Out</a>
+                                <c:choose>
+                                    <c:when test="${ not empty sessionScope.account}"><a href="${pageContext.request.contextPath}/userLogout" class="dropdown-item">Đăng xuất</a></c:when>
+                                    <c:otherwise><a href="${pageContext.request.contextPath}/login" class="dropdown-item">Đăng nhập</a></c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
                     </div>
@@ -172,8 +175,15 @@
                                             <h6>Thông tin sản phẩm</h6>
                                         </div>
                                     </div>
-                                    <div class="col" style="text-align: right;" >
-                                        <div class="mb-4">
+
+                                    <div class="col" style="display: flex; justify-content: flex-end; align-items: center;">
+                                        <div class="mb-2" style="margin-right: 10px;">
+                                            <a onclick="ProductUpdate(${product.product_id})">
+                                                <h6 class="sort-button" style="color: red;">Sửa</h6>                                              
+                                            </a>
+                                        </div>
+                                        <div style="margin: 0 10px; display: flex; align-items: center;"></div>
+                                        <div class="mb-2">
                                             <a onclick="history.back()">
                                                 <h6 class="sort-button" style="color: #009CFF;">Back</h6>                                              
                                             </a>
@@ -188,6 +198,19 @@
                                                 <aside class="col-lg-6">
                                                     <div class="border rounded-4 mb-3 d-flex justify-content-center">
                                                         <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="images/${product.product_img}" />
+                                                    </div>
+                                                    <div>
+                                                        <c:choose>
+                                                        <c:when test="${product.status eq 'active'}">
+                                                            <h5 style="color: springgreen">${product.status}</h5>
+                                                        </c:when>
+                                                            <c:when test="${product.status eq 'pending'}">
+                                                            <h5 style="color: gold">${product.status}</h5>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <h5 style="color: red">${product.status}</h5>
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                     </div>
 
                                                 </aside>
@@ -208,7 +231,7 @@
                                                         <hr/>
                                                         <h6>Mô tả:</h6>
                                                         <c:if test="${not empty product.detail.decription}">
-                                                            <dd class="col-9">${product.detail.decription}</dd>
+                                                            <dd class="col-9" >${product.detail.decription}</dd>
                                                         </c:if>
                                                         <hr/>
                                                         <a href="#" id="show-more-details">Show more Details</a>
@@ -358,6 +381,12 @@
                         showMoreButton.textContent = "Show more Details"; // Thay đổi nội dung nút
                     }
                 });
+
+                function ProductUpdate(id) {
+                    let url = "marketingProductUpdate?id=" + id;
+
+                    window.location.href = url;
+                }
             </script>
 
 

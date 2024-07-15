@@ -52,37 +52,107 @@
                             <h2 style="color: red; text-align: center; margin-top: 30px;">${requestScope.error}</h2>
                         </c:if>
                         <div class="card-body">
-                            <form action="changePassword" method="post">
-                                <!-- Form Group (username)-->
-                                <div class="mb-3">
-                                    <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                                    <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" name="email" value="${account.email}" readonly="">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="small mb-1" for="inputEmailAddress">Old Password</label>
-                                    <input class="form-control" id="inputEmailAddress" type="password" placeholder="Nhập mật khẩu cũ" name="oldPassword" required>
-                                </div>
-                                <!-- Form Row-->
-                                <div class="row gx-3 mb-3">
-                                    <!-- Form Group (phone number)-->
-                                    <div class="col-md-6">
-                                        <label class="small mb-1" for="inputPhone">New Password</label>
-                                        <input id="password-field" type="password" class="form-control" minlength="8" maxlength="20" name="password" placeholder="Nhập mật khẩu mới" required>
+                            <!-- Form Group (username)-->
+
+                            <div class="col-md-12">
+                                <div id="product-tab" style="margin-top: 0">
+                                    <!-- product tab nav -->
+                                    <ul class="tab-nav" style="margin: 0">
+                                        <li class="active"><a data-toggle="tab" href="#tab1">Bằng số điện thoại</a></li>
+                                        <li><a data-toggle="tab" href="#tab3">Bằng mật khẩu cũ</a></li>
+                                    </ul>
+                                    <!-- /product tab nav -->
+                                    <!-- product tab content -->
+                                    <div class="tab-content">
+                                        <div id="tab1" class="tab-pane fade in active">
+                                            <c:if test="${account.phone_number != null}">
+                                                <form action="verifyPhoneController">
+                                                    <div class="mb-3">
+                                                        <label class="small mb-1" for="inputEmailAddress">Email address</label>
+                                                        <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" name="email" value="${account.email}" readonly="">
+                                                    </div>
+                                                    <div class="row gx-3 mb-3">
+                                                        <!-- Form Group (phone number)-->
+                                                        <div class="col-md-6">
+                                                            <label class="small mb-1" for="inputPhone">Số điện thoại</label>
+                                                            <input id="password-field" type="text" class="form-control" minlength="8" maxlength="20" name="mobile" value="${account.phone_number}" readonly="">
+                                                        </div>
+
+                                                    </div>
+                                                    <!-- Save changes button-->
+                                                    <button class="btn btn-primary" type="submit">Lấy mã xác nhận</button>
+
+                                                </form>
+                                                <c:if test="${sessionScope.verificationCode != null}">
+                                                    <form action="verifyPhoneController" method="post">
+                                                        <div class="row gx-3 mb-3">
+                                                            <div class="col-md-12">
+                                                                <label class="small mb-1" for="inputPhone">Mã xác nhận</label>
+                                                                <input id="confirm-password-field" type="text" class="form-control" name="verify" required placeholder="Nhập mã xác nhận">
+                                                            </div>
+                                                            <!-- Form Group (phone number)-->
+                                                            <div class="col-md-6">
+                                                                <label class="small mb-1" for="inputPhone">Mật khẩu mới</label>
+                                                                <input id="password-field" type="password" class="form-control" minlength="8" maxlength="20" name="password" placeholder="Nhập mật khẩu mới" required>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label class="small mb-1" for="inputPhone">Xác nhận mật khẩu mới</label>
+                                                                <input id="confirm-password-field" type="password" class="form-control" name="confirmPassword" placeholder="Xác nhận mật khẩu mới" required>
+                                                            </div>
+                                                        </div>
+                                                        <button class="btn btn-primary" type="submit">Lưu thay đổi</button>
+                                                    </form>
+                                                </c:if>
+                                            </c:if>
+                                            <c:if test="${account.phone_number == null}">
+                                                <h1 style="text-align: center; color: red; margin: 100px">Bạn chưa có số điện thoại vui lòng nhập số điện thoại</h1>
+                                            </c:if>
+                                        </div>
+
+                                        <div id="tab3" class="tab-pane fade in">
+                                            <form action="changePassword" method="post">
+                                                <div class="mb-3">
+                                                    <label class="small mb-1" for="inputEmailAddress">Email address</label>
+                                                    <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" name="email" value="${account.email}" readonly="">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="small mb-1" for="inputEmailAddress">Mật khẩu cũ</label>
+                                                    <input class="form-control" id="inputEmailAddress" type="password" placeholder="Nhập mật khẩu cũ" name="oldPassword" required>
+                                                </div>
+                                                <!-- Form Row-->
+                                                <div class="row gx-3 mb-3">
+                                                    <!-- Form Group (phone number)-->
+                                                    <div class="col-md-6">
+                                                        <label class="small mb-1" for="inputPhone">Mật khẩu mới</label>
+                                                        <input id="password-field" type="password" class="form-control" minlength="8" maxlength="20" name="password" placeholder="Nhập mật khẩu mới" required>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="small mb-1" for="inputPhone">Xác nhận mật khẩu mới</label>
+                                                        <input id="confirm-password-field" type="password" class="form-control" name="confirmPassword" placeholder="Xác nhận mật khẩu mới" required>
+                                                    </div>
+                                                </div>
+                                                <!-- Save changes button-->
+                                                <button class="btn btn-primary" type="submit">Lưu thay đổi</button>
+                                            </form>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label class="small mb-1" for="inputPhone">Xác nhận Password</label>
-                                        <input id="confirm-password-field" type="password" class="form-control" name="confirmPassword" placeholder="Xác nhận mật khẩu mới" required>
-                                    </div>
+                                    <!-- /product tab content  -->
                                 </div>
-                                <!-- Save changes button-->
-                                <button class="btn btn-primary" type="submit">Lưu thay đổi</button>
-                            </form>
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <%@include file="component/footer.jsp" %>
-        
+        <script src="js1/jquery.min.js"></script>
+        <script src="js1/bootstrap.min.js"></script>
+        <script src="js1/slick.min.js"></script>
+        <script src="js1/nouislider.min.js"></script>
+        <script src="js1/jquery.zoom.min.js"></script>
+        <script src="js1/main.js"></script>
     </body>
 </html>

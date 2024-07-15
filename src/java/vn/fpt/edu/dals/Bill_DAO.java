@@ -93,15 +93,15 @@ public class Bill_DAO extends DBContext {
         return total;
     }
 
-    public HashMap<Integer, Integer> totalRevenueByCate() {
-        HashMap<Integer, Integer> total = new HashMap();
-        String sql = "SELECT SUM(Total_price) as Total, Brandd.Category_id FROM Bill join [Order] on [Order].Bill_id = Bill.Bill_Id join Product on Product.Product_id = [Order].Product_id join Brandd on Brandd.Brand_Id = Product.Brand_id WHERE [Bill].[Status] = 'Hoàn Thành' GROUP BY Brandd.Category_id";
+    public HashMap<String, Integer> totalRevenueByCate() {
+        HashMap<String, Integer> total = new HashMap();
+        String sql = "SELECT SUM(Total_price) as Total, Product_Category.Category_name FROM Bill join [Order] on [Order].Bill_id = Bill.Bill_Id join Product on Product.Product_id = [Order].Product_id join Brandd on Brandd.Brand_Id = Product.Brand_id join Product_Category on Product_Category.Category_id = Brandd.Category_id WHERE [Bill].[Status] = 'Hoàn Thành' GROUP BY Product_Category.Category_name";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
 
-                total.put(rs.getInt("Category_id"), rs.getInt("Total"));
+                total.put(rs.getString("Category_name"), rs.getInt("Total"));
 
             }
         } catch (SQLException e) {

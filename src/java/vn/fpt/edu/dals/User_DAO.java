@@ -326,19 +326,19 @@ public class User_DAO extends DBContext {
                 + "      ,[gender]\n"
                 + "  FROM [Feds].[dbo].[User] WHERE Role_id != 1\n";
         switch(sortBy) {
-            case "id":
+            case "ID":
                 sql += " ORDER BY [User_Id]";
                 break;
-            case "name":
+            case "Fullname":
                 sql += " ORDER BY [User_name]";
                 break;
-            case "email":
+            case "Email":
                 sql += " ORDER BY [Email]";
                 break;
-            case "role":
+            case "Role":
                 sql += " ORDER BY [Role_id]";
                 break;
-            case "mobile":
+            case "Mobile":
                 sql += " ORDER BY [Phone_number]";
                 break;
         }

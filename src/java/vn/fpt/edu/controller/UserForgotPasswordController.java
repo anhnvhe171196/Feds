@@ -63,7 +63,7 @@ public class UserForgotPasswordController extends HttpServlet {
                     + "      <h1 style=\"color: red;\">Fed Shop</h1>\n"
                     + "      <h2>Confirmed password change</h2>\n"
                     + "      <div style=\"font-size: 20px;\">Please click here to change password : </div>\n"
-                    + "      <h2><a href=\"http://localhost:9999/Feds/userRandomPassword?email="+email+"\">Click here</a></h2>\n"
+                    + "      <h2><a href=\"http://localhost:9999/Feds/UserRandomPassController?email="+email+"\">Click here</a></h2>\n"
                     + "  </div>\n"
                     + "</body>\n"
                     + "\n"

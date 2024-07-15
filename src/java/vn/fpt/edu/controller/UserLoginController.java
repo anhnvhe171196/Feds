@@ -55,7 +55,11 @@ public class UserLoginController extends HttpServlet {
         if (pass.equals(u.getPassword())) {
             HttpSession session = request.getSession();
             session.setAttribute("account", u);
-            response.sendRedirect("home");
+            if(u.getRole().getId() == 1) {
+                response.sendRedirect("admin/dashboard");
+            } else {
+                response.sendRedirect("home");
+            }
         } else {
             request.setAttribute("error", "Tài khoản hoặc mật khẩu không đúng!!!");
             request.getRequestDispatcher("UserLogin.jsp").forward(request, response);
