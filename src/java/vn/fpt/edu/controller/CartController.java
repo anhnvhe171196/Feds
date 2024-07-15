@@ -13,9 +13,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 import vn.fpt.edu.dals.Bill_DAO;
 import vn.fpt.edu.dals.Product_DAO;
 import vn.fpt.edu.models.Cart;
+import vn.fpt.edu.models.Item;
 import vn.fpt.edu.models.User;
 
 /**
@@ -73,6 +75,13 @@ public class CartController extends HttpServlet {
         }
         
         Cart cart = new Cart(txt, data.getAllProductinCart());
+        User u = (User)session.getAttribute("account");
+        List<Item> listItem;
+        if (u != null) {
+             listItem = cart.getCartbyUserId(u.getUser_Id());
+        }else{
+            listItem = cart.getCartbyUserId(0);
+        }
         session.setAttribute("list", data.getSellingProduct());
         request.setAttribute("cart", cart);
         String id = request.getParameter("billid");

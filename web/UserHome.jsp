@@ -273,7 +273,7 @@
                                                 </div>
                                                 <div class="product-body">
                                                     <p class="product-category">${l.getCategory_name()}</p>
-                                                    <h3 class="product-name"><a href="product?pid=${l.getProduct_id()}">${l.getProduct_name()}</a></h3>
+                                                    <h3 class="product-name" style="height: 50px"> <a href="product?pid=${l.getProduct_id()}">${l.getProduct_name()}</a></h3>
 
 
                                                     <h4 class="product-price"> <fmt:formatNumber value="${l.getPrice()}" pattern="#,###"/> VNĐ <del class="product-old-price">$990.00</del></h4>

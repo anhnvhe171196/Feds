@@ -58,11 +58,11 @@
                         <div class="col-md-3 col-xs-6">
                             <div class="footer">
                                 <h3 class="footer-title">Giới thiệu</h3>
-                                <p>Web bán các đồ điệnt tử phục vụ mọi người.</p>
+                                <p>Web bán các đồ điện tử phục vụ mọi người.</p>
                                 <ul class="footer-links">
-                                    <li><a href="#"><i class="fa fa-map-marker"></i>Thạch Thất, Hà Nội</a></li>
-                                    <li><a href="#"><i class="fa fa-phone"></i>0357129704</a></li>
-                                    <li><a href="#"><i class="fa fa-envelope-o"></i>Feds@gmail.com</a></li>
+                                    <li><a href="contact"><i class="fa fa-map-marker"></i>Thạch Thất, Hà Nội</a></li>
+                                    <li><a href="contact"><i class="fa fa-phone"></i>0357129704</a></li>
+                                    <li><a href="contact"><i class="fa fa-envelope-o"></i>Feds@gmail.com</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -71,7 +71,7 @@
                             <div class="footer">
                                 <h3 class="footer-title">Phân loại</h3>
                                 <ul class="footer-links">
-                                    <li><a href="#">Ưu đãi lớn</a></li>
+                                    <li><a href="ListProduct?cateid=9">Ưu đãi lớn</a></li>
                                     <li><a href="ListProduct?cateid=2">Laptops</a></li>
                                     <li><a href="ListProduct?cateid=1">Điện Thoại</a></li>
                                     <li><a href="ListProduct?cateid=10">Máy tính bảng</a></li>
@@ -99,11 +99,11 @@
                             <div class="footer">
                                 <h3 class="footer-title">Dịch vụ</h3>
                                 <ul class="footer-links">
-                                    <li><a href="#">Tài khoản của tôi</a></li>
-                                    <li><a href="#">Xem giỏ hàng</a></li>
-                                    <li><a href="#">Yêu thích</a></li>
-                                    <li><a href="#">Theo dõi đơn hàng</a></li>
-                                    <li><a href="#">Trợ giúp</a></li>
+                                    <li><a href="userProfile">Tài khoản của tôi</a></li>
+                                    <li><a href="cart">Xem giỏ hàng</a></li>
+<!--                                    <li><a href="#">Yêu thích</a></li>-->
+                                    <li><a href="viewmyorder">Theo dõi đơn hàng</a></li>
+<!--                                    <li><a href="#">Trợ giúp</a></li>-->
                                 </ul>
                             </div>
                         </div>

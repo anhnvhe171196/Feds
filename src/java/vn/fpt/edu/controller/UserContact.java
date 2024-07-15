@@ -68,7 +68,7 @@ public class UserContact extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("Contact.jsp").forward(request, response);
+        request.getRequestDispatcher("contact.jsp").forward(request, response);
     }
 
     /**
@@ -98,7 +98,7 @@ public class UserContact extends HttpServlet {
         Contact_DAO d = new Contact_DAO();
         d.insertFeedBack(user_id, email, subject, name, message);
         request.setAttribute("error", "Bạn đã gửi thành công!!!");
-        request.getRequestDispatcher("Contact.jsp").forward(request, response);
+        request.getRequestDispatcher("contact.jsp").forward(request, response);
     }
 
     /**
