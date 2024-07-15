@@ -48,8 +48,8 @@ public class CustomerHomeController extends HttpServlet {
 //            n=0;
 //        }
         int n = listItem != null ? listItem.size() : 0;
-        request.setAttribute("size", n);
-        request.setAttribute("data", data.getAllProductinCart());
+        session.setAttribute("size", n);
+        session.setAttribute("data", data.getAllProductinCart());
 
         session.setAttribute("cates", d.getAllCate());
         session.setAttribute("list", data.getSellingProduct());

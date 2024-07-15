@@ -511,7 +511,7 @@
                                     <%=product.getPriceString()%>
                                 </p>
                                 <form method="post">
-                                    <button type="submit" formaction="AddtoCart?pid=<%=product.getProduct_id()%>&pqty=1" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                    <button type="submit" formaction="AddtoCart?pid=<%=product.getProduct_id()%>" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
                                     <!--<button type="submit"
                                             formaction="AddtoCart?pid=<%=product.getProduct_id()%>&pqty=1&buy=true"
                                             class="btn btn-primary">Buy & Feedback</button>-->

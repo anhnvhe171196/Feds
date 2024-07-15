@@ -166,7 +166,7 @@
                                     <a href="cart" aria-expanded="true">
                                         <i class="fa fa-shopping-cart"></i>
                                         <span>Giỏ Hàng</span>
-                                        <div class="qty">${requestScope.size}</div>
+                                        <div class="qty">${sessionScope.size}</div>
                                     </a>
                                 </div>
                                 <!--                                <div class="dropdown">
