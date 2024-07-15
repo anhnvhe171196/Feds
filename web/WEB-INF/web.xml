@@ -156,6 +156,10 @@
         <servlet-name>UserRandomPassController</servlet-name>
         <servlet-class>vn.fpt.edu.common.UserRandomPassController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddCartByView</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.AddCartByView</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserRegisterController</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -311,6 +315,10 @@
     <servlet-mapping>
         <servlet-name>UserRandomPassController</servlet-name>
         <url-pattern>/UserRandomPassController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCartByView</servlet-name>
+        <url-pattern>/addCartByView</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home</welcome-file>
