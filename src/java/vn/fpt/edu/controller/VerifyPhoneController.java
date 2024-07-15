@@ -25,7 +25,6 @@ import vn.fpt.edu.models.User;
 @WebServlet(name = "VerifyPhoneController", urlPatterns = {"/verifyPhoneController"})
 public class VerifyPhoneController extends HttpServlet {
 
-    
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -33,9 +32,7 @@ public class VerifyPhoneController extends HttpServlet {
         String phoneNumber = request.getParameter("mobile");
         phoneNumber = "+84" + phoneNumber.substring(1);
         String verificationCode = generateVerificationCode();
-
         request.getSession().setAttribute("verificationCode", verificationCode);
-
         Message message = Message.creator(
                 new PhoneNumber(phoneNumber),
                 new PhoneNumber("+17206368985"),
