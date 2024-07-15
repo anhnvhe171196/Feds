@@ -90,10 +90,10 @@
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Dánh sách</a>
                             <div class="dropdown-menu bg-transparent border-0">
                                 <a href="marketingProductList" class="dropdown-item">Sản phẩm</a>
-<!--                                <a href="#" class="dropdown-item">Post list</a>
-                                <a href="#" class="dropdown-item">Sliders List</a>-->
+                                <!--                                <a href="#" class="dropdown-item">Post list</a>
+                                                                <a href="#" class="dropdown-item">Sliders List</a>-->
                                 <a href="marketingCustomerList" class="dropdown-item">Người dùng</a>
-<!--                                <a href="#" class="dropdown-item">Feedback list</a>-->
+                                <!--                                <a href="#" class="dropdown-item">Feedback list</a>-->
                             </div>
                         </div>
                     </div>
@@ -241,18 +241,20 @@
                                 <div class="bg-light text-center rounded p-4">
                                     <div class="d-flex align-items-center justify-content-between mb-4">
                                         <h6 class="mb-0">Xu Hướng mua hàng</h6>
+
+                                        <input type="text" name="Action" value="product" class="form-control" style="display: none" readonly/> 
                                         <div class="d-flex">
                                             <div class="me-2">
                                                 <label for="quantity" class="form-label">Số lượng sản phẩm:</label>
-                                                <input type="number" id="quantity" class="form-control" name="quantity" value="${requestScope.quantity}" min="1">
+                                                <input type="number" id="quantity" class="form-control" name="quantity" value="${sessionScope.quantity}" min="1">
                                             </div>
                                             <div class="me-2">
                                                 <label for="start-date-sales" class="form-label">Ngày bắt đầu:</label>
-                                                <input type="date" id="start-date-sales" class="form-control" value="${requestScope.startdate}" name="startdate">
+                                                <input type="date" id="start-date-sales" class="form-control" value="${sessionScope.startdate}" name="startdate">
                                             </div>
                                             <div class="me-2">
                                                 <label for="end-date-sales" class="form-label">Ngày kết thúc:</label>
-                                                <input type="date" id="end-date-sales" class="form-control" value="${requestScope.enddate}" name="enddate">
+                                                <input type="date" id="end-date-sales" class="form-control" value="${sessionScope.enddate}" name="enddate">
                                             </div>
                                             <div>
                                                 <button id="show-sales" class="btn btn-primary mt-4">Xem</button>
@@ -261,6 +263,28 @@
                                     </div>
                                     <div>
                                         <canvas id="marketingDashBoard"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <form action="marketingDashBoard" method="post" >
+                            <div class="col-sm-12 col-xl-12">
+                                <div class="bg-light text-center rounded p-4">
+                                    <div class="d-flex align-items-center justify-content-between mb-4">
+                                        <h6 class="mb-0">Thanh toán hàng đầu:</h6>
+                                        <input type="text" name="Action" value="user" class="form-control" style="display: none" readonly/> 
+                                        <div class="d-flex">
+                                            <div class="me-2">
+                                                <label for="quantity" class="form-label">Số lượng Người dùng:</label>
+                                                <input type="number" id="Uquantity" class="form-control" name="Uquantity" value="${sessionScope.Uquantity}" min="1">
+                                            </div>                                            
+                                            <div>
+                                                <button id="show-sales-form2" class="btn btn-primary mt-4">Xem</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <canvas id="marketingDashBoard1"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -310,11 +334,11 @@
         <script>
             var ProductNames = [];
             var ProductQuans = [];
-            <c:forEach items="${requestScope.ProductName}" var="val" varStatus="loop">
+            <c:forEach items="${sessionScope.ProductName}" var="val" varStatus="loop">
             ProductNames.push("${val}");
             </c:forEach>
 
-            <c:forEach items="${requestScope.ProductQuan}" var="val" varStatus="loop">
+            <c:forEach items="${sessionScope.ProductQuan}" var="val" varStatus="loop">
             ProductQuans.push(${val});
             </c:forEach>
             var ctx = document.getElementById('marketingDashBoard').getContext('2d');
@@ -343,15 +367,56 @@
                         color: 'black', // Màu chữ
                         align: 'center', // Căn chỉnh chữ
                         font: {
-                            size: 12, // Kích thước chữ
+                            size: 12 // Kích thước chữ
+                        }
+                    }
+                }
+            });
+        </script>
+        <script>
+            var UserNames = [];
+            var UserPayment = [];
+            <c:forEach items="${sessionScope.username}" var="val" varStatus="loop">
+            UserNames.push("${val}");
+            </c:forEach>
+
+            <c:forEach items="${sessionScope.userPayment}" var="val" varStatus="loop">
+            UserPayment.push(${val});
+            </c:forEach>
+            var ctx = document.getElementById('marketingDashBoard1').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: UserNames,
+                    datasets: [{
+                            label: 'Tổng số tiền',
+                            data: UserPayment,
+                            borderWidth: 1
+                        }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false // Ẩn legend
+                        }
+                    },
+                    text: {
+                        color: 'black', // Màu chữ
+                        align: 'center', // Căn chỉnh chữ
+                        font: {
+                            size: 12 // Kích thước chữ
                         }
                     }
                 }
             });
         </script>
 
-
-       <script>
+        <script>
             $('.sidebar-toggler').click(function () {
                 $('.sidebar, .content').toggleClass("open");
                 return false;

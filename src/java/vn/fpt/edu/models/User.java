@@ -18,6 +18,7 @@ public class User {
     private String avarta;
     private boolean banned;
     private boolean gender;
+    private int payment;
 
     public User() {
     }
@@ -32,6 +33,14 @@ public class User {
         this.avarta = Avarta;
         this.banned = isBanned;
         this.gender = isGender;
+    }
+
+    public int getPayment() {
+        return payment;
+    }
+
+    public void setPayment(int payment) {
+        this.payment = payment;
     }
 
     public boolean isGender() {

@@ -75,6 +75,44 @@ public class Data_MarketingDashboard_DAO extends DBContext {
         return list;
     }
 
+    public List<User> getMostPaymentUser(int numberOfTop) {
+        List<User> list = new ArrayList<>();
+        String sql = "SELECT TOP (?)\n"
+                + "                    u.User_name,\n"
+                + "				SUM(b.Total_price) AS Pay\n"
+                + "                FROM\n"
+                + "                    [User] u\n"
+                + "                INNER JOIN\n"
+                + "                    Bill b ON u.User_Id = b.User_id\n"
+                + "				INNER JOIN\n"
+                + "					[Order] o ON o.Bill_id = b.Bill_Id\n"
+                + "                WHERE\n"
+                + "				b.Status = 'Done'\n"
+                + "                GROUP BY\n"
+                + "                    u.User_name,\n"
+                + "					u.User_Id,\n"
+                + "					b.Bill_Id\n"
+                + "                ORDER BY\n"
+                + "                    Pay DESC;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+
+            st.setInt(1, numberOfTop);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+
+                User user = new User();
+                user.setUser_name(rs.getString(1).trim());
+                user.setPayment(rs.getInt(2));
+                list.add(user);
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
     public List<Product1> getAllProducts() {
         List<Product1> productList = new ArrayList<>();
         String sql = "SELECT p.Product_id, p.Product_name, p.Product_img, p.Quantity, p.[Status], pr.Price, pr.Date_start, pr.Date_end, pr.Sale \n"
