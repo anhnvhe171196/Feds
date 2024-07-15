@@ -4,15 +4,6 @@
  */
 package vn.fpt.edu.controller;
 
-import com.twilio.rest.api.v2010.Account;
-import jakarta.mail.Authenticator;
-import jakarta.mail.Message;
-import jakarta.mail.MessagingException;
-import jakarta.mail.PasswordAuthentication;
-import jakarta.mail.Session;
-import jakarta.mail.Transport;
-import jakarta.mail.internet.InternetAddress;
-import jakarta.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -20,7 +11,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.Properties;
 import vn.fpt.edu.dals.Contact_DAO;
 import vn.fpt.edu.models.User;
 
@@ -68,7 +58,7 @@ public class UserContact extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("Contact.jsp").forward(request, response);
+        request.getRequestDispatcher("contact.jsp").forward(request, response);
     }
 
     /**
@@ -98,7 +88,7 @@ public class UserContact extends HttpServlet {
         Contact_DAO d = new Contact_DAO();
         d.insertFeedBack(user_id, email, subject, name, message);
         request.setAttribute("error", "Bạn đã gửi thành công!!!");
-        request.getRequestDispatcher("Contact.jsp").forward(request, response);
+        request.getRequestDispatcher("contact.jsp").forward(request, response);
     }
 
     /**
