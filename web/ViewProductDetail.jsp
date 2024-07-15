@@ -151,9 +151,8 @@
                             <ul class="product-links">
                                 <li>Category:</li>
                                 <li><a href="ListProduct?cateid=${requestScope.product.product.brand.category.category_id}">${requestScope.product.product.brand.category.category_name}</a></li>
-                                <li><a href="#">${requestScope.product.product.brand.brandName}</a></li>
+                                <li>${requestScope.product.product.brand.brandName}</li>
                             </ul>
-
                         </div>
                     </div>
                 </div>
@@ -417,7 +416,9 @@
                                                 </div>
                                             </div>
                                             <div class="add-to-cart">
-                                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                                <form method="post">
+                                                    <button type="submit" formaction="addToCart?pid=${pd.product.product_id}" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Thêm Vào giỏ hàng</button>
+                                                </form>                                               
                                             </div>
                                         </div>
                                     </c:forEach>
