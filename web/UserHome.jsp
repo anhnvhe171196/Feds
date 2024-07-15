@@ -56,7 +56,7 @@
                             </div>
                             <div class="shop-body">
                                 <h3>Laptop<br>Mới nhất </h3>
-                                <a href="#" class="cta-btn">Mua ngay <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="ListProduct?cateid=2" class="cta-btn">Mua ngay <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                             </div>
                             <div class="shop-body">
                                 <h3>Phụ Kiện<br>Đa dạng</h3>
-                                <a href="#" class="cta-btn">Mua ngay <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="ListProduct?cateid=6" class="cta-btn">Mua ngay <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -84,7 +84,7 @@
                             </div>
                             <div class="shop-body">
                                 <h3>Hàng Cũ<br>Giá rẻ</h3>
-                                <a href="#" class="cta-btn">Mua ngay <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="ListProduct?cateid=9" class="cta-btn">Mua ngay <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -140,7 +140,7 @@
                                                     </div>
                                                     <div class="product-body">
                                                         <p class="product-category">${np.getCategory_name()}</p>
-                                                        <h3 class="product-name" style="height: 50px"><a href="#">${np.getProduct_name()}</a></h3>
+                                                        <h3 class="product-name" style="height: 50px"><a href="product?pid=${np.getProduct_id()}">${np.getProduct_name()}</a></h3>
 
 
 
@@ -273,7 +273,7 @@
                                                 </div>
                                                 <div class="product-body">
                                                     <p class="product-category">${l.getCategory_name()}</p>
-                                                    <h3 class="product-name"><a href="#">${l.getProduct_name()}</a></h3>
+                                                    <h3 class="product-name"><a href="product?pid=${l.getProduct_id()}">${l.getProduct_name()}</a></h3>
 
 
                                                     <h4 class="product-price"> <fmt:formatNumber value="${l.getPrice()}" pattern="#,###"/> VNĐ <del class="product-old-price">$990.00</del></h4>
@@ -293,7 +293,7 @@
                                                 <div class="add-to-cart">
                                                     <form method="post">
                                                         <button type="submit" formaction="addToCart?pid=${l.getProduct_id()}" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Thêm Vào giỏ hàng</button>
-                                                    </form>                                               
+                                                    </form>                                             
                                                 </div>
                                             </div>
 
@@ -342,7 +342,7 @@
                                             </div>
                                             <div class="product-body">
                                                 <p class="product-category">${p.getCategory_name()}</p>
-                                                <h3 class="product-name"><a href="#">${p.getProduct_name()}</a></h3>
+                                                <h3 class="product-name"><a href="product?pid=${p.getProduct_id()}">${p.getProduct_name()}</a></h3>
 
 
 
@@ -365,7 +365,7 @@
                                             </div>
                                             <div class="product-body">
                                                 <p class="product-category">${mtb.getCategory_name()}</p>
-                                                <h3 class="product-name"><a href="#">${mtb.getProduct_name()}</a></h3>
+                                                <h3 class="product-name"><a href="product?pid=${mtb.getProduct_id()}">${mtb.getProduct_name()}</a></h3>
                                                 <h4 class="product-price"><fmt:formatNumber value="${mtb.getPrice()}" pattern="#,###"/>VNĐ <del class="product-old-price">$990.00</del></h4>
                                             </div>
                                         </div>
@@ -394,7 +394,7 @@
                                             </div>
                                             <div class="product-body">
                                                 <p class="product-category">${t.getCategory_name()}</p>
-                                                <h3 class="product-name"><a href="#"></a>${t.getProduct_name()}</h3>
+                                                <h3 class="product-name"><a href="product?pid=${t.getProduct_id()}"></a>${t.getProduct_name()}</h3>
 
 
 
@@ -417,7 +417,7 @@
                                             </div>
                                             <div class="product-body">
                                                 <p class="product-category">${ml.getCategory_name()}</p>
-                                                <h3 class="product-name"><a href="#">${ml.getProduct_name()}</a></h3>
+                                                <h3 class="product-name"><a href="product?pid=${ml.getProduct_id()}">${ml.getProduct_name()}</a></h3>
                                                 <h4 class="product-price"><fmt:formatNumber value="${ml.getPrice()}" pattern="#,###"/>VNĐ <del class="product-old-price">$990.00</del></h4>
                                             </div>
                                         </div>
@@ -449,7 +449,7 @@
                                             </div>
                                             <div class="product-body">
                                                 <p class="product-category">${hdd.getCategory_name()}</p>
-                                                <h3 class="product-name"><a href="#">${hdd.getProduct_name()}</a></h3>
+                                                <h3 class="product-name"><a href="product?pid=${hdd.getProduct_id()}">${hdd.getProduct_name()}</a></h3>
                                                 <h4 class="product-price"><fmt:formatNumber value="${hdd.getPrice()}" pattern="#,###"/>VNĐ <del class="product-old-price">$990.00</del></h4>
                                             </div>
                                         </div>
@@ -468,7 +468,7 @@
                                             </div>
                                             <div class="product-body">
                                                 <p class="product-category">${hc.getCategory_name()}</p>
-                                                <h3 class="product-name"><a href="#">${hc.getProduct_name()}</a></h3>
+                                                <h3 class="product-name"><a href="product?pid=${hc.getProduct_id()}">${hc.getProduct_name()}</a></h3>
                                                 <h4 class="product-price"><fmt:formatNumber value="${hc.getPrice()}" pattern="#,###"/>VNĐ <del class="product-old-price">$990.00</del></h4>
                                             </div>
                                         </div>

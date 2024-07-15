@@ -38,7 +38,7 @@
                                                 <div class="d-flex">
                                                     <img src="images/${i.product.getProduct_img()}" class="border rounded me-3" style="width: 96px; height: 96px;" />
                                                     <div class="">
-                                                        
+
                                                         <a href="product?pid=${i.product.getProduct_id()}" class="nav-link" >${i.product.getProduct_name()}</a>
                                                         <p class="text-muted nav-link">${i.product.getProductdetail().getColor()}</p>
                                                     </div>
@@ -58,8 +58,8 @@
                                         </div>
                                         <div class="col-lg col-sm-6 d-flex justify-content-sm-center justify-content-md-start justify-content-lg-center justify-content-xl-end mb-2">
                                             <div class="float-md-end">
-                                                
-<!--                                                <a href="#!" class="btn btn-light border px-2 icon-hover-primary"><i class="fas fa-heart fa-lg px-1 text-secondary"></i></a>-->
+
+                                                <!--                                                <a href="#!" class="btn btn-light border px-2 icon-hover-primary"><i class="fas fa-heart fa-lg px-1 text-secondary"></i></a>-->
                                                 <form action="process" method="post" class="btn btn-light  text-danger icon-hover-danger">
                                                     <input type="hidden" name="pid" value="${i.product.getProduct_id()}"/>
                                                     <input type="submit" class="" value="Xóa"/>
@@ -68,18 +68,54 @@
                                         </div>
                                     </c:forEach>
                                 </div>
+                                <!--------------------------------------------------------------------------------------------------->
+                                <div class="row gy-3 mb-4">
+                                    <c:forEach items="${requestScope.orderinfo1}" var="l">                     
+                                        <div class="col-lg-5">
+                                            <div class="me-lg-5">
+                                                <div class="d-flex">
+                                                    <img src="images/${l.product1.product_img}" class="border rounded me-3" style="width: 96px; height: 96px;" />
+                                                    <div class="">
 
+                                                        <a href="product?pid=${l.product1.getProduct_id()}" class="nav-link" >${l.product1.getProduct_name()}</a>
+                                                        <p class="text-muted nav-link">${l.product1.detail.color}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-sm-6 col-6 d-flex flex-row flex-lg-column flex-xl-row text-nowrap">
+                                            <div class="">
+                                                <div class="col">
+                                                    <a href="process?num=-1&pid=${l.product1.getProduct_id()}">-</a><a  style="width: 100px;" class="border">${l.order.getOrder_quantity()}</a><a href="process?num=1&pid=${l.product1.getProduct_id()}">+</a>
+                                                </div>
+                                            </div>
+                                            <div class="">
+                                                <text class="h6"> <fmt:formatNumber value="${l.product1.price.getPrice() * l.order.getOrder_quantity()}" pattern="#,###" />VNĐ </text> <br />
+                                                <small class="text-muted text-nowrap"><fmt:formatNumber value="${l.product1.price.getPrice()}" pattern="#,###" />VNĐ / sản phẩm </small>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg col-sm-6 d-flex justify-content-sm-center justify-content-md-start justify-content-lg-center justify-content-xl-end mb-2">
+                                            <div class="float-md-end">
+
+                                                <!--                                                <a href="#!" class="btn btn-light border px-2 icon-hover-primary"><i class="fas fa-heart fa-lg px-1 text-secondary"></i></a>-->
+                                                <form action="process" method="post" class="btn btn-light  text-danger icon-hover-danger">
+                                                    <input type="hidden" name="pid" value="${l.product1.getProduct_id()}"/>
+                                                    <input type="submit" class="" value="Xóa"/>
+                                                </form>          
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+
+                                <div class="border-top pt-4 mx-4 mb-4">
+                                    <p><i class="fas fa-truck text-muted fa-lg"></i> Thời gian giao hàng từ 1-2 ngày</p>
+                                    <p class="text-muted">
+                                        Giao hàng toàn quốc với đội ngũ giao hàng uy tín chất lượng giúp khách hàng yên tâm khi nhận hàng
+                                    </p>
+                                </div>
                             </div>
-
-                            <!--                            <div class="border-top pt-4 mx-4 mb-4">
-                                                            <p><i class="fas fa-truck text-muted fa-lg"></i> Free Delivery within 1-2 weeks</p>
-                                                            <p class="text-muted">
-                                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                                                                aliquip
-                                                            </p>
-                                                        </div>-->
                         </div>
-                    </div>
+                    </div>         
                     <!-- cart -->
                     <!-- summary -->
                     <div class="col-lg-3">
@@ -100,7 +136,8 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
                                     <p class="mb-2">Tổng:</p>
-                                    <p class="mb-2"><fmt:formatNumber value="${o.getTotalMoney()}" pattern="#,###" />VNĐ</p>
+                                    <p class="mb-2"><fmt:formatNumber value="${o.getTotalMoney() + requestScope.orderinfo1.get(0).getTotal_price()}" pattern="#,###" />VNĐ</p>
+<!--                                    <p class="mb-2"><fmt:formatNumber value="${requestScope.orderinfo1.get(0).getTotal_price()}" pattern="#,###" />VNĐ</p>-->
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <p class="mb-2">Giảm giá:</p>
@@ -113,7 +150,8 @@
                                 <hr />
                                 <div class="d-flex justify-content-between">
                                     <p class="mb-2">Tổng tiền:</p>
-                                    <p class="mb-2 fw-bold"><fmt:formatNumber value="${o.getTotalMoney()}" pattern="#,###" />VNĐ</p>
+                                    <p class="mb-2 fw-bold"><fmt:formatNumber value="${o.getTotalMoney() + requestScope.orderinfo1.get(0).getTotal_price()}" pattern="#,###" />VNĐ</p>
+
                                 </div>
 
                                 <div class="mt-3">
@@ -142,7 +180,7 @@
                                     <div class="mask px-2" style="height: 50px;">
                                         <div class="d-flex justify-content-between">
                                             <h6><span class="badge bg-danger pt-1 mt-3 ms-2">Hot</span></h6>
-<!--                                            <a href="#"><i class="fas fa-heart text-primary fa-lg float-end pt-3 m-2"></i></a>-->
+                                            <!--                                            <a href="#"><i class="fas fa-heart text-primary fa-lg float-end pt-3 m-2"></i></a>-->
                                         </div>
                                     </div>
                                     <a href="product?pid=${l.getProduct_id()}" class="">

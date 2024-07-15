@@ -149,56 +149,88 @@
                 font-weight: 700;
                 border-radius: 5px;
             }
+            .info-box {
+                border: 1px solid #ccc;
+                border-radius: 8px;
+                padding: 10px;
+                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+                background-color: #f9f9f9;
+                margin-bottom: 10px;
+            }
         </style>
 
     </head>
     <body>
 
-
         <%@include file="component/header.jsp" %>
 
         <div class="container1">
-            <c:forEach items="${sessionScope.billinfo}" var="b">
-                <div class="item">
+            <div class="item">
 
-                    <div class="item-header">
-                        <div class="shop-name">
-                            <span>Feds Shop</span>
-                            <!--                        <button>Chat</button>-->
-                            <a href="home"><button>Xem shop</button></a>
-                        </div>
-                        <div class="order-status">
-                            <span>Trạng thái đơn hàng:</span>
-                            <span>${b.getStatus()}</span>
-                        </div>
+                <div class="item-header">
+                    <div class="shop-name">
+                        <span>Feds Shop</span>
+                        <a href="viewmyorder"><button>Quay lại</button></a>
                     </div>
+                    <div class="order-status">
+                        <span>Trạng thái đơn hàng:</span>
+                        <span>${orderinfo1.get(0).getStatus()}</span>
+                    </div>
+                </div>
+
+                <c:forEach items="${sessionScope.orderinfo1}" var="o">
                     <div class="item-content">
                         <div class="item-image">
-                            <img src="images/${b.product1.getProduct_img()}" alt="Product Image">
+                            <img src="images/${o.product1.getProduct_img()}" alt="Product Image">
                         </div>
                         <div class="item-details">
-                            <h3>${b.product1.getProduct_name()}</h3>
-                            <p>Phân loại hàng: ${b.product1.detail.getColor()}</p>
-                            <p>x ${b.order.getOrder_quantity()}</p>
+                            <h3>${o.product1.getProduct_name()}</h3>
+                            <p>Phân loại hàng: ${o.product1.detail.getColor()}</p>
+                            <p>x ${o.order.getOrder_quantity()}</p>
                             <div class="item-price">
-                                <p class="">Ngày đặt hàng: ${b.getDate()}</p>
-
+                                <p class=""><fmt:formatNumber value="${o.product1.price.getPrice() * o.order.getOrder_quantity()}" pattern="#,###" />VNĐ</p>
                             </div>
-                            <div class="total-price">Tổng số tiền: <fmt:formatNumber value="${b.getTotal_price()}" pattern="#,###" />VNĐ</div>
                         </div>
                     </div>
-                    <div class="item-footer">
-                        <button class="buy-again">Mua Lần Nữa</button>
-                        <a href="viewMyOrderDetail?billid=${b.getBill_id()}"><button class="view-order">Xem Chi Tiết Đơn Hàng</button></a>
-                        <button class="view-shop">Xem Đánh Giá Shop</button>
+                </c:forEach>
+
+                <div class="item-details">
+                    <div class="item-price">
+                        <p class="">Ngày đặt hàng: ${sessionScope.billinfo.date}</p>
                     </div>
-
+                    <div class="total-price">Tổng số tiền: <fmt:formatNumber value="${sessionScope.orderinfo1.get(0).getTotal_price()}" pattern="#,###" />VNĐ</div>
                 </div>
-            </c:forEach>
 
+            </div>
         </div>
 
-
+        <div class="container1">
+            <div class="item">
+                <h4>Thông tin giao hàng</h4>
+                
+                <div class="info-box">
+                    <p><strong>Tên:</strong> ${billinfo.user.user_name}</p>
+                </div>
+                <div class="info-box">
+                    <p><strong>Số điện thoại:</strong> ${billinfo.user.phone_number}</p>
+                </div>
+                <div class="info-box">
+                    <p><strong>Tỉnh/Thành phố:</strong> ${billinfo.province}</p>
+                </div>
+                <div class="info-box">
+                    <p><strong>Quận/Huyện:</strong> ${billinfo.district}</p>
+                </div>
+                <div class="info-box">
+                    <p><strong>Xã/Phường:</strong> ${billinfo.country}</p>
+                </div>
+                <div class="info-box">
+                    <p><strong>Địa chỉ:</strong> ${billinfo.address}</p>
+                </div>
+<!--                <div class="info-box">
+                    <p><strong>Phương thức giao hàng:</strong> ${sessionScope.shippingInfo.deliveryMethod}</p>
+                </div>-->
+            </div>
+        </div>
 
         <%@include file="component/footer.jsp" %>
     </body>

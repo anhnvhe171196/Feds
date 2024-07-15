@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import vn.fpt.edu.dals.Bill_DAO;
 import vn.fpt.edu.dals.Product_DAO;
 import vn.fpt.edu.models.Cart;
 import vn.fpt.edu.models.User;
@@ -58,6 +59,7 @@ public class CartController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        Bill_DAO bill = new Bill_DAO();
         HttpSession session = request.getSession();
         Product_DAO data = new Product_DAO();
         Cookie[] arr = request.getCookies();
@@ -70,11 +72,14 @@ public class CartController extends HttpServlet {
             }
         }
         
-
-        
         Cart cart = new Cart(txt, data.getAllProductinCart());
         session.setAttribute("list", data.getSellingProduct());
         request.setAttribute("cart", cart);
+        String id = request.getParameter("billid");
+        if(id != null) {
+            int bid = Integer.parseInt(id);
+        request.setAttribute("orderinfo1", bill.getInfoBillByBillId(bid));
+        }       
         request.getRequestDispatcher("CartDetail.jsp").forward(request, response);
     } 
 
