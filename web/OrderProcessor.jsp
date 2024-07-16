@@ -52,17 +52,44 @@
                 margin: auto;
             }
         </style>
+        <script>
+            function validateForm(formId) {
+                let isValid = true;
+                let form = document.getElementById(formId);
+                let inputs = form.querySelectorAll('input');
+
+                inputs.forEach(input => {
+                    if (input.type !== 'hidden' && input.value.trim() === '') {
+                        isValid = false;
+                        input.classList.add('is-invalid'); // Add invalid class for highlighting
+                    } else {
+                        input.classList.remove('is-invalid'); // Remove invalid class if field is not empty
+                    }
+                });
+
+                if (!isValid) {
+                    alert('Vui lòng điền đầy đủ các trường.');
+                }
+
+                return isValid;
+            }
+        </script>
+        <style>
+            .is-invalid {
+                border-color: red;
+            }
+        </style>
     </head>
 
     <body>
 
         <div class="container-xxl position-relative bg-white d-flex p-0">
             <!-- Spinner Start -->
-            <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
-            </div>
+            <!--            <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+                            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>-->
             <!-- Spinner End -->
 
 
@@ -236,13 +263,12 @@
                 <!-- Top Trends Product  Start -->
                 <div class="container-fluid pt-4 px-4">
                     <div class="row g-4">
-                        <form action="marketingDashBoard" method="post" >
+                        <form action="marketingDashBoard" method="post" id="form1" onsubmit="return validateForm('form1');">
                             <div class="col-sm-12 col-xl-12">
                                 <div class="bg-light text-center rounded p-4">
                                     <div class="d-flex align-items-center justify-content-between mb-4">
                                         <h6 class="mb-0">Xu Hướng mua hàng</h6>
-
-                                        <input type="text" name="Action" value="product" class="form-control" style="display: none" readonly/> 
+                                        <input type="text" name="Action" value="product" class="form-control" style="display: none" readonly/>
                                         <div class="d-flex">
                                             <div class="me-2">
                                                 <label for="quantity" class="form-label">Số lượng sản phẩm:</label>
@@ -267,17 +293,17 @@
                                 </div>
                             </div>
                         </form>
-                        <form action="marketingDashBoard" method="post" >
-                            <div class="col-sm-12 col-xl-12">
+                        <div class="col-sm-12 col-xl-6">
+                            <form action="marketingDashBoard" method="post" id="form2" onsubmit="return validateForm('form2');">
                                 <div class="bg-light text-center rounded p-4">
                                     <div class="d-flex align-items-center justify-content-between mb-4">
                                         <h6 class="mb-0">Thanh toán hàng đầu:</h6>
-                                        <input type="text" name="Action" value="user" class="form-control" style="display: none" readonly/> 
+                                        <input type="text" name="Action" value="user" class="form-control" style="display: none" readonly/>
                                         <div class="d-flex">
                                             <div class="me-2">
                                                 <label for="quantity" class="form-label">Số lượng Người dùng:</label>
-                                                <input type="number" id="Uquantity" class="form-control" name="Uquantity" value="${sessionScope.Uquantity}" min="1">
-                                            </div>                                            
+                                                <input type="number" id="Uquantity" class="form-control" name="Uquantity" value="${sessionScope.Uquantity}" min="1" max="${numOfUser}">
+                                            </div>
                                             <div>
                                                 <button id="show-sales-form2" class="btn btn-primary mt-4">Xem</button>
                                             </div>
@@ -287,10 +313,29 @@
                                         <canvas id="marketingDashBoard1"></canvas>
                                     </div>
                                 </div>
-                            </div>
-                        </form>    
+                            </form>
+                        </div>
+                        <div class="col-sm-12 col-xl-6">
+                            <form action="marketingDashBoard" method="post" id="form3" onsubmit="return validateForm('form3');">
+                                <div class="bg-light text-center rounded p-4">
+                                    <div class="d-flex align-items-center justify-content-between mb-4">
+                                        <h6 class="mb-0">Số lượng sản phẩm</h6>
+                                        <input type="text" name="Action" value="category" class="form-control" style="display: none" readonly/>
+                                        <div class="d-flex">
+                                            <div>
+                                                <button id="show-sales-category" class="btn btn-primary mt-4">Xem</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <canvas id="marketingDashBoard2"></canvas>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
+
                 <!-- Top Trends Product  End -->
 
 
@@ -332,46 +377,46 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
 
         <script>
-            var ProductNames = [];
-            var ProductQuans = [];
+             var ProductNames = [];
+             var ProductQuans = [];
             <c:forEach items="${sessionScope.ProductName}" var="val" varStatus="loop">
-            ProductNames.push("${val}");
+             ProductNames.push("${val}");
             </c:forEach>
 
             <c:forEach items="${sessionScope.ProductQuan}" var="val" varStatus="loop">
-            ProductQuans.push(${val});
+             ProductQuans.push(${val});
             </c:forEach>
-            var ctx = document.getElementById('marketingDashBoard').getContext('2d');
-            var myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ProductNames,
-                    datasets: [{
-                            label: 'Số sản phẩm bán được',
-                            data: ProductQuans,
-                            borderWidth: 1
-                        }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false // Ẩn legend
-                        }
-                    },
-                    text: {
-                        color: 'black', // Màu chữ
-                        align: 'center', // Căn chỉnh chữ
-                        font: {
-                            size: 12 // Kích thước chữ
-                        }
-                    }
-                }
-            });
+             var ctx = document.getElementById('marketingDashBoard').getContext('2d');
+             var myChart = new Chart(ctx, {
+                 type: 'bar',
+                 data: {
+                     labels: ProductNames,
+                     datasets: [{
+                             label: 'Số sản phẩm bán được',
+                             data: ProductQuans,
+                             borderWidth: 1
+                         }]
+                 },
+                 options: {
+                     scales: {
+                         y: {
+                             beginAtZero: true
+                         }
+                     },
+                     plugins: {
+                         legend: {
+                             display: false // Ẩn legend
+                         }
+                     },
+                     text: {
+                         color: 'black', // Màu chữ
+                         align: 'center', // Căn chỉnh chữ
+                         font: {
+                             size: 12 // Kích thước chữ
+                         }
+                     }
+                 }
+             });
         </script>
         <script>
             var UserNames = [];
@@ -403,6 +448,49 @@
                     plugins: {
                         legend: {
                             display: false // Ẩn legend
+                        }
+                    },
+                    text: {
+                        color: 'black', // Màu chữ
+                        align: 'center', // Căn chỉnh chữ
+                        font: {
+                            size: 12 // Kích thước chữ
+                        }
+                    }
+                }
+            });
+        </script>
+        <script>
+            var Categories = [];
+            var ProductCounts = [];
+            <c:forEach items="${sessionScope.CName}" var="val" varStatus="loop">
+            Categories.push("${val}");
+            </c:forEach>
+
+            <c:forEach items="${sessionScope.ProductCount}" var="val" varStatus="loop">
+            ProductCounts.push(${val});
+            </c:forEach>
+            var ctx = document.getElementById('marketingDashBoard2').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: Categories,
+                    datasets: [{
+                            label: 'Tổng sản phẩm',
+                            data: ProductCounts,
+                            borderWidth: 1
+                        }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true, // Hiển thị legend
+                            position: 'right' // Ẩn legend
                         }
                     },
                     text: {

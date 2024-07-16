@@ -20,6 +20,7 @@ import vn.fpt.edu.dals.Feedback_DAO;
 import vn.fpt.edu.dals.Order_DAO;
 import vn.fpt.edu.dals.Product_DAO;
 import vn.fpt.edu.dals.User_DAO;
+import vn.fpt.edu.models.Category;
 import vn.fpt.edu.models.Feedback1;
 import vn.fpt.edu.models.Product;
 import vn.fpt.edu.models.User;
@@ -36,12 +37,14 @@ public class MarketingDashBoardController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
+        Data_MarketingDashboard_DAO data = new Data_MarketingDashboard_DAO();
 
         Feedback_DAO fd = new Feedback_DAO();
         User_DAO u = new User_DAO();
         Bill_DAO bd = new Bill_DAO();
         Product_DAO pb = new Product_DAO();
         Order_DAO od = new Order_DAO();
+        HttpSession session = request.getSession();
 
         int numOfFeedbacks = fd.getNumOfFeedbackCurrentDate();
         int sumOfFeedbacks = fd.getTotalNumberOfFeedbacks();
@@ -51,13 +54,13 @@ public class MarketingDashBoardController extends HttpServlet {
         int numOfProducts = pb.getTotalNumberOfProducts();
         int NumOfProductsSold = od.getNumOfProductsSold();
 
-        request.setAttribute("numOfBills", numOfBills);
-        request.setAttribute("sumOfDoneBills", sumOfDoneBills);
-        request.setAttribute("numOfFeedbacks", numOfFeedbacks);
-        request.setAttribute("sumOfFeedbacks", sumOfFeedbacks);
-        request.setAttribute("numOfUser", numOfUser);
-        request.setAttribute("numOfProducts", numOfProducts);
-        request.setAttribute("NumOfProductsSold", NumOfProductsSold);
+        session.setAttribute("numOfBills", numOfBills);
+        session.setAttribute("sumOfDoneBills", sumOfDoneBills);
+        session.setAttribute("numOfFeedbacks", numOfFeedbacks);
+        session.setAttribute("sumOfFeedbacks", sumOfFeedbacks);
+        session.setAttribute("numOfUser", numOfUser);
+        session.setAttribute("numOfProducts", numOfProducts);
+        session.setAttribute("NumOfProductsSold", NumOfProductsSold);
 
         request.getRequestDispatcher("OrderProcessor.jsp").forward(request, response);
 
@@ -84,6 +87,7 @@ public class MarketingDashBoardController extends HttpServlet {
         Product_DAO pb = new Product_DAO();
         Order_DAO od = new Order_DAO();
         HttpSession session = request.getSession();
+
         if ("product".equals(Action)) {
             int quantity = Integer.parseInt(request.getParameter("quantity"));
             String startdate = request.getParameter("startdate");
@@ -101,21 +105,6 @@ public class MarketingDashBoardController extends HttpServlet {
 
             session.setAttribute("ProductName", productNames);
             session.setAttribute("ProductQuan", quantities);
-            int numOfFeedbacks = fd.getNumOfFeedbackCurrentDate();
-            int sumOfFeedbacks = fd.getTotalNumberOfFeedbacks();
-            int numOfUser = u.getTotalNumberOfUsers();
-            int numOfBills = bd.getNumOfBillCurrentDate();
-            int sumOfDoneBills = bd.getSumOfDoneBill();
-            int numOfProducts = pb.getTotalNumberOfProducts();
-            int NumOfProductsSold = od.getNumOfProductsSold();
-
-            request.setAttribute("numOfBills", numOfBills);
-            request.setAttribute("sumOfDoneBills", sumOfDoneBills);
-            request.setAttribute("numOfFeedbacks", numOfFeedbacks);
-            request.setAttribute("sumOfFeedbacks", sumOfFeedbacks);
-            request.setAttribute("numOfUser", numOfUser);
-            request.setAttribute("numOfProducts", numOfProducts);
-            request.setAttribute("NumOfProductsSold", NumOfProductsSold);
             request.getRequestDispatcher("OrderProcessor.jsp").forward(request, response);
 
         } else if ("user".equals(Action)) {
@@ -134,24 +123,23 @@ public class MarketingDashBoardController extends HttpServlet {
             session.setAttribute("Uquantity", Uquantity);
             session.setAttribute("username", username);
             session.setAttribute("userPayment", userPayment);
-            int numOfFeedbacks = fd.getNumOfFeedbackCurrentDate();
-            int sumOfFeedbacks = fd.getTotalNumberOfFeedbacks();
-            int numOfUser = u.getTotalNumberOfUsers();
-            int numOfBills = bd.getNumOfBillCurrentDate();
-            int sumOfDoneBills = bd.getSumOfDoneBill();
-            int numOfProducts = pb.getTotalNumberOfProducts();
-            int NumOfProductsSold = od.getNumOfProductsSold();
 
-            request.setAttribute("numOfBills", numOfBills);
-            request.setAttribute("sumOfDoneBills", sumOfDoneBills);
-            request.setAttribute("numOfFeedbacks", numOfFeedbacks);
-            request.setAttribute("sumOfFeedbacks", sumOfFeedbacks);
-            request.setAttribute("numOfUser", numOfUser);
-            request.setAttribute("numOfProducts", numOfProducts);
-            request.setAttribute("NumOfProductsSold", NumOfProductsSold);
             request.getRequestDispatcher("OrderProcessor.jsp").forward(request, response);
 
+        } else if ("category".equals(Action)) {
+
+            List<Category> category = data.getTotalProductsByCategory();
+            List<String> CName = new ArrayList<>();
+            List<Integer> ProductCount = new ArrayList<>();
+            for (Category c : category) {
+                CName.add(c.getCategory_name());
+                ProductCount.add(c.getProductcount());
+            }
+            session.setAttribute("CName", CName);
+            session.setAttribute("ProductCount", ProductCount);
+
+            request.getRequestDispatcher("OrderProcessor.jsp").forward(request, response);
+//
         }
     }
 }
-
