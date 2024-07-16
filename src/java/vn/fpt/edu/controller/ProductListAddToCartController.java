@@ -15,21 +15,18 @@ import jakarta.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import vn.fpt.edu.dals.Price_DAO;
 import vn.fpt.edu.dals.Product_DAO;
-import vn.fpt.edu.models.Cart;
 import vn.fpt.edu.models.Price;
-import vn.fpt.edu.models.Product1;
 import vn.fpt.edu.models.User;
 
 /**
  *
  * @author admin
  */
-public class AddToCartController extends HttpServlet {
+public class ProductListAddToCartController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,10 +45,10 @@ public class AddToCartController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddToCartController</title>");
+            out.println("<title>Servlet ProductListAddToCartController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddToCartController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ProductListAddToCartController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -69,20 +66,27 @@ public class AddToCartController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        String[] cateid = request.getParameterValues("cateid");
+        String[] brandid = request.getParameterValues("brandid");
+        String min = request.getParameter("min");
+        String max = request.getParameter("max");
+        String page = request.getParameter("page");
+        String s = "ListProduct?";
+        if (cateid != null) {
+            for (int i = 0; i < cateid.length; i++) {
+                s += "cateid=" + cateid[i] + "&";
+            }
+        }
+        if (brandid != null) {
+            for (int i = 0; i < brandid.length; i++) {
+                s += "brandid=" + brandid[i] + "&";
+            }
+        }
+        s += "min=" + min + "&";
+        if (max != null) {
+            s += "max=" + max + "&";
+        }
+        s += "page=" + page + "&";
         Product_DAO data = new Product_DAO();
         Cookie[] arr = request.getCookies();
         String txt = "";
@@ -145,8 +149,22 @@ public class AddToCartController extends HttpServlet {
         Cookie c = new Cookie("cart", txt);
         c.setMaxAge(1 * 24 * 60 * 60);
         response.addCookie(c);
-        response.sendRedirect("home");
-//        request.getRequestDispatcher("home").forward(request, response);
+        response.sendRedirect(s);
+
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**

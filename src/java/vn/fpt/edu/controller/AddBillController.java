@@ -100,6 +100,8 @@ public class AddBillController extends HttpServlet {
              c.setMaxAge(0);
              response.addCookie(c);
 //             response.sendRedirect("CompleteCart.jsp");
+             session.removeAttribute("size");
+             session.setAttribute("size", 0);
              response.sendRedirect("complete");
  
          } else if("VNPay".equals(paymentOption)){

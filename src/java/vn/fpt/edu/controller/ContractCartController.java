@@ -12,10 +12,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 import vn.fpt.edu.dals.Product_DAO;
 import vn.fpt.edu.dals.User_DAO;
 
 import vn.fpt.edu.models.Cart;
+import vn.fpt.edu.models.Item;
 import vn.fpt.edu.models.User;
 
 /**
@@ -81,8 +83,14 @@ public class ContractCartController extends HttpServlet {
             }
             
             Cart cart = new Cart(txt, data.getAllProductinCart());
+            List<Item> listItem;
+        if (u != null) {
+             listItem = cart.getCartbyUserId(u.getUser_Id());
+        }else{
+            listItem = cart.getCartbyUserId(0);
+        }
             request.setAttribute("user", user.getCustomerByID(u));
-            request.setAttribute("cart", cart);
+            request.setAttribute("cart", listItem);
             request.getRequestDispatcher("ContractCart.jsp").forward(request, response);
         }
     }

@@ -17,7 +17,15 @@ public class Cart {
     public Cart() {
         items = new ArrayList<>();
     }
-
+    public List<Item> getCartbyUserId(int userid) {
+        List<Item> l = new ArrayList<>();
+        for (Item item : items) {
+            if(item.getUserID() == userid){
+                l.add(item);
+            }
+        }
+        return l; 
+    } 
     public List<Item> getItems() {
         return items;
     }

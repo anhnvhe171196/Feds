@@ -152,13 +152,13 @@
                         <div class="col-md-3 clearfix">
                             <div class="header-ctn">
                                 <!-- Wishlist -->
-                                <div>
+<!--                                <div>
                                     <a href="#">
                                         <i class="fa fa-heart-o"></i>
                                         <span>Yêu Thích</span>
                                         <div class="qty">2</div>
                                     </a>
-                                </div>
+                                </div>-->
                                 <!-- /Wishlist -->
 
                                 <!-- Cart -->
@@ -166,7 +166,7 @@
                                     <a href="cart" aria-expanded="true">
                                         <i class="fa fa-shopping-cart"></i>
                                         <span>Giỏ Hàng</span>
-                                        <div class="qty">${requestScope.size}</div>
+                                        <div class="qty">${sessionScope.size}</div>
                                     </a>
                                 </div>
                                 <!--                                <div class="dropdown">

@@ -137,23 +137,26 @@
                             </table>
 
                             <div class="add-to-cart">
-                                <div class="qty-label">
-                                    Số lượng:
-                                    <div class="input-number">
-                                        <input type="number" value="1" max="${requestScope.product.product.quantity}">
-                                        <span class="qty-up">+</span>
-                                        <span class="qty-down">-</span>
-                                    </div>
-                                </div>
-                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-                            </div>
+                                <form action="addCartByView" method="post">
 
+                                    <div class="qty-label">
+                                        Số lượng:
+                                        <div class="input-number">
+                                            <input type="number" name="number" value="1" min="1" max="${requestScope.product.product.quantity}">
+                                            <span class="qty-up">+</span>
+                                            <span class="qty-down">-</span>
+                                        </div>
+                                    </div>
+                                    <input hidden="" type="text" name="pid" value="${requestScope.product.product.product_id}">
+                                    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                </form>
+
+                            </div>
                             <ul class="product-links">
                                 <li>Category:</li>
                                 <li><a href="ListProduct?cateid=${requestScope.product.product.brand.category.category_id}">${requestScope.product.product.brand.category.category_name}</a></li>
-                                <li><a href="#">${requestScope.product.product.brand.brandName}</a></li>
+                                <li>${requestScope.product.product.brand.brandName}</li>
                             </ul>
-
                         </div>
                     </div>
                 </div>
@@ -417,7 +420,9 @@
                                                 </div>
                                             </div>
                                             <div class="add-to-cart">
-                                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                                <form method="post">
+                                                    <button type="submit" formaction="addToCart?pid=${pd.product.product_id}" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Thêm Vào giỏ hàng</button>
+                                                </form>                                               
                                             </div>
                                         </div>
                                     </c:forEach>

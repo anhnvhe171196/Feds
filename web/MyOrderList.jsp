@@ -188,33 +188,16 @@
                         </div>
                     </div>
                     <div class="item-footer">
-                        <button class="buy-again">Mua Lần Nữa</button>
+                        <a href="cart?billid=${b.getBill_id()}"><button class="buy-again">Mua Lần Nữa</button></a>
                         <a href="viewMyOrderDetail?billid=${b.getBill_id()}"><button class="view-order">Xem Chi Tiết Đơn Hàng</button></a>
-                        <button class="view-shop">Xem Đánh Giá Shop</button>
+<!--                        <button class="view-shop">Xem Đánh Giá Shop</button>-->
                     </div>
 
                 </div>
             </c:forEach>
-
-<!--                <div class="item-content">
-                        <div class="item-image">
-                            <img src="images/" alt="Product Image">
-                        </div>
-                        <div class="item-details">
-                            <h3></h3>
-                            <p>Phân loại hàng:</p>
-                            <p>x</p>
-                            <div class="item-price">
-                                <p class="">Ngày đặt hàng:</p>
-
-                            </div>
-                            <div class="total-price">Tổng số tiền: VNĐ</div>
-                        </div>
-                    </div>-->
-
         </div>
 
-
+        
 
         <%@include file="component/footer.jsp" %>
     </body>

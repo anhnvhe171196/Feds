@@ -33,9 +33,7 @@ public class VerifyPhoneController extends HttpServlet {
         String phoneNumber = request.getParameter("mobile");
         phoneNumber = "+84" + phoneNumber.substring(1);
         String verificationCode = generateVerificationCode();
-
         request.getSession().setAttribute("verificationCode", verificationCode);
-
         Message message = Message.creator(
                 new PhoneNumber(phoneNumber),
                 new PhoneNumber("+17206368985"),

@@ -104,7 +104,7 @@ public class ViewProductDetailController extends HttpServlet {
             }
             Feedback_DAO d = new Feedback_DAO();
             request.setAttribute("dateNow", nowDate);
-            List<RelatedProducts> temp = pdao1.getListPriceByBrandId(pd.getProduct().getBrand().getBrandId());
+            List<RelatedProducts> temp = pdao1.getListPriceByBrandId(pd.getProduct().getBrand().getBrandId(), productID);
             request.setAttribute("list", temp);
             int pageIndex;
             if (pageIndex1 != null) {

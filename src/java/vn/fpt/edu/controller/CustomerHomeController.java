@@ -16,6 +16,7 @@ import vn.fpt.edu.dals.Category_DAO;
 import vn.fpt.edu.dals.Product_DAO;
 import vn.fpt.edu.models.Cart;
 import vn.fpt.edu.models.Item;
+import vn.fpt.edu.models.User;
 
 /**
  *
@@ -30,26 +31,27 @@ public class CustomerHomeController extends HttpServlet {
         Category_DAO d = new Category_DAO();
         Product_DAO data = new Product_DAO();
         Cookie[] arr = request.getCookies();
-        String txt ="";
-        if(arr!=null) { 
+        String txt = "";
+        if (arr != null) {
             for (Cookie o : arr) {
-                if(o.getName().equals("cart")) { 
-                    txt+=o.getValue();
+                if (o.getName().equals("cart")) {
+                    txt += o.getValue();
                 }
             }
         }
 
         Cart cart = new Cart(txt, data.getAllProductinCart());
-        List<Item> listItem = cart.getItems();
-//        int n;
-//        if(listItem!=null) { 
-//            n=listItem.size();
-//        } else {    
-//            n=0;
-//        }
+        User u = (User)session.getAttribute("account");
+        List<Item> listItem;
+        if (u != null) {
+             listItem = cart.getCartbyUserId(u.getUser_Id());
+        }else{
+            listItem = cart.getCartbyUserId(0);
+        }
+
         int n = listItem != null ? listItem.size() : 0;
-        request.setAttribute("size", n);
-        request.setAttribute("data", data.getAllProductinCart());
+        session.setAttribute("size", n);
+        session.setAttribute("data", data.getAllProductinCart());
 
         session.setAttribute("cates", d.getAllCate());
         session.setAttribute("list", data.getSellingProduct());

@@ -510,8 +510,10 @@
                                 <p class="price">
                                     <%=product.getPriceString()%>
                                 </p>
-                                <form method="post">
-                                    <button type="submit" formaction="AddtoCart?pid=<%=product.getProduct_id()%>&pqty=1" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                <form action="productListAddToCart" method="get">
+                                    <input type="text" hidden="" name="max" value="2000000">
+                                    <input type="type" hidden="" name="pid" value="<%=product.getProduct_id()%>">
+                                    <button type="submit" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
                                     <!--<button type="submit"
                                             formaction="AddtoCart?pid=<%=product.getProduct_id()%>&pqty=1&buy=true"
                                             class="btn btn-primary">Buy & Feedback</button>-->

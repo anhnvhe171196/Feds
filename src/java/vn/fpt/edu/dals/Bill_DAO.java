@@ -457,6 +457,8 @@ public class Bill_DAO extends DBContext {
         }
         return list;
     }
+    
+    
 
     public int getNumOfPageBillList(int numOfBillInScreen) {
         int numOfPages = 0;
