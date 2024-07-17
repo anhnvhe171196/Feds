@@ -126,19 +126,19 @@
                     </a>
                     <div class="d-flex align-items-center ms-4 mb-4">
                         <div class="position-relative">
-                            <!--                            <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">-->
+                           <img class="rounded-circle" src="images/${sessionScope.account.avarta}" alt="" style="width: 40px; height: 40px;">
                             <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                         </div>
                         <div class="ms-3">
-                            <h6 class="mb-0">Trong</h6>
-                            <span>Sale Man</span>
+                            <h6 class="mb-0">${sessionScope.account.user_name}</h6>
+                            <span>Admin</span>
                         </div>
                     </div>
                     <div class="navbar-nav w-100">
                         <a href="/Feds/saleDashboard" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                        <a href="/Feds/orderListBillController" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Order List</a>
+                        <a href="/Feds/orderListBillController" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Order List</a>
                         <a href="/Feds/feedbackListFeedbackController" class="nav-item nav-link "><i class="fa fa-th me-2"></i>Feedback List</a> 
-                        <a href="/Feds/contactListContactController" class="nav-item nav-link"><i class="fa fa-th me-2 "></i>Reply Contact</a> 
+                        <a href="/Feds/contactListContactController" class="nav-item nav-link"><i class="far fa-file-alt me-2"></i>Reply Contact</a> 
                     </div> 
 
 
@@ -163,12 +163,16 @@
 
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">Trong Sale</span>
+                            <img class="rounded-circle me-lg-2" src="images/${sessionScope.account.avarta}" alt="" style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex">${sessionScope.account.user_name}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">Thông tin cá nhân</a>
-                            <a href="#" class="dropdown-item">Đăng xuất</a>
+                            <a href="userProfile" class="dropdown-item">My Profile</a>
+                            <a href="home" class="dropdown-item">Home Page</a>
+                            <c:choose>
+                                <c:when test="${ not empty sessionScope.account}"><a href="${pageContext.request.contextPath}/userLogout" class="dropdown-item">Logout</a></c:when>
+                                <c:otherwise><a href="${pageContext.request.contextPath}/login" class="dropdown-item">Logout</a></c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </div>
@@ -237,10 +241,11 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
                     <!-- Top sản phẩm bán chạy -->
-                    <form action="sellingProduct" method="get" onsubmit="return validateForm()">
-                        <div class="col-sm-12 col-xl-6">
-                            <div class="bg-light text-center rounded p-2">
-                                <div class="d-flex align-items-center justify-content-between mb-2">
+
+                    <div class="col-sm-12 col-xl-6" >
+                        <form action="sellingProduct" method="get" onsubmit="return validateForm()">
+                            <div class="bg-light text-center rounded p-2" style="height: 640px"  >
+                                <div class="d-flex align-items-center justify-content-between mb-2" >
                                     <h6 class="mb-0">Top sản phẩm bán chạy</h6>
                                     <div class="d-flex">
                                         <div class="me-2">
@@ -263,17 +268,19 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div>
+                                <div  style="margin-top: 80px">
                                     <canvas id="sellingProduct"></canvas>
                                 </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
+
 
                     <!-- Top danh mục bán chạy -->
-                    <form action="trendingCategory" method="get" onsubmit="return validateForm()">
-                        <div class="col-sm-12 col-xl-6">
-                            <div class="bg-light text-center rounded p-2">
+
+                    <div class="col-sm-12 col-xl-6"  >
+                        <form action="trendingCategory" method="get" >
+                            <div class="bg-light text-center rounded p-2"  style="height: 640px" >
                                 <div class="d-flex align-items-center justify-content-between mb-2">
                                     <h6 class="mb-0">Top danh mục bán chạy</h6>
                                     <div class="d-flex">
@@ -296,7 +303,7 @@
                                             </select>
                                             <small id="month-error" class="text-danger"></small>
                                         </div>
-                                        <div class="me-2">
+                                        <div class="me-2" >
                                             <label for="year-sales" class="form-label">Chọn năm:</label>
                                             <select id="year-sales" class="form-select form-select-sm" name="year" style="width: 70px">
                                                 <option ${sessionScope.year==2023?"selected":""} value="2023">2023</option>
@@ -314,8 +321,9 @@
                                     <canvas id="trendcategory-canvas"></canvas>
                                 </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
+
                 </div>
             </div>
 
@@ -438,34 +446,34 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
 
     <script>
-                        var names = [];
-                        var data = [];
+                            var names = [];
+                            var data = [];
         <c:forEach items="${sessionScope.name}" var="val" varStatus="loop">
-                        names.push("${val}");
+                            names.push("${val}");
         </c:forEach>
 
         <c:forEach items="${sessionScope.sum}" var="val" varStatus="loop">
-                        data.push(${val});
+                            data.push(${val});
         </c:forEach>
-                        var ctx = document.getElementById('sellingProduct').getContext('2d');
-                        var myChart = new Chart(ctx, {
-                            type: 'bar',
-                            data: {
-                                labels: names,
-                                datasets: [{
-                                        label: 'Số sản phẩm bán được',
-                                        data: data,
-                                        borderWidth: 1
-                                    }]
-                            },
-                            options: {
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
+                            var ctx = document.getElementById('sellingProduct').getContext('2d');
+                            var myChart = new Chart(ctx, {
+                                type: 'bar',
+                                data: {
+                                    labels: names,
+                                    datasets: [{
+                                            label: 'Số sản phẩm bán được',
+                                            data: data,
+                                            borderWidth: 1
+                                        }]
+                                },
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
                                     }
                                 }
-                            }
-                        });
+                            });
 
 
 

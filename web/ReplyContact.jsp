@@ -102,9 +102,9 @@
                     </div>
                     <div class="navbar-nav w-100">
                         <a href="/Feds/saleDashboard" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                        <a href="/Feds/orderListBillController" class="nav-item nav-link "><i class="fa fa-th me-2"></i>Order List</a>
+                        <a href="/Feds/orderListBillController" class="nav-item nav-link "><i class="fa fa-table me-2"></i>Order List</a>
                         <a href="/Feds/feedbackListFeedbackController" class="nav-item nav-link "><i class="fa fa-th me-2 "></i>Feedback List</a> 
-                        <a href="/Feds/contactListContactController" class="nav-item nav-link active"><i class="fa fa-th me-2 "></i>Reply Contact</a> 
+                        <a href="/Feds/contactListContactController" class="nav-item nav-link active"><i class="far fa-file-alt me-2"></i>Reply Contact</a> 
                     </div>
             </div>
 
