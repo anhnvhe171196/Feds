@@ -11,7 +11,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>ORDER LIST FOR SALER</title>
+        <title>FEEDBACK LIST FOR SALER</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
@@ -25,7 +25,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
 
         <!-- Icon Font Stylesheet -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet"> 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
         <!-- Libraries Stylesheet -->
@@ -52,7 +52,14 @@
                 line-height: 1; /* Điều chỉnh chiều cao dòng cho nút */
             }
 
-            
+            .dropdown-menu .dropdown-item {
+                border-bottom: 1px solid #ddd;
+                transition: border-color 0.3s ease;
+            }
+
+            .dropdown-menu .dropdown-item:hover {
+                border-color: #333;
+            }
             #clock{
                 margin-left: 20px;
                 font-weight: 600;
@@ -60,18 +67,7 @@
                 font-size: 13px;
 
             }
-            .btn-center {
-                display: flex;
-                justify-content: center; /* Căn giữa nút trong cột */
-                align-items: center; /* Căn giữa theo chiều dọc */
-            }
 
-            @media (min-width: 768px) {
-                .btn-center {
-                    max-width: 100px; /* Độ rộng tối đa cho cột khi màn hình lớn hơn hoặc bằng 768px */
-                    margin: auto; /* Căn giữa cột */
-                }
-            }
 
 
         </style>
@@ -91,8 +87,8 @@
             <!-- Sidebar Start -->
             <div class="sidebar pe-4 pb-3">
                 <nav class="navbar bg-light navbar-light">
-                    <a href="/Feds/orderListBillController" class="navbar-brand mx-4 mb-3">
-                        <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>ORDER LIST</h3>
+                    <a href="/Feds/feedbackListFeedbackController" class="navbar-brand mx-4 mb-3">
+                        <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>FEEDBACK</h3>
                     </a>
                     <div class="d-flex align-items-center ms-4 mb-4">
                         <div class="position-relative">
@@ -106,11 +102,11 @@
                     </div>
                     <div class="navbar-nav w-100">
                         <a href="/Feds/saleDashboard" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                        <a href="/Feds/orderListBillController" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Order List</a>
-                        <a href="/Feds/feedbackListFeedbackController" class="nav-item nav-link "><i class="fa fa-th me-2"></i>Feedback List</a> 
-                        <a href="/Feds/contactListContactController" class="nav-item nav-link"><i class="fa fa-th me-2 "></i>Reply Contact</a> 
+                        <a href="/Feds/orderListBillController" class="nav-item nav-link "><i class="fa fa-th me-2"></i>Order List</a>
+                        <a href="/Feds/feedbackListFeedbackController" class="nav-item nav-link "><i class="fa fa-th me-2 "></i>Feedback List</a> 
+                        <a href="/Feds/contactListContactController" class="nav-item nav-link active"><i class="fa fa-th me-2 "></i>Reply Contact</a> 
                     </div>
-            </div>  
+            </div>
 
         </div>
         <!-- Sidebar End -->
@@ -119,6 +115,7 @@
         <!-- Content Start -->
         <div class="content">
             <!-- Navbar Start -->
+
             <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
                     <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
@@ -145,71 +142,55 @@
             </nav>
             <!-- Navbar End -->
 
+
+
+
             <!-- Recent Sales Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-light text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
-                        <form class="d-none d-md-flex ms-4" method="GET" action="orderListBillController">
+                        <form class="d-none d-md-flex ms-4" method="GET" action="contactListContactController">
                             <input type="hidden" name="action" value="search">
-                            <input class="form-control border-0" type="search" name="value" placeholder="Tìm kiếm" value="${sessionScope.value}">
+                            <input class="form-control border-0" type="search" name="value" placeholder="Tìm kiếm" value="${requestScope.value}">
                         </form>
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                Xếp theo ngày
-                            </button>
-                            <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item" href="orderListBillController?action=sortByDateAsc">Ngày tăng</a></li>
-                                <li><a class="dropdown-item" href="orderListBillController?action=sortByDateDesc">Ngày giảm</a></li>
-                            </ul>
-                        </div>
 
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                Xếp theo Mã đơn
-                            </button>
-                            <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item" href="orderListBillController?action=sortByBillIdAsc">Mã đơn tăng</a></li>
-                                <li><a class="dropdown-item" href="orderListBillController?action=sortByBillIdDesc">Mã đơn giảm</a></li>
 
-                            </ul>
-                        </div>
-
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                Xếp theo Giá trị đơn hàng
-                            </button>
-                            <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item" href="orderListBillController?action=sortByValueAsc">Giá trị tăng</a></li>
-                                <li><a class="dropdown-item" href="orderListBillController?action=sortByValueDesc">Giá trị giảm</a></li>
-                            </ul>
-                        </div>
-
-                        <button class="btn btn-outline-primary m-2"><a href="/Feds/orderListBillController?action=showAll">Xem Tất Cả</a></button>
+                        <button class="btn btn-outline-primary m-2"><a href="/Feds/contactListContactController?action=showAll">Xem Tất Cả</a></button>
                     </div>
+
+
                     <div class="table-responsive">
                         <table class="table text-start align-middle table-bordered table-hover mb-0">
                             <thead>
                                 <tr class="text-dark">
-                                    <th scope="col">Ngày</th>
-                                    <th scope="col">Mã Đơn</th>
-                                    <th scope="col">Khách Hàng</th>
-                                    <th scope="col">Địa Chỉ</th>
-                                    <th scope="col">Giá Trị</th>
-                                    <th scope="col">Trạng Thái</th>
-                                    <th scope="col">Hành Động</th>
+                                    <th scope="col" style="width: 150px">Ngày</th>
+                                    <th scope="col" style="width: 100px">Người liên hệ</th>
+                                    <th scope="col" style="width: 140px">Email</th>
+                                    <th scope="col" style="width: 120px">Số điện thoại</th>
+                                    <th scope="col" style="width: 140px">Chủ đề</th>
+                                    <th scope="col" style="max-width: 400px">Nội dung</th>
+                                    <th scope="col" style="width: 100px">Hành động</th>
                                 </tr>
                             </thead>
                             <tbody>
 
-                                <c:forEach items="${sessionScope.listBill}" var="b"> 
+                                <c:forEach items="${sessionScope.listContact}" var="list"> 
                                     <tr>
-                                        <td>${b.date}</td>
-                                        <td>${b.bill_id}</td>
-                                        <td>${b.user_name}</td>
-                                        <td>${b.address}</td>
-                                        <td><fmt:formatNumber value="${b.total_price}" pattern="#,###"/> VNĐ</td>
-                                        <td>${b.status}</td>
-                                        <td style="width: 130px"><a class="btn btn-outline-primary m-2 btn-center" href="/Feds/billDetailBillController?id=${b.bill_id}">Xem đơn</a></td>
+                                        <td>${list.date}</td>
+                                        <c:if test="${list.username == null}">
+                                            <td></td>
+                                        </c:if>
+                                        <c:if test="${list.username != null}">
+                                            <td>${list.username}</td>
+                                        </c:if>
+                                        <td>${list.email}</td>
+                                        <td>${list.phone}</td>
+                                        <td>${list.suject}</td>
+                                        <td>${list.message}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-primary" onclick="openEmailDialog('${list.email}', '${list.suject}', '${list.message}')">Gửi Email</button>
+                                        </td>
+                                       
                                     </tr>
                                 </c:forEach>
 
@@ -218,7 +199,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Recent Sales End -->   
+            <!-- Recent Sales End -->
 
             <!-- Pagination -->
             <div class="container-fluid pt-4 px-4">
@@ -227,13 +208,13 @@
                         <!-- First Button -->
                         <c:if test="${sessionScope.page > 1}">
                             <li class="page-item">
-                                <a class="page-link" href="/Feds/orderListBillController?action=paging&page=1">Trang đầu</a>
+                                <a class="page-link" href="/Feds/contactListContactController?action=paging&page=1">Trang đầu</a>
                             </li>
                         </c:if>
                         <!-- Previous Button -->
                         <c:if test="${sessionScope.page > 1}">
                             <li class="page-item">
-                                <a class="page-link" href="/Feds/orderListBillController?action=paging&page=${sessionScope.page - 1}">Trước</a>
+                                <a class="page-link" href="/Feds/contactListContactController?action=paging&page=${sessionScope.page - 1}">Trước</a>
                             </li>
                         </c:if>
                         <!-- Page Numbers Logic -->
@@ -253,7 +234,7 @@
                         </c:choose>
                         <c:forEach var="i" begin="${start}" end="${end}">
                             <li class="page-item ${i == sessionScope.page ? 'active' : ''}">
-                                <a class="page-link" href="/Feds/orderListBillController?action=paging&page=${i}">
+                                <a class="page-link" href="/Feds/contactListContactController?action=paging&page=${i}">
                                     <button type="button" class="btn btn-primary btn-sm1">${i}</button>
                                 </a>
                             </li>
@@ -261,13 +242,13 @@
                         <!-- Next Button -->
                         <c:if test="${sessionScope.page < totalPages}">
                             <li class="page-item">
-                                <a class="page-link" href="/Feds/orderListBillController?action=paging&page=${sessionScope.page + 1}">Sau</a>
+                                <a class="page-link" href="/Feds/contactListContactController?action=paging&page=${sessionScope.page + 1}">Sau</a>
                             </li>
                         </c:if>
                         <!-- Last Button -->
                         <c:if test="${sessionScope.page < totalPages}">
                             <li class="page-item">
-                                <a class="page-link" href="/Feds/orderListBillController?action=paging&page=${totalPages}">Trang cuối</a>
+                                <a class="page-link" href="/Feds/contactListContactController?action=paging&page=${totalPages}">Trang cuối</a>
                             </li>
                         </c:if>
                     </ul>
@@ -344,6 +325,44 @@
             return i;
         }
     </script>
+    <script>
+    function openEmailDialog(email, subject) {
+        // Hiển thị dialog box
+        $('#emailModal').modal('show');
+
+        // Đổ dữ liệu vào modal
+        document.getElementById('email').innerHTML = email;
+        document.getElementById('subject').value = "Reply " + subject;
+    }
+</script>
+<!-- Modal -->
+<div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="emailModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="emailModalLabel">Gửi Email</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Gửi email tới: <span id="email"></span></p>
+                <div class="mb-3">
+                    <label for="subject" class="form-label">Chủ đề</label>
+                    <input type="text" class="form-control" id="subject">
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Nội dung</label>
+                    <textarea class="form-control" id="message" rows="5"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary">Gửi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 </body>
 
 </html>

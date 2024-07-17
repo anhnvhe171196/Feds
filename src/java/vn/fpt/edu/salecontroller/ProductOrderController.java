@@ -64,12 +64,15 @@ public class ProductOrderController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-
+        
         String action = request.getParameter("action");
         PrintWriter out = response.getWriter();
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         String startdate = request.getParameter("startdate");
         String enddate = request.getParameter("enddate");
+        
+        
+        
         Product_DAO pd = new Product_DAO();
         List<Product> productSellingList = pd.getSellingProduct(startdate, enddate, quantity);
 
