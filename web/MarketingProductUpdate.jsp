@@ -154,296 +154,298 @@
                     </div>
                 </nav>
             </div>
-            <!-- Sidebar End -->
+        </div>
+
+        <!-- Sidebar End -->
 
 
-            <!-- Content Start -->
-            <div class="content">
-                <!-- Navbar Start -->
-                <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                    <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                        <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
-                    </a>
-                    <a href="#" class="sidebar-toggler flex-shrink-0">
-                        <i class="fa fa-bars"></i>
-                    </a>
-                    <form class="d-none d-md-flex ms-4" action="marketingProductList" method="get"> 
-                        <input class="form-control border-0" type="search" placeholder="Search" name="search">&nbsp;&nbsp;&nbsp;
-                        <button type="submit" class="btn btn-primary" >Enter</button> 
-                    </form> 
-                    <div class="navbar-nav align-items-center ms-auto">
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <i class="fa fa-envelope me-lg-2"></i>
-                                <span class="d-none d-lg-inline-flex">Tin nhắn</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+        <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
+                </a>
+                <a href="#" class="sidebar-toggler flex-shrink-0">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <form class="d-none d-md-flex ms-4" action="marketingProductList" method="get"> 
+                    <input class="form-control border-0" type="search" placeholder="Search" name="search">&nbsp;&nbsp;&nbsp;
+                    <button type="submit" class="btn btn-primary" >Enter</button> 
+                </form> 
+                <div class="navbar-nav align-items-center ms-auto">
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fa fa-envelope me-lg-2"></i>
+                            <span class="d-none d-lg-inline-flex">Tin nhắn</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
 
-                                <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item text-center">Xem tất cả tin nhắn</a>
-                            </div>
-                        </div>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <i class="fa fa-bell me-lg-2"></i>
-                                <span class="d-none d-lg-inline-flex">Thông báo</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-
-                                <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item text-center">Xem tất cả thông báo</a>
-                            </div>
-                        </div>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <img class="rounded-circle me-lg-2" src="images/${sessionScope.account.avarta}" alt="" style="width: 40px; height: 40px;">
-                                <span class="d-none d-lg-inline-flex">${sessionScope.account.user_name}</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                                <a href="userProfile" class="dropdown-item">Hồ sơ cá nhân</a>
-                                <a href="#" class="dropdown-item">Cài đặt</a>
-                                <a href="home" class="dropdown-item">Trang chủ</a>
-                                <c:choose>
-                                    <c:when test="${ not empty sessionScope.account}"><a href="${pageContext.request.contextPath}/userLogout" class="dropdown-item">Đăng xuất</a></c:when>
-                                    <c:otherwise><a href="${pageContext.request.contextPath}/login" class="dropdown-item">Đăng nhập</a></c:otherwise>
-                                </c:choose>
-                            </div>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item text-center">Xem tất cả tin nhắn</a>
                         </div>
                     </div>
-                </nav>
-                <!-- Navbar End -->
-                <div class="container-fluid pt-4 px-4">
-                    <div class="row g-4">
-                        <div class="col-sm-12">
-                            <div class="bg-light rounded h-100 p-4">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="mb-4">
-                                            <h6>Thông tin sản phẩm</h6>
-                                        </div>
-                                    </div>
-                                    <div class="col" style="display: flex; justify-content: flex-end; align-items: center;">
-                                        <div class="mb-2" style="margin-right: 10px;">
-                                            <a onclick="ProductUpdate(${product.product_id})">
-                                                <h6 class="sort-button" style="color: red;">Hoàn tác</h6>                                              
-                                            </a>
-                                        </div>
-                                        <div style="margin: 0 10px; display: flex; align-items: center;"></div>
-                                        <div class="mb-2">
-                                            <a onclick="history.back()">
-                                                <h6 class="sort-button" style="color: #009CFF;">Back</h6>                                              
-                                            </a>
-                                        </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fa fa-bell me-lg-2"></i>
+                            <span class="d-none d-lg-inline-flex">Thông báo</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item text-center">Xem tất cả thông báo</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <img class="rounded-circle me-lg-2" src="images/${sessionScope.account.avarta}" alt="" style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex">${sessionScope.account.user_name}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="userProfile" class="dropdown-item">Hồ sơ cá nhân</a>
+                            <a href="#" class="dropdown-item">Cài đặt</a>
+                            <a href="home" class="dropdown-item">Trang chủ</a>
+                            <c:choose>
+                                <c:when test="${ not empty sessionScope.account}"><a href="${pageContext.request.contextPath}/userLogout" class="dropdown-item">Đăng xuất</a></c:when>
+                                <c:otherwise><a href="${pageContext.request.contextPath}/login" class="dropdown-item">Đăng nhập</a></c:otherwise>
+                            </c:choose>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- Navbar End -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12">
+                        <div class="bg-light rounded h-100 p-4">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-4">
+                                        <h6>Thông tin sản phẩm</h6>
                                     </div>
                                 </div>
-
-                                <div class="mb-3"> 
-
-                                    <section class="py-5">
-                                        <div class="container">
-                                            <div class="row gx-5">
-                                                <aside class="col-lg-6">
-                                                    <form id="UpdateImg" action="marketingUpdateProductImage" method="post" enctype="multipart/form-data" onsubmit="return checkFileExtension()">
-                                                        <div class="border rounded-4 mb-3 d-flex justify-content-center"> 
-                                                            <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="images/${product.product_img}"/>
-                                                        </div>
-
-                                                        <input type="file" name="image" accept="image/*" id="imageMain"><br><br>
-                                                        <input type="hidden" name="product_id" value="${product.product_id}" />
-                                                        <div class="small font-italic text-muted mb-4">JPG hoặc PNG không lớn hơn 5 MB</div>
-                                                        <c:if test="${requestScope.error != null}">
-                                                            <h6 style="color: red; text-align: center; margin-bottom: 20px">${requestScope.error}</h6>
-                                                        </c:if>
-                                                        <!-- Profile picture upload button-->
-
-                                                    </form>
-                                                    <div class="row w-100">
-                                                        <dt class="col-6"><button class="btn btn-primary" type="submit" form="UpdateImg">Tải lên hình ảnh mới</button></dt>
-                                                        <dd class="col-6"><button type="submit" class="btn btn-primary" form="UpdateForm" >Enter</button></dd>
-                                                    </div>
-
-                                                </aside>
-
-                                                <main class="col-lg-6">
-                                                    <div class="ps-lg-3">
-                                                        <form id="UpdateForm" method="post" action="marketingUpdateProduct">
-                                                            <h4 class="title text-dark">
-                                                                <h6>Tên: </h6>
-                                                                <input type="text" name="product_name" value="${product.product_name}" class="form-control" />
-                                                            </h4>
-                                                            <hr/>
-                                                            <input type="hidden" name="product_id" value="${product.product_id}" class="form-control" readonly/>
-                                                            <h6>Trạng thái sản phẩm: </h6>
-                                                            <label class="switch">
-                                                                <input type="checkbox" id="Pstatus" name="Pstatus" value="active" ${product.status == 'active' ? 'checked' : ''}>
-                                                                <span class="slider round"></span>
-                                                            </label>
-                                                            <span id="status-text" class="status-text">
-                                                                ${product.status == 'active' ? 'Hoạt động' : 
-                                                                  product.status == 'pending' ? 'Đang nhập hàng' : 
-                                                                  'Bị vô hiệu hóa'}
-                                                            </span>
-                                                            <hr/>
-
-                                                            </div>
-                                                            <hr/>
-                                                            <div class="mb-3">
-                                                                <h6>Giá: </h6>
-                                                                <input type="text" name="price" value="<fmt:formatNumber value="${product.price.price}" pattern="#,##0 VND" />" class="form-control" />
-                                                            </div>
-                                                            <hr/>
-                                                            <h6>Mô tả:</h6>
-                                                            <textarea name="decription" class="form-control" style="height: 200px ; overflow: auto">${product.detail.decription}</textarea>
-                                                            <hr/>
-                                                            <a href="#" id="show-more-details">Show more Details</a>
-                                                            <hr/>
-                                                            <div class="row" id="product-details" style="display: none;">
-                                                                <div class="row w-100">
-                                                                    <dt class="col-3">Quantity</dt>
-                                                                    <dd class="col-9"><input type="text" name="quantity" value="${product.quantity}" class="form-control" /></dd>
-                                                                </div>
-                                                                <div class="row w-100">
-                                                                    <dt class="col-3">Ram</dt>
-                                                                    <dd class="col-9"><input type="text" name="ram" value="${product.detail.ram}" class="form-control" /></dd>
-                                                                </div>
-                                                                <div class="row w-100">
-                                                                    <dt class="col-3">Rom:</dt>
-                                                                    <dd class="col-9"><input type="text" name="rom" value="${product.detail.rom}" class="form-control" /></dd>
-                                                                </div>
-                                                                <div class="row w-100">
-                                                                    <dt class="col-3">Size:</dt>
-                                                                    <dd class="col-9"><input type="text" name="size" value="${product.detail.size}" class="form-control" /></dd>
-                                                                </div>
-                                                                <div class="row w-100">
-                                                                    <dt class="col-3">Battery:</dt>
-                                                                    <dd class="col-9"><input type="text" name="battery" value="${product.detail.battery}" class="form-control" /></dd>
-                                                                </div>
-                                                                <div class="row w-100">
-                                                                    <dt class="col-3">Weight:</dt>
-                                                                    <dd class="col-9"><input type="text" name="weight" value="${product.detail.weight}" class="form-control" /></dd>
-                                                                </div>
-                                                                <div class="row w-100">
-                                                                    <dt class="col-3">Color:</dt>
-                                                                    <dd class="col-9"><input type="text" name="color" value="${product.detail.color}" class="form-control" /></dd>
-                                                                </div>
-                                                                <div class="row w-100">
-                                                                    <dt class="col-3">CPU:</dt>
-                                                                    <dd class="col-9"><input type="text" name="cpu" value="${product.detail.cpu}" class="form-control" /></dd>
-                                                                </div>
-                                                                <div class="row w-100">
-                                                                    <dt class="col-3">Wattage:</dt>
-                                                                    <dd class="col-9"><input type="text" name="wattage" value="${product.detail.wattage}" class="form-control" /></dd>
-                                                                </div>
-                                                                <div class="row w-100">
-                                                                    <dt class="col-3">Status:</dt>
-                                                                    <dd class="col-9"><input type="text" name="status" value="${product.detail.status}" class="form-control" /></dd>
-                                                                </div>
-                                                                <div class="row w-100">
-                                                                    <dt class="col-3">Date start:</dt>
-                                                                    <dd class="col-9"><input type="date" name="dateStart" value="${product.price.dateStart}" class="form-control" /></dd>
-                                                                </div>
-                                                                <div class="row w-100">
-                                                                    <dt class="col-3">Date End:</dt>
-                                                                    <dd class="col-9"><input type="date" name="dateEnd" value="${product.price.dateEnd}" class="form-control" /></dd>
-                                                                </div>
-                                                                <div class="row w-100">
-                                                                    <dt class="col-3">Sale:</dt>
-                                                                    <dd class="col-9"><input type="text" name="sale" value="${product.price.sale}" class="form-control" /></dd>
-                                                                </div>
-                                                                <input type="text" name="product_img" value="${product.product_img}" class="form-control" style="display: none" readonly/>
-                                                                <hr/>
-                                                            </div>
-                                                        </form> 
-                                                    </div>
-                                                </main>
-
-                                            </div>
-                                        </div>
-                                    </section>
-
-
-                                    <!-- content -->
-
+                                <div class="col" style="display: flex; justify-content: flex-end; align-items: center;">
+                                    <div class="mb-2" style="margin-right: 10px;">
+                                        <a onclick="ProductUpdate(${product.product_id})">
+                                            <h6 class="sort-button" style="color: red;">Hoàn tác</h6>                                              
+                                        </a>
+                                    </div>
+                                    <div style="margin: 0 10px; display: flex; align-items: center;"></div>
+                                    <div class="mb-2">
+                                        <a onclick="history.back()">
+                                            <h6 class="sort-button" style="color: #009CFF;">Back</h6>                                              
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
+                            <div class="mb-3"> 
+
+                                <section class="py-5">
+                                    <div class="container">
+                                        <div class="row gx-5">
+                                            <aside class="col-lg-6">
+                                                <form id="UpdateImg" action="marketingUpdateProductImage" method="post" enctype="multipart/form-data" onsubmit="return checkFileExtension()">
+                                                    <div class="border rounded-4 mb-3 d-flex justify-content-center"> 
+                                                        <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="images/${product.product_img}"/>
+                                                    </div>
+
+                                                    <input type="file" name="image" accept="image/*" id="imageMain"><br><br>
+                                                    <input type="hidden" name="product_id" value="${product.product_id}" />
+                                                    <div class="small font-italic text-muted mb-4">JPG hoặc PNG không lớn hơn 5 MB</div>
+                                                    <c:if test="${requestScope.error != null}">
+                                                        <h6 style="color: red; text-align: center; margin-bottom: 20px">${requestScope.error}</h6>
+                                                    </c:if>
+                                                    <!-- Profile picture upload button-->
+
+                                                </form>
+                                                <div class="row w-100">
+                                                    <dt class="col-6"><button class="btn btn-primary" type="submit" form="UpdateImg">Tải lên hình ảnh mới</button></dt>
+                                                    <dd class="col-6"><button type="submit" class="btn btn-primary" form="UpdateForm" >Enter</button></dd>
+                                                </div>
+
+                                            </aside>
+
+                                            <main class="col-lg-6">
+                                                <div class="ps-lg-3">
+                                                    <form id="UpdateForm" method="post" action="marketingUpdateProduct">
+                                                        <h4 class="title text-dark">
+                                                            <h6>Tên: </h6>
+                                                            <input type="text" name="product_name" value="${product.product_name}" class="form-control" />
+                                                        </h4>
+                                                        <hr/>
+                                                        <input type="hidden" name="product_id" value="${product.product_id}" class="form-control" readonly/>
+                                                        <h6>Trạng thái sản phẩm: </h6>
+                                                        <label class="switch">
+                                                            <input type="checkbox" id="Pstatus" name="Pstatus" value="active" ${product.status == 'active' ? 'checked' : ''}>
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                        <span id="status-text" class="status-text">
+                                                            ${product.status == 'active' ? 'Hoạt động' : 
+                                                              product.status == 'pending' ? 'Đang nhập hàng' : 
+                                                              'Bị vô hiệu hóa'}
+                                                        </span>
+                                                        <hr/>
+
+                                                </div>
+                                                <hr/>
+                                                <div class="mb-3">
+                                                    <h6>Giá: </h6>
+                                                    <input type="text" name="price" value="<fmt:formatNumber value="${product.price.price}" pattern="#,##0 VND" />" class="form-control" />
+                                                </div>
+                                                <hr/>
+                                                <h6>Mô tả:</h6>
+                                                <textarea name="decription" class="form-control" style="height: 200px ; overflow: auto">${product.detail.decription}</textarea>
+                                                <hr/>
+                                                <a href="#" id="show-more-details">Show more Details</a>
+                                                <hr/>
+                                                <div class="row" id="product-details" style="display: none;">
+                                                    <div class="row w-100">
+                                                        <dt class="col-3">Quantity</dt>
+                                                        <dd class="col-9"><input type="text" name="quantity" value="${product.quantity}" class="form-control" /></dd>
+                                                    </div>
+                                                    <div class="row w-100">
+                                                        <dt class="col-3">Ram</dt>
+                                                        <dd class="col-9"><input type="text" name="ram" value="${product.detail.ram}" class="form-control" /></dd>
+                                                    </div>
+                                                    <div class="row w-100">
+                                                        <dt class="col-3">Rom:</dt>
+                                                        <dd class="col-9"><input type="text" name="rom" value="${product.detail.rom}" class="form-control" /></dd>
+                                                    </div>
+                                                    <div class="row w-100">
+                                                        <dt class="col-3">Size:</dt>
+                                                        <dd class="col-9"><input type="text" name="size" value="${product.detail.size}" class="form-control" /></dd>
+                                                    </div>
+                                                    <div class="row w-100">
+                                                        <dt class="col-3">Battery:</dt>
+                                                        <dd class="col-9"><input type="text" name="battery" value="${product.detail.battery}" class="form-control" /></dd>
+                                                    </div>
+                                                    <div class="row w-100">
+                                                        <dt class="col-3">Weight:</dt>
+                                                        <dd class="col-9"><input type="text" name="weight" value="${product.detail.weight}" class="form-control" /></dd>
+                                                    </div>
+                                                    <div class="row w-100">
+                                                        <dt class="col-3">Color:</dt>
+                                                        <dd class="col-9"><input type="text" name="color" value="${product.detail.color}" class="form-control" /></dd>
+                                                    </div>
+                                                    <div class="row w-100">
+                                                        <dt class="col-3">CPU:</dt>
+                                                        <dd class="col-9"><input type="text" name="cpu" value="${product.detail.cpu}" class="form-control" /></dd>
+                                                    </div>
+                                                    <div class="row w-100">
+                                                        <dt class="col-3">Wattage:</dt>
+                                                        <dd class="col-9"><input type="text" name="wattage" value="${product.detail.wattage}" class="form-control" /></dd>
+                                                    </div>
+                                                    <div class="row w-100">
+                                                        <dt class="col-3">Status:</dt>
+                                                        <dd class="col-9"><input type="text" name="status" value="${product.detail.status}" class="form-control" /></dd>
+                                                    </div>
+                                                    <div class="row w-100">
+                                                        <dt class="col-3">Date start:</dt>
+                                                        <dd class="col-9"><input type="date" name="dateStart" value="${product.price.dateStart}" class="form-control" /></dd>
+                                                    </div>
+                                                    <div class="row w-100">
+                                                        <dt class="col-3">Date End:</dt>
+                                                        <dd class="col-9"><input type="date" name="dateEnd" value="${product.price.dateEnd}" class="form-control" /></dd>
+                                                    </div>
+                                                    <div class="row w-100">
+                                                        <dt class="col-3">Sale:</dt>
+                                                        <dd class="col-9"><input type="text" name="sale" value="${product.price.sale}" class="form-control" /></dd>
+                                                    </div>
+                                                    <input type="text" name="product_img" value="${product.product_img}" class="form-control" style="display: none" readonly/>
+                                                    <hr/>
+                                                </div>
+                                                </form> 
+                                        </div>
+                                        </main>
+
+                                    </div>
+                            </div>
+                            </section>
+
+
+                            <!-- content -->
+
+                        </div>
                     </div>
                 </div>
 
-
-
-                <!-- Back to Top -->
-                <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
             </div>
+        </div>
 
 
 
-            <!-- JavaScript Libraries -->
-            <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-            <script src="OPlib/chart/chart.min.js"></script>
-            <script src="OPlib/easing/easing.min.js"></script>
-            <script src="OPlib/waypoints/waypoints.min.js"></script>
-            <script src="OPlib/owlcarousel/owl.carousel.min.js"></script>
-            <script src="OPlib/tempusdominus/js/moment.min.js"></script>
-            <script src="OPlib/tempusdominus/js/moment-timezone.min.js"></script>
-            <script src="OPlib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
-            <!-- Template Javascript -->
-            <script src="js/main.js"></script>
-            <script>
-                                                        $('.sidebar-toggler').click(function () {
-                                                            $('.sidebar, .content').toggleClass("open");
-                                                            return false;
-                                                        });
-            </script>
-            <script>
-                const detailsDiv = document.getElementById("product-details");
-                const showMoreButton = document.getElementById("show-more-details");
-
-                showMoreButton.addEventListener("click", function () {
-                    if (detailsDiv.style.display === "none") {
-                        detailsDiv.style.display = "block";
-                        showMoreButton.textContent = "Hide Details"; // Thay đổi nội dung nút
-                    } else {
-                        detailsDiv.style.display = "none";
-                        showMoreButton.textContent = "Show more Details"; // Thay đổi nội dung nút
-                    }
-                });
-                function checkFileExtension() {
-                    var fileInput = document.getElementById('imageMain');
-                    var filePath = fileInput.value;
-                    var allowedExtensions = /(\.jsp|\.png|\.jpg)$/i;
-                    if (!allowedExtensions.exec(filePath)) {
-                        alert('Vui lòng chọn một tệp có phần mở rộng là .jsp,.png hoặc .jpg');
-                        fileInput.value = '';
-                        return false;
-                    }
-                }
-                function ProductUpdate(id) {
-                    if (confirm("Bạn có chắc muốn hoàn tác? Mọi thao tác của bạn sẽ không được lưu.")) {
-                        // Nếu người dùng click "OK", chuyển hướng
-                        let url = "marketingProductDetails?id=" + id;
-                        window.location.href = url;
-                    } else {
-                        // Nếu người dùng click "Cancel", không làm gì cả
-                        // (Hoặc bạn có thể thêm code để xử lý hành động khác)
-                    }
-                }
-
-                // Update the hidden input based on the checkbox state
-                document.getElementById('Pstatus').addEventListener('change', function () {
-                    this.value = this.checked ? 'active' : 'Deleted';
-                    document.getElementById('status-text').innerText = this.checked ? 'Hoạt động' : 'Bị vô hiệu hóa';
-                });
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
 
 
 
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="OPlib/chart/chart.min.js"></script>
+    <script src="OPlib/easing/easing.min.js"></script>
+    <script src="OPlib/waypoints/waypoints.min.js"></script>
+    <script src="OPlib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="OPlib/tempusdominus/js/moment.min.js"></script>
+    <script src="OPlib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="OPlib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
-            </script>
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+    <script>
+                                                $('.sidebar-toggler').click(function () {
+                                                    $('.sidebar, .content').toggleClass("open");
+                                                    return false;
+                                                });
+    </script>
+    <script>
+        const detailsDiv = document.getElementById("product-details");
+        const showMoreButton = document.getElementById("show-more-details");
+
+        showMoreButton.addEventListener("click", function () {
+            if (detailsDiv.style.display === "none") {
+                detailsDiv.style.display = "block";
+                showMoreButton.textContent = "Hide Details"; // Thay đổi nội dung nút
+            } else {
+                detailsDiv.style.display = "none";
+                showMoreButton.textContent = "Show more Details"; // Thay đổi nội dung nút
+            }
+        });
+        function checkFileExtension() {
+            var fileInput = document.getElementById('imageMain');
+            var filePath = fileInput.value;
+            var allowedExtensions = /(\.jsp|\.png|\.jpg)$/i;
+            if (!allowedExtensions.exec(filePath)) {
+                alert('Vui lòng chọn một tệp có phần mở rộng là .jsp,.png hoặc .jpg');
+                fileInput.value = '';
+                return false;
+            }
+        }
+        function ProductUpdate(id) {
+            if (confirm("Bạn có chắc muốn hoàn tác? Mọi thao tác của bạn sẽ không được lưu.")) {
+                // Nếu người dùng click "OK", chuyển hướng
+                let url = "marketingProductDetails?id=" + id;
+                window.location.href = url;
+            } else {
+                // Nếu người dùng click "Cancel", không làm gì cả
+                // (Hoặc bạn có thể thêm code để xử lý hành động khác)
+            }
+        }
+
+        // Update the hidden input based on the checkbox state
+        document.getElementById('Pstatus').addEventListener('change', function () {
+            this.value = this.checked ? 'active' : 'Deleted';
+            document.getElementById('status-text').innerText = this.checked ? 'Hoạt động' : 'Bị vô hiệu hóa';
+        });
 
 
 
-    </body>
+
+    </script>
+
+
+
+</body>
 </html>

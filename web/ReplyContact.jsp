@@ -190,7 +190,7 @@
                                         <td>
                                             <button type="button" class="btn btn-sm btn-primary" onclick="openEmailDialog('${list.email}', '${list.suject}', '${list.message}')">Gửi Email</button>
                                         </td>
-                                       
+
                                     </tr>
                                 </c:forEach>
 
@@ -296,71 +296,71 @@
     <script src="js/mainsale.js"></script>
 
     <script>
-        function time() {
-            var today = new Date();
-            var weekday = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
-            var day = weekday[today.getDay()];
-            var dd = today.getDate();
-            var mm = today.getMonth() + 1;
-            var yyyy = today.getFullYear();
-            var h = today.getHours();
-            var m = today.getMinutes();
-            var s = today.getSeconds();
-            m = checkTime(m);
-            s = checkTime(s);
-            var nowTime = h + " giờ " + m + " phút " + s + " giây";
-            if (dd < 10)
-                dd = '0' + dd;
-            if (mm < 10)
-                mm = '0' + mm;
-            var todayString = day + ', ' + dd + '/' + mm + '/' + yyyy;
-            var tmp = '<span class="date"> ' + todayString + ' - ' + nowTime + '</span>';
-            document.getElementById("clock").innerHTML = tmp;
-            setTimeout(time, 1000);
-        }
+                                                function time() {
+                                                    var today = new Date();
+                                                    var weekday = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
+                                                    var day = weekday[today.getDay()];
+                                                    var dd = today.getDate();
+                                                    var mm = today.getMonth() + 1;
+                                                    var yyyy = today.getFullYear();
+                                                    var h = today.getHours();
+                                                    var m = today.getMinutes();
+                                                    var s = today.getSeconds();
+                                                    m = checkTime(m);
+                                                    s = checkTime(s);
+                                                    var nowTime = h + " giờ " + m + " phút " + s + " giây";
+                                                    if (dd < 10)
+                                                        dd = '0' + dd;
+                                                    if (mm < 10)
+                                                        mm = '0' + mm;
+                                                    var todayString = day + ', ' + dd + '/' + mm + '/' + yyyy;
+                                                    var tmp = '<span class="date"> ' + todayString + ' - ' + nowTime + '</span>';
+                                                    document.getElementById("clock").innerHTML = tmp;
+                                                    setTimeout(time, 1000);
+                                                }
 
-        function checkTime(i) {
-            if (i < 10)
-                i = "0" + i;
-            return i;
-        }
+                                                function checkTime(i) {
+                                                    if (i < 10)
+                                                        i = "0" + i;
+                                                    return i;
+                                                }
     </script>
     <script>
-    function openEmailDialog(email, subject) {
-        // Hiển thị dialog box
-        $('#emailModal').modal('show');
+        function openEmailDialog(email, subject) {
+            // Hiển thị dialog box
+            $('#emailModal').modal('show');
 
-        // Đổ dữ liệu vào modal
-        document.getElementById('email').innerHTML = email;
-        document.getElementById('subject').value = "Reply " + subject;
-    }
-</script>
-<!-- Modal -->
-<div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="emailModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="emailModalLabel">Gửi Email</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Gửi email tới: <span id="email"></span></p>
-                <div class="mb-3">
-                    <label for="subject" class="form-label">Chủ đề</label>
-                    <input type="text" class="form-control" id="subject">
+            // Đổ dữ liệu vào modal
+            document.getElementById('email').innerHTML = email;
+            document.getElementById('subject').value = "Reply " + subject;
+        }
+    </script>
+    <!-- Modal -->
+    <div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="emailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="emailModalLabel">Reply Email Contact</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="mb-3">
-                    <label for="message" class="form-label">Nội dung</label>
-                    <textarea class="form-control" id="message" rows="5"></textarea>
+                <div class="modal-body">
+                    <p>Send email to: <span id="email"></span></p>
+                    <div class="mb-3">
+                        <label for="subject" class="form-label">Subject:    </label>
+                        <input type="text" class="form-control" id="subject">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message: </label>
+                        <textarea class="form-control" id="message" rows="5"></textarea>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary">Gửi</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Send</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
 </body>

@@ -143,15 +143,6 @@ public class Contact_DAO extends DBContext {
         return list;
     }
 
-    public static void main(String[] args) {
-        Contact_DAO contactDAO = new Contact_DAO();
-        int pageIndex = 1; // Assuming you want to get the first page
-        int numOfContact = 10; // Number of contacts per page
-
-        List<Contact> contacts = contactDAO.getContactAllWithUser();
-        for (Contact contact : contacts) {
-            System.out.println(contact);
-        }
-    }
+   
 
 }
