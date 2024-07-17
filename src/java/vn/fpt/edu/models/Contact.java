@@ -9,12 +9,14 @@ package vn.fpt.edu.models;
  * @author admin
  */
 public class Contact {
+    
+    private String username;
     private User user;
     private String email;
     private String suject;
     private String phone;
     private String message;
-
+    private String date;
     public Contact() {
     }
 
@@ -26,6 +28,32 @@ public class Contact {
         this.message = message;
     }
 
+    public Contact(String username, String email, String suject, String phone, String message, String date) {
+        this.username = username;
+        this.email = email;
+        this.suject = suject;
+        this.phone = phone;
+        this.message = message;
+        this.date = date;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+   
     public User getUser() {
         return user;
     }

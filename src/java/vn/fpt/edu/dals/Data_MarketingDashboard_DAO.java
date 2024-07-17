@@ -150,6 +150,35 @@ public class Data_MarketingDashboard_DAO extends DBContext {
         return productList;
     }
 
+    public List<Category> getTotalProductsByCategory() {
+        List<Category> categoriesList = new ArrayList<>();
+        String sql = "SELECT \n"
+                + "COUNT(p.product_id) AS product_count,\n"
+                + "pc.Category_name\n"
+                + " FROM Product p \n"
+                + "JOIN Product_Category pc ON pc.Category_id = (SELECT c.Category_id FROM Brandd b JOIN Product_Category c ON b.Category_id = c.Category_id WHERE b.Brand_Id = p.Brand_id) \n"
+                + "JOIN Brandd b ON p.Brand_id = b.Brand_Id \n"
+                + "GROUP BY pc.Category_name";
+
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            try (ResultSet rs = st.executeQuery()) {
+                while (rs.next()) {
+                    int productCount = rs.getInt("product_count");
+                    String Category = rs.getString("Category_name");
+
+                    Category category = new Category();
+                    category.setCategory_name(Category);
+                    category.setProductcount(productCount);
+
+                    categoriesList.add(category);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return categoriesList;
+    }
+
     public List<Product1> getAllProducts1(int index, String sortBy, String sortOrder) {
         List<Product1> productList = new ArrayList<>();
 
