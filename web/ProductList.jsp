@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="vn.fpt.edu.models.Product, java.util.ArrayList, vn.fpt.edu.models.Category, vn.fpt.edu.models.Brand" %>
+<%@page import="vn.fpt.edu.models.Product, java.util.ArrayList, java.util.HashMap, vn.fpt.edu.models.Category, vn.fpt.edu.models.Brand" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -79,7 +79,38 @@
         </style>-->
 
         <style>
-            
+            .product-img .product-label {
+                position: absolute;
+                top: 10px;
+                right: 20px;
+            }
+            .product-img .product-label>span.sale {
+                background-color: #FFF;
+                border-color: #D10024;
+                color: #D10024;
+            }
+            .product-img .product-label>span {
+                border: 2px solid;
+                padding: 2px 10px;
+                font-size: 12px;
+            }
+            .product-img .product-label>span.new {
+                background-color: #D10024;
+                border-color: #D10024;
+                color: #FFF;
+            }
+            .productname {
+                font-weight: bold;
+            }
+            .price {
+                color: #D10024;
+                font-weight: bold;
+            }
+            .product-old-price {
+            font-size: 70%;
+    font-weight: 400;
+    color: #8D99AE;
+    }
 .add-to-cart-btn {
   position: relative;
   border: 2px solid transparent;
@@ -240,23 +271,26 @@
                         <h3 class="aside-title">Categories</h3>
                         <div class="checkbox-filter">
                             <% String[] cateId = request.getParameterValues("cateid") == null ? new String[0] : request.getParameterValues("cateid");
-                                ArrayList<Category> cates = (ArrayList)session.getAttribute("cates");
-                                for(int i = 0; i < cates.size(); i++) {
+                                HashMap<Category, Integer> catesCount = (HashMap)session.getAttribute("catesCount");
+                                int v = 0;
+                                for(Category c : catesCount.keySet()) {
                                     boolean checked = false;
                                     for(int j = 0; j < cateId.length; j++) {
-                                        if(String.valueOf(cates.get(i).getCategory_id()).equals(cateId[j])) {
+                                        if(String.valueOf(c.getCategory_id()).equals(cateId[j])) {
                                             checked = true;
                                         }
                                     }
                             %>
                             <div class="input-checkbox">
-                                <input type="checkbox" name="cateid" value="<%=cates.get(i).getCategory_id()%>" id="category-<%=i+1%>" <%=checked ? "checked" : ""%>>
-                                <label for="category-<%=i+1%>">
+                                <input type="checkbox" name="cateid" value="<%=c.getCategory_id()%>" id="category-<%=v+1%>" <%=checked ? "checked" : ""%>>
+                                <label for="category-<%=v+1%>">
                                     <span></span>
-                                    <%=cates.get(i).getCategory_name()%>
+                                    <%=c.getCategory_name()%>
+                                    <small>(<%=catesCount.get(c)%>)</small>
                                 </label>
                             </div>
-                            <% } %>
+                            <% v++;
+                                } %>
                         </div>
                     </div>
                     <!-- /aside Widget -->
@@ -283,46 +317,49 @@
                         <h3 class="aside-title">Brand</h3>
                         <div class="checkbox-filter">
                             <%  String[] brandId = request.getParameterValues("brandid") == null ? new String[0] : request.getParameterValues("brandid");
-                                ArrayList<Brand> brands = (ArrayList)request.getAttribute("brands");
+                                HashMap<Brand, Integer> brands = (HashMap)request.getAttribute("brands");
                                 int relatedBrand = (int)request.getAttribute("relatedBrand");
                                 int bsize = (relatedBrand == 0 ? brands.size() : relatedBrand);
                                 if(bsize > 9) {
                                     bsize = 9;
                                 }
-                                for(int i = 0; i < brands.size(); i++) { //Giới Hạn 9 brand
+                                v = 0;
+                                for(Brand b : brands.keySet()) { //Giới Hạn 9 brand
 //                                                                    for(int i = 0; i < brands.size(); i++) { //Toàn Bộ Brand
                                     boolean checked = false;
                                     for(int j = 0; j < brandId.length; j++) {
-                                        if(String.valueOf(brands.get(i).getBrandName()).equals(brandId[j])) {
+                                        if(String.valueOf(b.getBrandName()).equals(brandId[j])) {
                                             checked = true;
                                         }
                                     }
                             %>
-                            <div class="input-checkbox <%=i > bsize ? "hidden" : ""%>" <%=i > bsize ? "type=\"hidden\"" : ""%>>
-                                <input type="checkbox" name="brandid" value="<%=brands.get(i).getBrandName()%>" id="brand-<%=i+1%>" <%=checked ? "checked" : ""%>>
-                                <label for="brand-<%=i+1%>">
+                            <div class="input-checkbox <%=v > bsize ? "hidden" : ""%>" <%=v > bsize ? "type=\"hidden\"" : ""%>>
+                                <input type="checkbox" name="brandid" value="<%=b.getBrandName()%>" id="brand-<%=v+1%>" <%=checked ? "checked" : ""%>>
+                                <label for="brand-<%=v+1%>">
                                     <span></span>
-                                    <%=brands.get(i).getBrandName()%>
+                                    <%=b.getBrandName()%>
+                                    <small>(<%=brands.get(b)%>)</small>
                                 </label>
                             </div>
-                            <% } %>
+                            <% v++;
+                                } %>
                             <%if(bsize < brands.size()) {%>
                             <div class="input-checkbox">
                                 <label onclick="show(this)">
-                                    Show More...
+                                    <strong>Show More...</strong>
                                 </label>
                             </div>
                             <script>
                                 function show(label) {
                                     if(label.innerHTML.includes("Show More...")) {
-                                        label.innerHTML = "Show Less";
+                                        label.innerHTML = "<strong>Show Less</strong>";
                                         let hiddens = document.querySelectorAll("div[type=hidden]");
                                         for(let i = 0; i < hiddens.length; i++) {
                                             hiddens[i].className = "input-checkbox";
                                             hiddens[i].setAttribute("type", "unhidden");
                                         }
                                     } else {
-                                        label.innerHTML = "Show More...";
+                                        label.innerHTML = "<strong>Show More...</strong>";
                                         let hiddens = document.querySelectorAll("div[type=unhidden]");
                                         for(let i = 0; i < hiddens.length; i++) {
                                             hiddens[i].className = "input-checkbox hidden";
@@ -343,40 +380,48 @@
                     <div class="aside">
                         <h3 class="aside-title">NEW PRODUCTS</h3>
                         <% ArrayList<Product> newProd = (ArrayList)request.getAttribute("newProduct");%>
-                        <div>
                             <%for(int i = 0; i < newProd.size(); i++) {
                                 Product p = newProd.get(i);
                             %>
-                            <div style="border: 1px solid #ddd; margin-bottom: 5px; height:  75px">
-                                <a href="product?pid=<%=p.getProduct_id()%>" target="_blank">
-                                    <img src="images/<%=p.getProduct_img()%>" alt="Product" style="max-height: 75px; max-width: 75px">
-                                    
-                                    <span class="productname"><%=p.getProduct_name().length() > 20 ? p.getProduct_name().substring(0, 17) + "..." : p.getProduct_name()%></span>
-                                    <span style="position: absolute; left: 33%; color: gray; margin-top: 40px;"><%=p.getPriceString()%></span>
-                                </a>
-                            </div>
+                        <div class="product-widget">
+								<div class="product-img">
+									<img src="images/<%=p.getProduct_img()%>" alt="">
+								</div>
+								<div class="product-body">
+									<p class="product-category"><%=p.getCategory_name()%></p>
+									<h3 class="product-name"><a href="product?pid=<%=p.getProduct_id()%>"  target="_blank"><%=p.getProduct_name().length() > 20 ? p.getProduct_name().substring(0, 17) + "..." : p.getProduct_name()%></a></h3>
+                                                                        <%if(p.getSale() != 0) {%>
+									<h4 class="product-price"><%=p.getSalePriceString()%> <del class="product-old-price"><%=p.getPriceString()%></del></h4>
+                                                                        <% } else {%>
+                                                                        <h4 class="product-price"><%=p.getPriceString()%></h4>
+                                                                        <% } %>
+								</div>
+							</div>
                             <% } %>
-                        </div>
                     </div>
                     <!-- /aside Widget -->
                     <!-- aside Widget -->
                     <div class="aside">
                         <h3 class="aside-title">POPULAR PRODUCTS</h3>
                         <% ArrayList<Product> PopProd = (ArrayList)request.getAttribute("PopProduct");%>
-                        <div>
-                            <%for(int i = 0; i < PopProd.size(); i++) {
+                        <%for(int i = 0; i < PopProd.size(); i++) {
                                 Product p = PopProd.get(i);
                             %>
-                            <div style="border: 1px solid #ddd; margin-bottom: 5px; height:  75px">
-                                <a href="product?pid=<%=p.getProduct_id()%>" target="_blank">
-                                    <img src="images/<%=p.getProduct_img()%>" alt="Product" style="max-height: 75px; max-width: 75px">
-                                    
-                                    <span class="productname"><%=p.getProduct_name().length() > 20 ? p.getProduct_name().substring(0, 17) + "..." : p.getProduct_name()%></span>
-                                    <span style="position: absolute; left: 33%; color: gray; margin-top: 40px;"><%=p.getPriceString()%></span>
-                                </a>
-                            </div>
+                        <div class="product-widget">
+								<div class="product-img">
+									<img src="images/<%=p.getProduct_img()%>" alt="">
+								</div>
+								<div class="product-body">
+									<p class="product-category"><%=p.getCategory_name()%></p>
+									<h3 class="product-name"><a href="product?pid=<%=p.getProduct_id()%>"  target="_blank"><%=p.getProduct_name().length() > 20 ? p.getProduct_name().substring(0, 17) + "..." : p.getProduct_name()%></a></h3>
+									<%if(p.getSale() != 0) {%>
+									<h4 class="product-price"><%=p.getSalePriceString()%> <del class="product-old-price"><%=p.getPriceString()%></del></h4>
+                                                                        <% } else {%>
+                                                                        <h4 class="product-price"><%=p.getPriceString()%></h4>
+                                                                        <% } %>
+								</div>
+							</div>
                             <% } %>
-                        </div>
                     </div>
                     <!-- /aside Widget -->
                 </div>
@@ -487,6 +532,11 @@
                                     <div class="product-img" >
                                     <img  src="images/<%=product.getProduct_img()%>" alt="Product"
                                          style="height: 150px; max-width: 180px">
+                                    <%if(product.getSale() != 0) {%>
+                                    <div class="product-label">
+											<span class="sale">-<%=product.getSale()%>%</span>
+										</div>
+                                    <% } %>
                                     </div>
                                     <%
                                     String prodName = product.getProduct_name();
@@ -508,7 +558,12 @@
                                 <p class="productinfo"><%=description%>
                                 </p>
                                 <p class="price">
+                                    <%if(product.getSale() != 0) {%>
+                                    <%=product.getSalePriceString()%>
+                                    <del class="product-old-price"><%=product.getPriceString()%></del>
+                                    <% } else { %>
                                     <%=product.getPriceString()%>
+                                    <% } %>
                                 </p>
                                 <!--<form action="productListAddToCart" method="get">
                                     <input type="text" hidden="" name="max" value="2000000">
@@ -545,26 +600,23 @@
                                             </script>
                     </div>
                     <div class="_JmL__">
-                        <nav aria-label="" class="shopee-page-controller" role="navigation">
-                            <a aria-disabled="true" aria-label="" class="shopee-icon-button shopee-icon-button--left <%=p == 1 ? "shopee-icon-button--disabled" : ""%>" href="ListProduct?<%=search != null ? "search="+search+"&" : ""%><%for(int i =0; i < cateId.length; i++) {%><%="cateid="+cateId[i]+"&"%><%}%><%for(int i =0; i < brandId.length; i++) {%><%="brandid="+brandId[i]+"&"%><%}%><%=min != null ? "min="+min+"&" : ""%><%=maxp != null ? "max="+maxp+"&" : ""%>page=<%=p-1%>">
-                                <svg enable-background="new 0 0 11 11" viewBox="0 0 11 11" x="0" y="0" class="shopee-svg-icon icon-arrow-left">
-                                <g>
-                                <path d="m8.5 11c-.1 0-.2 0-.3-.1l-6-5c-.1-.1-.2-.3-.2-.4s.1-.3.2-.4l6-5c .2-.2.5-.1.7.1s.1.5-.1.7l-5.5 4.6 5.5 4.6c.2.2.2.5.1.7-.1.1-.3.2-.4.2z"></path>
-                                </g>
-                                </svg>
-                            </a>
-                            <%for(int i = (p - 2 > 1 ? p - 2 : 1); i <= (p - 2 > 1 ? (max > p+3 ? p+3 : max) : (max > 5 ? 5 : max)); i++) {%>
-                            <a aria-label="" <%= i == p ? "class=\"shopee-button-solid shopee-button-solid--primary\"" : "class=\"shopee-button-no-outline\""%> href="ListProduct?<%=search  != null ? "search="+search +"&" : ""%><%for(int k =0; k < cateId.length; k++) {%><%="cateid="+cateId[k]+"&"%><%}%><%for(int k =0; k < brandId.length; k++) {%><%="brandid="+brandId[k]+"&"%><%}%><%=min != null ? "min="+min+"&" : ""%><%=maxp != null ? "max="+maxp+"&" : ""%>page=<%=i%>" <%= i == p ? "style=\"background-color: rgb(238, 77, 45);\"" : ""%>><%=i%></a>
-                            <% } %>
-                            <%if(max > 5) {%> 
-                            <a class="shopee-button-no-outline shopee-button-no-outline--non-click">...</a>
-                            <% }%>
-                            <a aria-disabled="false" aria-label="" class="shopee-icon-button shopee-icon-button--right <%=p == max ? "shopee-icon-button--disabled" : ""%>" href="ListProduct?<%=search  != null ? "search="+search +"&" : ""%><%for(int i =0; i < cateId.length; i++) {%><%="cateid="+cateId[i]+"&"%><%}%><%for(int i =0; i < brandId.length; i++) {%><%="brandid="+brandId[i]+"&"%><%}%><%=min != null ? "min="+min+"&" : ""%><%=maxp != null ? "max="+maxp+"&" : ""%>page=<%=p+1%>">
-                                <svg enable-background="new 0 0 11 11" viewBox="0 0 11 11" x="0" y="0" class="shopee-svg-icon icon-arrow-right">
-                                <path d="m2.5 11c .1 0 .2 0 .3-.1l6-5c .1-.1.2-.3.2-.4s-.1-.3-.2-.4l-6-5c-.2-.2-.5-.1-.7.1s-.1.5.1.7l5.5 4.6-5.5 4.6c-.2.2-.2.5-.1.7.1.1.3.2.4.2z"></path>
-                                </svg>
-                            </a>
-                        </nav>
+                        <div class="store-filter clearfix">
+							<span class="store-qty">Showing <%=((p - 1) * 15)+1%>-<%=((p - 1) * 15)+products.size()%> products</span>
+							<ul class="store-pagination">
+                                                            <%if(p != 1) {%>
+                                                                <li><a href="ListProduct?<%=search != null ? "search="+search+"&" : ""%><%for(int i =0; i < cateId.length; i++) {%><%="cateid="+cateId[i]+"&"%><%}%><%for(int i =0; i < brandId.length; i++) {%><%="brandid="+brandId[i]+"&"%><%}%><%=min != null ? "min="+min+"&" : ""%><%=maxp != null ? "max="+maxp+"&" : ""%>page=<%=p-1%>"><i class="fa fa-angle-left"></i></a></li>
+                                                            <% } %>
+                                                                <%for(int i = (p - 2 > 1 ? p - 2 : 1); i <= (p - 2 > 1 ? (max > p+2 ? p+2 : max) : (max > 5 ? 5 : max)); i++) {%>
+								<% if(p == i) {%>
+                                                                <li class="active"><%=i%></li>
+                                                                <% } else {%>
+								<li><a href="ListProduct?<%=search  != null ? "search="+search +"&" : ""%><%for(int k =0; k < cateId.length; k++) {%><%="cateid="+cateId[k]+"&"%><%}%><%for(int k =0; k < brandId.length; k++) {%><%="brandid="+brandId[k]+"&"%><%}%><%=min != null ? "min="+min+"&" : ""%><%=maxp != null ? "max="+maxp+"&" : ""%>page=<%=i%>"><%=i%></a></li>
+                                                                <% }} %>
+                                                                <%if(p != max) {%>
+								<li><a href="ListProduct?<%=search  != null ? "search="+search +"&" : ""%><%for(int i =0; i < cateId.length; i++) {%><%="cateid="+cateId[i]+"&"%><%}%><%for(int i =0; i < brandId.length; i++) {%><%="brandid="+brandId[i]+"&"%><%}%><%=min != null ? "min="+min+"&" : ""%><%=maxp != null ? "max="+maxp+"&" : ""%>page=<%=p+1%>"><i class="fa fa-angle-right"></i></a></li>
+                                                                <% } %>
+							</ul>
+						</div>
                     </div>
                 </div>
             </div>

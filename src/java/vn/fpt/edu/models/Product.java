@@ -25,11 +25,12 @@ public class Product {
     private float Price;
     private String Size;
     private ProductDetail Productdetail;
+    private int sale;
 
     public Product() {
     }
 
-    public Product(int Product_id, int Quantity, String Product_name, String Product_img, int User_Id, int Brand_id, String Category_name, String Description, float Price, String Size, ProductDetail Productdetail) {
+    public Product(int Product_id, int Quantity, String Product_name, String Product_img, int User_Id, int Brand_id, String Category_name, String Description, float Price, String Size, ProductDetail Productdetail, int sale) {
         this.Product_id = Product_id;
         this.Quantity = Quantity;
         this.Product_name = Product_name;
@@ -41,6 +42,15 @@ public class Product {
         this.Price = Price;
         this.Size = Size;
         this.Productdetail = Productdetail;
+        this.sale = sale;
+    }
+
+    public int getSale() {
+        return sale;
+    }
+
+    public void setSale(int sale) {
+        this.sale = sale;
     }
 
     public ProductDetail getProductdetail() {
@@ -119,6 +129,16 @@ public class Product {
         return Price;
     }
 
+    public String getSalePriceString() {
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.getDefault());
+        symbols.setGroupingSeparator('.');
+        decimalFormat.setDecimalFormatSymbols(symbols);
+        String formattedNumber = decimalFormat.format(Price - (int)(Price * ((float)sale / (float)100)));
+        String result = formattedNumber + "đ";
+        return result;
+    }
+    
     public String getPriceString() {
         DecimalFormat decimalFormat = new DecimalFormat("#,###");
         DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.getDefault());
