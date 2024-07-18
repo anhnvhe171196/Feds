@@ -39,7 +39,7 @@ public class Cart {
     public List<Item> getItems() {
         return items;
     }
-
+    
     public int getQuantityById(int id, int userId) { 
         return getItemById(id, userId).getQuantity();
     }
@@ -60,6 +60,7 @@ public class Cart {
         } else { 
             items.add(t);
         }
+        
     }
     
     public void removeItem(int userId, int id) {

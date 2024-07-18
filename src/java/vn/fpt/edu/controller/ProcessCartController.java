@@ -119,7 +119,10 @@ public class ProcessCartController extends HttpServlet {
         if (items.size() > 0) {
             txt = items.get(0).getUserID() + ":" + items.get(0).getProduct().getProduct_id() + ":" + items.get(0).getQuantity() + ":" + items.get(0).getPrice();
             for (int i = 1; i < items.size(); i++) {
-                txt += "/" + items.get(i).getUserID() + ":" + items.get(i).getProduct().getProduct_id() + ":" + items.get(i).getQuantity() + ":" + items.get(i).getPrice();
+                if(items.get(i).getUserID() == userId) {
+                    txt += "/" + items.get(i).getUserID() + ":" + items.get(i).getProduct().getProduct_id() + ":" + items.get(i).getQuantity() + ":" + items.get(i).getPrice();
+                }
+                
             }
         }
         Cookie c = new Cookie("cart", txt);
@@ -127,7 +130,7 @@ public class ProcessCartController extends HttpServlet {
         response.addCookie(c);
         
         request.setAttribute("cart", cart);
-        request.getRequestDispatcher("CartDetail.jsp").forward(request, response);
+        response.sendRedirect("cart");
     }
 
     /**

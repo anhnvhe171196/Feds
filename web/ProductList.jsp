@@ -529,7 +529,7 @@
                                             <script>
                                                 function AddToCart(id) {
                                                     setTimeout(async () => {
-                                    const resp = await fetch("addToCart", {
+                                    const resp = await fetch("addtoCartProductListController", {
         method: 'POST',
         headers: {
             Accept: 'application/json',
