@@ -60,6 +60,9 @@ public class UserLoginController extends HttpServlet {
             } else if (u.getRole().getId() == 3) 
             {
                 response.sendRedirect("/Feds/saleDashboard");
+            } else if (u.getRole().getId() == 4) 
+            {
+                response.sendRedirect("/Feds/marketingDashBoard");
             } else {
                 response.sendRedirect("home");
             }
