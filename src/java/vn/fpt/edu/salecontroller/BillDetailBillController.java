@@ -76,7 +76,7 @@ public class BillDetailBillController extends HttpServlet {
             request.getRequestDispatcher("OrderDetail.jsp").forward(request, response);
         } else if (action.equals("search")) {
             
-            String value = request.getParameter("value");
+            String value = request.getParameter("value").trim();
             if(value == null){ 
             int id = Integer.parseInt(request.getParameter("id"));
             BillOrder_DAO bod = new BillOrder_DAO();
