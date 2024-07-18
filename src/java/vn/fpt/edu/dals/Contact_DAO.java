@@ -186,13 +186,12 @@ public class Contact_DAO extends DBContext {
         }
     }
 
-<<<<<<< HEAD
+
     
 
 }
-=======
-}
 
 
 
->>>>>>> a5b35de328a418bea350dc0086d2bd14f5d3ff95
+
+
