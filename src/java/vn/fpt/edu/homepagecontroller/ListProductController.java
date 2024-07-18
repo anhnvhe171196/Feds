@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import vn.fpt.edu.dals.Brand_DAO;
 import vn.fpt.edu.dals.Category_DAO;
@@ -105,20 +106,23 @@ String[] brandId = new String[0];
             listProduct = d.getAllProductsWithParameter(cateId, p, brandId, min, maxp);
             size = d.getAllProductsWithParameterSize(cateId, brandId, min, maxp);
         }
-        int max = (size / 9) + ((size / 9) > (float)(size / 9.0) ? 0 : 1);
+        int max = (size / 15) + ((size / 15) > (float)(size / 15.0) ? 0 : 1);
         request.setAttribute("max", max);
         Category_DAO categoryDAO = new Category_DAO();
         Brand_DAO BrandDAO = new Brand_DAO();
+        
+        HashMap<Category, Integer> catesCount = categoryDAO.getAllCateWithCount();
         List<Category> cates = categoryDAO.getAllCate();
-        List<Brand> brands = new ArrayList();
+        HashMap<Brand, Integer> brands = new HashMap();
         if(request.getParameterValues("cateid") == null || request.getParameterValues("cateid").length == 0) {
-            brands = BrandDAO.getAllBrand();
+            brands = BrandDAO.getAllBrandWithCount();
             request.setAttribute("relatedBrand", 0);
         } else {
             brands = BrandDAO.getAllBrandWithCate(cateId);
             request.setAttribute("relatedBrand", BrandDAO.getRelatedBrandSize(cateId));
         }
         //Collections.shuffle(brands); //Ngẫu nhiên brand
+        session.setAttribute("catesCount", catesCount);
         session.setAttribute("cates", cates);
         request.setAttribute("brands", brands);
         request.setAttribute("List", listProduct);

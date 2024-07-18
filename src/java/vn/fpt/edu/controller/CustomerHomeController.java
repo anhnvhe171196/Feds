@@ -50,7 +50,6 @@ public class CustomerHomeController extends HttpServlet {
         }
 
         int n = 0;
-            System.out.println(listItem);
         for(int i = 0; i < (listItem != null ? listItem.size() : 0); i++) {
             //System.out.println("TEST: " + listItem.get(i));
             n += listItem.get(i).getQuantity();
