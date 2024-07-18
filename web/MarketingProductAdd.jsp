@@ -257,7 +257,7 @@
 
                                                     <div class="row w-100">
                                                         <input type="file" name="image" accept="image/*" id="imageMain">
-                                                        <dd class="col-6"><button type="submit" class="btn btn-primary" form="AddForm" onclick="confirmSubmit()" >Enter</button></dd>
+                                                        <dd class="col-6"><button type="button" class="btn btn-primary" form="AddForm" onclick="confirmSubmit()" >Enter</button></dd>
                                                     </div>
 
                                                 </aside>
@@ -273,7 +273,7 @@
                                                         <hr/>
                                                         <div class="mb-3">
                                                             <h6 class="title text-dark" >Giá:</h6>                                                                
-                                                            <input type="text" name="price" placeholder="Vui lòng nhập giá > 0" class="form-control" required/>
+                                                            <input type="number" name="price" placeholder="Vui lòng nhập giá > 0" class="form-control" min="0" required/>
                                                             <label style="color: red; display: none;" id="productPriceError">*Vui lòng nhập Giá</label>
 
                                                         </div>
@@ -307,18 +307,19 @@
                                                         <hr/>
                                                         <div class="mb-3">
                                                             <h6 class="title text-dark" >Ngày bắt đầu:</h6>                                                                
-                                                            <input type="date" name="dateStart"  class="form-control" />
+                                                            <input type="date" name="dateStart"  class="form-control" required/>
                                                             <label style="color: red; display: none;" id="dateStartError">*Vui lòng chọn Ngày bắt đầu</label>
                                                         </div>
                                                         <hr/>
                                                         <div class="mb-3">
                                                             <h6 class="title text-dark" >Ngày kết thúc:</h6>                                                                
-                                                            <input type="date" name="dateEnd"  class="form-control" />
+                                                            <input type="date" name="dateEnd"  class="form-control" required/>
                                                             <label style="color: red; display: none;" id="dateEndError">*Vui lòng chọn Ngày kết thúc</label>
                                                         </div>
                                                         <div class="mb-3">
                                                             <h6 class="title text-dark" >Sale:</h6>                                                                
-                                                            <input type="number" name="sale" class="form-control" min="0" max="100" required/>
+                                                            <input type="number" name="sale" class="form-control" min="0" max="100"/>
+                                                            <label style="color: red; display: none;" id="productSaleError">*Vui lòng chọn số từ 0 đến 100</label>
                                                         </div>
                                                         <hr/>
 
@@ -413,6 +414,11 @@
                                                             });
         </script>
         <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementsByName("dateStart")[0].setAttribute('min', today);
+                document.getElementsByName("dateEnd")[0].setAttribute('min', today);
+            });
             const detailsDiv = document.getElementById("product-details");
             const showMoreButton = document.getElementById("show-more-details");
 
@@ -457,17 +463,16 @@
                 }
             }
             function confirmSubmit() {
-                if (checkFileExtension()) {
-                    if (checkInput()) {
-                        document.getElementById('AddForm').submit();
-                    }
+                if (checkFileExtension() && checkInput()) {
+                    document.getElementById('AddForm').submit();
                 }
             }
 
             function checkInput() {
                 var productName = document.getElementsByName("product_name")[0].value.trim();
-                var productPrice = document.getElementsByName("price")[0].value.trim();
-                var productQuantity = document.getElementsByName("quantity")[0].value.trim();
+                var productPrice = parseFloat(document.getElementsByName("price")[0].value); // Chuyển đổi sang số
+                var productQuantity = parseInt(document.getElementsByName("quantity")[0].value); // Chuyển đổi sang số
+                var productSale = parseFloat(document.getElementsByName("sale")[0].value); // Chuyển đổi sang số
                 var dateStart = document.getElementsByName("dateStart")[0].value;
                 var dateEnd = document.getElementsByName("dateEnd")[0].value;
 
@@ -476,28 +481,38 @@
                 } else {
                     document.getElementById("productNameError").style.display = "none";
                 }
-                if (productPrice === "") {
+                if (isNaN(productPrice)) { // Kiểm tra xem có phải là số hợp lệ hay không
                     document.getElementById("productPriceError").style.display = "block";
                 } else {
                     document.getElementById("productPriceError").style.display = "none";
                 }
-                if (productQuantity === "") {
+                if (isNaN(productQuantity)) { // Kiểm tra xem có phải là số hợp lệ hay không
                     document.getElementById("productQuantityError").style.display = "block";
                 } else {
                     document.getElementById("productQuantityError").style.display = "none";
+                }
+                if (productSale < 0 || productSale > 100 || isNaN(productSale)) { // Kiểm tra xem có phải là số hợp lệ hay không
+                    document.getElementById("productSaleError").style.display = "block";
+                } else {
+                    document.getElementById("productSaleError").style.display = "none";
                 }
                 if (dateStart === "") {
                     document.getElementById("dateStartError").style.display = "block";
                 } else {
                     document.getElementById("dateStartError").style.display = "none";
                 }
-
                 if (dateEnd === "") {
                     document.getElementById("dateEndError").style.display = "block";
                 } else {
                     document.getElementById("dateEndError").style.display = "none";
                 }
+                if (dateStart > dateEnd) {
+                    alert('Ngày kết thúc phải lớn hơn Ngày bắt đầu');
+                    dateStart = "";
+                    dateEnd = "";
+                }
             }
+
             document.getElementById('Pstatus').addEventListener('change', function () {
                 this.value = this.checked ? 'pending' : 'active';
                 document.getElementById('status-text').innerText = this.checked ? 'Đang nhập hàng' : 'Có sẵn';
