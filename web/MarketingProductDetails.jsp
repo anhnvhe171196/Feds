@@ -107,287 +107,289 @@
                     </div>
                 </nav>
             </div>
-            <!-- Sidebar End -->
+        </div>
+
+        <!-- Sidebar End -->
 
 
-            <!-- Content Start -->
-            <div class="content">
-                <!-- Navbar Start -->
-                <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                    <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                        <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
-                    </a>
-                    <a href="#" class="sidebar-toggler flex-shrink-0">
-                        <i class="fa fa-bars"></i>
-                    </a>
-                    <form class="d-none d-md-flex ms-4" action="marketingProductList" method="get"> 
-                        <input class="form-control border-0" type="search" placeholder="Search" name="search">&nbsp;&nbsp;&nbsp;
-                        <button type="submit" class="btn btn-primary" >Enter</button> 
-                    </form> 
-                    <div class="navbar-nav align-items-center ms-auto">
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <i class="fa fa-envelope me-lg-2"></i>
-                                <span class="d-none d-lg-inline-flex">Tin nhắn</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+        <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
+                </a>
+                <a href="#" class="sidebar-toggler flex-shrink-0">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <form class="d-none d-md-flex ms-4" action="marketingProductList" method="get"> 
+                    <input class="form-control border-0" type="search" placeholder="Search" name="search">&nbsp;&nbsp;&nbsp;
+                    <button type="submit" class="btn btn-primary" >Enter</button> 
+                </form> 
+                <div class="navbar-nav align-items-center ms-auto">
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fa fa-envelope me-lg-2"></i>
+                            <span class="d-none d-lg-inline-flex">Tin nhắn</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
 
-                                <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item text-center">Xem tất cả tin nhắn</a>
-                            </div>
-                        </div>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <i class="fa fa-bell me-lg-2"></i>
-                                <span class="d-none d-lg-inline-flex">Thông báo</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-
-                                <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item text-center">Xem tất cả thông báo</a>
-                            </div>
-                        </div>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <img class="rounded-circle me-lg-2" src="images/${sessionScope.account.avarta}" alt="" style="width: 40px; height: 40px;">
-                                <span class="d-none d-lg-inline-flex">${sessionScope.account.user_name}</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                                <a href="userProfile" class="dropdown-item">Hồ sơ cá nhân</a>
-                                <a href="#" class="dropdown-item">Cài đặt</a>
-                                <a href="home" class="dropdown-item">Trang chủ</a>
-                                <c:choose>
-                                    <c:when test="${ not empty sessionScope.account}"><a href="${pageContext.request.contextPath}/userLogout" class="dropdown-item">Đăng xuất</a></c:when>
-                                    <c:otherwise><a href="${pageContext.request.contextPath}/login" class="dropdown-item">Đăng nhập</a></c:otherwise>
-                                </c:choose>
-                            </div>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item text-center">Xem tất cả tin nhắn</a>
                         </div>
                     </div>
-                </nav>
-                <!-- Navbar End -->
-                <div class="container-fluid pt-4 px-4">
-                    <div class="row g-4">
-                        <div class="col-sm-12">
-                            <div class="bg-light rounded h-100 p-4">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="mb-4">
-                                            <h6>Thông tin sản phẩm</h6>
-                                        </div>
-                                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fa fa-bell me-lg-2"></i>
+                            <span class="d-none d-lg-inline-flex">Thông báo</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
 
-                                    <div class="col" style="display: flex; justify-content: flex-end; align-items: center;">
-                                        <div class="mb-2" style="margin-right: 10px;">
-                                            <a onclick="ProductUpdate(${product.product_id})">
-                                                <h6 class="sort-button" style="color: red;">Sửa</h6>                                              
-                                            </a>
-                                        </div>
-                                        <div style="margin: 0 10px; display: flex; align-items: center;"></div>
-                                        <div class="mb-2">
-                                            <a onclick="history.back()">
-                                                <h6 class="sort-button" style="color: #009CFF;">Back</h6>                                              
-                                            </a>
-                                        </div>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item text-center">Xem tất cả thông báo</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <img class="rounded-circle me-lg-2" src="images/${sessionScope.account.avarta}" alt="" style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex">${sessionScope.account.user_name}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="userProfile" class="dropdown-item">Hồ sơ cá nhân</a>
+                            <a href="#" class="dropdown-item">Cài đặt</a>
+                            <a href="home" class="dropdown-item">Trang chủ</a>
+                            <c:choose>
+                                <c:when test="${ not empty sessionScope.account}"><a href="${pageContext.request.contextPath}/userLogout" class="dropdown-item">Đăng xuất</a></c:when>
+                                <c:otherwise><a href="${pageContext.request.contextPath}/login" class="dropdown-item">Đăng nhập</a></c:otherwise>
+                            </c:choose>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- Navbar End -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12">
+                        <div class="bg-light rounded h-100 p-4">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-4">
+                                        <h6>Thông tin sản phẩm</h6>
                                     </div>
                                 </div>
 
-                                <div class="mb-3"> 
-                                    <section class="py-5">
-                                        <div class="container">
-                                            <div class="row gx-5">
-                                                <aside class="col-lg-6">
-                                                    <div class="border rounded-4 mb-3 d-flex justify-content-center">
-                                                        <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="images/${product.product_img}" />
-                                                    </div>
-                                                    <div>
-                                                        <c:choose>
+                                <div class="col" style="display: flex; justify-content: flex-end; align-items: center;">
+                                    <div class="mb-2" style="margin-right: 10px;">
+                                        <a onclick="ProductUpdate(${product.product_id})">
+                                            <h6 class="sort-button" style="color: red;">Sửa</h6>                                              
+                                        </a>
+                                    </div>
+                                    <div style="margin: 0 10px; display: flex; align-items: center;"></div>
+                                    <div class="mb-2">
+                                        <a onclick="history.back()">
+                                            <h6 class="sort-button" style="color: #009CFF;">Back</h6>                                              
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3"> 
+                                <section class="py-5">
+                                    <div class="container">
+                                        <div class="row gx-5">
+                                            <aside class="col-lg-6">
+                                                <div class="border rounded-4 mb-3 d-flex justify-content-center">
+                                                    <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="images/${product.product_img}" />
+                                                </div>
+                                                <div>
+                                                    <c:choose>
                                                         <c:when test="${product.status eq 'active'}">
                                                             <h5 style="color: springgreen">${product.status}</h5>
                                                         </c:when>
-                                                            <c:when test="${product.status eq 'pending'}">
+                                                        <c:when test="${product.status eq 'pending'}">
                                                             <h5 style="color: gold">${product.status}</h5>
                                                         </c:when>
                                                         <c:otherwise>
                                                             <h5 style="color: red">${product.status}</h5>
                                                         </c:otherwise>
                                                     </c:choose>
+                                                </div>
+
+                                            </aside>
+                                            <main class="col-lg-6">
+                                                <div class="ps-lg-3">
+                                                    <h4 class="title text-dark">
+                                                        ${product.product_name} 
+                                                    </h4>
+                                                    ( #${product.product_id} )
+
+
+                                                    <hr/>
+
+                                                    <div class="mb-3">
+                                                        <span class="h5" style="color: #1aa6ff"><fmt:formatNumber value="${product.price.price}" pattern="#,##0 VND" /></span>
                                                     </div>
 
-                                                </aside>
-                                                <main class="col-lg-6">
-                                                    <div class="ps-lg-3">
-                                                        <h4 class="title text-dark">
-                                                            ${product.product_name} 
-                                                        </h4>
-                                                        ( #${product.product_id} )
+                                                    <hr/>
+                                                    <h6>Mô tả:</h6>
+                                                    <c:if test="${not empty product.detail.decription}">
+                                                        <dd class="col-9" >${product.detail.decription}</dd>
+                                                    </c:if>
+                                                    <hr/>
+                                                    <a href="#" id="show-more-details">Show more Details</a>
+                                                    <hr/>
 
+                                                    <div class="row" id="product-details" style="display: none;">
 
-                                                        <hr/>
+                                                        <c:if test="${not empty product.detail.ram}">
+                                                            <div class="row w-100">
+                                                                <dt class="col-3">Ram</dt>
+                                                                <dd class="col-9">${product.detail.ram}</dd>
+                                                            </div>                                                                
+                                                        </c:if>
+                                                        <c:if test="${not empty product.detail.rom}">
+                                                            <div class="row w-100">
 
-                                                        <div class="mb-3">
-                                                            <span class="h5" style="color: #1aa6ff"><fmt:formatNumber value="${product.price.price}" pattern="#,##0 VND" /></span>
-                                                        </div>
+                                                                <dt class="col-3">Rom:</dt>
+                                                                <dd class="col-9">${product.detail.rom}</dd>
+                                                            </div>
+                                                        </c:if>
+                                                        <c:if test="${not empty product.detail.size}">
+                                                            <div class="row w-100">
 
-                                                        <hr/>
-                                                        <h6>Mô tả:</h6>
-                                                        <c:if test="${not empty product.detail.decription}">
-                                                            <dd class="col-9" >${product.detail.decription}</dd>
+                                                                <dt class="col-3">Size:</dt>
+                                                                <dd class="col-9">${product.detail.size}</dd>
+                                                            </div>
+                                                        </c:if>
+                                                        <c:if test="${not empty product.detail.battery}">
+                                                            <div class="row w-100">
+
+                                                                <dt class="col-3">Battery:</dt>
+                                                                <dd class="col-9">${product.detail.battery}</dd>
+                                                            </div>                                                                
+                                                        </c:if>
+                                                        <c:if test="${not empty product.detail.weight}">
+                                                            <div class="row w-100">
+
+                                                                <dt class="col-3">Weight:</dt>
+                                                                <dd class="col-9">${product.detail.weight}</dd>
+                                                            </div>
+                                                        </c:if>
+                                                        <c:if test="${not empty product.detail.color}">
+                                                            <div class="row w-100">
+
+                                                                <dt class="col-3">Color:</dt>
+                                                                <dd class="col-9">${product.detail.color}</dd>
+                                                            </div>
+                                                        </c:if>                                                            
+                                                        <c:if test="${not empty product.detail.cpu}">
+                                                            <div class="row w-100">
+
+                                                                <dt class="col-3">CPU:</dt>
+                                                                <dd class="col-9">${product.detail.cpu}</dd>
+                                                            </div>
+                                                        </c:if>
+                                                        <c:if test="${not empty product.detail.wattage}">
+                                                            <div class="row w-100">
+
+                                                                <dt class="col-3">Wattage:</dt>
+                                                                <dd class="col-9">${product.detail.wattage}</dd>
+                                                            </div>
+                                                        </c:if>
+                                                        <c:if test="${not empty product.detail.status}">
+                                                            <div class="row w-100">
+
+                                                                <dt class="col-3">Status:</dt>
+                                                                <dd class="col-9">${product.detail.status}</dd>
+                                                            </div>
+                                                        </c:if>
+                                                        <c:if test="${not empty product.price.dateStart}">
+                                                            <div class="row w-100">
+
+                                                                <dt class="col-3">Date start:</dt>
+                                                                <dd class="col-9">${product.price.dateStart}</dd>
+                                                            </div>
+                                                        </c:if>
+                                                        <c:if test="${not empty product.price.dateEnd}">
+                                                            <div class="row w-100">
+
+                                                                <dt class="col-3">Date End:</dt>
+                                                                <dd class="col-9">${product.price.dateEnd}</dd>
+                                                            </div>
+                                                        </c:if>
+                                                        <c:if test="${not empty product.price.sale}">
+                                                            <div class="row w-100">
+
+                                                                <dt class="col-3">Sale:</dt>
+                                                                <dd class="col-9">${product.price.sale} %</dd>
+                                                            </div>
                                                         </c:if>
                                                         <hr/>
-                                                        <a href="#" id="show-more-details">Show more Details</a>
-                                                        <hr/>
-
-                                                        <div class="row" id="product-details" style="display: none;">
-
-                                                            <c:if test="${not empty product.detail.ram}">
-                                                                <div class="row w-100">
-                                                                    <dt class="col-3">Ram</dt>
-                                                                    <dd class="col-9">${product.detail.ram}</dd>
-                                                                </div>                                                                
-                                                            </c:if>
-                                                            <c:if test="${not empty product.detail.rom}">
-                                                                <div class="row w-100">
-
-                                                                    <dt class="col-3">Rom:</dt>
-                                                                    <dd class="col-9">${product.detail.rom}</dd>
-                                                                </div>
-                                                            </c:if>
-                                                            <c:if test="${not empty product.detail.size}">
-                                                                <div class="row w-100">
-
-                                                                    <dt class="col-3">Size:</dt>
-                                                                    <dd class="col-9">${product.detail.size}</dd>
-                                                                </div>
-                                                            </c:if>
-                                                            <c:if test="${not empty product.detail.battery}">
-                                                                <div class="row w-100">
-
-                                                                    <dt class="col-3">Battery:</dt>
-                                                                    <dd class="col-9">${product.detail.battery}</dd>
-                                                                </div>                                                                
-                                                            </c:if>
-                                                            <c:if test="${not empty product.detail.weight}">
-                                                                <div class="row w-100">
-
-                                                                    <dt class="col-3">Weight:</dt>
-                                                                    <dd class="col-9">${product.detail.weight}</dd>
-                                                                </div>
-                                                            </c:if>
-                                                            <c:if test="${not empty product.detail.color}">
-                                                                <div class="row w-100">
-
-                                                                    <dt class="col-3">Color:</dt>
-                                                                    <dd class="col-9">${product.detail.color}</dd>
-                                                                </div>
-                                                            </c:if>                                                            
-                                                            <c:if test="${not empty product.detail.cpu}">
-                                                                <div class="row w-100">
-
-                                                                    <dt class="col-3">CPU:</dt>
-                                                                    <dd class="col-9">${product.detail.cpu}</dd>
-                                                                </div>
-                                                            </c:if>
-                                                            <c:if test="${not empty product.detail.wattage}">
-                                                                <div class="row w-100">
-
-                                                                    <dt class="col-3">Wattage:</dt>
-                                                                    <dd class="col-9">${product.detail.wattage}</dd>
-                                                                </div>
-                                                            </c:if>
-                                                            <c:if test="${not empty product.detail.status}">
-                                                                <div class="row w-100">
-
-                                                                    <dt class="col-3">Status:</dt>
-                                                                    <dd class="col-9">${product.detail.status}</dd>
-                                                                </div>
-                                                            </c:if>
-                                                            <c:if test="${not empty product.price.dateStart}">
-                                                                <div class="row w-100">
-
-                                                                    <dt class="col-3">Date start:</dt>
-                                                                    <dd class="col-9">${product.price.dateStart}</dd>
-                                                                </div>
-                                                            </c:if>
-                                                            <c:if test="${not empty product.price.dateEnd}">
-                                                                <div class="row w-100">
-
-                                                                    <dt class="col-3">Date End:</dt>
-                                                                    <dd class="col-9">${product.price.dateEnd}</dd>
-                                                                </div>
-                                                            </c:if>
-                                                            <c:if test="${not empty product.price.sale}">
-                                                                <div class="row w-100">
-
-                                                                    <dt class="col-3">Sale:</dt>
-                                                                    <dd class="col-9">${product.price.sale} %</dd>
-                                                                </div>
-                                                            </c:if>
-                                                            <hr/>
-
-                                                        </div>
-
 
                                                     </div>
-                                                </main>
-                                            </div>
-                                        </div>
-                                    </section>
-                                    <!-- content -->
 
-                                </div>
+
+                                                </div>
+                                            </main>
+                                        </div>
+                                    </div>
+                                </section>
+                                <!-- content -->
+
                             </div>
                         </div>
-
                     </div>
+
                 </div>
-
-
-
-                <!-- Back to Top -->
-                <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
             </div>
 
 
 
-            <!-- JavaScript Libraries -->
-            <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-            <script src="OPlib/chart/chart.min.js"></script>
-            <script src="OPlib/easing/easing.min.js"></script>
-            <script src="OPlib/waypoints/waypoints.min.js"></script>
-            <script src="OPlib/owlcarousel/owl.carousel.min.js"></script>
-            <script src="OPlib/tempusdominus/js/moment.min.js"></script>
-            <script src="OPlib/tempusdominus/js/moment-timezone.min.js"></script>
-            <script src="OPlib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+            <!-- Back to Top -->
+            <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        </div>
 
-            <!-- Template Javascript -->
-            <script src="js/main.js"></script>
-            <script>
-                                                $('.sidebar-toggler').click(function () {
-                                                    $('.sidebar, .content').toggleClass("open");
-                                                    return false;
-                                                });
-            </script>
-            <script>
-                const detailsDiv = document.getElementById("product-details");
-                const showMoreButton = document.getElementById("show-more-details");
 
-                showMoreButton.addEventListener("click", function () {
-                    if (detailsDiv.style.display === "none") {
-                        detailsDiv.style.display = "block";
-                        showMoreButton.textContent = "Hide Details"; // Thay đổi nội dung nút
-                    } else {
-                        detailsDiv.style.display = "none";
-                        showMoreButton.textContent = "Show more Details"; // Thay đổi nội dung nút
-                    }
-                });
 
-                function ProductUpdate(id) {
-                    let url = "marketingProductUpdate?id=" + id;
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="OPlib/chart/chart.min.js"></script>
+        <script src="OPlib/easing/easing.min.js"></script>
+        <script src="OPlib/waypoints/waypoints.min.js"></script>
+        <script src="OPlib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="OPlib/tempusdominus/js/moment.min.js"></script>
+        <script src="OPlib/tempusdominus/js/moment-timezone.min.js"></script>
+        <script src="OPlib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
-                    window.location.href = url;
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
+        <script>
+                                            $('.sidebar-toggler').click(function () {
+                                                $('.sidebar, .content').toggleClass("open");
+                                                return false;
+                                            });
+        </script>
+        <script>
+            const detailsDiv = document.getElementById("product-details");
+            const showMoreButton = document.getElementById("show-more-details");
+
+            showMoreButton.addEventListener("click", function () {
+                if (detailsDiv.style.display === "none") {
+                    detailsDiv.style.display = "block";
+                    showMoreButton.textContent = "Hide Details"; // Thay đổi nội dung nút
+                } else {
+                    detailsDiv.style.display = "none";
+                    showMoreButton.textContent = "Show more Details"; // Thay đổi nội dung nút
                 }
-            </script>
+            });
+
+            function ProductUpdate(id) {
+                let url = "marketingProductUpdate?id=" + id;
+
+                window.location.href = url;
+            }
+        </script>
 
 
     </body>

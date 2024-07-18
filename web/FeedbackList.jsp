@@ -52,14 +52,7 @@
                 line-height: 1; /* Điều chỉnh chiều cao dòng cho nút */
             }
 
-            .dropdown-menu .dropdown-item {
-                border-bottom: 1px solid #ddd;
-                transition: border-color 0.3s ease;
-            }
-
-            .dropdown-menu .dropdown-item:hover {
-                border-color: #333;
-            }
+            
             #clock{
                 margin-left: 20px;
                 font-weight: 600;
@@ -102,6 +95,7 @@
                         <a href="/Feds/saleDashboard" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                         <a href="/Feds/orderListBillController" class="nav-item nav-link "><i class="fa fa-th me-2"></i>Order List</a>
                         <a href="/Feds/feedbackListFeedbackController" class="nav-item nav-link active"><i class="fa fa-th me-2 "></i>Feedback List</a> 
+                        <a href="/Feds/contactListContactController" class="nav-item nav-link"><i class="fa fa-th me-2 "></i>Reply Contact</a> 
                     </div>
             </div>
 
@@ -131,7 +125,6 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
                             <a href="#" class="dropdown-item">Log Out</a>
                         </div>
                     </div>

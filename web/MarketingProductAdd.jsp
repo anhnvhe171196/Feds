@@ -154,351 +154,353 @@
                     </div>
                 </nav>
             </div>
-            <!-- Sidebar End -->
+        </div>
+
+        <!-- Sidebar End -->
 
 
-            <!-- Content Start -->
-            <div class="content">
-                <!-- Navbar Start -->
-                <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                    <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                        <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
-                    </a>
-                    <a href="#" class="sidebar-toggler flex-shrink-0">
-                        <i class="fa fa-bars"></i>
-                    </a>
-                    <form class="d-none d-md-flex ms-4" action="marketingProductList" method="get"> 
-                        <input class="form-control border-0" type="search" placeholder="Search" name="search">&nbsp;&nbsp;&nbsp;
-                        <button type="submit" class="btn btn-primary" >Enter</button> 
-                    </form> 
-                    <div class="navbar-nav align-items-center ms-auto">
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <i class="fa fa-envelope me-lg-2"></i>
-                                <span class="d-none d-lg-inline-flex">Tin nhắn</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+        <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
+                </a>
+                <a href="#" class="sidebar-toggler flex-shrink-0">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <form class="d-none d-md-flex ms-4" action="marketingProductList" method="get"> 
+                    <input class="form-control border-0" type="search" placeholder="Search" name="search">&nbsp;&nbsp;&nbsp;
+                    <button type="submit" class="btn btn-primary" >Enter</button> 
+                </form> 
+                <div class="navbar-nav align-items-center ms-auto">
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fa fa-envelope me-lg-2"></i>
+                            <span class="d-none d-lg-inline-flex">Tin nhắn</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
 
-                                <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item text-center">Xem tất cả tin nhắn</a>
-                            </div>
-                        </div>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <i class="fa fa-bell me-lg-2"></i>
-                                <span class="d-none d-lg-inline-flex">Thông báo</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-
-                                <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item text-center">Xem tất cả thông báo</a>
-                            </div>
-                        </div>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <img class="rounded-circle me-lg-2" src="images/${sessionScope.account.avarta}" alt="" style="width: 40px; height: 40px;">
-                                <span class="d-none d-lg-inline-flex">${sessionScope.account.user_name}</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                                <a href="userProfile" class="dropdown-item">Hồ sơ cá nhân</a>
-                                <a href="#" class="dropdown-item">Cài đặt</a>
-                                <a href="home" class="dropdown-item">Trang chủ</a>
-                                <c:choose>
-                                    <c:when test="${ not empty sessionScope.account}"><a href="${pageContext.request.contextPath}/userLogout" class="dropdown-item">Đăng xuất</a></c:when>
-                                    <c:otherwise><a href="${pageContext.request.contextPath}/login" class="dropdown-item">Đăng nhập</a></c:otherwise>
-                                </c:choose>
-                            </div>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item text-center">Xem tất cả tin nhắn</a>
                         </div>
                     </div>
-                </nav>
-                <!-- Navbar End -->
-                <div class="container-fluid pt-4 px-4">
-                    <div class="row g-4">
-                        <div class="col-sm-12">
-                            <div class="bg-light rounded h-100 p-4">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="mb-4">
-                                            <h6>Thêm sản phẩm</h6>
-                                        </div>
-                                    </div>
-                                    <div class="col" style="display: flex; justify-content: flex-end; align-items: center;">
-                                        <div class="mb-2" style="margin-right: 10px;">
-                                            <a onclick="Back()">
-                                                <h6 class="sort-button" style="color: red;">Hoàn tác</h6>                                              
-                                            </a>
-                                        </div>
-                                        <div style="margin: 0 10px; display: flex; align-items: center;"></div>
-                                        <div class="mb-2">
-                                            <a onclick="history.back()">
-                                                <h6 class="sort-button" style="color: #009CFF;">Back</h6>                                              
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fa fa-bell me-lg-2"></i>
+                            <span class="d-none d-lg-inline-flex">Thông báo</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
 
-                                <div class="mb-3"> 
-                                    <section class="py-5">
-                                        <form id="AddForm" method="post" action="marketingAddProduct" enctype="multipart/form-data" >
-                                            <div class="container">
-                                                <div class="row gx-5">
-                                                    <aside class="col-lg-6">
-                                                        <h6>Hàng có sẵn?</h6>
-                                                        <label class="switch">
-                                                            <input type="checkbox" id="Pstatus" name="Pstatus" value="pending">
-                                                            <span class="slider round"></span>
-                                                        </label>
-                                                        <span id="status-text" class="status-text">Có sẵn</span>
-
-                                                        <hr/>
-
-
-                                                        <div class="row w-100">
-                                                            <input type="file" name="image" accept="image/*" id="imageMain">
-                                                            <dd class="col-6"><button type="submit" class="btn btn-primary" form="AddForm" onclick="confirmSubmit()" >Enter</button></dd>
-                                                        </div>
-
-                                                    </aside>
-
-                                                    <main class="col-lg-6">
-                                                        <div class="ps-lg-3">
-                                                            <h4 class="title text-dark">
-
-                                                                <h5 class="title text-dark">Tên sản phẩm:</h5>
-                                                                <input type="text" name="product_name" placeholder="Nhập tên sản phẩm" class="form-control" required/>
-                                                                <label style="color: red; display: none;" id="productNameError">*Vui lòng nhập Tên sản phẩm</label>
-                                                            </h4>
-                                                            <hr/>
-                                                            <div class="mb-3">
-                                                                <h6 class="title text-dark" >Giá:</h6>                                                                
-                                                                <input type="text" name="price" placeholder="Vui lòng nhập giá > 0" class="form-control" required/>
-                                                                <label style="color: red; display: none;" id="productPriceError">*Vui lòng nhập Giá</label>
-
-                                                            </div>
-                                                            <hr/>
-                                                            <div class="mb-3">
-                                                                <h6 class="title text-dark" >Quantity:</h6>                                                                
-                                                                <input type="number" name="quantity" placeholder="Vui lòng nhập Số lượng > 0" class="form-control" min="1" required />
-                                                                <label style="color: red; display: none;" id="productQuantityError">*Vui lòng nhập Số lượng</label>
-                                                            </div>
-                                                            <hr/>
-                                                            <h6>Mô tả:</h6>
-                                                            <textarea name="decription" class="form-control">${product.detail.decription}</textarea>
-                                                            <hr/>
-                                                            <div class="mb-3">
-                                                                <h6 class="title text-dark" >Danh mục:</h6>
-                                                                <select name="category_id" id="category" class="form-control">
-                                                                    <c:forEach items="${categories}" var="category">
-                                                                        <option value="${category.category_id}">${category.category_name}</option>
-                                                                    </c:forEach>
-                                                                </select>                                                                   
-                                                            </div>
-                                                            <hr/>
-                                                            <div class="mb-3">
-                                                                <h6 class="title text-dark" >Nhà cung cấp:</h6>                                                                
-                                                                <select name="brandId" id="brand" class="form-control">
-                                                                    <c:forEach items="${brands}" var="brands">
-                                                                        <option value="${brands.brandId}">${brands.brandName}</option>
-                                                                    </c:forEach>
-                                                                </select> 
-                                                            </div>
-                                                            <hr/>
-                                                            <div class="mb-3">
-                                                                <h6 class="title text-dark" >Ngày bắt đầu:</h6>                                                                
-                                                                <input type="date" name="dateStart"  class="form-control" />
-                                                                <label style="color: red; display: none;" id="dateStartError">*Vui lòng chọn Ngày bắt đầu</label>
-                                                            </div>
-                                                            <hr/>
-                                                            <div class="mb-3">
-                                                                <h6 class="title text-dark" >Ngày kết thúc:</h6>                                                                
-                                                                <input type="date" name="dateEnd"  class="form-control" />
-                                                                <label style="color: red; display: none;" id="dateEndError">*Vui lòng chọn Ngày kết thúc</label>
-                                                            </div>
-                                                            <hr/>
-
-                                                            <a href="#" id="show-more-details">Show more Details</a>
-                                                            <hr/>
-                                                            <div class="row" id="product-details" style="display: none;">                                                                
-                                                                <div class="row w-100">
-                                                                    <dt class="col-3">Ram</dt>
-                                                                    <dd class="col-9"><input type="text" name="ram" class="form-control" /></dd>
-                                                                </div>
-                                                                <div class="row w-100">
-                                                                    <dt class="col-3">Rom:</dt>
-                                                                    <dd class="col-9"><input type="text" name="rom"  class="form-control" /></dd>
-                                                                </div>
-                                                                <div class="row w-100">
-                                                                    <dt class="col-3">Size:</dt>
-                                                                    <dd class="col-9"><input type="text" name="size"  class="form-control" /></dd>
-                                                                </div>
-                                                                <div class="row w-100">
-                                                                    <dt class="col-3">Battery:</dt>
-                                                                    <dd class="col-9"><input type="text" name="battery"  class="form-control" /></dd>
-                                                                </div>
-                                                                <div class="row w-100">
-                                                                    <dt class="col-3">Weight:</dt>
-                                                                    <dd class="col-9"><input type="text" name="weight"  class="form-control" /></dd>
-                                                                </div>
-                                                                <div class="row w-100">
-                                                                    <dt class="col-3">Color:</dt>
-                                                                    <dd class="col-9"><input type="text" name="color"  class="form-control" /></dd>
-                                                                </div>
-                                                                <div class="row w-100">
-                                                                    <dt class="col-3">CPU:</dt>
-                                                                    <dd class="col-9"><input type="text" name="cpu"  class="form-control" /></dd>
-                                                                </div>
-                                                                <div class="row w-100">
-                                                                    <dt class="col-3">Wattage:</dt>
-                                                                    <dd class="col-9"><input type="text" name="wattage"  class="form-control" /></dd>
-                                                                </div>
-                                                                <div class="row w-100">
-                                                                    <dt class="col-3">Status:</dt>
-                                                                    <dd class="col-9"><input type="text" name="status"  class="form-control" /></dd>
-                                                                </div>
-                                                                <!--                                                                <input type="text" name="product_img"  class="form-control" style="display: none" readonly/>-->
-                                                                <input type="text" name="userId" value="${sessionScope.account.user_Id}" class="form-control" style="display: none" readonly/>
-
-                                                                <hr/>
-                                                            </div>
-
-                                                        </div>
-                                                    </main>
-
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </section>
-
-
-                                    <!-- content -->
-
-                                </div>
-                            </div>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item text-center">Xem tất cả thông báo</a>
                         </div>
-
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <img class="rounded-circle me-lg-2" src="images/${sessionScope.account.avarta}" alt="" style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex">${sessionScope.account.user_name}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="userProfile" class="dropdown-item">Hồ sơ cá nhân</a>
+                            <a href="#" class="dropdown-item">Cài đặt</a>
+                            <a href="home" class="dropdown-item">Trang chủ</a>
+                            <c:choose>
+                                <c:when test="${ not empty sessionScope.account}"><a href="${pageContext.request.contextPath}/userLogout" class="dropdown-item">Đăng xuất</a></c:when>
+                                <c:otherwise><a href="${pageContext.request.contextPath}/login" class="dropdown-item">Đăng nhập</a></c:otherwise>
+                            </c:choose>
+                        </div>
                     </div>
                 </div>
+            </nav>
+            <!-- Navbar End -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12">
+                        <div class="bg-light rounded h-100 p-4">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-4">
+                                        <h6>Thêm sản phẩm</h6>
+                                    </div>
+                                </div>
+                                <div class="col" style="display: flex; justify-content: flex-end; align-items: center;">
+                                    <div class="mb-2" style="margin-right: 10px;">
+                                        <a onclick="Back()">
+                                            <h6 class="sort-button" style="color: red;">Hoàn tác</h6>                                              
+                                        </a>
+                                    </div>
+                                    <div style="margin: 0 10px; display: flex; align-items: center;"></div>
+                                    <div class="mb-2">
+                                        <a onclick="history.back()">
+                                            <h6 class="sort-button" style="color: #009CFF;">Back</h6>                                              
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3"> 
+                                <section class="py-5">
+                                    <form id="AddForm" method="post" action="marketingAddProduct" enctype="multipart/form-data" >
+                                        <div class="container">
+                                            <div class="row gx-5">
+                                                <aside class="col-lg-6">
+                                                    <h6>Hàng có sẵn?</h6>
+                                                    <label class="switch">
+                                                        <input type="checkbox" id="Pstatus" name="Pstatus" value="pending">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                    <span id="status-text" class="status-text">Có sẵn</span>
+
+                                                    <hr/>
 
 
+                                                    <div class="row w-100">
+                                                        <input type="file" name="image" accept="image/*" id="imageMain">
+                                                        <dd class="col-6"><button type="submit" class="btn btn-primary" form="AddForm" onclick="confirmSubmit()" >Enter</button></dd>
+                                                    </div>
 
-                <!-- Back to Top -->
-                <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+                                                </aside>
+
+                                                <main class="col-lg-6">
+                                                    <div class="ps-lg-3">
+                                                        <h4 class="title text-dark">
+
+                                                            <h5 class="title text-dark">Tên sản phẩm:</h5>
+                                                            <input type="text" name="product_name" placeholder="Nhập tên sản phẩm" class="form-control" required/>
+                                                            <label style="color: red; display: none;" id="productNameError">*Vui lòng nhập Tên sản phẩm</label>
+                                                        </h4>
+                                                        <hr/>
+                                                        <div class="mb-3">
+                                                            <h6 class="title text-dark" >Giá:</h6>                                                                
+                                                            <input type="text" name="price" placeholder="Vui lòng nhập giá > 0" class="form-control" required/>
+                                                            <label style="color: red; display: none;" id="productPriceError">*Vui lòng nhập Giá</label>
+
+                                                        </div>
+                                                        <hr/>
+                                                        <div class="mb-3">
+                                                            <h6 class="title text-dark" >Quantity:</h6>                                                                
+                                                            <input type="number" name="quantity" placeholder="Vui lòng nhập Số lượng > 0" class="form-control" min="1" required />
+                                                            <label style="color: red; display: none;" id="productQuantityError">*Vui lòng nhập Số lượng</label>
+                                                        </div>
+                                                        <hr/>
+                                                        <h6>Mô tả:</h6>
+                                                        <textarea name="decription" class="form-control">${product.detail.decription}</textarea>
+                                                        <hr/>
+                                                        <div class="mb-3">
+                                                            <h6 class="title text-dark" >Danh mục:</h6>
+                                                            <select name="category_id" id="category" class="form-control">
+                                                                <c:forEach items="${categories}" var="category">
+                                                                    <option value="${category.category_id}">${category.category_name}</option>
+                                                                </c:forEach>
+                                                            </select>                                                                   
+                                                        </div>
+                                                        <hr/>
+                                                        <div class="mb-3">
+                                                            <h6 class="title text-dark" >Nhà cung cấp:</h6>                                                                
+                                                            <select name="brandId" id="brand" class="form-control">
+                                                                <c:forEach items="${brands}" var="brands">
+                                                                    <option value="${brands.brandId}">${brands.brandName}</option>
+                                                                </c:forEach>
+                                                            </select> 
+                                                        </div>
+                                                        <hr/>
+                                                        <div class="mb-3">
+                                                            <h6 class="title text-dark" >Ngày bắt đầu:</h6>                                                                
+                                                            <input type="date" name="dateStart"  class="form-control" />
+                                                            <label style="color: red; display: none;" id="dateStartError">*Vui lòng chọn Ngày bắt đầu</label>
+                                                        </div>
+                                                        <hr/>
+                                                        <div class="mb-3">
+                                                            <h6 class="title text-dark" >Ngày kết thúc:</h6>                                                                
+                                                            <input type="date" name="dateEnd"  class="form-control" />
+                                                            <label style="color: red; display: none;" id="dateEndError">*Vui lòng chọn Ngày kết thúc</label>
+                                                        </div>
+                                                        <hr/>
+
+                                                        <a href="#" id="show-more-details">Show more Details</a>
+                                                        <hr/>
+                                                        <div class="row" id="product-details" style="display: none;">                                                                
+                                                            <div class="row w-100">
+                                                                <dt class="col-3">Ram</dt>
+                                                                <dd class="col-9"><input type="text" name="ram" class="form-control" /></dd>
+                                                            </div>
+                                                            <div class="row w-100">
+                                                                <dt class="col-3">Rom:</dt>
+                                                                <dd class="col-9"><input type="text" name="rom"  class="form-control" /></dd>
+                                                            </div>
+                                                            <div class="row w-100">
+                                                                <dt class="col-3">Size:</dt>
+                                                                <dd class="col-9"><input type="text" name="size"  class="form-control" /></dd>
+                                                            </div>
+                                                            <div class="row w-100">
+                                                                <dt class="col-3">Battery:</dt>
+                                                                <dd class="col-9"><input type="text" name="battery"  class="form-control" /></dd>
+                                                            </div>
+                                                            <div class="row w-100">
+                                                                <dt class="col-3">Weight:</dt>
+                                                                <dd class="col-9"><input type="text" name="weight"  class="form-control" /></dd>
+                                                            </div>
+                                                            <div class="row w-100">
+                                                                <dt class="col-3">Color:</dt>
+                                                                <dd class="col-9"><input type="text" name="color"  class="form-control" /></dd>
+                                                            </div>
+                                                            <div class="row w-100">
+                                                                <dt class="col-3">CPU:</dt>
+                                                                <dd class="col-9"><input type="text" name="cpu"  class="form-control" /></dd>
+                                                            </div>
+                                                            <div class="row w-100">
+                                                                <dt class="col-3">Wattage:</dt>
+                                                                <dd class="col-9"><input type="text" name="wattage"  class="form-control" /></dd>
+                                                            </div>
+                                                            <div class="row w-100">
+                                                                <dt class="col-3">Status:</dt>
+                                                                <dd class="col-9"><input type="text" name="status"  class="form-control" /></dd>
+                                                            </div>
+                                                            <!--                                                                <input type="text" name="product_img"  class="form-control" style="display: none" readonly/>-->
+                                                            <input type="text" name="userId" value="${sessionScope.account.user_Id}" class="form-control" style="display: none" readonly/>
+
+                                                            <hr/>
+                                                        </div>
+
+                                                    </div>
+                                                </main>
+
+                                            </div>
+                                        </div>
+                                    </form>
+                                </section>
+
+
+                                <!-- content -->
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
 
 
-            <!-- JavaScript Libraries -->
-            <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-            <script src="OPlib/chart/chart.min.js"></script>
-            <script src="OPlib/easing/easing.min.js"></script>
-            <script src="OPlib/waypoints/waypoints.min.js"></script>
-            <script src="OPlib/owlcarousel/owl.carousel.min.js"></script>
-            <script src="OPlib/tempusdominus/js/moment.min.js"></script>
-            <script src="OPlib/tempusdominus/js/moment-timezone.min.js"></script>
-            <script src="OPlib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+            <!-- Back to Top -->
+            <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        </div>
 
-            <!-- Template Javascript -->
-            <script src="js/main.js"></script>
-            <script>
-                                                                $('.sidebar-toggler').click(function () {
-                                                                    $('.sidebar, .content').toggleClass("open");
-                                                                    return false;
-                                                                });
-            </script>
-            <script>
-                const detailsDiv = document.getElementById("product-details");
-                const showMoreButton = document.getElementById("show-more-details");
 
-                showMoreButton.addEventListener("click", function () {
-                    if (detailsDiv.style.display === "none") {
-                        detailsDiv.style.display = "block";
-                        showMoreButton.textContent = "Hide Details"; // Thay đổi nội dung nút
-                    } else {
-                        detailsDiv.style.display = "none";
-                        showMoreButton.textContent = "Show more Details"; // Thay đổi nội dung nút
-                    }
-                });
-                function checkFileExtension() {
-                    var fileInput = document.getElementById('imageMain');
-                    var filePath = fileInput.value;
-                    var allowedExtensions = /(\.jsp|\.png|\.jpg)$/i;
-                    if (!allowedExtensions.exec(filePath)) {
-                        alert('Vui lòng chọn một tệp có phần mở rộng là .jsp,.png hoặc .jpg');
-                        fileInput.value = '';
-                        return false;
-                    }
-                    return true;
+
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="OPlib/chart/chart.min.js"></script>
+        <script src="OPlib/easing/easing.min.js"></script>
+        <script src="OPlib/waypoints/waypoints.min.js"></script>
+        <script src="OPlib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="OPlib/tempusdominus/js/moment.min.js"></script>
+        <script src="OPlib/tempusdominus/js/moment-timezone.min.js"></script>
+        <script src="OPlib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
+        <script>
+                                                            $('.sidebar-toggler').click(function () {
+                                                                $('.sidebar, .content').toggleClass("open");
+                                                                return false;
+                                                            });
+        </script>
+        <script>
+            const detailsDiv = document.getElementById("product-details");
+            const showMoreButton = document.getElementById("show-more-details");
+
+            showMoreButton.addEventListener("click", function () {
+                if (detailsDiv.style.display === "none") {
+                    detailsDiv.style.display = "block";
+                    showMoreButton.textContent = "Hide Details"; // Thay đổi nội dung nút
+                } else {
+                    detailsDiv.style.display = "none";
+                    showMoreButton.textContent = "Show more Details"; // Thay đổi nội dung nút
                 }
-                function ProductUpdate(id) {
-                    if (confirm("Bạn có chắc muốn hoàn tác? Mọi thao tác của bạn sẽ không được lưu!")) {
-                        // Nếu người dùng click "OK", chuyển hướng
-                        let url = "marketingProductDetails?id=" + id;
-                        window.location.href = url;
-                    } else {
-                        // Nếu người dùng click "Cancel", không làm gì cả
-                        // (Hoặc bạn có thể thêm code để xử lý hành động khác)
-                    }
+            });
+            function checkFileExtension() {
+                var fileInput = document.getElementById('imageMain');
+                var filePath = fileInput.value;
+                var allowedExtensions = /(\.jsp|\.png|\.jpg)$/i;
+                if (!allowedExtensions.exec(filePath)) {
+                    alert('Vui lòng chọn một tệp có phần mở rộng là .jsp,.png hoặc .jpg');
+                    fileInput.value = '';
+                    return false;
                 }
-                function Back() {
-                    if (confirm("Bạn có chắc muốn hoàn tác? Mọi thao tác của bạn sẽ không được lưu!")) {
-                        // Nếu người dùng click "OK", chuyển hướng
-                        let url = "marketingProductList";
-                        window.location.href = url;
-                    } else {
-                        // Nếu người dùng click "Cancel", không làm gì cả
-                        // (Hoặc bạn có thể thêm code để xử lý hành động khác)
-                    }
+                return true;
+            }
+            function ProductUpdate(id) {
+                if (confirm("Bạn có chắc muốn hoàn tác? Mọi thao tác của bạn sẽ không được lưu!")) {
+                    // Nếu người dùng click "OK", chuyển hướng
+                    let url = "marketingProductDetails?id=" + id;
+                    window.location.href = url;
+                } else {
+                    // Nếu người dùng click "Cancel", không làm gì cả
+                    // (Hoặc bạn có thể thêm code để xử lý hành động khác)
                 }
-                function confirmSubmit() {
-                    if (checkFileExtension()) {
-                        if (checkInput()) {
-                            document.getElementById('AddForm').submit();
-                        }
-                    }
+            }
+            function Back() {
+                if (confirm("Bạn có chắc muốn hoàn tác? Mọi thao tác của bạn sẽ không được lưu!")) {
+                    // Nếu người dùng click "OK", chuyển hướng
+                    let url = "marketingProductList";
+                    window.location.href = url;
+                } else {
+                    // Nếu người dùng click "Cancel", không làm gì cả
+                    // (Hoặc bạn có thể thêm code để xử lý hành động khác)
                 }
-
-                function checkInput() {
-                    var productName = document.getElementsByName("product_name")[0].value.trim();
-                    var productPrice = document.getElementsByName("price")[0].value.trim();
-                    var productQuantity = document.getElementsByName("quantity")[0].value.trim();
-                    var dateStart = document.getElementsByName("dateStart")[0].value;
-                    var dateEnd = document.getElementsByName("dateEnd")[0].value;
-
-                    if (productName === "") {
-                        document.getElementById("productNameError").style.display = "block";
-                    } else {
-                        document.getElementById("productNameError").style.display = "none";
-                    }
-                    if (productPrice === "") {
-                        document.getElementById("productPriceError").style.display = "block";
-                    } else {
-                        document.getElementById("productPriceError").style.display = "none";
-                    }
-                    if (productQuantity === "") {
-                        document.getElementById("productQuantityError").style.display = "block";
-                    } else {
-                        document.getElementById("productQuantityError").style.display = "none";
-                    }
-                    if (dateStart === "") {
-                        document.getElementById("dateStartError").style.display = "block";
-                    } else {
-                        document.getElementById("dateStartError").style.display = "none";
-                    }
-
-                    if (dateEnd === "") {
-                        document.getElementById("dateEndError").style.display = "block";
-                    } else {
-                        document.getElementById("dateEndError").style.display = "none";
+            }
+            function confirmSubmit() {
+                if (checkFileExtension()) {
+                    if (checkInput()) {
+                        document.getElementById('AddForm').submit();
                     }
                 }
-                document.getElementById('Pstatus').addEventListener('change', function () {
-                    this.value = this.checked ? 'pending' : 'active';
-                    document.getElementById('status-text').innerText = this.checked ? 'Đang nhập hàng' : 'Có sẵn';
-                });
+            }
+
+            function checkInput() {
+                var productName = document.getElementsByName("product_name")[0].value.trim();
+                var productPrice = document.getElementsByName("price")[0].value.trim();
+                var productQuantity = document.getElementsByName("quantity")[0].value.trim();
+                var dateStart = document.getElementsByName("dateStart")[0].value;
+                var dateEnd = document.getElementsByName("dateEnd")[0].value;
+
+                if (productName === "") {
+                    document.getElementById("productNameError").style.display = "block";
+                } else {
+                    document.getElementById("productNameError").style.display = "none";
+                }
+                if (productPrice === "") {
+                    document.getElementById("productPriceError").style.display = "block";
+                } else {
+                    document.getElementById("productPriceError").style.display = "none";
+                }
+                if (productQuantity === "") {
+                    document.getElementById("productQuantityError").style.display = "block";
+                } else {
+                    document.getElementById("productQuantityError").style.display = "none";
+                }
+                if (dateStart === "") {
+                    document.getElementById("dateStartError").style.display = "block";
+                } else {
+                    document.getElementById("dateStartError").style.display = "none";
+                }
+
+                if (dateEnd === "") {
+                    document.getElementById("dateEndError").style.display = "block";
+                } else {
+                    document.getElementById("dateEndError").style.display = "none";
+                }
+            }
+            document.getElementById('Pstatus').addEventListener('change', function () {
+                this.value = this.checked ? 'pending' : 'active';
+                document.getElementById('status-text').innerText = this.checked ? 'Đang nhập hàng' : 'Có sẵn';
+            });
 
 
-            </script>
+        </script>
 
 
     </body>

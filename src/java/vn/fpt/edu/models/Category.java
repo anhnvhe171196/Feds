@@ -11,7 +11,7 @@ package vn.fpt.edu.models;
 public class Category {
     int category_id;
     String category_name;
-
+    int productcount;
     public Category() {
     }
 
@@ -36,6 +36,14 @@ public class Category {
         this.category_name = category_name;
     }
 
+    public int getProductcount() {
+        return productcount;
+    }
+
+    public void setProductcount(int productcount) {
+        this.productcount = productcount;
+    }
+    
     
     
     

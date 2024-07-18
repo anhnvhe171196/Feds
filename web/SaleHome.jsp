@@ -41,7 +41,7 @@
                 width: 100%;
                 display: block;
                 max-width: 70%;
-                height: 50%;
+                height: 40%;
                 margin: auto;
             }
 
@@ -56,6 +56,52 @@
             .btn-margin-bottom {
                 position: relative; /* Thiết lập vị trí tương đối */
                 top: 23px; /* Di chuyển nút xuống dưới 5px */
+            }
+            /* General style adjustments */
+            .bg-light {
+                padding: 0.5rem !important;
+            }
+
+            .form-label {
+                font-size: 0.85rem;
+            }
+
+            .form-control, .form-select {
+                font-size: 0.85rem;
+                padding: 0.25rem 0.5rem;
+            }
+
+            h6 {
+                font-size: 1rem;
+                margin-bottom: 0.5rem;
+            }
+
+            button {
+                font-size: 0.85rem;
+                padding: 0.25rem 0.5rem;
+            }
+
+            /* For alignment of forms and charts */
+            .d-flex .me-2 {
+                margin-right: 0.5rem !important;
+            }
+
+            .d-flex .m-2 {
+                margin: 0.5rem !important;
+            }
+
+            /* Ensure charts are side by side on larger screens */
+            @media (min-width: 992px) {
+                .col-xl-6 {
+                    flex: 0 0 auto;
+                    width: 50%;
+                }
+            }
+
+            /* Adjustments for canvas size */
+            canvas {
+                width: 100% !important;
+                height: auto !important;
             }
 
         </style>
@@ -92,6 +138,7 @@
                         <a href="/Feds/saleDashboard" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                         <a href="/Feds/orderListBillController" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Order List</a>
                         <a href="/Feds/feedbackListFeedbackController" class="nav-item nav-link "><i class="fa fa-th me-2"></i>Feedback List</a> 
+                        <a href="/Feds/contactListContactController" class="nav-item nav-link"><i class="fa fa-th me-2 "></i>Reply Contact</a> 
                     </div> 
 
 
@@ -116,7 +163,7 @@
 
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <!--                                <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">-->
+                            <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">Trong Sale</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
@@ -187,29 +234,32 @@
 
 
 
-            <!-- Top Trends Product  Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
-                    <form action="sellingProduct" method="get" >
-                        <div class="col-sm-12 col-xl-12">
-                            <div class="bg-light text-center rounded p-4">
-                                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <!-- Top sản phẩm bán chạy -->
+                    <form action="sellingProduct" method="get" onsubmit="return validateForm()">
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-light text-center rounded p-2">
+                                <div class="d-flex align-items-center justify-content-between mb-2">
                                     <h6 class="mb-0">Top sản phẩm bán chạy</h6>
                                     <div class="d-flex">
                                         <div class="me-2">
                                             <label for="quantity" class="form-label">Số lượng sản phẩm:</label>
-                                            <input type="number" id="quantity" class="form-control" name="quantity" placeholder="10" value="${sessionScope.quantity}"  min="1">
+                                            <input type="number" id="quantity" class="form-control form-control-sm" name="quantity" placeholder="10" value="${sessionScope.quantity}" min="1">
+                                            <small id="quantity-error" class="text-danger"></small>
                                         </div>
                                         <div class="me-2">
                                             <label for="start-date-sales" class="form-label">Ngày bắt đầu:</label>
-                                            <input type="date" id="start-date-sales" class="form-control" value="${sessionScope.startDate}" name="startdate">
+                                            <input type="date" id="start-date-sales" class="form-control form-control-sm" value="${sessionScope.startDate}" name="startdate">
+                                            <small id="startdate-error" class="text-danger"></small>
                                         </div>
                                         <div class="me-2">
                                             <label for="end-date-sales" class="form-label">Ngày kết thúc:</label>
-                                            <input type="date" id="end-date-sales" value="${sessionScope.endDate}" class="form-control" name="enddate">
+                                            <input type="date" id="end-date-sales" value="${sessionScope.endDate}" class="form-control form-control-sm" name="enddate">
+                                            <small id="enddate-error" class="text-danger"></small>
                                         </div>
                                         <div>
-                                            <button id="show-sales" class="btn btn-outline-primary m-2 btn-margin-bottom">Xem</button>
+                                            <button id="show-sales" class="btn btn-outline-primary btn-sm m-2 btn-margin-bottom">Xem</button>
                                         </div>
                                     </div>
                                 </div>
@@ -218,25 +268,18 @@
                                 </div>
                             </div>
                         </div>
-                    </form>    
-                </div>
-            </div>
-            <!-- Top Trends Product  End -->
+                    </form>
 
-
-
-            <!-- Top Trend Category -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <form action="trendingCategory" method="get">
-                        <div class="col-sm-12 col-xl-12">
-                            <div class="bg-light text-center rounded p-4">
-                                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <!-- Top danh mục bán chạy -->
+                    <form action="trendingCategory" method="get" onsubmit="return validateForm()">
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-light text-center rounded p-2">
+                                <div class="d-flex align-items-center justify-content-between mb-2">
                                     <h6 class="mb-0">Top danh mục bán chạy</h6>
                                     <div class="d-flex">
                                         <div class="me-2">
                                             <label for="month-sales" class="form-label">Chọn tháng:</label>
-                                            <select id="month-sales" class="form-select" name="month1">
+                                            <select id="month-sales" class="form-select form-select-sm" name="month1" style="width: 85px">
                                                 <option ${sessionScope.monthtrend==0?"selected":""} value="0">Cả năm</option>
                                                 <option ${sessionScope.monthtrend==1?"selected":""} value="1">Tháng 1</option>
                                                 <option ${sessionScope.monthtrend==2?"selected":""} value="2">Tháng 2</option>
@@ -251,18 +294,19 @@
                                                 <option ${sessionScope.monthtrend==11?"selected":""} value="11">Tháng 11</option>
                                                 <option ${sessionScope.monthtrend==12?"selected":""} value="12">Tháng 12</option>
                                             </select>
+                                            <small id="month-error" class="text-danger"></small>
                                         </div>
                                         <div class="me-2">
                                             <label for="year-sales" class="form-label">Chọn năm:</label>
-                                            <select id="year-sales" class="form-select" name="year">
+                                            <select id="year-sales" class="form-select form-select-sm" name="year" style="width: 70px">
                                                 <option ${sessionScope.year==2023?"selected":""} value="2023">2023</option>
                                                 <option ${sessionScope.year==2024?"selected":""} value="2024">2024</option>
                                                 <option ${sessionScope.year==2025?"selected":""} value="2025">2025</option>
-                                                <!-- Add more years as needed -->
                                             </select>
+                                            <small id="year-error" class="text-danger"></small>
                                         </div>
                                         <div>
-                                            <button id="show-sales" class="btn btn-outline-primary m-2 btn-margin-bottom">Xem</button>
+                                            <button id="show-sales" class="btn btn-outline-primary btn-sm m-2 btn-margin-bottom">Xem</button>
                                         </div>
                                     </div>
                                 </div>
@@ -274,12 +318,12 @@
                     </form>
                 </div>
             </div>
-            <!-- Top Trend Category End-->
+
 
             <!-- Sum Revenue By Day Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
-                    <form action="sumRevenue" method="get">
+                    <form action="sumRevenue" method="get" >
                         <div class="col-sm-12 col-xl-12">
                             <div class="bg-light text-center rounded p-4">
                                 <div class="d-flex align-items-center justify-content-between mb-4">
@@ -289,10 +333,12 @@
                                         <div class="me-2">
                                             <label for="start-date-priority" class="form-label">Ngày bắt đầu:</label>
                                             <input type="date" id="start-date-priority" value="${sessionScope.startDatechart3}" class="form-control" name="startdate">
+                                            <small id="startdate-error" class="text-danger"></small>
                                         </div>
                                         <div class="me-2">
                                             <label for="end-date-priority" class="form-label">Ngày kết thúc:</label>
                                             <input type="date" id="end-date-priority" value="${sessionScope.endDatechart3}" class="form-control" name="enddate">
+                                            <small id="enddate-error" class="text-danger"></small>
                                         </div>
                                         <div>
                                             <button id="show-priority" class="btn btn-outline-primary m-2 btn-margin-bottom">Xem</button>
@@ -392,34 +438,37 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
 
     <script>
-                                            var names = [];
-                                            var data = [];
+                        var names = [];
+                        var data = [];
         <c:forEach items="${sessionScope.name}" var="val" varStatus="loop">
-                                            names.push("${val}");
+                        names.push("${val}");
         </c:forEach>
 
         <c:forEach items="${sessionScope.sum}" var="val" varStatus="loop">
-                                            data.push(${val});
+                        data.push(${val});
         </c:forEach>
-                                            var ctx = document.getElementById('sellingProduct').getContext('2d');
-                                            var myChart = new Chart(ctx, {
-                                                type: 'bar',
-                                                data: {
-                                                    labels: names,
-                                                    datasets: [{
-                                                            label: 'Số sản phẩm bán được',
-                                                            data: data,
-                                                            borderWidth: 1
-                                                        }]
-                                                },
-                                                options: {
-                                                    scales: {
-                                                        y: {
-                                                            beginAtZero: true
-                                                        }
-                                                    }
-                                                }
-                                            });
+                        var ctx = document.getElementById('sellingProduct').getContext('2d');
+                        var myChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: names,
+                                datasets: [{
+                                        label: 'Số sản phẩm bán được',
+                                        data: data,
+                                        borderWidth: 1
+                                    }]
+                            },
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            }
+                        });
+
+
+
     </script>
     <script>
         var names1 = [];
@@ -451,7 +500,20 @@
             }
         });
     </script>
+    <script>
+        function validateForm() {
+            const quantityInput = document.getElementById('quantity');
+            const quantityError = document.getElementById('quantity-error');
 
+            if (quantityInput.value === '') {
+                quantityError.textContent = 'Hãy nhập số lượng';
+                return false;
+            } else {
+                quantityError.textContent = '';
+            }
+            return true;
+        }
+    </script>
     <script>
         var names2 = [];
         var sums2 = [];
@@ -481,6 +543,43 @@
                 }
             }
         });
+    </script>
+
+    <script>
+        function validateForm() {
+            const quantityInput = document.getElementById('quantity');
+            const startDateInput = document.getElementById('start-date-sales');
+            const endDateInput = document.getElementById('end-date-sales');
+
+            const quantityError = document.getElementById('quantity-error');
+            const startDateError = document.getElementById('startdate-error');
+            const endDateError = document.getElementById('enddate-error');
+
+            let isValid = true;
+
+            if (quantityInput.value === '') {
+                quantityError.textContent = 'Hãy nhập quantity';
+                isValid = false;
+            } else {
+                quantityError.textContent = '';
+            }
+
+            if (startDateInput.value === '') {
+                startDateError.textContent = 'Hãy chọn ngày bắt đầu';
+                isValid = false;
+            } else {
+                startDateError.textContent = '';
+            }
+
+            if (endDateInput.value === '') {
+                endDateError.textContent = 'Hãy chọn ngày kết thúc';
+                isValid = false;
+            } else {
+                endDateError.textContent = '';
+            }
+
+            return isValid;
+        }
     </script>
 
     <script>

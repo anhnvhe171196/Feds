@@ -107,377 +107,379 @@
                     </div>
                 </nav>
             </div>
-            <!-- Sidebar End -->
+        </div>
+
+        <!-- Sidebar End -->
 
 
-            <!-- Content Start -->
-            <div class="content">
-                <!-- Navbar Start -->
-                <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                    <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                        <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
-                    </a>
-                    <a href="#" class="sidebar-toggler flex-shrink-0">
-                        <i class="fa fa-bars"></i>
-                    </a>
-                    <form class="d-none d-md-flex ms-4" action="marketingProductList" method="get"> 
-                        <input class="form-control border-0" type="search" placeholder="Search" name="search" value="${sessionScope.search}">&nbsp;&nbsp;&nbsp;
-                        <button type="submit" class="btn btn-primary" >Enter</button> 
-                    </form> 
-                    <div class="navbar-nav align-items-center ms-auto">
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <i class="fa fa-envelope me-lg-2"></i>
-                                <span class="d-none d-lg-inline-flex">Tin nhắn</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+        <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
+                </a>
+                <a href="#" class="sidebar-toggler flex-shrink-0">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <form class="d-none d-md-flex ms-4" action="marketingProductList" method="get"> 
+                    <input class="form-control border-0" type="search" placeholder="Search" name="search" value="${sessionScope.search}">&nbsp;&nbsp;&nbsp;
+                    <button type="submit" class="btn btn-primary" >Enter</button> 
+                </form> 
+                <div class="navbar-nav align-items-center ms-auto">
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fa fa-envelope me-lg-2"></i>
+                            <span class="d-none d-lg-inline-flex">Tin nhắn</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
 
-                                <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item text-center">Xem tất cả tin nhắn</a>
-                            </div>
-                        </div>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <i class="fa fa-bell me-lg-2"></i>
-                                <span class="d-none d-lg-inline-flex">Thông báo</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-
-                                <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item text-center">Xem tất cả thông báo</a>
-                            </div>
-                        </div>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <img class="rounded-circle me-lg-2" src="images/${sessionScope.account.avarta}" alt="" style="width: 40px; height: 40px;">
-                                <span class="d-none d-lg-inline-flex">${sessionScope.account.user_name}</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                                <a href="userProfile" class="dropdown-item">Hồ sơ cá nhân</a>
-                                <a href="#" class="dropdown-item">Cài đặt</a>
-                                <a href="home" class="dropdown-item">Trang chủ</a>
-                                <c:choose>
-                                    <c:when test="${ not empty sessionScope.account}"><a href="${pageContext.request.contextPath}/userLogout" class="dropdown-item">Đăng xuất</a></c:when>
-                                    <c:otherwise><a href="${pageContext.request.contextPath}/login" class="dropdown-item">Đăng nhập</a></c:otherwise>
-                                </c:choose>
-                            </div>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item text-center">Xem tất cả tin nhắn</a>
                         </div>
                     </div>
-                </nav>
-                <!-- Navbar End -->
-                <div class="container-fluid pt-4 px-4">
-                    <div class="row g-4">
-                        <div class="col-sm-12">
-                            <div class="bg-light rounded h-100 p-4">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="mb-4">
-                                            <h6>Danh sách sản phẩm</h6>
-                                        </div>
-                                    </div>
-                                    <div class="col" style="display: flex; justify-content: flex-end; align-items: center;">
-                                        <div class="mb-4" style="margin-right: 10px;">
-                                            <a onclick="AddProduct()">
-                                                <img  src="images/icons/AddIcon.png" alt="Thêm sản phẩm" style="width: 40px; height: 40px;">                                             
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">
-                                                <a href="#" onclick="sortById()">
-                                                    <button type="button" class="sort-button">ID</button>
-                                                </a>
-                                            </th>
-                                            <th scope="col" style="color: #009CFF;">Ảnh</th>
-                                            <th scope="col">
-                                                <a href="#" onclick="sortByName()">
-                                                    <button type="button" class="sort-button">Tên sản phẩm</button>
-                                                </a>
-                                            </th>
-                                            <th scope="col" style="color: #009CFF;">Hãng</th>
-                                            <th scope="col">
-                                                <a href="#" onclick="sortByQuantity()">
-                                                    <button type="button" class="sort-button">Số lượng</button>
-                                                </a>
-                                            </th>
-                                            <th scope="col">
-                                                <a href="#" onclick="sortByPrice()">
-                                                    <button type="button" class="sort-button">Giá gốc</button>
-                                                </a>
-                                            </th>
-                                            <th scope="col">
-                                                <a href="#" onclick="sortByDateStart()">
-                                                    <button type="button" class="sort-button">Băt đầu</button>
-                                                </a>
-                                            </th>
-                                            <th scope="col">
-                                                <a href="#" onclick="sortByDateEnd()">
-                                                    <button type="button" class="sort-button">Kết thúc</button>
-                                                </a>
-                                            </th>
-                                            <th scope="col">
-                                                <a href="#" onclick="sortByDateEnd()">
-                                                    <button type="button" class="sort-button">Sale</button>
-                                                </a>
-                                            </th>
-                                            <th scope="col">
-                                                <a href="#" >
-                                                    <button type="button" class="sort-button">Status</button>
-                                                </a>
-                                            </th>
-                                            <th scope="col" style="color: red;" class="Update1">
-                                                Chỉnh Sửa
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <c:forEach items="${products}" var="product">
-                                            <tr>
-                                                <td scope="col" onclick="ProductDetail(${product.product_id})">${product.product_id}</th>
-                                                <td scope="col" onclick="ProductDetail(${product.product_id})"><img src="images/${product.product_img}" style="max-height: 50px"></th>
-                                                <td scope="col"  style="max-width: 200px; word-wrap: break-word;" onclick="ProductDetail(${product.product_id})">${product.product_name}</th>
-                                                <td scope="col" onclick="ProductDetail(${product.product_id})">${product.brand.brandName}</th>
-                                                <td scope="col" onclick="ProductDetail(${product.product_id})">${product.quantity}</th>
-                                                <td scope="col" onclick="ProductDetail(${product.product_id})"><fmt:formatNumber value="${product.price.price}" pattern="#,##0 VND" /></th>
-                                                <td scope="col" onclick="ProductDetail(${product.product_id})">
-                                                    <c:choose>
-                                                        <c:when test="${empty product.price.dateStart}">
-                                                            Null
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            ${product.price.dateStart}
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </td>
-                                                <td scope="col" onclick="ProductDetail(${product.product_id})">
-                                                    <c:choose>
-                                                        <c:when test="${empty product.price.dateEnd}">
-                                                            Null
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            ${product.price.dateEnd}
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </td>
-                                                <td scope="col" onclick="ProductDetail(${product.product_id})">
-                                                    <c:choose>
-                                                        <c:when test="${empty product.price.sale}">
-                                                            0%
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            ${product.price.sale}%
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </td>
-                                                <td scope="col" onclick="ProductDetail(${product.product_id})" >
-                                                    <c:choose>
-                                                        <c:when test="${product.status eq 'active'}">
-                                                            <label style="color: springgreen">${product.status}</label>
-                                                        </c:when>
-                                                            <c:when test="${product.status eq 'pending'}">
-                                                            <label style="color: gold">${product.status}</label>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <label style="color: red">${product.status}</label>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                    </th>
-                                                <td scope="col" class="Update">
-                                                    <a href="#" onclick="ProductUpdate(${product.product_id})">
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;<img  src="images/icons/EditsIcon.png" alt="Sửa sản phẩm" style="width: 25px; height: 25px;">                                    
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        </c:forEach>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fa fa-bell me-lg-2"></i>
+                            <span class="d-none d-lg-inline-flex">Thông báo</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
 
-                                    </tbody>
-                                </table>
-
-
-                                <div class="d-flex justify-content-center">
-                                    <c:if test="${endPage > 1}">
-                                        <nav aria-label="Page navigation">
-                                            <ul class="pagination">
-                                                <!-- Previous Button -->
-                                                <c:if test="${index > 1}">
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="marketingProductList?index=${index - 1}&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}&search=${sessionScope.search}" aria-label="Previous">
-                                                            <span aria-hidden="true">«</span>
-                                                        </a>
-                                                    </li>
-                                                </c:if>
-
-                                                <!-- First Page Button -->
-                                                <li class="page-item ${index == 1 ? 'active' : ''}">
-                                                    <a class="page-link" href="marketingProductList?index=1&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}&search=${sessionScope.search}">1</a>
-                                                </li>
-
-                                                <!-- Page Number Buttons -->
-                                                <c:if test="${index > 3}">
-                                                    <li class="page-item disabled">
-                                                        <span class="page-link">...</span>
-                                                    </li>
-                                                </c:if>
-
-                                                <c:forEach begin="2" end="${endPage-1}" var="i">
-                                                    <c:if test="${i >= index - 1 && i <= index + 1}">
-                                                        <li class="page-item ${i == index ? 'active' : ''}">
-                                                            <a class="page-link" href="marketingProductList?index=${i}&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}&search=${sessionScope.search}">${i}</a>
-                                                        </li>
-                                                    </c:if>
-                                                </c:forEach>
-
-                                                <c:if test="${index < endPage - 2}">
-                                                    <li class="page-item disabled">
-                                                        <span class="page-link">...</span>
-                                                    </li>
-                                                </c:if>
-
-                                                <!-- Last Page Button -->
-                                                <li class="page-item ${index == endPage ? 'active' : ''}">
-                                                    <a class="page-link" href="marketingProductList?index=${endPage}&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}&search=${sessionScope.search}">${endPage}</a>
-                                                </li>
-
-                                                <!-- Next Button -->
-                                                <c:if test="${index < endPage}">
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="marketingProductList?index=${index + 1}&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}&search=${sessionScope.search}" aria-label="Next">
-                                                            <span aria-hidden="true">»</span>
-                                                        </a>
-                                                    </li>
-                                                </c:if>
-                                            </ul>
-                                        </nav>
-                                    </c:if>
-                                </div>
-                            </div>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item text-center">Xem tất cả thông báo</a>
                         </div>
-
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <img class="rounded-circle me-lg-2" src="images/${sessionScope.account.avarta}" alt="" style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex">${sessionScope.account.user_name}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="userProfile" class="dropdown-item">Hồ sơ cá nhân</a>
+                            <a href="#" class="dropdown-item">Cài đặt</a>
+                            <a href="home" class="dropdown-item">Trang chủ</a>
+                            <c:choose>
+                                <c:when test="${ not empty sessionScope.account}"><a href="${pageContext.request.contextPath}/userLogout" class="dropdown-item">Đăng xuất</a></c:when>
+                                <c:otherwise><a href="${pageContext.request.contextPath}/login" class="dropdown-item">Đăng nhập</a></c:otherwise>
+                            </c:choose>
+                        </div>
                     </div>
                 </div>
+            </nav>
+            <!-- Navbar End -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12">
+                        <div class="bg-light rounded h-100 p-4">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-4">
+                                        <h6>Danh sách sản phẩm</h6>
+                                    </div>
+                                </div>
+                                <div class="col" style="display: flex; justify-content: flex-end; align-items: center;">
+                                    <div class="mb-4" style="margin-right: 10px;">
+                                        <a onclick="AddProduct()">
+                                            <img  src="images/icons/AddIcon.png" alt="Thêm sản phẩm" style="width: 40px; height: 40px;">                                             
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <a href="#" onclick="sortById()">
+                                                <button type="button" class="sort-button">ID</button>
+                                            </a>
+                                        </th>
+                                        <th scope="col" style="color: #009CFF;">Ảnh</th>
+                                        <th scope="col">
+                                            <a href="#" onclick="sortByName()">
+                                                <button type="button" class="sort-button">Tên sản phẩm</button>
+                                            </a>
+                                        </th>
+                                        <th scope="col" style="color: #009CFF;">Hãng</th>
+                                        <th scope="col">
+                                            <a href="#" onclick="sortByQuantity()">
+                                                <button type="button" class="sort-button">Số lượng</button>
+                                            </a>
+                                        </th>
+                                        <th scope="col">
+                                            <a href="#" onclick="sortByPrice()">
+                                                <button type="button" class="sort-button">Giá gốc</button>
+                                            </a>
+                                        </th>
+                                        <th scope="col">
+                                            <a href="#" onclick="sortByDateStart()">
+                                                <button type="button" class="sort-button">Băt đầu</button>
+                                            </a>
+                                        </th>
+                                        <th scope="col">
+                                            <a href="#" onclick="sortByDateEnd()">
+                                                <button type="button" class="sort-button">Kết thúc</button>
+                                            </a>
+                                        </th>
+                                        <th scope="col">
+                                            <a href="#" onclick="sortByDateEnd()">
+                                                <button type="button" class="sort-button">Sale</button>
+                                            </a>
+                                        </th>
+                                        <th scope="col">
+                                            <a href="#" >
+                                                <button type="button" class="sort-button">Status</button>
+                                            </a>
+                                        </th>
+                                        <th scope="col" style="color: red;" class="Update1">
+                                            Chỉnh Sửa
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${products}" var="product">
+                                        <tr>
+                                            <td scope="col" onclick="ProductDetail(${product.product_id})">${product.product_id}</th>
+                                            <td scope="col" onclick="ProductDetail(${product.product_id})"><img src="images/${product.product_img}" style="max-height: 50px"></th>
+                                            <td scope="col"  style="max-width: 200px; word-wrap: break-word;" onclick="ProductDetail(${product.product_id})">${product.product_name}</th>
+                                            <td scope="col" onclick="ProductDetail(${product.product_id})">${product.brand.brandName}</th>
+                                            <td scope="col" onclick="ProductDetail(${product.product_id})">${product.quantity}</th>
+                                            <td scope="col" onclick="ProductDetail(${product.product_id})"><fmt:formatNumber value="${product.price.price}" pattern="#,##0 VND" /></th>
+                                            <td scope="col" onclick="ProductDetail(${product.product_id})">
+                                                <c:choose>
+                                                    <c:when test="${empty product.price.dateStart}">
+                                                        Null
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        ${product.price.dateStart}
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
+                                            <td scope="col" onclick="ProductDetail(${product.product_id})">
+                                                <c:choose>
+                                                    <c:when test="${empty product.price.dateEnd}">
+                                                        Null
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        ${product.price.dateEnd}
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
+                                            <td scope="col" onclick="ProductDetail(${product.product_id})">
+                                                <c:choose>
+                                                    <c:when test="${empty product.price.sale}">
+                                                        0%
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        ${product.price.sale}%
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
+                                            <td scope="col" onclick="ProductDetail(${product.product_id})" >
+                                                <c:choose>
+                                                    <c:when test="${product.status eq 'active'}">
+                                                        <label style="color: springgreen">${product.status}</label>
+                                                    </c:when>
+                                                    <c:when test="${product.status eq 'pending'}">
+                                                        <label style="color: gold">${product.status}</label>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <label style="color: red">${product.status}</label>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                                </th>
+                                            <td scope="col" class="Update">
+                                                <a href="#" onclick="ProductUpdate(${product.product_id})">
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;<img  src="images/icons/EditsIcon.png" alt="Sửa sản phẩm" style="width: 25px; height: 25px;">                                    
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+
+                                </tbody>
+                            </table>
 
 
+                            <div class="d-flex justify-content-center">
+                                <c:if test="${endPage > 1}">
+                                    <nav aria-label="Page navigation">
+                                        <ul class="pagination">
+                                            <!-- Previous Button -->
+                                            <c:if test="${index > 1}">
+                                                <li class="page-item">
+                                                    <a class="page-link" href="marketingProductList?index=${index - 1}&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}&search=${sessionScope.search}" aria-label="Previous">
+                                                        <span aria-hidden="true">«</span>
+                                                    </a>
+                                                </li>
+                                            </c:if>
 
-                <!-- Back to Top -->
-                <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+                                            <!-- First Page Button -->
+                                            <li class="page-item ${index == 1 ? 'active' : ''}">
+                                                <a class="page-link" href="marketingProductList?index=1&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}&search=${sessionScope.search}">1</a>
+                                            </li>
+
+                                            <!-- Page Number Buttons -->
+                                            <c:if test="${index > 3}">
+                                                <li class="page-item disabled">
+                                                    <span class="page-link">...</span>
+                                                </li>
+                                            </c:if>
+
+                                            <c:forEach begin="2" end="${endPage-1}" var="i">
+                                                <c:if test="${i >= index - 1 && i <= index + 1}">
+                                                    <li class="page-item ${i == index ? 'active' : ''}">
+                                                        <a class="page-link" href="marketingProductList?index=${i}&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}&search=${sessionScope.search}">${i}</a>
+                                                    </li>
+                                                </c:if>
+                                            </c:forEach>
+
+                                            <c:if test="${index < endPage - 2}">
+                                                <li class="page-item disabled">
+                                                    <span class="page-link">...</span>
+                                                </li>
+                                            </c:if>
+
+                                            <!-- Last Page Button -->
+                                            <li class="page-item ${index == endPage ? 'active' : ''}">
+                                                <a class="page-link" href="marketingProductList?index=${endPage}&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}&search=${sessionScope.search}">${endPage}</a>
+                                            </li>
+
+                                            <!-- Next Button -->
+                                            <c:if test="${index < endPage}">
+                                                <li class="page-item">
+                                                    <a class="page-link" href="marketingProductList?index=${index + 1}&sortBy=${sessionScope.sortBy}&sortOrder=${sessionScope.sortOrder}&search=${sessionScope.search}" aria-label="Next">
+                                                        <span aria-hidden="true">»</span>
+                                                    </a>
+                                                </li>
+                                            </c:if>
+                                        </ul>
+                                    </nav>
+                                </c:if>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
 
 
-            <!-- JavaScript Libraries -->
-            <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-            <script src="OPlib/chart/chart.min.js"></script>
-            <script src="OPlib/easing/easing.min.js"></script>
-            <script src="OPlib/waypoints/waypoints.min.js"></script>
-            <script src="OPlib/owlcarousel/owl.carousel.min.js"></script>
-            <script src="OPlib/tempusdominus/js/moment.min.js"></script>
-            <script src="OPlib/tempusdominus/js/moment-timezone.min.js"></script>
-            <script src="OPlib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+            <!-- Back to Top -->
+            <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        </div>
 
-            <!-- Template Javascript -->
-            <script src="js/main.js"></script>
-            <script>
-                                                        $('.sidebar-toggler').click(function () {
-                                                            $('.sidebar, .content').toggleClass("open");
-                                                            return false;
-                                                        });
-            </script>
-            <script>
-                let a = parseInt(localStorage.getItem('a')) || 0;
-                function sortByName() {
-                    let url = "marketingProductList?index=${index}&sortBy=name";
-                    if (a === 0) {
-                        url = url + "&sortOrder=asc";
-                    } else {
-                        url = url + "&sortOrder=desc";
-                    }
-                    url = url + "&search=${sessionScope.search}";
-                    a = (a + 1) % 2;
-                    localStorage.setItem('a', a);
-                    window.location.href = url;
-                }
-                function sortById() {
 
-                    let url = "marketingProductList?index=${index}&sortBy=id";
-                    if (a === 0) {
-                        url = url + "&sortOrder=asc";
-                    } else {
-                        url = url + "&sortOrder=desc";
-                    }
-                    url = url + "&search=${sessionScope.search}";
-                    a = (a + 1) % 2;
-                    localStorage.setItem('a', a);
-                    window.location.href = url;
-                }
-                function sortByPrice() {
-                    let url = "marketingProductList?index=${index}&sortBy=price";
-                    if (a === 0) {
-                        url = url + "&sortOrder=asc";
-                    } else {
-                        url = url + "&sortOrder=desc";
-                    }
-                    url = url + "&search=${sessionScope.search}";
-                    a = (a + 1) % 2;
-                    localStorage.setItem('a', a);
-                    window.location.href = url;
-                }
-                function sortByQuantity() {
-                    let url = "marketingProductList?index=${index}&sortBy=quantity";
-                    if (a === 0) {
-                        url = url + "&sortOrder=asc";
-                    } else {
-                        url = url + "&sortOrder=desc";
-                    }
-                    url = url + "&search=${sessionScope.search}";
-                    a = (a + 1) % 2;
-                    localStorage.setItem('a', a);
-                    window.location.href = url;
-                }
-                function sortByDateStart() {
-                    let url = "marketingProductList?index=${index}&sortBy=datestart";
-                    if (a === 0) {
-                        url = url + "&sortOrder=asc";
-                    } else {
-                        url = url + "&sortOrder=desc";
-                    }
-                    url = url + "&search=${sessionScope.search}";
-                    a = (a + 1) % 2;
-                    localStorage.setItem('a', a);
-                    window.location.href = url;
-                }
-                function sortByDateEnd() {
-                    let url = "marketingProductList?index=${index}&sortBy=dateend";
-                    if (a === 0) {
-                        url = url + "&sortOrder=asc";
-                    } else {
-                        url = url + "&sortOrder=desc";
-                    }
-                    url = url + "&search=${sessionScope.search}";
-                    a = (a + 1) % 2;
-                    localStorage.setItem('a', a);
-                    window.location.href = url;
-                }
 
-                function ProductDetail(id) {
-                    let url = "marketingProductDetails?id=" + id;
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="OPlib/chart/chart.min.js"></script>
+        <script src="OPlib/easing/easing.min.js"></script>
+        <script src="OPlib/waypoints/waypoints.min.js"></script>
+        <script src="OPlib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="OPlib/tempusdominus/js/moment.min.js"></script>
+        <script src="OPlib/tempusdominus/js/moment-timezone.min.js"></script>
+        <script src="OPlib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
-                    window.location.href = url;
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
+        <script>
+                                                    $('.sidebar-toggler').click(function () {
+                                                        $('.sidebar, .content').toggleClass("open");
+                                                        return false;
+                                                    });
+        </script>
+        <script>
+            let a = parseInt(localStorage.getItem('a')) || 0;
+            function sortByName() {
+                let url = "marketingProductList?index=${index}&sortBy=name";
+                if (a === 0) {
+                    url = url + "&sortOrder=asc";
+                } else {
+                    url = url + "&sortOrder=desc";
                 }
-                function ProductUpdate(id) {
-                    let url = "marketingProductUpdate?id=" + id;
+                url = url + "&search=${sessionScope.search}";
+                a = (a + 1) % 2;
+                localStorage.setItem('a', a);
+                window.location.href = url;
+            }
+            function sortById() {
 
-                    window.location.href = url;
+                let url = "marketingProductList?index=${index}&sortBy=id";
+                if (a === 0) {
+                    url = url + "&sortOrder=asc";
+                } else {
+                    url = url + "&sortOrder=desc";
                 }
-                function AddProduct() {
-                    let url = "marketingAddProduct";
+                url = url + "&search=${sessionScope.search}";
+                a = (a + 1) % 2;
+                localStorage.setItem('a', a);
+                window.location.href = url;
+            }
+            function sortByPrice() {
+                let url = "marketingProductList?index=${index}&sortBy=price";
+                if (a === 0) {
+                    url = url + "&sortOrder=asc";
+                } else {
+                    url = url + "&sortOrder=desc";
+                }
+                url = url + "&search=${sessionScope.search}";
+                a = (a + 1) % 2;
+                localStorage.setItem('a', a);
+                window.location.href = url;
+            }
+            function sortByQuantity() {
+                let url = "marketingProductList?index=${index}&sortBy=quantity";
+                if (a === 0) {
+                    url = url + "&sortOrder=asc";
+                } else {
+                    url = url + "&sortOrder=desc";
+                }
+                url = url + "&search=${sessionScope.search}";
+                a = (a + 1) % 2;
+                localStorage.setItem('a', a);
+                window.location.href = url;
+            }
+            function sortByDateStart() {
+                let url = "marketingProductList?index=${index}&sortBy=datestart";
+                if (a === 0) {
+                    url = url + "&sortOrder=asc";
+                } else {
+                    url = url + "&sortOrder=desc";
+                }
+                url = url + "&search=${sessionScope.search}";
+                a = (a + 1) % 2;
+                localStorage.setItem('a', a);
+                window.location.href = url;
+            }
+            function sortByDateEnd() {
+                let url = "marketingProductList?index=${index}&sortBy=dateend";
+                if (a === 0) {
+                    url = url + "&sortOrder=asc";
+                } else {
+                    url = url + "&sortOrder=desc";
+                }
+                url = url + "&search=${sessionScope.search}";
+                a = (a + 1) % 2;
+                localStorage.setItem('a', a);
+                window.location.href = url;
+            }
 
-                    window.location.href = url;
-                }
-            </script>
+            function ProductDetail(id) {
+                let url = "marketingProductDetails?id=" + id;
+
+                window.location.href = url;
+            }
+            function ProductUpdate(id) {
+                let url = "marketingProductUpdate?id=" + id;
+
+                window.location.href = url;
+            }
+            function AddProduct() {
+                let url = "marketingAddProduct";
+
+                window.location.href = url;
+            }
+        </script>
 
     </body>
 </html>
