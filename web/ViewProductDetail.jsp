@@ -396,10 +396,10 @@
                                 <div class="products-slick" data-nav="#slick-nav-1">
                                     <c:forEach items="${requestScope.list}" var="pd" >
                                         <div class="product">
-                                            <div class="product-img">
+                                            <div class="product-img" onclick="ProductDetail(${pd.product.product_id})">
                                                 <img src="images/${pd.product.product_img}" alt="">
                                             </div>
-                                            <div class="product-body">
+                                            <div class="product-body" onclick="ProductDetail(${pd.product.product_id})">
                                                 <p class="product-category">${pd.product.brand.brandName}</p>
                                                 <h3 class="product-name"><a href="product?pid=${pd.product.product_id}">${pd.product.product_name}</a></h3>
                                                 <h4 class="product-price">
@@ -420,8 +420,9 @@
                                                 </div>
                                             </div>
                                             <div class="add-to-cart">
-                                                <form method="post">
-                                                    <button type="submit" formaction="addToCart?pid=${pd.product.product_id}" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Thêm Vào giỏ hàng</button>
+                                                <form action="addCartByView" method="get">
+                                                    <input type="text" hidden="" name="pid" value="${pd.product.product_id}">
+                                                    <button type="submit" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Thêm Vào giỏ hàng</button>
                                                 </form>                                               
                                             </div>
                                         </div>
@@ -472,6 +473,11 @@
             }
             return true;
         }
+        function ProductDetail(id) {
+                let url = "product?pid=" + id;
+
+                window.location.href = url;
+            }
     </script>
     <script src="js1/jquery.min.js"></script>
     <script src="js1/bootstrap.min.js"></script>

@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package vn.fpt.edu.controller;
 
 import java.io.IOException;
@@ -20,7 +19,7 @@ import vn.fpt.edu.models.User;
  * @author admin
  */
 public class UserLoginController extends HttpServlet {
-   
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -47,7 +46,7 @@ public class UserLoginController extends HttpServlet {
             request.getRequestDispatcher("UserLogin.jsp").forward(request, response);
             return;
         }
-        if(u.isBanned()) {
+        if (u.isBanned()) {
             request.setAttribute("error", "Tài khoản của bạn đã bị ban.");
             request.getRequestDispatcher("UserLogin.jsp").forward(request, response);
             return;
@@ -55,8 +54,12 @@ public class UserLoginController extends HttpServlet {
         if (pass.equals(u.getPassword())) {
             HttpSession session = request.getSession();
             session.setAttribute("account", u);
-            if(u.getRole().getId() == 1) {
+            if (u.getRole().getId() == 1) {
                 response.sendRedirect("admin/dashboard");
+
+            } else if (u.getRole().getId() == 3) 
+            {
+                response.sendRedirect("/Feds/saleDashboard");
             } else {
                 response.sendRedirect("home");
             }

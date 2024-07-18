@@ -135,6 +135,10 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
+                    <file>${file.reference.twilio-9.6.0.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library dirs="200">
                     <file>${file.reference.woodstox-core-6.4.0.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
