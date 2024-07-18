@@ -30,6 +30,9 @@ public class BillOrder_DAO extends DBContext {
                 + "    PD.Color,  \n"
                 + "    B.Status,   \n"
                 + "	b.Address,\n"
+                + "    B.Province,    \n"
+                + "    B.District,    \n"
+                + "    B.Country,    \n"
                 + "    O.Payment,  \n"
                 + "    O.Order_quantity,\n"
                 + "    U.User_name,\n"
@@ -56,7 +59,8 @@ public class BillOrder_DAO extends DBContext {
             while (rs.next()) {
                 BillOrder bo = new BillOrder(rs.getInt("Bill_id"), rs.getString("Product_name"), rs.getDouble("Price"),
                         rs.getString("Product_img"), rs.getString("Status"), rs.getString("Payment"), rs.getString("RAM"), rs.getString("ROM"), rs.getString("Size"),
-                        rs.getString("Color"), rs.getInt("Order_quantity"), rs.getString("User_name"), rs.getString("Email"), rs.getString("Phone_number"), rs.getString("Address"));
+                        rs.getString("Color"), rs.getInt("Order_quantity"), rs.getString("User_name"), rs.getString("Email"), rs.getString("Phone_number"), rs.getString("Address"),
+                  rs.getString("Province"), rs.getString("District"), rs.getString("Country"));
                 list.add(bo);
             }
         } catch (SQLException e) {
