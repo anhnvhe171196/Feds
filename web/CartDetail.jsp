@@ -119,31 +119,15 @@
                     <!-- cart -->
                     <!-- summary -->
                     <div class="col-lg-3">
-                        <div class="card mb-3 border shadow-0">
-                            <div class="card-body">
-                                <form>
-                                    <div class="form-group">
-                                        <label class="form-label">Mã Giảm Giá</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control border" name="" placeholder="điền mã vào đây" />
-                                            <button class="btn btn-light border">Áp dụng</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
                         <div class="card shadow-0 border">
                             <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    <p class="mb-2">Tổng:</p>
-  
-                                    <p class="mb-2"><fmt:formatNumber value="${totalMoney + requestScope.orderinfo1.get(0).getTotal_price()}" pattern="#,###" />VNĐ</p>
-<!--                                    <p class="mb-2"><fmt:formatNumber value="${requestScope.orderinfo1.get(0).getTotal_price()}" pattern="#,###" />VNĐ</p>-->
+                                <div class="text-center">
+                                    <h2 class="text-danger my-0 d-block">Giá tiền tổng</h2>
+                                    <c:if test="${sessionScope.account == null}">
+                                        <p class="d-block">Bạn phải đăng nhập trước khi mua hàng</p>
+                                    </c:if>
                                 </div>
-                                <div class="d-flex justify-content-between">
-                                    <p class="mb-2">Giảm giá:</p>
-                                    <p class="mb-2 text-success">0000</p>
-                                </div>
+
                                 <!--                                <div class="d-flex justify-content-between">
                                                                     <p class="mb-2">TAX:</p>
                                                                     <p class="mb-2">00000</p>
