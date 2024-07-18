@@ -212,7 +212,7 @@
                         <thead>
                             <tr class="text-dark">
                                 <th scope="col" style="width: 150px">Ngày</th>
-                                <th scope="col" style="width: 100px">Người liên hệ</th>
+                                <th scope="col" style="width: 140px">Người liên hệ</th>
                                 <th scope="col" style="width: 140px">Email</th>
                                 <th scope="col" style="width: 120px">Số điện thoại</th>
                                 <th scope="col" style="width: 140px">Chủ đề</th>
