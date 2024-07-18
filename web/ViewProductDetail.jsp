@@ -420,8 +420,9 @@
                                                 </div>
                                             </div>
                                             <div class="add-to-cart">
-                                                <form method="post">
-                                                    <button type="submit" formaction="addToCart?pid=${pd.product.product_id}" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Thêm Vào giỏ hàng</button>
+                                                <form action="addCartByView" method="get">
+                                                    <input type="text" hidden="" name="pid" value="${pd.product.product_id}">
+                                                    <button type="submit" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Thêm Vào giỏ hàng</button>
                                                 </form>                                               
                                             </div>
                                         </div>

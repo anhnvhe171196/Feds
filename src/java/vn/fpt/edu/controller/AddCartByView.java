@@ -8,6 +8,7 @@ package vn.fpt.edu.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,6 +28,7 @@ import vn.fpt.edu.models.User;
  *
  * @author admin
  */
+@WebServlet(name = "AddCartByView", urlPatterns = {"/addCartByView"})
 public class AddCartByView extends HttpServlet {
    
     /** 
@@ -64,7 +66,69 @@ public class AddCartByView extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String pid = request.getParameter("pid");
+        Product_DAO data = new Product_DAO();
+        Cookie[] arr = request.getCookies();
+        String txt = "";
+        if (arr != null) {
+            for (Cookie o : arr) {
+                if (o.getName().equals("cart")) {
+                    txt += o.getValue();
+                    o.setMaxAge(0);
+                    response.addCookie(o);
+                }
+            }
+        }
+
+        HttpSession session = request.getSession();
+        User u = (User) session.getAttribute("account");
+        int userId;
+        if (u != null) {
+            userId = u.getUser_Id();
+        } else {
+            userId = 0;
+        }
+        String id = request.getParameter("pid");
+        Price_DAO pd = new Price_DAO();
+        Price pd1 = pd.getPriceById(Integer.parseInt(id));
+
+        boolean check = false;
+        try {
+            Date now = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String nowDateStr = sdf.format(now);
+            if (pd1.getDateEnd() == null) {
+                check = false;
+            } else {
+                String pdEndDateStr = sdf.format(pd1.getDateEnd());
+                Date nowDate = sdf.parse(nowDateStr);
+                Date pdEndDate = sdf.parse(pdEndDateStr);
+                if (pdEndDate.before(nowDate)) {
+                    check = true;
+                } else {
+                    check = false;
+                }
+            }
+
+        } catch (ParseException ex) {
+            Logger.getLogger(AddToCartController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        double price;
+        if (check) {
+            price = pd1.getPrice() - pd1.getPrice() * pd1.getSale() / 100;
+        } else {
+            price = pd1.getPrice();
+        }
+        if (txt.isEmpty()) {
+            txt = userId + ":" + id + ":" + 1 + ":" + price;
+        } else {
+            txt = txt + "/" + userId + ":" + id + ":" + 1 + ":" + price;
+        }
+
+        Cookie c = new Cookie("cart", txt);
+        c.setMaxAge(1 * 24 * 60 * 60);
+        response.addCookie(c);
+        response.sendRedirect("product?pid=" + pid);
     } 
 
     /** 
@@ -121,7 +185,6 @@ public class AddCartByView extends HttpServlet {
                     check = false;
                 }
             }
-
         } catch (ParseException ex) {
             Logger.getLogger(AddToCartController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -136,7 +199,7 @@ public class AddCartByView extends HttpServlet {
         } else {
             txt = txt + "/" + userId + ":" + id + ":" + num + ":" + price;
         }
-
+        
         Cookie c = new Cookie("cart", txt);
         c.setMaxAge(1 * 24 * 60 * 60);
         response.addCookie(c);
