@@ -9,7 +9,7 @@ package vn.fpt.edu.models;
  * @author admin
  */
 public class Contact {
-    
+
     private String username;
     private User user;
     private String email;
@@ -17,6 +17,8 @@ public class Contact {
     private String phone;
     private String message;
     private String date;
+    private String status;
+
     public Contact() {
     }
 
@@ -28,13 +30,22 @@ public class Contact {
         this.message = message;
     }
 
-    public Contact(String username, String email, String suject, String phone, String message, String date) {
+    public Contact(String username, String email, String suject, String phone, String message, String date, String status) {
         this.username = username;
         this.email = email;
         this.suject = suject;
         this.phone = phone;
         this.message = message;
         this.date = date;
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getDate() {
@@ -45,7 +56,6 @@ public class Contact {
         this.date = date;
     }
 
-    
     public String getUsername() {
         return username;
     }
@@ -53,7 +63,7 @@ public class Contact {
     public void setUsername(String username) {
         this.username = username;
     }
-   
+
     public User getUser() {
         return user;
     }
@@ -93,5 +103,5 @@ public class Contact {
     public void setMessage(String message) {
         this.message = message;
     }
-    
+
 }

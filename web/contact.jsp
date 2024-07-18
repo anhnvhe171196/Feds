@@ -100,8 +100,14 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="label" for="name">Họ và tên</label>
-                                                        <input type="text" class="form-control" name="name" id="Họ và tên" required
-                                                               placeholder="Name">
+                                                        <c:choose>
+                                                            <c:when test="${user == null}">
+                                                                <input type="text" class="form-control" name="name" id="Họ và tên" required placeholder="Name">
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <input type="text" class="form-control" name="name" id="Họ và tên" value="${sessionScope.account.user_name}">
+                                                            </c:otherwise>
+                                                        </c:choose>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">

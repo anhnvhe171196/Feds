@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package vn.fpt.edu.dals;
 
 import java.sql.PreparedStatement;
@@ -24,21 +20,44 @@ public class Contact_DAO extends DBContext {
                 + "           ,[Subject]\n"
                 + "           ,[Phone]\n"
                 + "           ,[Message]\n"
-                + "           ,[Date])\n" // Đặt dấu ngoặc đóng đúng vị trí
+                + "           ,[Date])\n"
+                + "           ,[Date]\n"
+                + "           ,[Status])\n"
                 + "     VALUES\n"
-                + "           (?,?,?,?,?, GETDATE())";  // Sử dụng GETDATE() trực tiếp trong câu lệnh SQL
+                + "           (?,?,?,?,?, GETDATE(), N'Chưa gửi')";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            if (user_id == 0) {
-                st.setString(1, null);
-            } else {
-                st.setInt(1, user_id);
-            }
+            st.setInt(1, user_id);
             st.setString(2, email);
             st.setString(3, suject);
             st.setString(4, phone);
             st.setString(5, message);
-            // Không cần thiết lập giá trị cho trường Date vì đã được xử lý trong SQL
+
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void insertFeedBack2(String name, String email, String suject, String phone, String message) {
+        String sql = "INSERT INTO [dbo].[Contact]\n"
+                + "           ([Name]\n"
+                + "           ,[Email]\n"
+                + "           ,[Subject]\n"
+                + "           ,[Phone]\n"
+                + "           ,[Message]\n"
+                + "           ,[Date]\n"
+                + "           ,[Status])\n"
+                + "     VALUES\n"
+                + "           (?,?,?,?,?, GETDATE(), N'Chưa gửi')";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, name);
+            st.setString(2, email);
+            st.setString(3, suject);
+            st.setString(4, phone);
+            st.setString(5, message);
+
             st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -55,8 +74,9 @@ public class Contact_DAO extends DBContext {
             st.setInt(2, numOfContact);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Contact u = new Contact(rs.getString("UserName"), rs.getString("Email"), rs.getString("Subject"), rs.getString("Phone"),
-                        rs.getString("Message"), rs.getString("Date"));
+                Contact u = new Contact(rs.getString("UserName"), rs.getString("Email"), rs.getString("Subject"),
+                        rs.getString("Phone"),
+                        rs.getString("Message"), rs.getString("Date"), rs.getString("Status"));
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -105,8 +125,9 @@ public class Contact_DAO extends DBContext {
             ps.setString(2, "%" + value + "%");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Contact c = new Contact(rs.getString("UserName"), rs.getString("Email"), rs.getString("Subject"), rs.getString("Phone"),
-                        rs.getString("Message"), rs.getString("Date"));
+                Contact c = new Contact(rs.getString("UserName"), rs.getString("Email"), rs.getString("Subject"),
+                        rs.getString("Phone"),
+                        rs.getString("Message"), rs.getString("Date"), rs.getString("Status"));
                 list.add(c);
             }
 
@@ -124,6 +145,7 @@ public class Contact_DAO extends DBContext {
                 + "                     ,[Subject]\n"
                 + "                    ,[Phone]\n"
                 + "                   ,[Message]\n"
+                + "      ,[Status]\n"
                 + "                  ,[Date]\n"
                 + "              FROM Contact c\n"
                 + "                JOIN \n"
@@ -134,8 +156,9 @@ public class Contact_DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Contact c = new Contact(rs.getString("UserName"), rs.getString("Email"), rs.getString("Subject"), rs.getString("Phone"),
-                        rs.getString("Message"), rs.getString("Date"));
+                Contact c = new Contact(rs.getString("UserName"), rs.getString("Email"), rs.getString("Subject"),
+                        rs.getString("Phone"),
+                        rs.getString("Message"), rs.getString("Date"), rs.getString("Status"));
                 list.add(c);
             }
 
@@ -146,19 +169,22 @@ public class Contact_DAO extends DBContext {
     }
 
     public void upDateRely(String email, String subject, String message) {
-    String sql = "UPDATE [dbo].[Contact]\n"
-            + "SET [Status] = N'Đã gửi'\n"
-            + "WHERE Email = ? and Subject = ? and Message = ?";
-    try {
-        PreparedStatement st = connection.prepareStatement(sql);
-        st.setString(1, email);
-        st.setString(2, subject);
-        st.setString(3, message);
-        
-        st.executeUpdate();
-    } catch (SQLException e) {
-        e.printStackTrace();
+        String sql = """
+                     UPDATE [dbo].[Contact]
+                     SET [Status] = N'\u0110\u00e3 g\u1eedi'
+                     WHERE Email = ? and Subject = ? and Message = ?""";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            st.setString(2, subject);
+            st.setString(3, message);
+
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-}
 
 }
+
+

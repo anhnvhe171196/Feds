@@ -47,7 +47,7 @@ public class Data_MarketingDashboard_DAO extends DBContext {
                 + "    Product_Category pc ON br.Category_id = pc.Category_id\n"
                 + "WHERE\n"
                 + "    b.Date BETWEEN ? AND ?\n"
-                + "    AND b.Status = 'Done'\n"
+                + "    AND b.Status = 'Hoàn Thành'\n"
                 + "GROUP BY\n"
                 + "    pc.Category_name,\n"
                 + "    p.Product_id,\n"
@@ -87,7 +87,7 @@ public class Data_MarketingDashboard_DAO extends DBContext {
                 + "				INNER JOIN\n"
                 + "					[Order] o ON o.Bill_id = b.Bill_Id\n"
                 + "                WHERE\n"
-                + "				b.Status = 'Done'\n"
+                + "				b.Status = 'Hoàn Thành'\n"
                 + "                GROUP BY\n"
                 + "                    u.User_name,\n"
                 + "					u.User_Id,\n"
@@ -153,7 +153,7 @@ public class Data_MarketingDashboard_DAO extends DBContext {
     public List<Category> getTotalProductsByCategory() {
         List<Category> categoriesList = new ArrayList<>();
         String sql = "SELECT \n"
-                + "COUNT(p.product_id) AS product_count,\n"
+                + "SUM(p.Quantity) AS total_quantity,\n"
                 + "pc.Category_name\n"
                 + " FROM Product p \n"
                 + "JOIN Product_Category pc ON pc.Category_id = (SELECT c.Category_id FROM Brandd b JOIN Product_Category c ON b.Category_id = c.Category_id WHERE b.Brand_Id = p.Brand_id) \n"
@@ -163,7 +163,7 @@ public class Data_MarketingDashboard_DAO extends DBContext {
         try (PreparedStatement st = connection.prepareStatement(sql)) {
             try (ResultSet rs = st.executeQuery()) {
                 while (rs.next()) {
-                    int productCount = rs.getInt("product_count");
+                    int productCount = rs.getInt("total_quantity");
                     String Category = rs.getString("Category_name");
 
                     Category category = new Category();

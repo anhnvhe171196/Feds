@@ -188,7 +188,7 @@
                         <c:set var="userName" value="${bill.user_name}" />
                         <c:set var="email" value="${bill.phone}" />
                         <c:set var="phone" value="${bill.email}" />
-                        <c:set var="address" value="${bill.address}" />
+                        <c:set var="address" value=" ${bill.province}, ${bill.district}, ${bill.country}, ${bill.address} " />
                         <c:set var="payment" value="${bill.payment}" />
                     </c:if>
                 </c:forEach>
