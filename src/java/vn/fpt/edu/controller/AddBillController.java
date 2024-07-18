@@ -97,8 +97,17 @@ public class AddBillController extends HttpServlet {
         
          if("tienmat".equals(paymentOption)) {
              d.addtoBill(u, cart.getCartbyUserId1(u.getUser_Id()), address, status, tinh, quan, phuong, paymentOption);
-             Cookie c = new Cookie("cart", "");
-             c.setMaxAge(0);
+             String newTxt ="";
+             for (Item item : cart.getItems()) {
+                 if(item.getUserID() != u.getUser_Id()) {
+                     newTxt += item.getUserID() + ":" + item.getProduct().getProduct_id() + ":" + item.getQuantity() + ":" + item.getPrice()+ "/";
+                 }
+             }
+             if(!newTxt.isEmpty()) {
+                 newTxt = newTxt.substring(0, newTxt.length() - 1);
+             }
+             Cookie c = new Cookie("cart", newTxt);
+             c.setMaxAge(24*60*60);
              response.addCookie(c);
 //             response.sendRedirect("CompleteCart.jsp");
              session.removeAttribute("size");
