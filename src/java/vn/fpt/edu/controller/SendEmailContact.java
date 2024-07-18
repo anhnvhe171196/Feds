@@ -21,9 +21,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.Properties;
 import vn.fpt.edu.dals.Contact_DAO;
-import vn.fpt.edu.dals.User_DAO;
-import vn.fpt.edu.models.Contact;
-import vn.fpt.edu.models.User;
 
 /**
  *

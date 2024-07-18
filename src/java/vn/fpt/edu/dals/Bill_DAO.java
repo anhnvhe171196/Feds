@@ -165,9 +165,10 @@ public class Bill_DAO extends DBContext {
     public List<Bill1> getBillAllWithUserToday() {
         List<Bill1> list = new ArrayList<>();
         String sql = "SELECT Bill.*, U.User_name\n"
-                + "FROM Bill\n"
-                + "JOIN [User] AS U ON Bill.User_Id = U.User_Id\n"
-                + "WHERE CONVERT(date, Bill.Date) = CONVERT(date, GETDATE());"; // Sử dụng GETDATE() để lấy ngày hiện tại
+                + "                FROM Bill\n"
+                + "                JOIN [User] AS U ON Bill.User_Id = U.User_Id\n"
+                + "                WHERE CONVERT(date, Bill.Date) = CONVERT(date, GETDATE())\n"
+                + "				ORDER BY Bill_Id desc"; // Sử dụng GETDATE() để lấy ngày hiện tại
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -457,8 +458,6 @@ public class Bill_DAO extends DBContext {
         }
         return list;
     }
-    
-    
 
     public int getNumOfPageBillList(int numOfBillInScreen) {
         int numOfPages = 0;

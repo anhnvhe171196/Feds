@@ -17,16 +17,17 @@ import vn.fpt.edu.models.Contact;
  */
 public class Contact_DAO extends DBContext {
 
-    public void insertFeedBack(int user_id, String email, String suject, String phone, String message) {
+    public void insertFeedBack(String name, int user_id, String email, String suject, String phone, String message) {
         String sql = "INSERT INTO [dbo].[Contact]\n"
                 + "           ([User_Id]\n"
                 + "           ,[Email]\n"
                 + "           ,[Subject]\n"
                 + "           ,[Phone]\n"
                 + "           ,[Message]\n"
-                + "           ,[Date])\n" // Đặt dấu ngoặc đóng đúng vị trí
+                + "           ,[Date])\n" 
+                + "           ,[Status])\n" 
                 + "     VALUES\n"
-                + "           (?,?,?,?,?, GETDATE())"; // Sử dụng GETDATE() trực tiếp trong câu lệnh SQL
+                + "           (?,?,?,?,?, GETDATE(), 'Chưa gửi')"; // Sử dụng GETDATE() trực tiếp trong câu lệnh SQL
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             if (user_id == 0) {
@@ -38,7 +39,7 @@ public class Contact_DAO extends DBContext {
             st.setString(3, suject);
             st.setString(4, phone);
             st.setString(5, message);
-            // Không cần thiết lập giá trị cho trường Date vì đã được xử lý trong SQL
+           
             st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -150,9 +151,10 @@ public class Contact_DAO extends DBContext {
     }
 
     public void upDateRely(String email, String subject, String message) {
-        String sql = "UPDATE [dbo].[Contact]\n"
-                + "SET [Status] = N'Đã gửi'\n"
-                + "WHERE Email = ? and Subject = ? and Message = ?";
+        String sql = """
+                     UPDATE [dbo].[Contact]
+                     SET [Status] = N'\u0110\u00e3 g\u1eedi'
+                     WHERE Email = ? and Subject = ? and Message = ?""";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, email);
@@ -165,21 +167,6 @@ public class Contact_DAO extends DBContext {
         }
     }
 
-    String sql = "UPDATE [dbo].[Contact]\n"
-            + "SET [Status] = N'Đã gửi'\n"
-            + "WHERE Email = ? and Subject = ? and Message = ?";try
-    {
-        PreparedStatement st = connection.prepareStatement(sql);
-        st.setString(1, email);
-        st.setString(2, subject);
-        st.setString(3, message);
-
-        st.executeUpdate();
-    }catch(
-    SQLException e)
-    {
-        e.printStackTrace();
-    }
-}>>>>>>>df4f5ceca9dfd3ac8dbe991dc85cf8734b47b4fb
+    
 
 }

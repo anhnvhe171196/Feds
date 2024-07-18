@@ -88,7 +88,7 @@ public class UserContact extends HttpServlet {
         String message = request.getParameter("message");
         Contact_DAO d = new Contact_DAO();
         
-        d.insertFeedBack(user_id, email, subject, name, message);
+        d.insertFeedBack(name, user_id, email, subject, sdt, message);
         request.setAttribute("error", "Bạn đã gửi thành công!!!");
         request.getRequestDispatcher("contact.jsp").forward(request, response);
     }

@@ -392,12 +392,15 @@
     <!-- Modal -->
     <div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="emailModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
+           
             <div class="modal-content" style="width: 1000px">
                 <form action="sendEmailContact" method="post">
                     <div class="modal-header">
                         <h5 class="modal-title" id="emailModalLabel">Trả lời liên hệ</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    <div class="mb-3">
+                        
                     <div class="modal-body">
                         <p>Gửi email đến: <span id="email"></span></p>
                         <input type="hidden" id="email-hidden" name="email">
@@ -410,13 +413,14 @@
                             <textarea class="form-control" id="message" name="message" rows="5"></textarea>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                        <button type="submit" class="btn btn-primary">Gửi</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Send</button>
+                </div>
+                    
                 </form>
             </div>
-            
         </div>
     </div>
 
