@@ -71,11 +71,11 @@
                                 <a class="review-link" href="#">${requestScope.totalFeedback} Review(s) | Thêm đánh giá của bạn</a>
                             </div>
                             <div>
-                                <c:if test="${price.sale > 0 && requestScope.check == 2}">
+                                <c:if test="${requestScope.dateTest == 1}">
                                     <h3 class="product-price"><fmt:formatNumber value="${price.price - price.price * price.sale / 100}" pattern="#,###"/>VNĐ &nbsp;<del class="product-old-price"><fmt:formatNumber value="${price.price}" pattern="#,###"/>VNĐ</del></h3>
                                     <span class="product-available">Giảm giá ${price.sale}%</span>
                                 </c:if>
-                                <c:if test="${requestScope.check == 1 || price.sale < 1}">    
+                                <c:if test="${requestScope.dateTest == 2}">    
                                     <h3 class="product-price"><fmt:formatNumber value="${price.price}" pattern="#,###"/>VNĐ</h3>
                                 </c:if>
                             </div>

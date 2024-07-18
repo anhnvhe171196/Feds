@@ -97,7 +97,6 @@ public class AddCartByView extends HttpServlet {
         String id = request.getParameter("pid");
         Price_DAO pd = new Price_DAO();
         Price pd1 = pd.getPriceById(Integer.parseInt(id));
-
         boolean check = false;
         try {
             Date now = new Date();
@@ -109,13 +108,12 @@ public class AddCartByView extends HttpServlet {
                 String pdEndDateStr = sdf.format(pd1.getDateEnd());
                 Date nowDate = sdf.parse(nowDateStr);
                 Date pdEndDate = sdf.parse(pdEndDateStr);
-                if (pdEndDate.before(nowDate)) {
+                if (pdEndDate.after(nowDate)) {
                     check = true;
                 } else {
                     check = false;
                 }
             }
-
         } catch (ParseException ex) {
             Logger.getLogger(AddToCartController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -196,9 +194,9 @@ public class AddCartByView extends HttpServlet {
                 Date nowDate = sdf.parse(nowDateStr);
                 Date pdEndDate = sdf.parse(pdEndDateStr);
                 if (pdEndDate.before(nowDate)) {
-                    check = true;
-                } else {
                     check = false;
+                } else {
+                    check = true;
                 }
             }
 
@@ -242,5 +240,4 @@ public class AddCartByView extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

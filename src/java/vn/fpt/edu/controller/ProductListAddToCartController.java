@@ -124,7 +124,7 @@ public class ProductListAddToCartController extends HttpServlet {
                 String pdEndDateStr = sdf.format(pd1.getDateEnd());
                 Date nowDate = sdf.parse(nowDateStr);
                 Date pdEndDate = sdf.parse(pdEndDateStr);
-                if (pdEndDate.before(nowDate)) {
+                if (pdEndDate.after(nowDate)) {
                     check = true;
                 } else {
                     check = false;

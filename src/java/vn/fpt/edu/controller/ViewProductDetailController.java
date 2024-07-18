@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -35,7 +36,7 @@ import vn.fpt.edu.models.User;
 public class ViewProductDetailController extends HttpServlet {
 
     /**
- * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
      * @param request servlet request
@@ -89,7 +90,7 @@ public class ViewProductDetailController extends HttpServlet {
             request.setAttribute("totalFeedback", f1);
             Date now = new Date();
             Price_DAO pdao1 = new Price_DAO();
-            Price pd1 = pdao1.getPriceById(2);
+            Price pd1 = pdao1.getPriceById(productID);
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String nowDateStr = sdf.format(now);
@@ -97,10 +98,10 @@ public class ViewProductDetailController extends HttpServlet {
 
             Date nowDate = sdf.parse(nowDateStr);
             Date pdEndDate = sdf.parse(pdEndDateStr);
-            if (pdEndDate.before(nowDate)) {
-                request.setAttribute("check", 1);
+            if (pdEndDate.after(nowDate)) {
+                request.setAttribute("dateTest", 1);
             } else {
-                request.setAttribute("check", 2);
+                request.setAttribute("dateTest", 2);
             }
             Feedback_DAO d = new Feedback_DAO();
             request.setAttribute("dateNow", nowDate);
@@ -145,7 +146,7 @@ public class ViewProductDetailController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /**
