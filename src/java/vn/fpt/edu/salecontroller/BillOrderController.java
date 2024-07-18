@@ -20,6 +20,7 @@ import vn.fpt.edu.dals.Product_DAO;
 import vn.fpt.edu.models.Product;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.YearMonth;
 
 /**
  *
@@ -50,16 +51,71 @@ public class BillOrderController extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
         HttpSession session = request.getSession(true);
+
         String action = request.getParameter("action");
-        
+        PrintWriter out = response.getWriter();
         LocalDate today = LocalDate.now();
         Bill_DAO bd = new Bill_DAO();
 
         if (action == null) {
+            Product_DAO pd = new Product_DAO();
+            YearMonth currentYearMonth = YearMonth.from(today);
+            LocalDate startDate = currentYearMonth.atDay(1);
+            LocalDate endDate = currentYearMonth.atEndOfMonth();
+            //chart trend category
+            int currentMonth = today.getMonthValue();
+            int currentYear = today.getYear();
+            List<Product> productSellingList = pd.getTrendCategory(currentMonth + "", currentYear + "");
+
+            List<String> productcate = new ArrayList<>();
+            List<Integer> quantities = new ArrayList<>();
+            for (Product product : productSellingList) {
+                productcate.add(product.getCategory_name());
+
+                quantities.add(product.getQuantity());
+            }
+
+            session.setAttribute("monthtrend", currentMonth);
+            session.setAttribute("year", currentYear);
+            session.setAttribute("name2", productcate);
+            session.setAttribute("sum2", quantities);
+
+            //chart top product
+            List<Product> productSellingList2 = pd.getSellingProduct(startDate + "", endDate + "", 10);
+
+            List<String> productNames = new ArrayList<>();
+            List<Integer> quantities2 = new ArrayList<>();
+
+            for (Product product : productSellingList2) {
+                productNames.add(product.getProduct_name());
+                quantities2.add(product.getQuantity());
+            }
+            session.setAttribute("startDate", startDate);
+            session.setAttribute("endDate", endDate);
+            session.setAttribute("name", productNames);
+            session.setAttribute("quantity", 10);
+            session.setAttribute("sum", quantities2);
+
+            //chart sumRevenue
+            Bill_DAO billdao = new Bill_DAO();
+            List<Bill1> sum = billdao.getSumRevenueByDay(startDate + "", endDate + "");
+
+            List<String> billDate = new ArrayList<>();
+            List<Double> sumByDay = new ArrayList<>();
+
+            for (Bill1 s : sum) {
+                billDate.add(s.getDate());
+                sumByDay.add(s.getTotal_price());
+            }
+            session.setAttribute("startDatechart3", startDate);
+            session.setAttribute("endDatechart3", endDate);
+            session.setAttribute("name1", billDate);
+            session.setAttribute("sum1", sumByDay);
+
             int numOfBills = bd.getNumOfBillCurrentDate();
             int sumOfDoneBills = bd.getSumOfDoneBill();
-            double sumOfBillByMonth = bd.getSumOfBillByMonth(today.getMonthValue());
-            
+            double sumOfBillByMonth = bd.getSumOfBillByMonth(currentMonth);
+            session.setAttribute("month", currentMonth);
             session.setAttribute("numOfBills", numOfBills);
             session.setAttribute("sumOfDoneBills", sumOfDoneBills);
             session.setAttribute("sumOfBillByMonth", sumOfBillByMonth);

@@ -196,7 +196,7 @@
                             <input type="hidden" name="tinh" id="hidden_tinh" >
                             <input type="hidden" name="quan" id="hidden_quan">
                             <input type="hidden" name="phuong" id="hidden_phuong">
-                            <input type="number" name="amount" value="${requestScope.cart.getTotalMoney() - (requestScope.cart.getTotalMoney() * 2/100)}" hidden>
+                            <input type="number" name="amount" value="${totalMoney - (totalMoney * 0/100)}" hidden>
                             <input name="bankCode" value="" hidden>
                             <button type="submit" class="btn btn-primary btn-block" style="background-color: #D10024; border-color: #D10024">ĐẶT HÀNG VÀ THANH TOÁN</button>
 
@@ -350,8 +350,8 @@
                         </div>
                         <div class="card-body">
 
-                            <c:set var="o" value="${requestScope.cart}"/>
-                            <c:forEach items="${o.items}" var="i"> 
+                            <c:set var="cartItems" value="${requestScope.cart}"/>
+                            <c:forEach items="${cartItems}" var="i"> 
                                 <div class="media mb-3">
 
 
@@ -366,7 +366,7 @@
 
                             <div class="d-flex justify-content-between">
                                 <p>Tổng tiền</p>
-                                <p><fmt:formatNumber value="${o.getTotalMoney()}" pattern="#,###" />VNĐ</p>
+                                <p><fmt:formatNumber value="${totalMoney}" pattern="#,###" />VNĐ</p>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <p>Phí giao hàng</p>
@@ -374,12 +374,12 @@
                             </div>
                             <div class="d-flex justify-content-between">
                                 <p>Giảm giá (0%)</p>
-                                <p><fmt:formatNumber value="${o.getTotalMoney() * 0/100}" pattern="#,###" />VNĐ</p>
+                                <p><fmt:formatNumber value="${totalMoney * 0/100}" pattern="#,###" />VNĐ</p>
                             </div>
                             <hr>
                             <div class="d-flex justify-content-between">
                                 <h5>Tổng cộng</h5>
-                                <h5><fmt:formatNumber value="${o.getTotalMoney() - (o.getTotalMoney() * 0/100)}" pattern="#,###" />VNĐ</h5>
+                                <h5><fmt:formatNumber value="${totalMoney - (totalMoney * 0/100)}" pattern="#,###" />VNĐ</h5>
 
                             </div>
                         </div>

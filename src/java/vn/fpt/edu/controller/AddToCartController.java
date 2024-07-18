@@ -146,11 +146,11 @@ public class AddToCartController extends HttpServlet {
         request.getSession().setAttribute("size", txt.split("/").length);
         c.setMaxAge(1 * 24 * 60 * 60);
         response.addCookie(c);
-        //response.sendRedirect("home");
-                String jsonString = "{\"Size\": "+txt.split("/").length+"}";
-                response.setContentType("application/json");
-                PrintWriter out = response.getWriter();
-                out.println(jsonString);
+        response.sendRedirect("home");
+//                String jsonString = "{\"Size\": "+txt.split("/").length+"}";
+//                response.setContentType("application/json");
+//                PrintWriter out = response.getWriter();
+//                out.println(jsonString);
 //        request.getRequestDispatcher("home").forward(request, response);
     }
 

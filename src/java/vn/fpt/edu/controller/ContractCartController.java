@@ -64,14 +64,14 @@ public class ContractCartController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         HttpSession session = request.getSession();
         User u = (User) session.getAttribute("account");
         User_DAO user = new User_DAO();
         if (u == null) {
             response.sendRedirect("UserLogin.jsp");
         } else {
-            Product_DAO data = new Product_DAO();           
+            Product_DAO data = new Product_DAO();
             Cookie[] arr = request.getCookies();
             String txt = "";
             if (arr != null) {
@@ -81,14 +81,16 @@ public class ContractCartController extends HttpServlet {
                     }
                 }
             }
-            
+
             Cart cart = new Cart(txt, data.getAllProductinCart());
             List<Item> listItem;
-        if (u != null) {
-             listItem = cart.getCartbyUserId(u.getUser_Id());
-        }else{
-            listItem = cart.getCartbyUserId(0);
-        }
+            if (u != null) {
+                listItem = cart.getCartbyUserId(u.getUser_Id());
+                request.setAttribute("totalMoney", cart.getTotalMoney(u.getUser_Id()));
+            } else {
+                listItem = cart.getCartbyUserId(0);
+                request.setAttribute("totalMoney", cart.getTotalMoney(0));
+            }
             request.setAttribute("user", user.getCustomerByID(u));
             request.setAttribute("cart", listItem);
             request.getRequestDispatcher("ContractCart.jsp").forward(request, response);

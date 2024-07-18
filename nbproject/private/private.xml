@@ -3,15 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/FPT_Material%20Of%20SE_Pass%20The%20Subject/Kì%205/SWP391/Feds/src/java/vn/fpt/edu/controller/CustomerHomeController.java</file>
-            <file>file:/D:/FPT_Material%20Of%20SE_Pass%20The%20Subject/Kì%205/SWP391/Feds/src/java/vn/fpt/edu/controller/UserContact.java</file>
-            <file>file:/D:/FPT_Material%20Of%20SE_Pass%20The%20Subject/Kì%205/SWP391/Feds/web/ProductList.jsp</file>
-            <file>file:/D:/FPT_Material%20Of%20SE_Pass%20The%20Subject/Kì%205/SWP391/Feds/src/java/vn/fpt/edu/models/Cart.java</file>
-            <file>file:/D:/FPT_Material%20Of%20SE_Pass%20The%20Subject/Kì%205/SWP391/Feds/src/java/vn/fpt/edu/controller/ProductListAddToCartController.java</file>
-            <file>file:/D:/FPT_Material%20Of%20SE_Pass%20The%20Subject/Kì%205/SWP391/Feds/src/java/vn/fpt/edu/models/Item.java</file>
-            <file>file:/D:/FPT_Material%20Of%20SE_Pass%20The%20Subject/Kì%205/SWP391/Feds/web/CartDetail.jsp</file>
-            <file>file:/D:/FPT_Material%20Of%20SE_Pass%20The%20Subject/Kì%205/SWP391/Feds/src/java/vn/fpt/edu/controller/AddToCartController.java</file>
-            <file>file:/D:/FPT_Material%20Of%20SE_Pass%20The%20Subject/Kì%205/SWP391/Feds/src/java/vn/fpt/edu/controller/CartController.java</file>
+            <file>file:/D:/Feds/Feds/web/OrderList.jsp</file>
+            <file>file:/D:/Feds/Feds/web/OrderDetail.jsp</file>
+            <file>file:/D:/Feds/Feds/web/SaleHome.jsp</file>
+            <file>file:/D:/Feds/Feds/web/FeedbackDetail.jsp</file>
+            <file>file:/D:/Feds/Feds/web/ReplyContact.jsp</file>
+            <file>file:/D:/Feds/Feds/web/FeedbackList.jsp</file>
+            <file>file:/D:/Feds/Feds/web/component/header.jsp</file>
         </group>
     </open-files>
 </project-private>

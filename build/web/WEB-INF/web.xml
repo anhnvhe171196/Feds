@@ -141,6 +141,10 @@
         <servlet-class>vn.fpt.edu.controller.CancelCartController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ContactListContactController</servlet-name>
+        <servlet-class>vn.fpt.edu.salecontroller.ContactListContactController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ChangeDeliveryAddressController</servlet-name>
         <servlet-class>vn.fpt.edu.controller.ChangeDeliveryAddressController</servlet-class>
     </servlet>
@@ -161,8 +165,12 @@
         <servlet-class>vn.fpt.edu.controller.ProductListAddToCartController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ContactListContactController</servlet-name>
-        <servlet-class>vn.fpt.edu.salecontroller.ContactListContactController</servlet-class>
+        <servlet-name>addCartDetailController</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.addCartDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddtoCartProductListController</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.AddtoCartProductListController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserRegisterController</servlet-name>
@@ -179,6 +187,10 @@
     <servlet-mapping>
         <servlet-name>UserRegisterGoogleController</servlet-name>
         <url-pattern>/registerGoogle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ContactListContactController</servlet-name>
+        <url-pattern>/contactListContactController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CustomerHomeController</servlet-name>
@@ -325,8 +337,12 @@
         <url-pattern>/productListAddToCart</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ContactListContactController</servlet-name>
-        <url-pattern>/contactListContactController</url-pattern>
+        <servlet-name>addCartDetailController</servlet-name>
+        <url-pattern>/addCartDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddtoCartProductListController</servlet-name>
+        <url-pattern>/addtoCartProductListController</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home</welcome-file>

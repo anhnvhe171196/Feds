@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import vn.fpt.edu.models.Bill1;
 import vn.fpt.edu.models.Contact;
 
 /**
@@ -24,9 +23,10 @@ public class Contact_DAO extends DBContext {
                 + "           ,[Email]\n"
                 + "           ,[Subject]\n"
                 + "           ,[Phone]\n"
-                + "           ,[Message])\n"
+                + "           ,[Message]\n"
+                + "           ,[Date])\n" // Đặt dấu ngoặc đóng đúng vị trí
                 + "     VALUES\n"
-                + "           (?,?,?,?,?)";
+                + "           (?,?,?,?,?, GETDATE())";  // Sử dụng GETDATE() trực tiếp trong câu lệnh SQL
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             if (user_id == 0) {
@@ -38,9 +38,10 @@ public class Contact_DAO extends DBContext {
             st.setString(3, suject);
             st.setString(4, phone);
             st.setString(5, message);
+            // Không cần thiết lập giá trị cho trường Date vì đã được xử lý trong SQL
             st.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 
@@ -142,7 +143,5 @@ public class Contact_DAO extends DBContext {
         }
         return list;
     }
-
-   
 
 }
