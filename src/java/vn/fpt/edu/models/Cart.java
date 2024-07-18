@@ -17,26 +17,36 @@ public class Cart {
     public Cart() {
         items = new ArrayList<>();
     }
+    
     public List<Item> getCartbyUserId(int userid) {
-        List<Item> l = new ArrayList<>();
+        List<Item> userItems = new ArrayList<>();
         for (Item item : items) {
             if(item.getUserID() == userid){
-                l.add(item);
+                userItems.add(item);
             }
         }
-        return l; 
-    } 
+        return userItems; 
+    }
+    public Cart getCartbyUserId1(int userid) {
+        Cart userItems = new Cart();
+        for (Item item : items) {
+            if(item.getUserID() == userid){
+                userItems.addItem(item);
+            }
+        }
+        return userItems; 
+    }
     public List<Item> getItems() {
         return items;
     }
 
-    public int getQuantityById(int id) { 
-        return getItemById(id).getQuantity();
+    public int getQuantityById(int id, int userId) { 
+        return getItemById(id, userId).getQuantity();
     }
     
-    private Item getItemById(int id) { 
+    private Item getItemById(int id, int userId) { 
         for (Item i : items) {
-            if(i.getProduct().getProduct_id() == id) { 
+            if(i.getProduct().getProduct_id() == id && i.getUserID() == userId) { 
                 return i;
             }
         }
@@ -44,24 +54,33 @@ public class Cart {
     }
     
     public void addItem(Item t) { 
-        if(getItemById(t.getProduct().getProduct_id())!=null) { 
-            Item m = getItemById(t.getProduct().getProduct_id());
+        if(getItemById(t.getProduct().getProduct_id(), t.getUserID())!=null) { 
+            Item m = getItemById(t.getProduct().getProduct_id(), t.getUserID());
             m.setQuantity(m.getQuantity()+t.getQuantity());
         } else { 
             items.add(t);
         }
     }
     
-    public void removeItem(int id) {
-        if(getItemById(id) != null) { 
-            items.remove(getItemById(id));
+    public void removeItem(int userId, int id) {
+        Item itemToRemove = null;
+        for (Item i : items) {
+            if(i.getUserID() == userId && i.getProduct().getProduct_id() == id) {
+                itemToRemove = i;
+                break;
+            }
+        }
+        if(itemToRemove != null) { 
+            items.remove(itemToRemove);
         }
     }
     
-    public double getTotalMoney() { 
+    public double getTotalMoney(int userId) { 
         double t = 0;
         for (Item i : items) {
-            t+=(i.getQuantity()*i.getPrice());
+            if(i.getUserID() == userId) {
+                t+=(i.getQuantity()*i.getPrice());
+            }          
         }
         return t;
     }
@@ -85,17 +104,17 @@ public class Cart {
                     int quantity = Integer.parseInt(n[2]);
                     double price = Double.parseDouble(n[3]);
                     Product p = getProductById(idproduct, list);
-                    Item i1;
-                    i1 = new Item(iduser, p, quantity, price);
-                    addItem(i1);
+                    if(p != null) {
+                        Item i1 = new Item(iduser, p, quantity, price);
+                        addItem(i1);
+                    }
+                    
+                    
                 }
             }
         } catch (NumberFormatException e) {
+            e.printStackTrace();
         }
 
     }
-//    public static void main(String[] args) {
-//        Item i = new Item(0, product, 0, 0)
-//    }
-    
 }

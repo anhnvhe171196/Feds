@@ -85,6 +85,14 @@ public class ProcessCartController extends HttpServlet {
         }
 
         Cart cart = new Cart(txt, data.getAllProductinCart());
+        List<Item> listItem;
+            if (u != null) {
+                listItem = cart.getCartbyUserId(u.getUser_Id());
+                request.setAttribute("totalMoney", cart.getTotalMoney(u.getUser_Id()));
+            } else {
+                listItem = cart.getCartbyUserId(0);
+                request.setAttribute("totalMoney", cart.getTotalMoney(0));
+            }
         String num_raw = request.getParameter("num");
         String pid_raw = request.getParameter("pid");
         int pid, num = 0;
@@ -93,10 +101,10 @@ public class ProcessCartController extends HttpServlet {
             Product p = data.getProductByIdinCart(pid);
             int numStore = p.getQuantity();
             num = Integer.parseInt(num_raw);
-            if (num == -1 && (cart.getQuantityById(pid) <= 1)) {
-                cart.removeItem(pid);
+            if (num == -1 && (cart.getQuantityById(pid, userId) <= 1)) {
+                cart.removeItem(userId, pid);
             } else {
-                if (num == 1 && cart.getQuantityById(pid) >= numStore) {
+                if (num == 1 && cart.getQuantityById(pid, userId) >= numStore) {
                     num = 0;
                 }
                 double price = p.getPrice();
@@ -109,7 +117,6 @@ public class ProcessCartController extends HttpServlet {
         List<Item> items = cart.getItems();
         txt = "";
         if (items.size() > 0) {
-//            txt= items.get(0).getProduct().getProduct_id()+":"+items.get(0).getQuantity();
             txt = items.get(0).getUserID() + ":" + items.get(0).getProduct().getProduct_id() + ":" + items.get(0).getQuantity() + ":" + items.get(0).getPrice();
             for (int i = 1; i < items.size(); i++) {
                 txt += "/" + items.get(i).getUserID() + ":" + items.get(i).getProduct().getProduct_id() + ":" + items.get(i).getQuantity() + ":" + items.get(i).getPrice();
@@ -118,6 +125,7 @@ public class ProcessCartController extends HttpServlet {
         Cookie c = new Cookie("cart", txt);
         c.setMaxAge(24 * 60 * 60);
         response.addCookie(c);
+        
         request.setAttribute("cart", cart);
         request.getRequestDispatcher("CartDetail.jsp").forward(request, response);
     }
@@ -133,6 +141,8 @@ public class ProcessCartController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User u = (User) session.getAttribute("account");
         Product_DAO data = new Product_DAO();
         Cookie[] arr = request.getCookies();
         String txt = "";
@@ -149,10 +159,16 @@ public class ProcessCartController extends HttpServlet {
         String pid = request.getParameter("pid");
         String[] ids = txt.split("/");
         String out = ""; // Tạo biến mới để lưu giữ giá trị mới
-
+        int userId = 0;
+        if(u != null) {
+            userId = u.getUser_Id();
+        } else {
+            userId = 0;
+        }
         for (int i = 0; i < ids.length; i++) {
             String[] s = ids[i].split(":");
-            if (!s[1].equals(pid)) {
+            int userIdInCookie = Integer.parseInt(s[0]);
+            if (userIdInCookie != userId || !s[1].equals(pid)) {
                 if (out.isEmpty()) {
                     out = ids[i];
                 } else {
@@ -168,7 +184,16 @@ public class ProcessCartController extends HttpServlet {
         }
 
         Cart cart = new Cart(out, data.getAllProductinCart());
-        request.setAttribute("cart", cart);
+        List<Item> listItem;
+        if (u != null) {
+            listItem = cart.getCartbyUserId(u.getUser_Id());
+            request.setAttribute("totalMoney", cart.getTotalMoney(u.getUser_Id()));
+        } else {
+            listItem = cart.getCartbyUserId(0);
+            request.setAttribute("totalMoney", cart.getTotalMoney(0));
+        }
+        request.setAttribute("cart", listItem);
+        session.setAttribute("size", listItem.size());
         request.getRequestDispatcher("CartDetail.jsp").forward(request, response);
     }
 

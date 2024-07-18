@@ -541,7 +541,7 @@ public class Bill_DAO extends DBContext {
             //add bill
             String sql = "insert into Bill values(?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setDouble(1, cart.getTotalMoney());
+            st.setDouble(1, cart.getTotalMoney(u.getUser_Id()));
             st.setString(2, date);
             st.setInt(3, u.getUser_Id());
             st.setString(4, address);

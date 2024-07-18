@@ -29,6 +29,7 @@ import vn.fpt.edu.dals.Bill_DAO;
 import vn.fpt.edu.dals.Product_DAO;
 import vn.fpt.edu.models.Cart;
 import vn.fpt.edu.models.Config;
+import vn.fpt.edu.models.Item;
 import vn.fpt.edu.models.User;
 
 
@@ -83,19 +84,19 @@ public class AddBillController extends HttpServlet {
         String paymentOption = Request.getParameter("paymentOptions");
         String status = "Chờ xử lý";
         
-//        PrintWriter out = response.getWriter();
-//        out.println("<html><head><title>Parameter Values</title></head><body>");
-//        out.println("<h1>Parameter Values</h1>");
-//        out.println("<p>Tinh: " + tinh + "</p>");
-//        out.println("<p>Quan: " + quan + "</p>");
-//        out.println("<p>Phuong: " + phuong + "</p>");
-//        out.println("<p>Address: " + address + "</p>");
-//        out.println("<p>Payment Option: " + paymentOption + "</p>");
 
         Cart cart = new Cart(txt, data.getAllProductinCart());
+        List<Item> listItem;
+            if (u != null) {
+                listItem = cart.getCartbyUserId(u.getUser_Id());
+                session.setAttribute("totalMoney", cart.getTotalMoney(u.getUser_Id()));
+            } else {
+                listItem = cart.getCartbyUserId(0);
+                session.setAttribute("totalMoney", cart.getTotalMoney(0));
+            }
         
          if("tienmat".equals(paymentOption)) {
-             d.addtoBill(u, cart, address, status, tinh, quan, phuong, paymentOption);
+             d.addtoBill(u, cart.getCartbyUserId1(u.getUser_Id()), address, status, tinh, quan, phuong, paymentOption);
              Cookie c = new Cookie("cart", "");
              c.setMaxAge(0);
              response.addCookie(c);
@@ -105,7 +106,7 @@ public class AddBillController extends HttpServlet {
              response.sendRedirect("complete");
  
          } else if("VNPay".equals(paymentOption)){
-             d.addtoBill(u, cart, address, status, tinh, quan, phuong, paymentOption);
+             d.addtoBill(u, cart.getCartbyUserId1(u.getUser_Id()), address, status, tinh, quan, phuong, paymentOption);
              Cookie c = new Cookie("cart", "");
              c.setMaxAge(0);
              response.addCookie(c);

@@ -41,11 +41,11 @@ public class CustomerHomeController extends HttpServlet {
         }
 
         Cart cart = new Cart(txt, data.getAllProductinCart());
-        User u = (User)session.getAttribute("account");
+        User u = (User) session.getAttribute("account");
         List<Item> listItem;
         if (u != null) {
-             listItem = cart.getCartbyUserId(u.getUser_Id());
-        }else{
+            listItem = cart.getCartbyUserId(u.getUser_Id());
+        } else {
             listItem = cart.getCartbyUserId(0);
         }
 
