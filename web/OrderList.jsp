@@ -196,8 +196,8 @@
                                     <th scope="col">Ngày</th>
                                     <th scope="col">Mã Đơn</th>
                                     <th scope="col">Khách Hàng</th>
-                                    <th scope="col">Giá trị đơn</th>
-                                   
+                                    <th scope="col">Địa Chỉ</th>
+                                    <th scope="col">Giá Trị</th>
                                     <th scope="col">Trạng Thái</th>
                                     <th scope="col">Hành Động</th>
                                 </tr>
@@ -209,7 +209,7 @@
                                         <td>${b.date}</td>
                                         <td>${b.bill_id}</td>
                                         <td>${b.user_name}</td>
-                                        
+                                        <td>${b.address}</td>
                                         <td><fmt:formatNumber value="${b.total_price}" pattern="#,###"/> VNĐ</td>
                                         <td>${b.status}</td>
                                         <td style="width: 130px"><a class="btn btn-outline-primary m-2 btn-center" href="/Feds/billDetailBillController?id=${b.bill_id}">Xem đơn</a></td>

@@ -165,16 +165,14 @@ public class Bill_DAO extends DBContext {
     public List<Bill1> getBillAllWithUserToday() {
         List<Bill1> list = new ArrayList<>();
         String sql = "SELECT Bill.*, U.User_name\n"
-                + "                FROM Bill\n"
-                + "                JOIN [User] AS U ON Bill.User_Id = U.User_Id\n"
-                + "                WHERE CONVERT(date, Bill.Date) = CONVERT(date, GETDATE())\n"
-                + "				ORDER BY Bill_Id desc"; // Sử dụng GETDATE() để lấy ngày hiện tại
+                + "FROM Bill\n"
+                + "JOIN [User] AS U ON Bill.User_Id = U.User_Id\n"
+                + "WHERE CONVERT(date, Bill.Date) = CONVERT(date, GETDATE());"; // Sử dụng GETDATE() để lấy ngày hiện tại
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"), rs.getString("Address"), rs.getString("Status"), rs.getString("User_name")
-                , rs.getString("Province"), rs.getString("District"), rs.getString("Country"));
+                Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"), rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -192,7 +190,7 @@ public class Bill_DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"), rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"), rs.getString("Province"), rs.getString("District"), rs.getString("Country"));
+                Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"), rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -360,7 +358,7 @@ public class Bill_DAO extends DBContext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"), rs.getString("Address"),
-                        rs.getString("Status"), rs.getString("User_name"), rs.getString("Province"), rs.getString("District"), rs.getString("Country"));
+                        rs.getString("Status"), rs.getString("User_name"));
                 list.add(u);
             }
 
@@ -432,7 +430,7 @@ public class Bill_DAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"),
-                        rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"), rs.getString("Province"), rs.getString("District"), rs.getString("Country"));
+                        rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -451,7 +449,7 @@ public class Bill_DAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"), rs.getString("Address"),
-                        rs.getString("Status"), rs.getString("UserName"), rs.getString("Province"), rs.getString("District"), rs.getString("Country"));
+                        rs.getString("Status"), rs.getString("UserName"));
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -459,6 +457,8 @@ public class Bill_DAO extends DBContext {
         }
         return list;
     }
+    
+    
 
     public int getNumOfPageBillList(int numOfBillInScreen) {
         int numOfPages = 0;
@@ -489,7 +489,7 @@ public class Bill_DAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"),
-                        rs.getString("Address"), rs.getString("Status"), rs.getString("User_name") , rs.getString("Province"), rs.getString("District"), rs.getString("Country"));
+                        rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -509,7 +509,7 @@ public class Bill_DAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"),
-                        rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"), rs.getString("Province"), rs.getString("District"), rs.getString("Country"));
+                        rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
                 list.add(u);
             }
         } catch (SQLException e) {

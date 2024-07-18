@@ -1,5 +1,8 @@
-
-package com.vnpay.common;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package vn.fpt.edu.models;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
@@ -22,10 +25,10 @@ import jakarta.servlet.http.HttpServletRequest;
 public class Config {
 
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    public static String vnp_ReturnUrl = "http://localhost:9999/Feds/PaymentServlet";
-    public static String vnp_TmnCode = "Y9259VA9";
-    public static String secretKey = "Z1HGVSALMSZN2KY45RBDFNGOT1DF4H2E";
-    public static String vnp_ApiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
+    public static String vnp_Returnurl = "http://localhost:9999/Feds/complete";
+    public static String vnp_TmnCode = "CZ0X2NG8";
+    public static String vnp_HashSecret = "7QNR1PE8L9OV2K0NVAZ1IT41HC9FH36S";
+    public static String vnp_apiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
 
     public static String md5(String message) {
         String digest = null;
@@ -81,9 +84,9 @@ public class Config {
                 sb.append("&");
             }
         }
-        return hmacSHA512(secretKey,sb.toString());
+        return hmacSHA512(vnp_HashSecret, sb.toString());
     }
-    
+
     public static String hmacSHA512(final String key, final String data) {
         try {
 
@@ -101,18 +104,17 @@ public class Config {
                 sb.append(String.format("%02x", b & 0xff));
             }
             return sb.toString();
-
         } catch (Exception ex) {
             return "";
         }
     }
-    
+
     public static String getIpAddress(HttpServletRequest request) {
         String ipAdress;
         try {
             ipAdress = request.getHeader("X-FORWARDED-FOR");
             if (ipAdress == null) {
-                ipAdress = request.getRemoteAddr();
+                ipAdress = request.getLocalAddr();
             }
         } catch (Exception e) {
             ipAdress = "Invalid IP:" + e.getMessage();
