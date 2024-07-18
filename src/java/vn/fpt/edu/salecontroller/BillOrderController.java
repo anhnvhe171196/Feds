@@ -115,7 +115,7 @@ public class BillOrderController extends HttpServlet {
             int numOfBills = bd.getNumOfBillCurrentDate();
             int sumOfDoneBills = bd.getSumOfDoneBill();
             double sumOfBillByMonth = bd.getSumOfBillByMonth(currentMonth);
-
+            session.setAttribute("month", currentMonth);
             session.setAttribute("numOfBills", numOfBills);
             session.setAttribute("sumOfDoneBills", sumOfDoneBills);
             session.setAttribute("sumOfBillByMonth", sumOfBillByMonth);

@@ -141,6 +141,10 @@
         <servlet-class>vn.fpt.edu.controller.CancelCartController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ContactListContactController</servlet-name>
+        <servlet-class>vn.fpt.edu.salecontroller.ContactListContactController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ChangeDeliveryAddressController</servlet-name>
         <servlet-class>vn.fpt.edu.controller.ChangeDeliveryAddressController</servlet-class>
     </servlet>
@@ -179,6 +183,10 @@
     <servlet-mapping>
         <servlet-name>UserRegisterGoogleController</servlet-name>
         <url-pattern>/registerGoogle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ContactListContactController</servlet-name>
+        <url-pattern>/contactListContactController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CustomerHomeController</servlet-name>
