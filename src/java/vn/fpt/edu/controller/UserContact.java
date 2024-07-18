@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.time.LocalDate;
 import vn.fpt.edu.dals.Contact_DAO;
 import vn.fpt.edu.models.User;
 
@@ -86,6 +87,7 @@ public class UserContact extends HttpServlet {
         String sdt = request.getParameter("sdt");
         String message = request.getParameter("message");
         Contact_DAO d = new Contact_DAO();
+        
         d.insertFeedBack(user_id, email, subject, name, message);
         request.setAttribute("error", "Bạn đã gửi thành công!!!");
         request.getRequestDispatcher("contact.jsp").forward(request, response);
