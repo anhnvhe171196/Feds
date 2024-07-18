@@ -14,17 +14,17 @@ import vn.fpt.edu.models.Contact;
 public class Contact_DAO extends DBContext {
 
     public void insertFeedBack(int user_id, String email, String suject, String phone, String message) {
-        String sql = "INSERT INTO [dbo].[Contact]\n"
-                + "           ([User_Id]\n"
-                + "           ,[Email]\n"
-                + "           ,[Subject]\n"
-                + "           ,[Phone]\n"
-                + "           ,[Message]\n"
-                + "           ,[Date])\n"
-                + "           ,[Date]\n"
-                + "           ,[Status])\n"
-                + "     VALUES\n"
-                + "           (?,?,?,?,?, GETDATE(), N'Chưa gửi')";
+        String sql = """
+                     INSERT INTO [dbo].[Contact]
+                                ([User_Id]
+                                ,[Email]
+                                ,[Subject]
+                                ,[Phone]
+                                ,[Message]
+                                ,[Date]
+                                ,[Status])
+                          VALUES
+                                (?,?,?,?,?, GETDATE(), N'Chưa gửi')""";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, user_id);
@@ -40,16 +40,17 @@ public class Contact_DAO extends DBContext {
     }
 
     public void insertFeedBack2(String name, String email, String suject, String phone, String message) {
-        String sql = "INSERT INTO [dbo].[Contact]\n"
-                + "           ([Name]\n"
-                + "           ,[Email]\n"
-                + "           ,[Subject]\n"
-                + "           ,[Phone]\n"
-                + "           ,[Message]\n"
-                + "           ,[Date]\n"
-                + "           ,[Status])\n"
-                + "     VALUES\n"
-                + "           (?,?,?,?,?, GETDATE(), N'Chưa gửi')";
+        String sql = """
+                     INSERT INTO [dbo].[Contact]
+                                ([Name]
+                                ,[Email]
+                                ,[Subject]
+                                ,[Phone]
+                                ,[Message]
+                                ,[Date]
+                                ,[Status])
+                          VALUES
+                                (?,?,?,?,?, GETDATE(), N'Chưa gửi')""";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, name);
