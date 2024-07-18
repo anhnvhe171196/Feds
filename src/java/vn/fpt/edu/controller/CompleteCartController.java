@@ -61,7 +61,6 @@ public class CompleteCartController extends HttpServlet {
         HttpSession session = request.getSession();
         User u = (User) session.getAttribute("account");
         Bill_DAO bill = new Bill_DAO();
-//        int id = Integer.parseInt(request.getParameter("Bill_id"));
         int id = bill.getBillIdByUserId(u.getUser_Id());
         session.setAttribute("userid", u.getUser_Id());        
         session.setAttribute("orderinfo1", bill.getInfoBillByBillId(id));

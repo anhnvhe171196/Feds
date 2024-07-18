@@ -31,8 +31,8 @@
                             <div class="m-4">
                                 <h4 class="card-title mb-4">ĐƠN HÀNG CỦA BẠN</h4>
                                 <div class="row gy-3 mb-4">
-                                    <c:set var="o" value="${requestScope.cart}"/>
-                                    <c:forEach items="${o.items}" var="i">                     
+                                    <c:set var="cartItems" value="${requestScope.cart}"/>
+                                    <c:forEach items="${cartItems}" var="i"> 
                                         <div class="col-lg-5">
                                             <div class="me-lg-5">
                                                 <div class="d-flex">
@@ -136,7 +136,8 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
                                     <p class="mb-2">Tổng:</p>
-                                    <p class="mb-2"><fmt:formatNumber value="${o.getTotalMoney() + requestScope.orderinfo1.get(0).getTotal_price()}" pattern="#,###" />VNĐ</p>
+  
+                                    <p class="mb-2"><fmt:formatNumber value="${totalMoney + requestScope.orderinfo1.get(0).getTotal_price()}" pattern="#,###" />VNĐ</p>
 <!--                                    <p class="mb-2"><fmt:formatNumber value="${requestScope.orderinfo1.get(0).getTotal_price()}" pattern="#,###" />VNĐ</p>-->
                                 </div>
                                 <div class="d-flex justify-content-between">
@@ -150,7 +151,7 @@
                                 <hr />
                                 <div class="d-flex justify-content-between">
                                     <p class="mb-2">Tổng tiền:</p>
-                                    <p class="mb-2 fw-bold"><fmt:formatNumber value="${o.getTotalMoney() + requestScope.orderinfo1.get(0).getTotal_price()}" pattern="#,###" />VNĐ</p>
+                                    <p class="mb-2 fw-bold"><fmt:formatNumber value="${totalMoney + requestScope.orderinfo1.get(0).getTotal_price()}" pattern="#,###" />VNĐ</p>
 
                                 </div>
 
@@ -187,13 +188,12 @@
                                         <img src="images/${l.getProduct_img()}" class="card-img-top rounded-2" style="height: 200px;" />
                                     </a>
                                     <div class="card-body d-flex flex-column pt-3 border-top">
-                                        <a href="product?pid=${l.getProduct_id()}" class="nav-link" style="text-align: center;height: 40px">${l.getProduct_name()}</a>
-                                        <div class="price-wrap mb-2">
-                                            <strong class=""><fmt:formatNumber value="${l.getPrice()}" pattern="#,###"/> VNĐ</strong>
-                                            <del class="">$24.99</del>
+                                        <a href="product?pid=${l.getProduct_id()}" class="nav-link" style="text-align: center;font-size: 16px;height: 50px;width: max-content;max-width: 200px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;display: inline-block;">${l.getProduct_name()}</a>
+                                        <div class="price-wrap mb-2" style="text-align: center;">
+                                            <strong class="" style="height: 30px; font-size: 17px; color: #D10024"><fmt:formatNumber value="${l.getPrice()}" pattern="#,###"/> VNĐ</strong>
                                         </div>
-                                        <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                                            <a href="#" class="btn btn-outline-primary w-100">Thêm vào giỏ hàng</a>
+                                        <div  text-align: center" class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
+                                            <a href="addCartDetail?pid=${l.getProduct_id()}" class="btn btn-outline-primary w-100" style="font-size: 17px; color: black">Thêm vào giỏ hàng</a>
                                         </div>
                                     </div>
                                 </div>

@@ -41,15 +41,20 @@ public class CustomerHomeController extends HttpServlet {
         }
 
         Cart cart = new Cart(txt, data.getAllProductinCart());
-        User u = (User)session.getAttribute("account");
+        User u = (User) session.getAttribute("account");
         List<Item> listItem;
         if (u != null) {
-             listItem = cart.getCartbyUserId(u.getUser_Id());
-        }else{
+            listItem = cart.getCartbyUserId(u.getUser_Id());
+        } else {
             listItem = cart.getCartbyUserId(0);
         }
 
-        int n = listItem != null ? listItem.size() : 0;
+        int n = 0;
+            System.out.println(listItem);
+        for(int i = 0; i < (listItem != null ? listItem.size() : 0); i++) {
+            //System.out.println("TEST: " + listItem.get(i));
+            n += listItem.get(i).getQuantity();
+        }
         session.setAttribute("size", n);
         session.setAttribute("data", data.getAllProductinCart());
 

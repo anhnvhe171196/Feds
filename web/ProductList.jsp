@@ -510,14 +510,14 @@
                                 <p class="price">
                                     <%=product.getPriceString()%>
                                 </p>
-                                <form action="productListAddToCart" method="get">
+                                <!--<form action="productListAddToCart" method="get">
                                     <input type="text" hidden="" name="max" value="2000000">
-                                    <input type="type" hidden="" name="pid" value="<%=product.getProduct_id()%>">
-                                    <button type="submit" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                    <input type="type" hidden="" name="pid" value="<%=product.getProduct_id()%>">-->
+                                    <button onclick="AddToCart(<%=product.getProduct_id()%>)" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
                                     <!--<button type="submit"
                                             formaction="AddtoCart?pid=<%=product.getProduct_id()%>&pqty=1&buy=true"
                                             class="btn btn-primary">Buy & Feedback</button>-->
-                                </form>
+                                <!--</form>-->
                                 <br />
                             </div>
                         </div>
@@ -526,6 +526,23 @@
                         }
                         %>
 
+                                            <script>
+                                                function AddToCart(id) {
+                                                    setTimeout(async () => {
+                                    const resp = await fetch("addToCart", {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'pid='+id
+    });
+    const size = await resp.json();
+    document.getElementsByClassName("qty")[0].innerHTML = size["Size"];
+    
+                                                    }, 0);
+                                                }
+                                            </script>
                     </div>
                     <div class="_JmL__">
                         <nav aria-label="" class="shopee-page-controller" role="navigation">
