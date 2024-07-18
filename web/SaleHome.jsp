@@ -135,10 +135,10 @@
                         </div>
                     </div>
                     <div class="navbar-nav w-100">
-                        <a href="/Feds/saleDashboard" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                        <a href="/Feds/orderListBillController" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Order List</a>
-                        <a href="/Feds/feedbackListFeedbackController" class="nav-item nav-link "><i class="fa fa-th me-2"></i>Feedback List</a> 
-                        <a href="/Feds/contactListContactController" class="nav-item nav-link"><i class="far fa-file-alt me-2"></i>Reply Contact</a> 
+                        <a href="/Feds/saleDashboard" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Tổng quát</a>
+                        <a href="/Feds/orderListBillController" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Đơn hàng</a>
+                        <a href="/Feds/feedbackListFeedbackController" class="nav-item nav-link "><i class="fa fa-th me-2"></i>Đánh giá</a> 
+                        <a href="/Feds/contactListContactController" class="nav-item nav-link"><i class="far fa-file-alt me-2"></i>Liên hệ</a> 
                     </div> 
 
 
@@ -167,11 +167,11 @@
                             <span class="d-none d-lg-inline-flex">${sessionScope.account.user_name}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="userProfile" class="dropdown-item">My Profile</a>
-                            <a href="home" class="dropdown-item">Home Page</a>
+                            <a href="userProfile" class="dropdown-item">Thông tin cá nhân</a>
+                            <a href="home" class="dropdown-item">Trang chủ</a>
                             <c:choose>
-                                <c:when test="${ not empty sessionScope.account}"><a href="${pageContext.request.contextPath}/userLogout" class="dropdown-item">Logout</a></c:when>
-                                <c:otherwise><a href="${pageContext.request.contextPath}/login" class="dropdown-item">Logout</a></c:otherwise>
+                                <c:when test="${ not empty sessionScope.account}"><a href="${pageContext.request.contextPath}/userLogout" class="dropdown-item">Đăng xuất</a></c:when>
+                                <c:otherwise><a href="${pageContext.request.contextPath}/login" class="dropdown-item">Đăng xuất</a></c:otherwise>
                             </c:choose>
                         </div>
                     </div>
