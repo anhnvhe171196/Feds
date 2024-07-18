@@ -70,7 +70,7 @@ public class BillDetailBillController extends HttpServlet {
             BillOrder_DAO bod = new BillOrder_DAO();
 
             List<BillOrder> listBillOrder = bod.getBillOrder(id);
-            session.setAttribute("status", listBillOrder.get(1).getStatus());
+            session.setAttribute("status", listBillOrder.get(0).getStatus());
             session.setAttribute("listBillOrder", listBillOrder);
             session.setAttribute("idBill", listBillOrder.get(0).getBill_id());
             request.getRequestDispatcher("OrderDetail.jsp").forward(request, response);

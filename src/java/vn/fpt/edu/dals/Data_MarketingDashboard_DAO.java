@@ -834,31 +834,4 @@ public class Data_MarketingDashboard_DAO extends DBContext {
         }
     }
 
-    public static void main(String[] args) {
-        Data_MarketingDashboard_DAO data = new Data_MarketingDashboard_DAO();
-//        List<User> Users = data.getAllUsers(1, "id", "asc");
-        UserDetails u = data.getUserById(10);
-
-        double totalPrice = u.getTotalPrice();
-        User user = u.getUser();
-        int totalOrders = u.getTotalOrders();
-        List<Order> orders = u.getOrder();
-        List<Product1> product = new ArrayList<>();
-//        for (User u : Users) {
-        System.out.println("User ID: " + user.getUser_Id());
-        System.out.println("User Name: " + user.getUser_name());
-        System.out.println("Tổng số đơn hàng: " + totalOrders);
-        System.out.println("Tổng số tiền đã mua: " + totalPrice);
-
-        for (Order order : orders) {
-            Product1 p = data.getProductById(order.getProduct_id());
-            if (p != null) { // Kiểm tra nếu p không null
-                System.out.println("Product name: " + order.getOrder_quantity());
-                product.add(p);
-            }
-        }
-
-//        }
-        System.out.println();
-    }
 }
