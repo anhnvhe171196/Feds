@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package vn.fpt.edu.dals;
 
 import java.sql.PreparedStatement;
@@ -150,9 +147,10 @@ public class Contact_DAO extends DBContext {
     }
 
     public void upDateRely(String email, String subject, String message) {
-        String sql = "UPDATE [dbo].[Contact]\n"
-                + "SET [Status] = N'Đã gửi'\n"
-                + "WHERE Email = ? and Subject = ? and Message = ?";
+        String sql = """
+                     UPDATE [dbo].[Contact]
+                     SET [Status] = N'\u0110\u00e3 g\u1eedi'
+                     WHERE Email = ? and Subject = ? and Message = ?""";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, email);
@@ -165,21 +163,6 @@ public class Contact_DAO extends DBContext {
         }
     }
 
-    String sql = "UPDATE [dbo].[Contact]\n"
-            + "SET [Status] = N'Đã gửi'\n"
-            + "WHERE Email = ? and Subject = ? and Message = ?";try
-    {
-        PreparedStatement st = connection.prepareStatement(sql);
-        st.setString(1, email);
-        st.setString(2, subject);
-        st.setString(3, message);
-
-        st.executeUpdate();
-    }catch(
-    SQLException e)
-    {
-        e.printStackTrace();
-    }
-}>>>>>>>df4f5ceca9dfd3ac8dbe991dc85cf8734b47b4fb
+    
 
 }
