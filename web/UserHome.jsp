@@ -107,14 +107,7 @@
                     <div class="col-md-12">
                         <div class="section-title">
                             <h3 class="title">Sản Phẩm Mới</h3>
-                            <div class="section-nav">
-                                <ul class="section-tab-nav tab-nav">
-                                    <li class="active"><a data-toggle="tab" href="#tab1">Laptops</a></li>
-                                    <li><a data-toggle="tab" href="#tab1">Điện Thoại</a></li>
-                                    <li><a data-toggle="tab" href="#tab1">Tivi</a></li>
-                                    <li><a data-toggle="tab" href="#tab1">PC</a></li>
-                                </ul>
-                            </div>
+                            
                         </div>
                     </div>
                     <!-- /section title -->
@@ -154,8 +147,8 @@
                                                                                                                     <i class="fa fa-star"></i>-->
                                                         </div>
                                                         <div class="product-btns">
-                                                            <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">Yêu thích</span></button>
-                                                            <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">Xem ngay</span></button>
+
+                                                            <button class="quick-view"><a href="product?pid=${np.getProduct_id()}"><i class="fa fa-eye"></i></a><span class="tooltipp">Xem ngay</span></button>
                                                         </div>
                                                     </div>
                                                     <div class="add-to-cart">
@@ -264,19 +257,19 @@
 
                                             <div class="product">
 
-                                                <div class="product-img" style="height: 270px">
+                                                <div class="product-img" style="height: 270px" onclick="ProductDetail(${l.getProduct_id()})">
                                                     <img src="images/${l.getProduct_img()}" alt="">
                                                     <div class="product-label">
                                                         <!--                                                            <span class="sale">-30%</span>-->
                                                         <span class="new">HOT</span>
                                                     </div>
                                                 </div>
-                                                <div class="product-body">
+                                                <div class="product-body"  onclick="ProductDetail(${l.getProduct_id()})">
                                                     <p class="product-category">${l.getCategory_name()}</p>
                                                     <h3 class="product-name" style="height: 50px"> <a href="product?pid=${l.getProduct_id()}">${l.getProduct_name()}</a></h3>
 
 
-                                                    <h4 class="product-price"> <fmt:formatNumber value="${l.getPrice()}" pattern="#,###"/> VNĐ <del class="product-old-price">$990.00</del></h4>
+                                                    <h4 class="product-price"><fmt:formatNumber value="${l.getPrice()}" pattern="#,###" />VNĐ <del class="product-old-price"> </del></h4>
 
                                                     <div class="product-rating">
                                                         <i class="fa fa-star"></i>
@@ -286,8 +279,8 @@
                                                         <i class="fa fa-star"></i>
                                                     </div>
                                                     <div class="product-btns">
-                                                        <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">Yêu Thích</span></button>
-                                                        <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">Xem Ngay</span></button>
+                                                        
+                                                        <button class="quick-view"><a href="product?pid=${np.getProduct_id()}"><i class="fa fa-eye"></i></a><span class="tooltipp">Xem ngay</span></button>
                                                     </div>
                                                 </div>
                                                 <div class="add-to-cart">
@@ -517,4 +510,9 @@
     function buy(Product_id) {
 
     }
+    function ProductDetail(id) {
+                let url = "product?pid=" + id;
+
+                window.location.href = url;
+            }
 </script>

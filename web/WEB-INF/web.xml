@@ -168,6 +168,10 @@
         <servlet-name>addCartDetailController</servlet-name>
         <servlet-class>vn.fpt.edu.controller.addCartDetailController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddtoCartProductListController</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.AddtoCartProductListController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserRegisterController</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -335,6 +339,10 @@
     <servlet-mapping>
         <servlet-name>addCartDetailController</servlet-name>
         <url-pattern>/addCartDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddtoCartProductListController</servlet-name>
+        <url-pattern>/addtoCartProductListController</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home</welcome-file>
