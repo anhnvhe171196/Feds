@@ -388,7 +388,7 @@
                             ProductQuans.push(${val});
         </c:forEach>
                             var ctx = document.getElementById('marketingDashBoard').getContext('2d');
-                            var myChart = new Chart(ctx, {
+                            var myChart2 = new Chart(ctx, {
                                 type: 'bar',
                                 data: {
                                     labels: ProductNames,
@@ -431,7 +431,7 @@
         UserPayment.push(${val});
         </c:forEach>
         var ctx = document.getElementById('marketingDashBoard1').getContext('2d');
-        var myChart = new Chart(ctx, {
+        var myChart1 = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: UserNames,
@@ -472,20 +472,6 @@
         <c:forEach items="${sessionScope.ProductCount}" var="val" varStatus="loop">
         ProductCounts.push(${val});
         </c:forEach>
-
-        var combinedData = Categories.map((category, index) => ({category, count: ProductCounts[index]}));
-
-
-        combinedData.sort((a, b) => b.count - a.count);
-
-
-        Categories = combinedData.map(item => item.category);
-        ProductCounts = combinedData.map(item => item.count);
-
-
-        myChart.data.labels = Categories;
-        myChart.data.datasets[0].data = ProductCounts;
-        myChart.update();
         var ctx = document.getElementById('marketingDashBoard2').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'doughnut',
@@ -494,7 +480,7 @@
                 datasets: [{
                         label: 'Tổng sản phẩm',
                         data: ProductCounts,
-                        borderWidth: 1,
+                        borderWidth: 1
                     }]
             },
             options: {
@@ -518,6 +504,20 @@
                 }
             }
         });
+        
+        var combinedData = Categories.map((category, index) => ({category, count: ProductCounts[index]}));
+
+
+        combinedData.sort((a, b) => b.count - a.count);
+
+
+        Categories = combinedData.map(item => item.category);
+        ProductCounts = combinedData.map(item => item.count);
+
+
+        myChart.data.labels = Categories;
+        myChart.data.datasets[0].data = ProductCounts;
+        myChart.update();
     </script>
 
     <script>
