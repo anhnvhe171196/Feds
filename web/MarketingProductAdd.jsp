@@ -316,6 +316,10 @@
                                                             <input type="date" name="dateEnd"  class="form-control" />
                                                             <label style="color: red; display: none;" id="dateEndError">*Vui lòng chọn Ngày kết thúc</label>
                                                         </div>
+                                                        <div class="mb-3">
+                                                            <h6 class="title text-dark" >Sale:</h6>                                                                
+                                                            <input type="number" name="sale" class="form-control" min="0" max="100" required/>
+                                                        </div>
                                                         <hr/>
 
                                                         <a href="#" id="show-more-details">Show more Details</a>

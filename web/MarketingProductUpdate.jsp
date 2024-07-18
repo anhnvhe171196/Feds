@@ -342,15 +342,15 @@
                                                     </div>
                                                     <div class="row w-100">
                                                         <dt class="col-3">Date start:</dt>
-                                                        <dd class="col-9"><input type="date" name="dateStart" value="${product.price.dateStart}" class="form-control" /></dd>
+                                                        <dd class="col-9"><input type="date" name="dateStart" value="${product.price.dateStart}" class="form-control" required/></dd>
                                                     </div>
                                                     <div class="row w-100">
                                                         <dt class="col-3">Date End:</dt>
-                                                        <dd class="col-9"><input type="date" name="dateEnd" value="${product.price.dateEnd}" class="form-control" /></dd>
+                                                        <dd class="col-9"><input type="date" name="dateEnd" value="${product.price.dateEnd}" class="form-control" required/></dd>
                                                     </div>
                                                     <div class="row w-100">
                                                         <dt class="col-3">Sale:</dt>
-                                                        <dd class="col-9"><input type="text" name="sale" value="${product.price.sale}" class="form-control" /></dd>
+                                                        <dd class="col-9"><input type="number" name="sale" value="${product.price.sale}" class="form-control" min="0" max="100" required/></dd>
                                                     </div>
                                                     <input type="text" name="product_img" value="${product.product_img}" class="form-control" style="display: none" readonly/>
                                                     <hr/>
