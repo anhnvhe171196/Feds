@@ -96,6 +96,7 @@ public class Contact_DAO extends DBContext {
                     + "      ,[Phone]\n"
                     + "      ,[Message]\n"
                     + "      ,[Date]\n"
+                    + "      ,[Status]\n"
                     + "  FROM Contact c\n"
                     + "  JOIN \n"
                     + "      [User] AS u ON c.[User_Id] = u.[User_id]\n"
@@ -163,5 +164,22 @@ public class Contact_DAO extends DBContext {
             e.printStackTrace();
         }
     }
+
+    String sql = "UPDATE [dbo].[Contact]\n"
+            + "SET [Status] = N'Đã gửi'\n"
+            + "WHERE Email = ? and Subject = ? and Message = ?";try
+    {
+        PreparedStatement st = connection.prepareStatement(sql);
+        st.setString(1, email);
+        st.setString(2, subject);
+        st.setString(3, message);
+
+        st.executeUpdate();
+    }catch(
+    SQLException e)
+    {
+        e.printStackTrace();
+    }
+}>>>>>>>df4f5ceca9dfd3ac8dbe991dc85cf8734b47b4fb
 
 }

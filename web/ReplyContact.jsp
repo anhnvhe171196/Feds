@@ -420,11 +420,12 @@
         </div>
     </div>
 
-
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var emailElement = document.getElementById('email');
             var emailHiddenInput = document.getElementById('email-hidden');
+
+    
 
             if (emailElement && emailHiddenInput) {
                 emailElement.addEventListener('DOMSubtreeModified', function () {
