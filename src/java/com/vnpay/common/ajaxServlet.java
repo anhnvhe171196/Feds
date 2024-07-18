@@ -1,19 +1,13 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
-package vn.fpt.edu.controller;
+package com.vnpay.common;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
-import java.net.URLEncoder;
+import java.io.IOException;import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,46 +18,40 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
-import vn.fpt.edu.models.Config;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Dell
+ * @author CTT VNPAY
  */
-@WebServlet(name="VNPayController", urlPatterns={"/vnpay"})
-public class VNPayController extends HttpServlet {
+@WebServlet(name = "ajaxServlet", urlPatterns = {"/vnpayajax"})
+public class ajaxServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        session.setAttribute("orderId", req.getParameter("orderId"));
-        session.setAttribute("firstname", req.getParameter("firstname"));
-        session.setAttribute("lastname", req.getParameter("lastname"));
-        session.setAttribute("mobile", req.getParameter("mobile"));
-        session.setAttribute("line1", req.getParameter("line1"));
-        session.setAttribute("line2", req.getParameter("line2"));
-        session.setAttribute("city", req.getParameter("city"));
-        session.setAttribute("province", req.getParameter("province"));
-        session.setAttribute("content", req.getParameter("content"));
-        session.setAttribute("paymentMethod", req.getParameter("paymentMethod"));
-
+        
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
-        String orderType = "billpayment";
-        long amount = (int) (Double.parseDouble(req.getParameter("amount")) * 100);
+        String orderType = "other";
+        long amount = Integer.parseInt(req.getParameter("amount"))*100;
         String bankCode = req.getParameter("bankCode");
-
+        
         String vnp_TxnRef = Config.getRandomNumber(8);
         String vnp_IpAddr = Config.getIpAddress(req);
-        String vnp_TmnCode = Config.vnp_TmnCode;
 
+        String vnp_TmnCode = Config.vnp_TmnCode;
+        
         Map<String, String> vnp_Params = new HashMap<>();
         vnp_Params.put("vnp_Version", vnp_Version);
         vnp_Params.put("vnp_Command", vnp_Command);
         vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
         vnp_Params.put("vnp_Amount", String.valueOf(amount));
         vnp_Params.put("vnp_CurrCode", "VND");
-
+        
         if (bankCode != null && !bankCode.isEmpty()) {
             vnp_Params.put("vnp_BankCode", bankCode);
         }
@@ -77,18 +65,18 @@ public class VNPayController extends HttpServlet {
         } else {
             vnp_Params.put("vnp_Locale", "vn");
         }
-        vnp_Params.put("vnp_ReturnUrl", Config.vnp_Returnurl);
+        vnp_Params.put("vnp_ReturnUrl", Config.vnp_ReturnUrl);
         vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
         String vnp_CreateDate = formatter.format(cld.getTime());
         vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
-
+        
         cld.add(Calendar.MINUTE, 15);
         String vnp_ExpireDate = formatter.format(cld.getTime());
         vnp_Params.put("vnp_ExpireDate", vnp_ExpireDate);
-
+        
         List fieldNames = new ArrayList(vnp_Params.keySet());
         Collections.sort(fieldNames);
         StringBuilder hashData = new StringBuilder();
@@ -113,18 +101,15 @@ public class VNPayController extends HttpServlet {
             }
         }
         String queryUrl = query.toString();
-        String vnp_SecureHash = Config.hmacSHA512(Config.vnp_HashSecret, hashData.toString());
+        String vnp_SecureHash = Config.hmacSHA512(Config.secretKey, hashData.toString());
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
         String paymentUrl = Config.vnp_PayUrl + "?" + queryUrl;
         com.google.gson.JsonObject job = new JsonObject();
         job.addProperty("code", "00");
         job.addProperty("message", "success");
-        if (req.getParameter("paymentMethod").equals("cash")) {
-            job.addProperty("data", "http://localhost:9999/Feds/complete");
-        } else if (req.getParameter("paymentMethod").equals("vnpay")) {
-            job.addProperty("data", paymentUrl);
-        }
+        job.addProperty("data", paymentUrl);
         Gson gson = new Gson();
         resp.getWriter().write(gson.toJson(job));
     }
+
 }
