@@ -173,7 +173,8 @@ public class Bill_DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"), rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
+                Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"), rs.getString("Address"), rs.getString("Status"), rs.getString("User_name")
+                , rs.getString("Province"), rs.getString("District"), rs.getString("Country"));
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -191,7 +192,7 @@ public class Bill_DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"), rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
+                Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"), rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"), rs.getString("Province"), rs.getString("District"), rs.getString("Country"));
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -359,7 +360,7 @@ public class Bill_DAO extends DBContext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"), rs.getString("Address"),
-                        rs.getString("Status"), rs.getString("User_name"));
+                        rs.getString("Status"), rs.getString("User_name"), rs.getString("Province"), rs.getString("District"), rs.getString("Country"));
                 list.add(u);
             }
 
@@ -431,7 +432,7 @@ public class Bill_DAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"),
-                        rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
+                        rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"), rs.getString("Province"), rs.getString("District"), rs.getString("Country"));
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -450,7 +451,7 @@ public class Bill_DAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"), rs.getString("Address"),
-                        rs.getString("Status"), rs.getString("UserName"));
+                        rs.getString("Status"), rs.getString("UserName"), rs.getString("Province"), rs.getString("District"), rs.getString("Country"));
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -488,7 +489,7 @@ public class Bill_DAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"),
-                        rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
+                        rs.getString("Address"), rs.getString("Status"), rs.getString("User_name") , rs.getString("Province"), rs.getString("District"), rs.getString("Country"));
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -508,7 +509,7 @@ public class Bill_DAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Bill1 u = new Bill1(rs.getInt("Bill_Id"), rs.getDouble("Total_price"), rs.getString("Date"),
-                        rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"));
+                        rs.getString("Address"), rs.getString("Status"), rs.getString("User_name"), rs.getString("Province"), rs.getString("District"), rs.getString("Country"));
                 list.add(u);
             }
         } catch (SQLException e) {
