@@ -31,7 +31,7 @@ public class Cart {
         Cart userItems = new Cart();
         for (Item item : items) {
             if(item.getUserID() == userid){
-                userItems.addItem(item);
+                userItems.addItem(item);    
             }
         }
         return userItems; 

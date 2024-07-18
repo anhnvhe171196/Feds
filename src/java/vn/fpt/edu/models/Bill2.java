@@ -57,7 +57,6 @@ public class Bill2 {
         this.order = order;
     }
 
-    
 
     public String getProvince() {
         return Province;

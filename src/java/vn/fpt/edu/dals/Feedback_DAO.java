@@ -300,9 +300,10 @@ public class Feedback_DAO extends DBContext {
                 + "           ,[Date]\n"
                 + "           ,[Rating]\n"
                 + "           ,[Bill_Id]\n"
-                + "           ,[Img])\n"
+                + "           ,[Img]\n"
+                + "           ,[Status])\n"
                 + "     VALUES\n"
-                + "           (?, ?, GETDATE(), ?, ?, ?)";
+                + "           (?, ?, GETDATE(), ?, ?, ?, 'Hiện')";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, productId);
@@ -591,10 +592,4 @@ public class Feedback_DAO extends DBContext {
         }
     }
 
-    public static void main(String[] args) {
-        Feedback_DAO dao = new Feedback_DAO();
-        dao.updateStatusFeedback("Hiện", "10");
-
-        
-    }
 }

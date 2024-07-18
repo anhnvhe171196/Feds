@@ -26,7 +26,7 @@ public class Contact_DAO extends DBContext {
                 + "           ,[Message]\n"
                 + "           ,[Date])\n" // Đặt dấu ngoặc đóng đúng vị trí
                 + "     VALUES\n"
-                + "           (?,?,?,?,?, GETDATE())";  // Sử dụng GETDATE() trực tiếp trong câu lệnh SQL
+                + "           (?,?,?,?,?, GETDATE())"; // Sử dụng GETDATE() trực tiếp trong câu lệnh SQL
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             if (user_id == 0) {
@@ -55,8 +55,9 @@ public class Contact_DAO extends DBContext {
             st.setInt(2, numOfContact);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Contact u = new Contact(rs.getString("UserName"), rs.getString("Email"), rs.getString("Subject"), rs.getString("Phone"),
-                        rs.getString("Message"), rs.getString("Date"));
+                Contact u = new Contact(rs.getString("UserName"), rs.getString("Email"), rs.getString("Subject"),
+                        rs.getString("Phone"),
+                        rs.getString("Message"), rs.getString("Date"), rs.getString("Status"));
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -95,17 +96,19 @@ public class Contact_DAO extends DBContext {
                     + "      ,[Phone]\n"
                     + "      ,[Message]\n"
                     + "      ,[Date]\n"
+                    + "      ,[Status]\n"
                     + "  FROM Contact c\n"
                     + "  JOIN \n"
                     + "      [User] AS u ON c.[User_Id] = u.[User_id]\n"
-                    + "  WHERE  c.Email LIKE ? OR U.User_name LIKE ?  ";
+                    + "  WHERE  c.Email LIKE ? OR U.User_name LIKE ?  and [Status] != N'Đã gửi' ";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, "%" + value + "%");
             ps.setString(2, "%" + value + "%");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Contact c = new Contact(rs.getString("UserName"), rs.getString("Email"), rs.getString("Subject"), rs.getString("Phone"),
-                        rs.getString("Message"), rs.getString("Date"));
+                Contact c = new Contact(rs.getString("UserName"), rs.getString("Email"), rs.getString("Subject"),
+                        rs.getString("Phone"),
+                        rs.getString("Message"), rs.getString("Date"), rs.getString("Status"));
                 list.add(c);
             }
 
@@ -117,12 +120,13 @@ public class Contact_DAO extends DBContext {
 
     public List<Contact> getContactAllWithUser() {
         List<Contact> list = new ArrayList<>();
-        String sql = "SELECT TOP (1000) \n"
+        String sql = "SELECT\n"
                 + "               u.[User_name] AS [UserName]\n"
                 + "                   ,c.[Email]\n"
                 + "                     ,[Subject]\n"
                 + "                    ,[Phone]\n"
                 + "                   ,[Message]\n"
+                + "      ,[Status]\n"
                 + "                  ,[Date]\n"
                 + "              FROM Contact c\n"
                 + "                JOIN \n"
@@ -133,8 +137,9 @@ public class Contact_DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Contact c = new Contact(rs.getString("UserName"), rs.getString("Email"), rs.getString("Subject"), rs.getString("Phone"),
-                        rs.getString("Message"), rs.getString("Date"));
+                Contact c = new Contact(rs.getString("UserName"), rs.getString("Email"), rs.getString("Subject"),
+                        rs.getString("Phone"),
+                        rs.getString("Message"), rs.getString("Date"), rs.getString("Status"));
                 list.add(c);
             }
 
@@ -143,5 +148,38 @@ public class Contact_DAO extends DBContext {
         }
         return list;
     }
+
+    public void upDateRely(String email, String subject, String message) {
+        String sql = "UPDATE [dbo].[Contact]\n"
+                + "SET [Status] = N'Đã gửi'\n"
+                + "WHERE Email = ? and Subject = ? and Message = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            st.setString(2, subject);
+            st.setString(3, message);
+
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    String sql = "UPDATE [dbo].[Contact]\n"
+            + "SET [Status] = N'Đã gửi'\n"
+            + "WHERE Email = ? and Subject = ? and Message = ?";try
+    {
+        PreparedStatement st = connection.prepareStatement(sql);
+        st.setString(1, email);
+        st.setString(2, subject);
+        st.setString(3, message);
+
+        st.executeUpdate();
+    }catch(
+    SQLException e)
+    {
+        e.printStackTrace();
+    }
+}>>>>>>>df4f5ceca9dfd3ac8dbe991dc85cf8734b47b4fb
 
 }
