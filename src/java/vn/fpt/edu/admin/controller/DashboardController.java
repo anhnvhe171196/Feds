@@ -44,8 +44,9 @@ public class DashboardController extends HttpServlet {
         request.setAttribute("Revenues", bDAO.totalRevenue()); 
         HashMap<String, Integer> h = bDAO.totalRevenueByCate();
         request.setAttribute("RevenueCate", h); 
-        
-        request.setAttribute("CateWithStock", new Category_DAO().getAllCateWithStock()); 
+        Category_DAO cDAO = new Category_DAO();
+        request.setAttribute("CateWithStock", cDAO.getAllCateWithStock()); 
+        request.setAttribute("CateWithCount", cDAO.getAllCateWithCount()); 
         
         Feedback_DAO fDAO = new Feedback_DAO();
         //HashMap<Integer, Float> f = fDAO.AverageFeedbackByCate();
