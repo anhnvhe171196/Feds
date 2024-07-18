@@ -4,6 +4,7 @@
  */
 package vn.fpt.edu.dals;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,7 +23,7 @@ import vn.fpt.edu.models.User;
 public class Product_DAO extends DBContext {
 
     public int getAllProductsSize() {
-        String sql = "SELECT Count(Product.Product_id) as Total FROM Product join Brandd on Brandd.Brand_id = Product.Brand_id join Product_Category on Product_Category.Category_id = Brandd.Category_id join Price On Price.Product_id = Product.Product_id WHERE Product.Status != 'deleted' AND Price.Date_start <= GETDATE() AND Price.Date_end >= GETDATE()";
+        String sql = "SELECT Count(Product.Product_id) as Total FROM Product join Brandd on Brandd.Brand_id = Product.Brand_id join Product_Category on Product_Category.Category_id = Brandd.Category_id join Price On Price.Product_id = Product.Product_id WHERE Product.Status != 'deleted'";
         System.out.println(sql);
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -79,9 +80,9 @@ public class Product_DAO extends DBContext {
             }
         }
         if(where) {
-            sql += " AND Product.Status != 'deleted' AND Price.Date_start <= GETDATE() AND Price.Date_end >= GETDATE()";
+            sql += " AND Product.Status != 'deleted'";
         } else {
-            sql += " WHERE Product.Status != 'deleted' AND Price.Date_start <= GETDATE() AND Price.Date_end >= GETDATE()";
+            sql += " WHERE Product.Status != 'deleted'";
         }
         //System.out.println(sql);
         try {
@@ -97,7 +98,7 @@ public class Product_DAO extends DBContext {
     }
 
     public int getProductByTittleSize(String strSearch, String[] cateId, String[] brandId, String min, String max) {
-        String sql = "SELECT  Count(Product.Product_id) as Total FROM Product join Brandd on Brandd.Brand_id = Product.Brand_id join Product_Category on Product_Category.Category_id = Brandd.Category_id join Price On Price.Product_id = Product.Product_id WHERE Product_name LIKE ? AND Product.Status != 'deleted' AND Price.Date_start <= GETDATE() AND Price.Date_end >= GETDATE()";
+        String sql = "SELECT  Count(Product.Product_id) as Total FROM Product join Brandd on Brandd.Brand_id = Product.Brand_id join Product_Category on Product_Category.Category_id = Brandd.Category_id join Price On Price.Product_id = Product.Product_id WHERE Product_name LIKE ? AND Product.Status != 'deleted'";
         if (cateId.length > 0) {
             sql += " AND ([Product_Category].[Category_id] = " + cateId[0];
             for (int i = 1; i < cateId.length; i++) {
@@ -133,7 +134,7 @@ public class Product_DAO extends DBContext {
 
     public List<Product> getProductByTittle(String strSearch, String[] cateId, int page, String[] brandId, String min, String max) {
         List<Product> list = new ArrayList<>();
-        String sql = "SELECT Product.Product_name, Product.Product_img, Product.Product_id, Product_Detail.Decription, Price.Price, [Product_Category].[Category_name], Price.Sale FROM Product join Product_Detail ON Product.Product_id = Product_Detail.Product_id join Price on Product.Product_id = [Price].Product_id join Brandd on [Brandd].[Brand_Id] = [Product].[Brand_id] join [Product_Category] on [Product_Category].[Category_id] = [Brandd].[Category_id] WHERE Product_name LIKE ? AND Product.Status != 'deleted' AND Price.Date_start <= GETDATE() AND Price.Date_end >= GETDATE()";
+        String sql = "SELECT Product.Product_name, Product.Product_img, Product.Product_id, Product_Detail.Decription, Price.Price, [Product_Category].[Category_name], Price.Sale, Price.Date_start, Price.Date_end FROM Product join Product_Detail ON Product.Product_id = Product_Detail.Product_id join Price on Product.Product_id = [Price].Product_id join Brandd on [Brandd].[Brand_Id] = [Product].[Brand_id] join [Product_Category] on [Product_Category].[Category_id] = [Brandd].[Category_id] WHERE Product_name LIKE ? AND Product.Status != 'deleted'";
         if (cateId.length > 0) {
             sql += " AND ([Product_Category].[Category_id] = " + cateId[0];
             for (int i = 1; i < cateId.length; i++) {
@@ -169,6 +170,10 @@ public class Product_DAO extends DBContext {
                 u.setPrice(rs.getInt("Price"));
                 u.setCategory_name(rs.getString("Category_name"));
                 u.setSale(rs.getInt("Sale"));
+                long curr = new java.util.Date().getTime();
+                if(curr < rs.getDate("Date_start").getTime() || curr > rs.getDate("Date_end").getTime()) {
+                    u.setSale(0);
+                }
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -179,7 +184,7 @@ public class Product_DAO extends DBContext {
 
     public List<Product> getAllProducts(int page) {
         List<Product> list = new ArrayList<>();
-        String sql = "SELECT Product.Product_name, Product.Product_img, Product.Product_id, Product_Detail.Decription, Price.Price, [Product_Category].[Category_name], Price.Sale FROM Product join Product_Detail ON Product.Product_id = Product_Detail.Product_id join Price on Product.Product_id = [Price].Product_id join Brandd on [Brandd].[Brand_Id] = [Product].[Brand_id] join [Product_Category] on [Product_Category].[Category_id] = [Brandd].[Category_id] WHERE Product.Status != 'deleted' AND Price.Date_start <= GETDATE() AND Price.Date_end >= GETDATE()";
+        String sql = "SELECT Product.Product_name, Product.Product_img, Product.Product_id, Product_Detail.Decription, Price.Price, [Product_Category].[Category_name], Price.Sale, Price.Date_start, Price.Date_end FROM Product join Product_Detail ON Product.Product_id = Product_Detail.Product_id join Price on Product.Product_id = [Price].Product_id join Brandd on [Brandd].[Brand_Id] = [Product].[Brand_id] join [Product_Category] on [Product_Category].[Category_id] = [Brandd].[Category_id] WHERE Product.Status != 'deleted'";
         sql += " ORDER BY Product.Product_id OFFSET " + ((page - 1) * 15) + " ROWS FETCH NEXT 15 ROWS ONLY;";
         System.out.println(sql);
         try {
@@ -194,6 +199,10 @@ public class Product_DAO extends DBContext {
                 u.setPrice(rs.getInt("Price"));
                 u.setCategory_name(rs.getString("Category_name"));
                 u.setSale(rs.getInt("Sale"));
+                long curr = new java.util.Date().getTime();
+                if(curr < rs.getDate("Date_start").getTime() || curr > rs.getDate("Date_end").getTime()) {
+                    u.setSale(0);
+                }
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -204,7 +213,7 @@ public class Product_DAO extends DBContext {
 
     public List<Product> getAllProductsWithParameter(String[] cateId, int page, String[] brandId, String min, String max) {
         List<Product> list = new ArrayList<>();
-        String sql = "SELECT Product.Product_name, Product.Product_img, Product.Product_id, Product_Detail.Decription, Price.Price, [Product_Category].[Category_name], Price.Sale FROM Product join Product_Detail ON Product.Product_id = Product_Detail.Product_id join Price on Product.Product_id = [Price].Product_id join Brandd on [Brandd].[Brand_Id] = [Product].[Brand_id] join [Product_Category] on [Product_Category].[Category_id] = [Brandd].[Category_id]";
+        String sql = "SELECT Product.Product_name, Product.Product_img, Product.Product_id, Product_Detail.Decription, Price.Price, [Product_Category].[Category_name], Price.Sale, Price.Date_start, Price.Date_end FROM Product join Product_Detail ON Product.Product_id = Product_Detail.Product_id join Price on Product.Product_id = [Price].Product_id join Brandd on [Brandd].[Brand_Id] = [Product].[Brand_id] join [Product_Category] on [Product_Category].[Category_id] = [Brandd].[Category_id]";
         boolean where = false;
         if (cateId.length > 0) {
             where = true;
@@ -246,9 +255,9 @@ public class Product_DAO extends DBContext {
             }
         }
         if(where) {
-            sql += " AND Product.Status != 'deleted' AND Price.Date_start <= GETDATE() AND Price.Date_end >= GETDATE()";
+            sql += " AND Product.Status != 'deleted'";
         } else {
-            sql += " WHERE Product.Status != 'deleted' AND Price.Date_start <= GETDATE() AND Price.Date_end >= GETDATE()";
+            sql += " WHERE Product.Status != 'deleted'";
         }
         sql += " ORDER BY Product.Product_id OFFSET " + ((page - 1) * 15) + " ROWS FETCH NEXT 15 ROWS ONLY;";
         System.out.println(sql);
@@ -264,6 +273,10 @@ public class Product_DAO extends DBContext {
                 u.setPrice(rs.getInt("Price"));
                 u.setCategory_name(rs.getString("Category_name"));
                 u.setSale(rs.getInt("Sale"));
+                long curr = new java.util.Date().getTime();
+                if(curr < rs.getDate("Date_start").getTime() || curr > rs.getDate("Date_end").getTime()) {
+                    u.setSale(0);
+                }
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -474,7 +487,7 @@ public class Product_DAO extends DBContext {
 
     public List<Product> getPopularProducts() {
         List<Product> list = new ArrayList<>();
-        String sql = "select TOP 3 p.Product_name, p.Product_img, pc.Category_name, pr.Price, p.Product_id, (SELECT Count([Order_id]) FROM [Order] WHERE p.[Product_id] = [Order].[Product_id]) as TotalBought, pr.Sale\n"
+        String sql = "select TOP 3 p.Product_name, p.Product_img, pc.Category_name, pr.Price, p.Product_id, (SELECT Count([Order_id]) FROM [Order] WHERE p.[Product_id] = [Order].[Product_id]) as TotalBought, pr.Sale, pr.Date_start, pr.Date_end\n"
                 + "From Product p\n"
                 + "Inner Join Brandd b on b.Brand_Id = p.Brand_id\n"
                 + "Inner Join Product_Category pc on pc.Category_id = b.Category_id\n"
@@ -491,6 +504,10 @@ public class Product_DAO extends DBContext {
                 product.setPrice(rs.getFloat(4));
                 product.setProduct_id(rs.getInt(5));
                 product.setSale(rs.getInt(6));
+                long curr = new java.util.Date().getTime();
+                if(curr < rs.getDate("Date_start").getTime() || curr > rs.getDate("Date_end").getTime()) {
+                    product.setSale(0);
+                }
                 list.add(product);
             }
         } catch (SQLException e) {
@@ -501,7 +518,7 @@ public class Product_DAO extends DBContext {
 
     public List<Product> getNewProducts() {
         List<Product> list = new ArrayList<>();
-        String sql = "select TOP 3 p.Product_name, p.Product_img, pc.Category_name, pr.Price, p.Product_id, pr.Sale\n"
+        String sql = "select TOP 3 p.Product_name, p.Product_img, pc.Category_name, pr.Price, p.Product_id, pr.Sale, pr.Date_start, pr.Date_end\n"
                 + "From Product p\n"
                 + "Inner Join Brandd b on b.Brand_Id = p.Brand_id\n"
                 + "Inner Join Product_Category pc on pc.Category_id = b.Category_id\n"
@@ -518,6 +535,10 @@ public class Product_DAO extends DBContext {
                 product.setPrice(rs.getFloat(4));
                 product.setProduct_id(rs.getInt(5));
                 product.setSale(rs.getInt(6));
+                long curr = new java.util.Date().getTime();
+                if(curr < rs.getDate("Date_start").getTime() || curr > rs.getDate("Date_end").getTime()) {
+                    product.setSale(0);
+                }
                 list.add(product);
             }
         } catch (SQLException e) {
