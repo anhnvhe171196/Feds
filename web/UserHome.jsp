@@ -264,14 +264,14 @@
 
                                             <div class="product">
 
-                                                <div class="product-img" style="height: 270px">
+                                                <div class="product-img" style="height: 270px" onclick="ProductDetail(${l.getProduct_id()})">
                                                     <img src="images/${l.getProduct_img()}" alt="">
                                                     <div class="product-label">
                                                         <!--                                                            <span class="sale">-30%</span>-->
                                                         <span class="new">HOT</span>
                                                     </div>
                                                 </div>
-                                                <div class="product-body">
+                                                <div class="product-body"  onclick="ProductDetail(${l.getProduct_id()})">
                                                     <p class="product-category">${l.getCategory_name()}</p>
                                                     <h3 class="product-name" style="height: 50px"> <a href="product?pid=${l.getProduct_id()}">${l.getProduct_name()}</a></h3>
 
@@ -517,4 +517,9 @@
     function buy(Product_id) {
 
     }
+    function ProductDetail(id) {
+                let url = "product?pid=" + id;
+
+                window.location.href = url;
+            }
 </script>
