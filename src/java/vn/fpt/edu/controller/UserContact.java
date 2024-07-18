@@ -99,7 +99,6 @@ public class UserContact extends HttpServlet {
             request.setAttribute("error", "Bạn đã gửi thành công!!!");
             request.getRequestDispatcher("contact.jsp").forward(request, response);
         }
-
     }
 
     /**
