@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package vn.fpt.edu.dals;
 
 import java.sql.PreparedStatement;
@@ -24,21 +20,44 @@ public class Contact_DAO extends DBContext {
                 + "           ,[Subject]\n"
                 + "           ,[Phone]\n"
                 + "           ,[Message]\n"
-                + "           ,[Date])\n" // Đặt dấu ngoặc đóng đúng vị trí
+                + "           ,[Date])\n"
+                + "           ,[Date]\n"
+                + "           ,[Status])\n"
                 + "     VALUES\n"
-                + "           (?,?,?,?,?, GETDATE())"; // Sử dụng GETDATE() trực tiếp trong câu lệnh SQL
+                + "           (?,?,?,?,?, GETDATE(), N'Chưa gửi')";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            if (user_id == 0) {
-                st.setString(1, null);
-            } else {
-                st.setInt(1, user_id);
-            }
+            st.setInt(1, user_id);
             st.setString(2, email);
             st.setString(3, suject);
             st.setString(4, phone);
             st.setString(5, message);
-            // Không cần thiết lập giá trị cho trường Date vì đã được xử lý trong SQL
+
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void insertFeedBack2(String name, String email, String suject, String phone, String message) {
+        String sql = "INSERT INTO [dbo].[Contact]\n"
+                + "           ([Name]\n"
+                + "           ,[Email]\n"
+                + "           ,[Subject]\n"
+                + "           ,[Phone]\n"
+                + "           ,[Message]\n"
+                + "           ,[Date]\n"
+                + "           ,[Status])\n"
+                + "     VALUES\n"
+                + "           (?,?,?,?,?, GETDATE(), N'Chưa gửi')";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, name);
+            st.setString(2, email);
+            st.setString(3, suject);
+            st.setString(4, phone);
+            st.setString(5, message);
+
             st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -166,6 +185,13 @@ public class Contact_DAO extends DBContext {
         }
     }
 
+<<<<<<< HEAD
     
 
 }
+=======
+}
+
+
+
+>>>>>>> a5b35de328a418bea350dc0086d2bd14f5d3ff95

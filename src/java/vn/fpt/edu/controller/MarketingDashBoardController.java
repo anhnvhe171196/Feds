@@ -4,6 +4,8 @@
  */
 package vn.fpt.edu.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -53,6 +55,53 @@ public class MarketingDashBoardController extends HttpServlet {
         int sumOfDoneBills = bd.getSumOfDoneBill();
         int numOfProducts = pb.getTotalNumberOfProducts();
         int NumOfProductsSold = od.getNumOfProductsSold();
+
+        //chart 1
+        int quantity = 10;
+        String startdate = "2024-07-01";
+        String enddate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        List<Product> productSellingList = data.getSellingProduct(startdate, enddate, quantity);
+        List<String> productNames = new ArrayList<>();
+        List<Integer> quantities = new ArrayList<>();
+        for (Product product : productSellingList) {
+            productNames.add(product.getProduct_name());
+            quantities.add(product.getQuantity());
+        }
+
+        session.setAttribute("quantity", quantity);
+        session.setAttribute("startdate", startdate);
+        session.setAttribute("enddate", enddate);
+
+        session.setAttribute("ProductName", productNames);
+        session.setAttribute("ProductQuan", quantities);
+
+        //chart 2
+        int Uquantity = 10;
+
+        List<User> UserPaymentList = data.getMostPaymentUser(Uquantity);
+
+        List<String> username = new ArrayList<>();
+        List<Integer> userPayment = new ArrayList<>();
+
+        for (User user : UserPaymentList) {
+            username.add(user.getUser_name());
+            userPayment.add(user.getPayment());
+        }
+
+        session.setAttribute("Uquantity", Uquantity);
+        session.setAttribute("username", username);
+        session.setAttribute("userPayment", userPayment);
+
+        //chart 3
+        List<Category> category = data.getTotalProductsByCategory();
+        List<String> CName = new ArrayList<>();
+        List<Integer> ProductCount = new ArrayList<>();
+        for (Category c : category) {
+            CName.add(c.getCategory_name());
+            ProductCount.add(c.getProductcount());
+        }
+        session.setAttribute("CName", CName);
+        session.setAttribute("ProductCount", ProductCount);
 
         session.setAttribute("numOfBills", numOfBills);
         session.setAttribute("sumOfDoneBills", sumOfDoneBills);
@@ -140,6 +189,8 @@ public class MarketingDashBoardController extends HttpServlet {
 
             request.getRequestDispatcher("OrderProcessor.jsp").forward(request, response);
 //
+        } else if (Action == null) {
+
         }
     }
 }

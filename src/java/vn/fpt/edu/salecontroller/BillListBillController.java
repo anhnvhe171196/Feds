@@ -104,7 +104,7 @@ public class BillListBillController extends HttpServlet {
             session.setAttribute("listBill", listBill);
             request.getRequestDispatcher("OrderList.jsp").forward(request, response);
         } else if (action.equals("search")) {
-            String value = request.getParameter("value");
+            String value = request.getParameter("value").trim();
             session.setAttribute("value", value);
 
             List<Bill1> listBill = bd.searchBills(value);

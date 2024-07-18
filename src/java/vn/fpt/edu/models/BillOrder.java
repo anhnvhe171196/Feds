@@ -19,7 +19,7 @@ public class BillOrder {
     private String Ram, Rom, Size, Color;
     private int Order_quantity;
     private String user_name, phone, email, address;
-
+    private String Province, District, Country;
     public BillOrder() {
     }
 
@@ -55,7 +55,7 @@ public class BillOrder {
         this.address = address;
     }
 
-    public BillOrder(int Bill_id, String Product_name, double price, String Product_img, String Status, String Payment, String Ram, String Rom, String Size, String Color, int Order_quantity, String user_name, String phone, String email, String address) {
+    public BillOrder(int Bill_id, String Product_name, double price, String Product_img, String Status, String Payment, String Ram, String Rom, String Size, String Color, int Order_quantity, String user_name, String phone, String email, String address, String Province, String District, String Country) {
         this.Bill_id = Bill_id;
         this.Product_name = Product_name;
         this.price = price;
@@ -71,9 +71,12 @@ public class BillOrder {
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.Province = Province;
+        this.District = District;
+        this.Country = Country;
     }
 
-    public BillOrder(int Bill_id, String Product_name, double price, String Product_img, String Status, String Payment, String Ram, String Rom, String Size, String Color, int Order_quantity) {
+    public BillOrder(int Bill_id, String Product_name, double price, String Product_img, String Status, String Payment, String Ram, String Rom, String Size, String Color, int Order_quantity, String Province, String District, String Country) {
         this.Bill_id = Bill_id;
         this.Product_name = Product_name;
         this.price = price;
@@ -85,6 +88,10 @@ public class BillOrder {
         this.Size = Size;
         this.Color = Color;
         this.Order_quantity = Order_quantity;
+        this.address = address;
+        this.Province = Province;
+        this.District = District;
+        this.Country = Country;
     }
 
     public int getOrder_quantity() {

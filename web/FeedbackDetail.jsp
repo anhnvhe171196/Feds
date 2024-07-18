@@ -185,7 +185,7 @@
                                 <th scope="col">Tên Sản Phẩm</th>
                                 <th scope="col" width="200px">Ảnh Đánh giá</th>
                                 <th scope="col" width="400px">Nội dung đánh giá</th>
-                                <th scope="col" width="120px">Khánh hàng</th>
+                                <th scope="col" width="150px">Khách hàng</th>
                                 <th scope="col" width="200px">Thông tin khách hàng</th>
                             </tr>
                         </thead>

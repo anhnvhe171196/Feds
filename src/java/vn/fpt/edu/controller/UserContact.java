@@ -74,23 +74,31 @@ public class UserContact extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        User u = (User)session.getAttribute("account");
+        User u = (User) session.getAttribute("account");
         int user_id;
-        if(u != null){
+        if (u != null) {
             user_id = u.getUser_Id();
-        }else{
-            user_id = 0;
+            String email = request.getParameter("email");
+            String subject = request.getParameter("subject");
+            String sdt = request.getParameter("sdt");
+            String message = request.getParameter("message");
+            Contact_DAO d = new Contact_DAO();
+
+            d.insertFeedBack(user_id, email, subject, sdt, message);
+            request.setAttribute("error", "Bạn đã gửi thành công!!!");
+            request.getRequestDispatcher("contact.jsp").forward(request, response);
+        } else {
+            String name = request.getParameter("name");
+            String email = request.getParameter("email");
+            String subject = request.getParameter("subject");
+            String sdt = request.getParameter("sdt");
+            String message = request.getParameter("message");
+            Contact_DAO d = new Contact_DAO();
+
+            d.insertFeedBack2(name, email, subject, sdt, message);
+            request.setAttribute("error", "Bạn đã gửi thành công!!!");
+            request.getRequestDispatcher("contact.jsp").forward(request, response);
         }
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String subject = request.getParameter("subject");
-        String sdt = request.getParameter("sdt");
-        String message = request.getParameter("message");
-        Contact_DAO d = new Contact_DAO();
-        
-        d.insertFeedBack(user_id, email, subject, name, message);
-        request.setAttribute("error", "Bạn đã gửi thành công!!!");
-        request.getRequestDispatcher("contact.jsp").forward(request, response);
     }
 
     /**

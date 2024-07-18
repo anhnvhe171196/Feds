@@ -75,13 +75,26 @@ public class BillDetailBillController extends HttpServlet {
             session.setAttribute("idBill", listBillOrder.get(0).getBill_id());
             request.getRequestDispatcher("OrderDetail.jsp").forward(request, response);
         } else if (action.equals("search")) {
-            String value = request.getParameter("value");
+            
+            String value = request.getParameter("value").trim();
+            if(value == null){ 
             int id = Integer.parseInt(request.getParameter("id"));
             BillOrder_DAO bod = new BillOrder_DAO();
 
-            List<BillOrder> listBillOrder = bod.getBillOrderByName(1, value);
+            List<BillOrder> listBillOrder = bod.getBillOrder(id);
+            session.setAttribute("status", listBillOrder.get(0).getStatus());
+            session.setAttribute("listBillOrder", listBillOrder);
+            session.setAttribute("idBill", listBillOrder.get(0).getBill_id());
+            request.getRequestDispatcher("OrderDetail.jsp").forward(request, response);
+            } else if(value != null) { 
+            int id = Integer.parseInt(request.getParameter("id"));
+            BillOrder_DAO bod = new BillOrder_DAO();
+
+            List<BillOrder> listBillOrder = bod.getBillOrderByName(id, value);
+            session.setAttribute("value", value);
             session.setAttribute("listBillOrder", listBillOrder);
             request.getRequestDispatcher("OrderDetail.jsp").forward(request, response);
+            }
         }
 
     }

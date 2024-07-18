@@ -1,7 +1,7 @@
-    <%-- 
-    Document   : index_sale
-    Created on : May 20, 2024, 9:14:06 PM
-    Author     : Trong
+<%-- 
+Document   : index_sale
+Created on : May 20, 2024, 9:14:06 PM
+Author     : Trong
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -80,6 +80,30 @@
             .info-row h6 {
                 text-align: left; /* Ensure all text within customer-info is left-aligned */
             }
+
+            /* Custom styles for alignment */
+            .d-flex {
+                display: flex;
+            }
+
+            .align-items-center {
+                align-items: center;
+            }
+
+            .justify-content-between {
+                justify-content: space-between;
+            }
+
+            /* Adjust margin for the search box */
+            .ms-4 {
+                margin-left: 1rem; /* Adjust as needed */
+            }
+
+            /* Ensure buttons are aligned properly */
+            .ms-2 {
+                margin-left: 0.5rem; /* Adjust as needed */
+            }
+
         </style>
     </head>
 
@@ -102,7 +126,7 @@
                     </a>
                     <div class="d-flex align-items-center ms-4 mb-4">
                         <div class="position-relative">
-                           <img class="rounded-circle" src="images/${sessionScope.account.avarta}" alt="" style="width: 40px; height: 40px;">
+                            <img class="rounded-circle" src="images/${sessionScope.account.avarta}" alt="" style="width: 40px; height: 40px;">
                             <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                         </div>
                         <div class="ms-3">
@@ -137,19 +161,19 @@
 
 
                 <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="images/${sessionScope.account.avarta}" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">${sessionScope.account.user_name}</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="userProfile" class="dropdown-item">My Profile</a>
-                            <a href="home" class="dropdown-item">Home Page</a>
-                            <c:choose>
-                                <c:when test="${ not empty sessionScope.account}"><a href="${pageContext.request.contextPath}/userLogout" class="dropdown-item">Logout</a></c:when>
-                                <c:otherwise><a href="${pageContext.request.contextPath}/login" class="dropdown-item">Logout</a></c:otherwise>
-                            </c:choose>
-                        </div>
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                        <img class="rounded-circle me-lg-2" src="images/${sessionScope.account.avarta}" alt="" style="width: 40px; height: 40px;">
+                        <span class="d-none d-lg-inline-flex">${sessionScope.account.user_name}</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                        <a href="userProfile" class="dropdown-item">My Profile</a>
+                        <a href="home" class="dropdown-item">Home Page</a>
+                        <c:choose>
+                            <c:when test="${ not empty sessionScope.account}"><a href="${pageContext.request.contextPath}/userLogout" class="dropdown-item">Logout</a></c:when>
+                            <c:otherwise><a href="${pageContext.request.contextPath}/login" class="dropdown-item">Logout</a></c:otherwise>
+                        </c:choose>
                     </div>
+                </div>
             </div>
         </nav>
         <!-- Navbar End -->
@@ -158,30 +182,35 @@
         <div class="container-fluid pt-4 px-4">
             <div class="bg-light text-center rounded" style="    padding: 10px;">
 
-                <div class="d-flex align-items-center justify-content-between" >
-                    <div class="d-none d-md-flex ms-4" method="GET" action="">
-                        <input id="searchBox" class="form-control border-0" type="search" name="value" placeholder="Tìm kiếm" value="${sessionScope.value}">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center">
+                        <div class="ms-4 d-none d-md-flex">
+                            <form method="GET" action="">
+                                <input id="searchBox" class="form-control border-0" type="search" name="value" placeholder="Tìm kiếm" value="${sessionScope.value}">
+                            </form>
+                        </div>
                     </div>
-
-                    <form action="billDetailBillController" method="post" style="margin-left: 640px">
-                        <input type="hidden" name="id" value="${sessionScope.idBill}"/>
-                        <select name="status" onchange="this.form.submit()" class="border-0" style="width: 170px; color: #000000ad; padding: 6px 0px; border-radius: 5px; padding-left: 7px;"/>
-                        <option ${sessionScope.status == "Chờ Xử Lý"?"selected":""} value="Chờ Xử Lý">Chờ Xử Lý</option>
-                        <option ${sessionScope.status == "Đang Xử Lý"?"selected":""} value="Đang Xử Lý">Đang Xử Lý</option>
-                        <option ${sessionScope.status == "Đang Giao Hàng"?"selected":""} value="Đang Giao Hàng">Đang Giao Hàng</option>
-                        <option ${sessionScope.status == "Hoàn Thành"?"selected":""} value="Hoàn Thành">Hoàn Thành</option>
-                        <option ${sessionScope.status == "Hủy"?"selected":""} value="Hủy">Hủy</option>
-                        </select>
-                    </form>
-
-                    <div class="col-sm-2">
-                        <a class="btn btn-delete btn-sm print-file" type="button" title="In" onclick="myApp.printTable()"><i
-                                class="fas fa-print"></i> In đơn hàng</a>
+                    <div class="d-flex align-items-center">
+                        <form action="billDetailBillController" method="post">
+                            <input type="hidden" name="id" value="${sessionScope.idBill}" />
+                            <select name="status" onchange="this.form.submit()" class="border-0" style="width: 150px; color: #000000ad; padding: 6px 0px; border-radius: 5px; padding-left: 7px; margin-right: 20px" >
+                                <option ${sessionScope.status == "Chờ Xử Lý" ? "selected" : ""} value="Chờ Xử Lý">Chờ Xử Lý</option>
+                                <option ${sessionScope.status == "Đang Xử Lý" ? "selected" : ""} value="Đang Xử Lý">Đang Xử Lý</option>
+                                <option ${sessionScope.status == "Đang Giao Hàng" ? "selected" : ""} value="Đang Giao Hàng">Đang Giao Hàng</option>
+                                <option ${sessionScope.status == "Hoàn Thành" ? "selected" : ""} value="Hoàn Thành">Hoàn Thành</option>
+                                <option ${sessionScope.status == "Hủy" ? "selected" : ""} value="Hủy">Hủy</option>
+                            </select>
+                        </form>
+                        <div >
+                            <a class="btn btn-delete btn-sm print-file" style="margin-right: 15px"" type="button" title="In" onclick="myApp.printTable()"><i class="fas fa-print"></i> In đơn hàng</a>
+                        </div>
+                            
+                        <div >
+                            <a class="btn btn-outline-success m-2" style="width: 100px;" href="/Feds/orderListBillController">Quay lại</a>
+                        </div>
                     </div>
-
-                    <div><a class="btn btn-outline-success m-2" style="width: 100px" href="/Feds/orderListBillController">Quay lại</a></div>
-
                 </div>
+
                 <c:forEach var="bill" items="${sessionScope.listBillOrder}" varStatus="status">
 
                     <c:if test="${status.first}">
@@ -209,8 +238,8 @@
                     <h6 style ="font-family: Arial; font-weight: bolder; font-size: 15px" >Payment: <c:out value="${payment}" /></h6>
                 </div>
             </div>
-                
-                
+
+
 
 
 
@@ -315,35 +344,35 @@
 <!-- Template Javascript -->
 <script src="js/mainsale.js"></script>
 <script>
-                            $('#sampleTable').DataTable();
-                            function time() {
-                                var today = new Date();
-                                var weekday = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
-                                var day = weekday[today.getDay()];
-                                var dd = today.getDate();
-                                var mm = today.getMonth() + 1;
-                                var yyyy = today.getFullYear();
-                                var h = today.getHours();
-                                var m = today.getMinutes();
-                                var s = today.getSeconds();
-                                m = checkTime(m);
-                                s = checkTime(s);
-                                var nowTime = h + " giờ " + m + " phút " + s + " giây";
-                                if (dd < 10)
-                                    dd = '0' + dd;
-                                if (mm < 10)
-                                    mm = '0' + mm;
-                                var todayString = day + ', ' + dd + '/' + mm + '/' + yyyy;
-                                var tmp = '<span class="date"> ' + todayString + ' - ' + nowTime + '</span>';
-                                document.getElementById("clock").innerHTML = tmp;
-                                setTimeout(time, 1000);
-                            }
+                                $('#sampleTable').DataTable();
+                                function time() {
+                                    var today = new Date();
+                                    var weekday = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
+                                    var day = weekday[today.getDay()];
+                                    var dd = today.getDate();
+                                    var mm = today.getMonth() + 1;
+                                    var yyyy = today.getFullYear();
+                                    var h = today.getHours();
+                                    var m = today.getMinutes();
+                                    var s = today.getSeconds();
+                                    m = checkTime(m);
+                                    s = checkTime(s);
+                                    var nowTime = h + " giờ " + m + " phút " + s + " giây";
+                                    if (dd < 10)
+                                        dd = '0' + dd;
+                                    if (mm < 10)
+                                        mm = '0' + mm;
+                                    var todayString = day + ', ' + dd + '/' + mm + '/' + yyyy;
+                                    var tmp = '<span class="date"> ' + todayString + ' - ' + nowTime + '</span>';
+                                    document.getElementById("clock").innerHTML = tmp;
+                                    setTimeout(time, 1000);
+                                }
 
-                            function checkTime(i) {
-                                if (i < 10)
-                                    i = "0" + i;
-                                return i;
-                            }
+                                function checkTime(i) {
+                                    if (i < 10)
+                                        i = "0" + i;
+                                    return i;
+                                }
 </script>
 
 <script>
