@@ -52,7 +52,7 @@
                 line-height: 1; /* Điều chỉnh chiều cao dòng cho nút */
             }
 
-            
+
             #clock{
                 margin-left: 20px;
                 font-weight: 600;
@@ -83,19 +83,19 @@
                     </a>
                     <div class="d-flex align-items-center ms-4 mb-4">
                         <div class="position-relative">
-                            <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                           <img class="rounded-circle" src="images/${sessionScope.account.avarta}" alt="" style="width: 40px; height: 40px;">
                             <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                         </div>
                         <div class="ms-3">
-                            <h6 class="mb-0">Jhon Doe</h6>
+                            <h6 class="mb-0">${sessionScope.account.user_name}</h6>
                             <span>Admin</span>
                         </div>
                     </div>
                     <div class="navbar-nav w-100">
-                        <a href="/Feds/saleDashboard" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                        <a href="/Feds/orderListBillController" class="nav-item nav-link "><i class="fa fa-th me-2"></i>Order List</a>
-                        <a href="/Feds/feedbackListFeedbackController" class="nav-item nav-link active"><i class="fa fa-th me-2 "></i>Feedback List</a> 
-                        <a href="/Feds/contactListContactController" class="nav-item nav-link"><i class="fa fa-th me-2 "></i>Reply Contact</a> 
+                        <a href="/Feds/saleDashboard" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Tổng quát</a>
+                        <a href="/Feds/orderListBillController" class="nav-item nav-link "><i class="fa fa-table me-2"></i>Đơn hàng</a>
+                        <a href="/Feds/feedbackListFeedbackController" class="nav-item nav-link active"><i class="fa fa-th me-2 "></i>Đánh giá</a> 
+                        <a href="/Feds/contactListContactController" class="nav-item nav-link"><i class="far fa-file-alt me-2 "></i>Liên hệ</a> 
                     </div>
             </div>
 
@@ -120,12 +120,16 @@
 
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">John Doe</span>
+                            <img class="rounded-circle me-lg-2" src="images/${sessionScope.account.avarta}" alt="" style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex">${sessionScope.account.user_name}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Log Out</a>
+                            <a href="userProfile" class="dropdown-item">My Profile</a>
+                            <a href="home" class="dropdown-item">Home Page</a>
+                            <c:choose>
+                                <c:when test="${ not empty sessionScope.account}"><a href="${pageContext.request.contextPath}/userLogout" class="dropdown-item">Logout</a></c:when>
+                                <c:otherwise><a href="${pageContext.request.contextPath}/login" class="dropdown-item">Logout</a></c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </div>
@@ -213,7 +217,7 @@
                 </div>
             </div>
             <!-- Recent Sales End -->
-            
+
             <!-- Pagination -->
             <div class="container-fluid pt-4 px-4">
                 <nav aria-label="Page navigation">

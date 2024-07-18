@@ -59,6 +59,9 @@
                                                     <c:if test="${sessionScope.account != null && sessionScope.account.role.id == 1}">
                                                     <li><a href="${pageContext.request.contextPath}/admin/dashboard">Admin Dashboard</a></li>
                                                     </c:if>
+                                                    <c:if test="${sessionScope.account != null && sessionScope.account.role.id == 3}">
+                                                    <li><a href="${pageContext.request.contextPath}/saleDashboard">Quản Lý Bán Hàng</a></li>
+                                                    </c:if>
                                                 <li><a href="${pageContext.request.contextPath}/changePassword">Thay đổi mật khẩu</a></li>
                                                 <li><a href="${pageContext.request.contextPath}/userLogout">Đăng xuất</a></li>
                                             </ul>
@@ -103,37 +106,37 @@
                                         window.location.href = "${pageContext.request.contextPath}/ListProduct?cateid=" + e.value + "<c:if test="${param.search != null}">&search=${param.search}</c:if>";
                                             }
                                     </script>
-<!--                                    <form class="col-md-4">
-                                        <select class="input-select" name="cateid"  style="width: 216px;" onchange="ChangeCate(this)">
-                                            <option selected>Loại Sản Phẩm</option>
-                                        <c:forEach items="${sessionScope.cates}" var="cate">
+                                    <!--                                    <form class="col-md-4">
+                                                                            <select class="input-select" name="cateid"  style="width: 216px;" onchange="ChangeCate(this)">
+                                                                                <option selected>Loại Sản Phẩm</option>
+                                <c:forEach items="${sessionScope.cates}" var="cate">
 
-                                            <option value="${cate.getCategory_id()}">${cate.getCategory_name()}</option>
+                                    <option value="${cate.getCategory_id()}">${cate.getCategory_name()}</option>
+                                </c:forEach>
+                            </select>
+                        </form>                                    -->
+
+
+
+                                <form class="col-md-4">
+                                    <select class="input-select" name="cateid" style="width: 216px;" onchange="ChangeCate(this)">
+                                        <c:choose>
+                                            <c:when test="${empty param.cateid}">
+                                                <option selected>Loại Sản Phẩm</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option>Loại Sản Phẩm</option>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <c:forEach items="${sessionScope.cates}" var="cate">
+                                            <option value="${cate.getCategory_id()}"
+                                                    <c:if test="${param.cateid == cate.getCategory_id()}">selected</c:if>>
+                                                ${cate.getCategory_name()}
+                                            </option>
                                         </c:forEach>
                                     </select>
-                                </form>                                    -->
+                                </form>
 
-                                        
-                                    
-<form class="col-md-4">
-    <select class="input-select" name="cateid" style="width: 216px;" onchange="ChangeCate(this)">
-        <c:choose>
-            <c:when test="${empty param.cateid}">
-                <option selected>Loại Sản Phẩm</option>
-            </c:when>
-            <c:otherwise>
-                <option>Loại Sản Phẩm</option>
-            </c:otherwise>
-        </c:choose>
-        <c:forEach items="${sessionScope.cates}" var="cate">
-            <option value="${cate.getCategory_id()}"
-                <c:if test="${param.cateid == cate.getCategory_id()}">selected</c:if>>
-                ${cate.getCategory_name()}
-            </option>
-        </c:forEach>
-    </select>
-</form>
-                                    
 
                                 <form method="get" class="col-md-8" action="ListProduct">
                                     <input name="search" class="input" placeholder="Search here" style="width: 200px" value="<c:if test="${param.search != null}">${param.search}</c:if>">
@@ -152,13 +155,13 @@
                         <div class="col-md-3 clearfix">
                             <div class="header-ctn">
                                 <!-- Wishlist -->
-<!--                                <div>
-                                    <a href="#">
-                                        <i class="fa fa-heart-o"></i>
-                                        <span>Yêu Thích</span>
-                                        <div class="qty">2</div>
-                                    </a>
-                                </div>-->
+                                <!--                                <div>
+                                                                    <a href="#">
+                                                                        <i class="fa fa-heart-o"></i>
+                                                                        <span>Yêu Thích</span>
+                                                                        <div class="qty">2</div>
+                                                                    </a>
+                                                                </div>-->
                                 <!-- /Wishlist -->
 
                                 <!-- Cart -->
