@@ -48,27 +48,13 @@ public class CustomerHomeController extends HttpServlet {
         } else {
             listItem = cart.getCartbyUserId(0);
         }
-<<<<<<< HEAD
-//<<<<<<< HEAD
-
-        int n = 0;
-        for(int i = 0; i < (listItem != null ? listItem.size() : 0); i++) {
-            //System.out.println("TEST: " + listItem.get(i));
-            n += listItem.get(i).getQuantity();
-//=======
-        }
-=======
-
         int n;
->>>>>>> bc4d97498da05a953728e9fbaa90d193d974e5fe
-        if(u != null){
+
+        if (u != null) {
             n = cart.getCartbyUserId(u.getUser_Id()).size();
-        }else{
+        } else {
             n = cart.getCartbyUserId(0).size();
-<<<<<<< HEAD
-//>>>>>>> 0d09570f1c9146fa0e5786a2a192afd182883f80
-=======
->>>>>>> bc4d97498da05a953728e9fbaa90d193d974e5fe
+
         }
         session.setAttribute("size", n);
         session.setAttribute("data", data.getAllProductinCart());
