@@ -48,7 +48,14 @@
                                         <div class="col-lg-2 col-sm-6 col-6 d-flex flex-row flex-lg-column flex-xl-row text-nowrap">
                                             <div class="">
                                                 <div class="col">
-                                                    <a href="process?num=-1&pid=${i.product.getProduct_id()}">-</a><a  style="width: 100px;" class="border">${i.quantity}</a><a href="process?num=1&pid=${i.product.getProduct_id()}">+</a>
+                                                    
+                                                    <a href="process?num=-1&pid=${i.product.getProduct_id()}"><button class="btn btn-outline-link m-2" style="font-size: 20px">-</button></a>
+                                                    
+                                                    <a  style="width: 100px;" class="border">${i.quantity}</a>
+                                                    
+                                                        <a href="process?num=1&pid=${i.product.getProduct_id()}"><button class="btn btn-outline-link m-2" style="font-size: 20px">+</button></a>
+                                                    
+                                                    
                                                 </div>
                                             </div>
                                             <div class="">
