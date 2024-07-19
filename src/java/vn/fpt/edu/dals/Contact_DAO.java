@@ -75,7 +75,7 @@ public class Contact_DAO extends DBContext {
             st.setInt(2, numOfContact);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Contact u = new Contact(rs.getString("UserName"), rs.getString("Email"), rs.getString("Subject"),
+                Contact u = new Contact(rs.getString("Contact_id"),rs.getString("UserName"), rs.getString("Email"), rs.getString("Subject"),
                         rs.getString("Phone"),
                         rs.getString("Message"), rs.getString("Date"), rs.getString("Status"));
                 list.add(u);
@@ -110,7 +110,8 @@ public class Contact_DAO extends DBContext {
         try {
 
             String sql = "SELECT TOP (1000) \n"
-                    + "u.[User_name] AS [UserName]\n"
+                    + "c.Contact_id\n"
+                    + ",u.[User_name] AS [UserName]\n"
                     + "      ,c.[Email]\n"
                     + "      ,[Subject]\n"
                     + "      ,[Phone]\n"
@@ -126,7 +127,7 @@ public class Contact_DAO extends DBContext {
             ps.setString(2, "%" + value + "%");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Contact c = new Contact(rs.getString("UserName"), rs.getString("Email"), rs.getString("Subject"),
+                Contact c = new Contact(rs.getString("Contact_id"), rs.getString("UserName"), rs.getString("Email"), rs.getString("Subject"),
                         rs.getString("Phone"),
                         rs.getString("Message"), rs.getString("Date"), rs.getString("Status"));
                 list.add(c);
@@ -141,23 +142,24 @@ public class Contact_DAO extends DBContext {
     public List<Contact> getContactAllWithUser() {
         List<Contact> list = new ArrayList<>();
         String sql = "SELECT\n"
-                + "               u.[User_name] AS [UserName]\n"
-                + "                   ,c.[Email]\n"
-                + "                     ,[Subject]\n"
-                + "                    ,[Phone]\n"
-                + "                   ,[Message]\n"
+                + "c.Contact_id\n"
+                    + ",u.[User_name] AS [UserName]\n"
+                + "      ,c.[Email]\n"
+                + "      ,[Subject]\n"
+                + "      ,[Phone]\n"
+                + "      ,[Message]\n"
                 + "      ,[Status]\n"
-                + "                  ,[Date]\n"
-                + "              FROM Contact c\n"
-                + "                JOIN \n"
-                + "                   [User] AS u ON c.[User_Id] = u.[User_id]\n"
-                + "				   ORDER BY \n"
+                + "      ,[Date]\n"
+                + "       FROM Contact c\n"
+                + "       JOIN \n"
+                + "        [User] AS u ON c.[User_Id] = u.[User_id]\n"
+                + "	ORDER BY \n"
                 + "        c.Date Desc";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Contact c = new Contact(rs.getString("UserName"), rs.getString("Email"), rs.getString("Subject"),
+                Contact c = new Contact(rs.getString("Contact_id"),rs.getString("UserName"), rs.getString("Email"), rs.getString("Subject"),
                         rs.getString("Phone"),
                         rs.getString("Message"), rs.getString("Date"), rs.getString("Status"));
                 list.add(c);
@@ -169,29 +171,21 @@ public class Contact_DAO extends DBContext {
         return list;
     }
 
-    public void upDateRely(String email, String subject, String message) {
+    public void upDateRely(int contact_id) {
         String sql = """
                      UPDATE [dbo].[Contact]
-                     SET [Status] = N'\u0110\u00e3 g\u1eedi'
-                     WHERE Email = ? and Subject = ? and Message = ?""";
+                     SET [Status] = N'Đã gửi'
+                     WHERE Contact_id = ? """;
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, email);
-            st.setString(2, subject);
-            st.setString(3, message);
-
+            st.setInt(1, contact_id);
+            
             st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
-
     
+        
 
 }
-
-
-
-
-

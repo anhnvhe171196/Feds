@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
@@ -21,9 +22,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.Properties;
 import vn.fpt.edu.dals.Contact_DAO;
-import vn.fpt.edu.dals.User_DAO;
-import vn.fpt.edu.models.Contact;
-import vn.fpt.edu.models.User;
 
 /**
  *
@@ -85,8 +83,9 @@ public class SendEmailContact extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String email = request.getParameter("email");
+        int contact_id = Integer.parseInt(request.getParameter("contact_id"));
         String subject1 = request.getParameter("subject");
-        String message1 = request.getParameter("message");
+        String message1 = request.getParameter("message1");
         // Cấu hình thông tin email
         String host = "smtp.gmail.com";
         String port = "587";
@@ -178,7 +177,7 @@ public class SendEmailContact extends HttpServlet {
             // Gửi email
             Transport.send(message);
             Contact_DAO c = new Contact_DAO();
-            c.upDateRely(email, subject1, message1);
+            c.upDateRely(contact_id);
             // Chuyển hướng người dùng sau khi gửi email thành công
             request.setAttribute("error", "Gửi tin nhắn thành công !!!");
             request.getRequestDispatcher("ReplyContact.jsp").forward(request, response);
