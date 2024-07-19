@@ -180,7 +180,7 @@ public class SendEmailContact extends HttpServlet {
             c.upDateRely(contact_id);
             // Chuyển hướng người dùng sau khi gửi email thành công
             request.setAttribute("error", "Gửi tin nhắn thành công !!!");
-            request.getRequestDispatcher("ReplyContact.jsp").forward(request, response);
+            response.sendRedirect("contactListContactController");
             
         } catch (MessagingException mex) {
             // Xử lý lỗi nếu có
