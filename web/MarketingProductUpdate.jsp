@@ -261,7 +261,7 @@
                                                 </form>
                                                 <div class="row w-100">
                                                     <dt class="col-6"><button class="btn btn-primary" type="submit" form="UpdateImg">Tải lên hình ảnh mới</button></dt>
-                                                    <dd class="col-6"><button type="submit" class="btn btn-primary" form="UpdateForm" >Enter</button></dd>
+                                                    <dd class="col-6"><button type="submit" class="btn btn-primary" form="UpdateForm" onclick="confirmSubmit()">Enter</button></dd>
                                                 </div>
 
                                             </aside>
@@ -271,7 +271,7 @@
                                                     <form id="UpdateForm" method="post" action="marketingUpdateProduct">
                                                         <h4 class="title text-dark">
                                                             <h6>Tên: </h6>
-                                                            <input type="text" name="product_name" value="${product.product_name}" class="form-control" />
+                                                            <input type="text" name="product_name" value="${product.product_name}" class="form-control" required/>
                                                         </h4>
                                                         <hr/>
                                                         <input type="hidden" name="product_id" value="${product.product_id}" class="form-control" readonly/>
@@ -291,7 +291,7 @@
                                                 <hr/>
                                                 <div class="mb-3">
                                                     <h6>Giá: </h6>
-                                                    <input type="text" name="price" value="<fmt:formatNumber value="${product.price.price}" pattern="#,##0 VND" />" class="form-control" />
+                                                    <input type="text" name="price" value="<fmt:formatNumber value="${product.price.price}" pattern="#,##0 VND" />" class="form-control" required/>
                                                 </div>
                                                 <hr/>
                                                 <h6>Mô tả:</h6>
@@ -342,15 +342,15 @@
                                                     </div>
                                                     <div class="row w-100">
                                                         <dt class="col-3">Date start:</dt>
-                                                        <dd class="col-9"><input type="date" name="dateStart" value="${product.price.dateStart}" class="form-control" /></dd>
+                                                        <dd class="col-9"><input type="date" name="dateStart" value="${product.price.dateStart}" class="form-control" required/></dd>
                                                     </div>
                                                     <div class="row w-100">
                                                         <dt class="col-3">Date End:</dt>
-                                                        <dd class="col-9"><input type="date" name="dateEnd" value="${product.price.dateEnd}" class="form-control" /></dd>
+                                                        <dd class="col-9"><input type="date" name="dateEnd" value="${product.price.dateEnd}" class="form-control" required/></dd>
                                                     </div>
                                                     <div class="row w-100">
                                                         <dt class="col-3">Sale:</dt>
-                                                        <dd class="col-9"><input type="text" name="sale" value="${product.price.sale}" class="form-control" /></dd>
+                                                        <dd class="col-9"><input type="number" name="sale" value="${product.price.sale}" class="form-control" min="0" max="100"/></dd>
                                                     </div>
                                                     <input type="text" name="product_img" value="${product.product_img}" class="form-control" style="display: none" readonly/>
                                                     <hr/>
@@ -395,12 +395,18 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script>
-                                                $('.sidebar-toggler').click(function () {
-                                                    $('.sidebar, .content').toggleClass("open");
-                                                    return false;
-                                                });
+                                                        $('.sidebar-toggler').click(function () {
+                                                            $('.sidebar, .content').toggleClass("open");
+                                                            return false;
+                                                        });
     </script>
     <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementsByName("dateStart")[0].setAttribute('min', today);
+            document.getElementsByName("dateEnd")[0].setAttribute('min', today);
+        });
+
         const detailsDiv = document.getElementById("product-details");
         const showMoreButton = document.getElementById("show-more-details");
 
@@ -440,7 +446,40 @@
             document.getElementById('status-text').innerText = this.checked ? 'Hoạt động' : 'Bị vô hiệu hóa';
         });
 
+        function confirmSubmit() {
+            if (checkInput()) {
+                document.getElementById('UpdateForm').submit();
+            }
+        }
 
+        function checkInput() {
+            var productName = document.getElementsByName("product_name")[0].value.trim();
+            var productPrice = document.getElementsByName("price")[0].value; // Chuyển đổi sang số
+            var productQuantity = document.getElementsByName("quantity")[0].value; // Chuyển đổi sang số
+            var dateStart = document.getElementsByName("dateStart")[0].value;
+            var dateEnd = document.getElementsByName("dateEnd")[0].value;
+
+            if (productName === "") {
+                alert('Vui lòng nhập tên!');
+            }
+            if (productPrice ==="") { // Kiểm tra xem có phải là số hợp lệ hay không
+                alert('Vui lòng nhập Giá!');
+            }
+            if (productQuantity ==="") { // Kiểm tra xem có phải là số hợp lệ hay không
+                alert('Vui lòng nhập Số lượng!');
+            }
+            if (dateStart === "") {
+                alert('Vui lòng nhập ngày bắt đầu!');
+            }
+            if (dateEnd === "") {
+                alert('Vui lòng nhập ngày kết thúc!');
+            }
+            if (dateStart > dateEnd) {
+                alert('Ngày kết thúc phải lớn hơn Ngày bắt đầu');
+                dateStart = "";
+                dateEnd = "";
+            }
+        }
 
 
     </script>
