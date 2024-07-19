@@ -299,6 +299,7 @@
                             <div class="bg-light text-center rounded p-4">
                                 <div class="d-flex align-items-center justify-content-between mb-4">
                                     <h6 class="mb-0">Thanh toán hàng đầu:</h6>
+                                    ${sessionScope.userEmail}
                                     <input type="text" name="Action" value="user" class="form-control" style="display: none" readonly/>
                                     <div class="d-flex">
                                         <div class="me-2">
@@ -423,6 +424,7 @@
     <script>
         var UserNames = [];
         var UserPayment = [];
+        var UserEmails = [];
         <c:forEach items="${sessionScope.username}" var="val" varStatus="loop">
         UserNames.push("${val}");
         </c:forEach>
@@ -430,6 +432,12 @@
         <c:forEach items="${sessionScope.userPayment}" var="val" varStatus="loop">
         UserPayment.push(${val});
         </c:forEach>
+            <c:forEach items="${sessionScope.userEmail}" var="val" varStatus="loop">
+        UserEmails.push("${val}");
+        </c:forEach>
+
+
+
         var ctx = document.getElementById('marketingDashBoard1').getContext('2d');
         var myChart1 = new Chart(ctx, {
             type: 'bar',
@@ -444,13 +452,32 @@
             options: {
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Tổng số tiền (VND)', // Thay VND bằng đơn vị phù hợp
+                        }
                     }
                 },
                 plugins: {
                     legend: {
                         display: false // Ẩn legend
+                    },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        let label = context.dataset.label || '';
+                        if (label) {
+                            label += ': ';
+                        }
+                        label += context.raw;// Thêm đơn vị tiền tệ
+                        return label;
+                    },
+                    afterLabel: function(context) {
+                        return 'Email: ' + UserEmails[context.dataIndex]; // Hiển thị email
                     }
+                }
+            }   
                 },
                 text: {
                     color: 'black', // Màu chữ
@@ -504,7 +531,7 @@
                 }
             }
         });
-        
+
         var combinedData = Categories.map((category, index) => ({category, count: ProductCounts[index]}));
 
 

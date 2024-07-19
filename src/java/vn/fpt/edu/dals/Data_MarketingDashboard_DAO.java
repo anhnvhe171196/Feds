@@ -78,22 +78,20 @@ public class Data_MarketingDashboard_DAO extends DBContext {
     public List<User> getMostPaymentUser(int numberOfTop) {
         List<User> list = new ArrayList<>();
         String sql = "SELECT TOP (?)\n"
-                + "                    u.User_name,\n"
-                + "				SUM(b.Total_price) AS Pay\n"
-                + "                FROM\n"
-                + "                    [User] u\n"
-                + "                INNER JOIN\n"
-                + "                    Bill b ON u.User_Id = b.User_id\n"
-                + "				INNER JOIN\n"
-                + "					[Order] o ON o.Bill_id = b.Bill_Id\n"
-                + "                WHERE\n"
-                + "				b.Status = 'Hoàn Thành'\n"
-                + "                GROUP BY\n"
-                + "                    u.User_name,\n"
-                + "					u.User_Id,\n"
-                + "					b.Bill_Id\n"
-                + "                ORDER BY\n"
-                + "                    Pay DESC;";
+                + "    u.User_name,\n"
+                + "	u.Email,\n"
+                + "    SUM(b.Total_price) AS Pay\n"
+                + "FROM\n"
+                + "    [User] u\n"
+                + "INNER JOIN\n"
+                + "    Bill b ON u.User_Id = b.User_Id\n"
+                + "WHERE\n"
+                + "    b.Status = N'Hoàn Thành'\n"
+                + "GROUP BY\n"
+                + "    u.User_name,\n"
+                + "	u.Email\n"
+                + "ORDER BY\n"
+                + "    Pay DESC; ";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
 
@@ -102,8 +100,9 @@ public class Data_MarketingDashboard_DAO extends DBContext {
             while (rs.next()) {
 
                 User user = new User();
-                user.setUser_name(rs.getString(1).trim());
-                user.setPayment(rs.getInt(2));
+                user.setUser_name(rs.getString("User_name"));
+                user.setPayment(rs.getInt("Pay"));
+                user.setEmail(rs.getString("Email"));
                 list.add(user);
 
             }
@@ -789,7 +788,7 @@ public class Data_MarketingDashboard_DAO extends DBContext {
             st.setInt(5, product.getBrand().getBrandId());
             st.setString(6, product.getStatus());
             st.setDate(7, new java.sql.Date(product.getDate().getTime()));
-            
+
             int rowsAffected = st.executeUpdate();
             if (rowsAffected > 0) {
                 try (ResultSet generatedKeys = st.getGeneratedKeys()) {
