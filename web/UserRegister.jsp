@@ -65,7 +65,7 @@
                                 <label for="confirmPassword" class="form-label">Confirm Password</label>
                             </div>
                         </div>
-                        <div style="color: #00000063 ;margin-bottom: 20px; margin-top: -25px; font-size: 13px;">Mật khẩu từ 8 - 20 kí tự</div>
+                        <div style="color: #00000063 ;margin-bottom: 20px; margin-top: -25px; font-size: 13px; margin-left: 15px">Mật khẩu từ 8 - 20 kí tự</div>
                         <div id="error-container" class="error-container"></div>
 
                         <div class="form-group">
@@ -76,14 +76,23 @@
                         <div class="form-group">
                             <input id="phone-number" class="form-control" name="phoneNumber" pattern="[0]{1}[3,5,7,8,9]{1}[0-9]{8}" required>
                             <label for="phoneNumber" class="form-label">Phone Number</label>
-                            <small style="color: #00000063">Format: 09XXXXXXXX</small>
+                            <small style="color: #00000063 ; margin-left: 15px ">Format: 09XXXXXXXX</small>
                         </div>
                         <div class="form-group">
-                            <label style="position: absolute; top: 0%; transform: translateY(-50%); padding: 0 5px; transition: all 0.2s; pointer-events: none; color: #999; background: linear-gradient(to bottom, #F7F7F7 50%, white 50%);">Gender</label>
-                            <input id="male" style="margin-top: 20px" name="gender" value="male" type="radio" required>
-                            <label for="male" class="form-label" style="margin-top: 25px">Male</label>
-                            <input id="female" style="width: 75%;" name="gender" value="female" type="radio" required>
-                            <label for="female" class="form-label" style="margin-top: 25px; margin-left: 175px">Female</label>
+                            <label style="position: absolute; top: 0%; transform: translateY(-50%); padding: 0 5px; transition: all 0.2s; pointer-events: none; color: #999; background:transparent;">Gender</label>
+
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <input type="radio" id="male" name="gender" value="male" required style="margin-top: 20px;"> 
+                                        <label for="male" class="form-label" style="margin-top: 25px; margin-left: 10px;background: transparent">Male</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="radio" id="female" name="gender" value="female" required style="margin-top: 20px;">
+                                        <label for="female" class="form-label" style="margin-top: 25px; margin-left: 10px;background: transparent">Female</label>
+                                    </div>
+                                </div>
+                            </div>                          
                         </div>
                         <div class="form-group">
                             <button type="submit" class="form-control btn btn-primary submit px-3">Register</button>
