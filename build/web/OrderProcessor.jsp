@@ -299,7 +299,6 @@
                             <div class="bg-light text-center rounded p-4">
                                 <div class="d-flex align-items-center justify-content-between mb-4">
                                     <h6 class="mb-0">Thanh toán hàng đầu:</h6>
-                                    ${sessionScope.userEmail}
                                     <input type="text" name="Action" value="user" class="form-control" style="display: none" readonly/>
                                     <div class="d-flex">
                                         <div class="me-2">
