@@ -212,7 +212,7 @@
                                 <div class="d-flex justify-content-between align-items-center mb-2">
                                     <p class="mb-0 xl-1">Tổng thu nhập</p>
                                     <div class="mb-0 xl-1">
-                                        <select id="monthSelect" onchange="sendSelectedMonth()">
+                                        <select id="monthSelect" class="form-select form-select-sm" style="width: 95px" onchange="sendSelectedMonth()">
                                             <option ${sessionScope.month==1?"selected":""} value="1">Tháng 1</option>
                                             <option ${sessionScope.month==2?"selected":""} value="2">Tháng 2</option>
                                             <option ${sessionScope.month==3?"selected":""} value="3">Tháng 3</option>
@@ -369,7 +369,7 @@
                 <div class="bg-light text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <h6 class="mb-0">Đơn hàng hôm nay</h6>
-                        <a href="/Feds/OrderList.jsp">Tất cả</a>
+                        <a href="/orderListBillController">Tất cả</a>
                     </div>
                     <div class="table-responsive">
                         <table class="table text-start align-middle table-bordered table-hover mb-0">
@@ -391,7 +391,7 @@
                                         <td>${b.user_name}</td>
                                         <td> <fmt:formatNumber value="${b.total_price}" pattern="#,###"/> VNĐ</td>
                                         <td>${b.status}</td>
-                                        <td><a class="btn btn-outline-secondary m-2" href="/orderDetail?action=&bill_id=">Xem đơn</a></td>
+                                        <td style="width: 130px"><a class="btn btn-outline-primary m-2 btn-center" href="/Feds/billDetailBillController?id=${b.bill_id}">Xem đơn</a></td>
                                     </tr>
                                 </c:forEach>
 

@@ -141,20 +141,26 @@ public class Contact_DAO extends DBContext {
 
     public List<Contact> getContactAllWithUser() {
         List<Contact> list = new ArrayList<>();
-        String sql = "SELECT\n"
-                + "c.Contact_id\n"
-                    + ",u.[User_name] AS [UserName]\n"
-                + "      ,c.[Email]\n"
-                + "      ,[Subject]\n"
-                + "      ,[Phone]\n"
-                + "      ,[Message]\n"
-                + "      ,[Status]\n"
-                + "      ,[Date]\n"
-                + "       FROM Contact c\n"
-                + "       JOIN \n"
-                + "        [User] AS u ON c.[User_Id] = u.[User_id]\n"
-                + "	ORDER BY \n"
-                + "        c.Date Desc";
+        String sql = """
+                     SELECT
+                                                  c.Contact_id,
+                                     c.[User_Id],
+                                     c.Email,
+                                     c.Phone,
+                                     c.Subject,
+                                     c.Message,
+                                     c.Date,
+                                     c.Status,
+                                     CASE 
+                                         WHEN c.[User_Id] IS NULL THEN c.[Name]
+                                         ELSE COALESCE(u.[User_name], 'Unknown')
+                                     END AS [Username]
+                                                         FROM 
+                                     Contact AS c
+                                 LEFT JOIN 
+                                     [User] AS u ON c.[User_id] = u.[User_id]
+                                 ORDER BY 
+                                     c.[Contact_id] desc""";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
