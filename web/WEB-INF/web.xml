@@ -17,6 +17,10 @@
         <servlet-class>vn.fpt.edu.controller.UserRegisterGoogleController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>SendEmailContact</servlet-name>
+        <servlet-class>vn.fpt.edu.controller.SendEmailContact</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>CustomerHomeController</servlet-name>
         <servlet-class>vn.fpt.edu.controller.CustomerHomeController</servlet-class>
     </servlet>
@@ -259,6 +263,10 @@
     <servlet-mapping>
         <servlet-name>AddToCartController</servlet-name>
         <url-pattern>/addToCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendEmailContact</servlet-name>
+        <url-pattern>/sendEmailContact</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>OrderListBillController</servlet-name>

@@ -79,7 +79,7 @@ public class Product_DAO extends DBContext {
                 where = true;
             }
         }
-        if(where) {
+        if (where) {
             sql += " AND Product.Status != 'deleted'";
         } else {
             sql += " WHERE Product.Status != 'deleted'";
@@ -171,7 +171,7 @@ public class Product_DAO extends DBContext {
                 u.setCategory_name(rs.getString("Category_name"));
                 u.setSale(rs.getInt("Sale"));
                 long curr = new java.util.Date().getTime();
-                if(curr < rs.getDate("Date_start").getTime() || curr > rs.getDate("Date_end").getTime()) {
+                if (curr < rs.getDate("Date_start").getTime() || curr > rs.getDate("Date_end").getTime()) {
                     u.setSale(0);
                 }
                 list.add(u);
@@ -200,7 +200,7 @@ public class Product_DAO extends DBContext {
                 u.setCategory_name(rs.getString("Category_name"));
                 u.setSale(rs.getInt("Sale"));
                 long curr = new java.util.Date().getTime();
-                if(curr < rs.getDate("Date_start").getTime() || curr > rs.getDate("Date_end").getTime()) {
+                if (curr < rs.getDate("Date_start").getTime() || curr > rs.getDate("Date_end").getTime()) {
                     u.setSale(0);
                 }
                 list.add(u);
@@ -254,7 +254,7 @@ public class Product_DAO extends DBContext {
                 where = true;
             }
         }
-        if(where) {
+        if (where) {
             sql += " AND Product.Status != 'deleted'";
         } else {
             sql += " WHERE Product.Status != 'deleted'";
@@ -274,7 +274,7 @@ public class Product_DAO extends DBContext {
                 u.setCategory_name(rs.getString("Category_name"));
                 u.setSale(rs.getInt("Sale"));
                 long curr = new java.util.Date().getTime();
-                if(curr < rs.getDate("Date_start").getTime() || curr > rs.getDate("Date_end").getTime()) {
+                if (curr < rs.getDate("Date_start").getTime() || curr > rs.getDate("Date_end").getTime()) {
                     u.setSale(0);
                 }
                 list.add(u);
@@ -316,28 +316,29 @@ public class Product_DAO extends DBContext {
 
     public List<Product> getSellingProduct(String startDate, String endDate, int numberOfTop) {
         List<Product> list = new ArrayList<>();
-        String sql = "SELECT TOP (?)\n"
-                + "    p.Product_name,\n"
-                + "    SUM(o.Order_quantity) AS Total_Products\n"
-                + "FROM\n"
-                + "    Product p\n"
-                + "INNER JOIN\n"
-                + "    [Order] o ON p.Product_id = o.Product_id\n"
-                + "INNER JOIN\n"
-                + "    Bill b ON o.Bill_id = b.Bill_Id\n"
-                + "JOIN\n"
-                + "    Brandd br ON p.Brand_id = br.Brand_Id\n"
-                + "JOIN\n"
-                + "    Product_Category pc ON br.Category_id = pc.Category_id\n"
-                + "WHERE\n"
-                + "    b.Date BETWEEN ? AND ?\n"
-                + "    AND b.Status = 'Hoàn Thành'\n"
-                + "GROUP BY\n"
-                + "    pc.Category_name,\n"
-                + "    p.Product_id,\n"
-                + "    p.Product_name\n"
-                + "ORDER BY\n"
-                + "    Total_Products DESC;";
+        String sql = """
+                     SELECT TOP (?)
+                         p.Product_name,
+                         SUM(o.Order_quantity) AS Total_Products
+                     FROM
+                         Product p
+                     INNER JOIN
+                         [Order] o ON p.Product_id = o.Product_id
+                     INNER JOIN
+                         Bill b ON o.Bill_id = b.Bill_Id
+                     JOIN
+                         Brandd br ON p.Brand_id = br.Brand_Id
+                     JOIN
+                         Product_Category pc ON br.Category_id = pc.Category_id
+                     WHERE
+                         b.Date BETWEEN ? AND ?
+                         AND b.Status = 'Ho\u00e0n Th\u00e0nh'
+                     GROUP BY
+                         pc.Category_name,
+                         p.Product_id,
+                         p.Product_name
+                     ORDER BY
+                         Total_Products DESC;""";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
 
@@ -365,46 +366,46 @@ public class Product_DAO extends DBContext {
 
         if (!"0".equalsIgnoreCase(month)) {
             sql = "SELECT\n"
-                    + "    pc.Category_name,\n"
-                    + "    COUNT(DISTINCT b.Bill_id) AS Bill_Count\n"
-                    + "FROM\n"
-                    + "    [Bill] b\n"
-                    + "JOIN\n"
-                    + "    [Order] o ON b.Bill_id = o.Bill_id\n"
-                    + "JOIN\n"
-                    + "    Product p ON o.Product_id = p.Product_id\n"
-                    + "JOIN\n"
-                    + "    Brandd br ON p.Brand_id = br.Brand_id\n"
-                    + "JOIN\n"
-                    + "    Product_Category pc ON br.Category_id = pc.Category_id\n"
-                    + "WHERE\n"
-                    + "    YEAR(b.Date) = ? AND MONTH(b.Date) = ?\n"
-                    + "    AND b.Status = 'Hoàn Thành'\n"
-                    + "GROUP BY\n"
-                    + "    pc.Category_name\n"
-                    + "ORDER BY\n"
-                    + "    pc.Category_name ASC;";
+                    + "                      pc.Category_name,\n"
+                    + "                      SUM(DISTINCT o.Order_quantity) AS Product_Sum\n"
+                    + "                  FROM\n"
+                    + "                      [Bill] b\n"
+                    + "                  JOIN\n"
+                    + "                      [Order] o ON b.Bill_id = o.Bill_id\n"
+                    + "                  JOIN\n"
+                    + "                      Product p ON o.Product_id = p.Product_id\n"
+                    + "                  JOIN\n"
+                    + "                      Brandd br ON p.Brand_id = br.Brand_id\n"
+                    + "                  JOIN\n"
+                    + "                      Product_Category pc ON br.Category_id = pc.Category_id\n"
+                    + "                  WHERE\n"
+                    + "                      YEAR(b.Date) = ? AND MONTH(b.Date) = ?\n"
+                    + "                      AND b.Status = 'Hoàn thành'\n"
+                    + "                  GROUP BY\n"
+                    + "                      pc.Category_name\n"
+                    + "                  ORDER BY\n"
+                    + "                      pc.Category_name ASC";
         } else {
             sql = "SELECT\n"
-                    + "    pc.Category_name,\n"
-                    + "    COUNT(DISTINCT b.Bill_id) AS Bill_Count\n"
-                    + "FROM\n"
-                    + "    [Bill] b\n"
-                    + "JOIN\n"
-                    + "    [Order] o ON b.Bill_id = o.Bill_id\n"
-                    + "JOIN\n"
-                    + "    Product p ON o.Product_id = p.Product_id\n"
-                    + "JOIN\n"
-                    + "    Brandd br ON p.Brand_id = br.Brand_id\n"
-                    + "JOIN\n"
-                    + "    Product_Category pc ON br.Category_id = pc.Category_id\n"
-                    + "WHERE\n"
-                    + "    YEAR(b.Date) = ?\n"
-                    + "    AND b.Status = 'Hoàn Thành'\n"
-                    + "GROUP BY\n"
-                    + "    pc.Category_name\n"
-                    + "ORDER BY\n"
-                    + "    pc.Category_name ASC;";
+                    + "                      pc.Category_name,\n"
+                    + "                      SUM(DISTINCT o.Order_quantity) AS Product_Sum\n"
+                    + "                  FROM\n"
+                    + "                      [Bill] b\n"
+                    + "                  JOIN\n"
+                    + "                      [Order] o ON b.Bill_id = o.Bill_id\n"
+                    + "                  JOIN\n"
+                    + "                      Product p ON o.Product_id = p.Product_id\n"
+                    + "                  JOIN\n"
+                    + "                      Brandd br ON p.Brand_id = br.Brand_id\n"
+                    + "                  JOIN\n"
+                    + "                      Product_Category pc ON br.Category_id = pc.Category_id\n"
+                    + "                  WHERE\n"
+                    + "                      YEAR(b.Date) = ?\n"
+                    + "                      AND b.Status = 'Hoàn thành'\n"
+                    + "                  GROUP BY\n"
+                    + "                      pc.Category_name\n"
+                    + "                  ORDER BY\n"
+                    + "                      pc.Category_name ASC";
         }
 
         try {
@@ -419,7 +420,7 @@ public class Product_DAO extends DBContext {
             while (rs.next()) {
                 Product prd = new Product();
                 prd.setCategory_name(rs.getString("Category_name"));
-                prd.setQuantity(rs.getInt("Bill_Count"));
+                prd.setQuantity(rs.getInt("Product_Sum"));
                 list.add(prd);
             }
         } catch (SQLException e) {
@@ -505,7 +506,7 @@ public class Product_DAO extends DBContext {
                 product.setProduct_id(rs.getInt(5));
                 product.setSale(rs.getInt(6));
                 long curr = new java.util.Date().getTime();
-                if(curr < rs.getDate("Date_start").getTime() || curr > rs.getDate("Date_end").getTime()) {
+                if (curr < rs.getDate("Date_start").getTime() || curr > rs.getDate("Date_end").getTime()) {
                     product.setSale(0);
                 }
                 list.add(product);
@@ -536,7 +537,7 @@ public class Product_DAO extends DBContext {
                 product.setProduct_id(rs.getInt(5));
                 product.setSale(rs.getInt(6));
                 long curr = new java.util.Date().getTime();
-                if(curr < rs.getDate("Date_start").getTime() || curr > rs.getDate("Date_end").getTime()) {
+                if (curr < rs.getDate("Date_start").getTime() || curr > rs.getDate("Date_end").getTime()) {
                     product.setSale(0);
                 }
                 list.add(product);

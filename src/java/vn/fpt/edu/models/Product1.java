@@ -4,6 +4,8 @@
  */
 package vn.fpt.edu.models;
 
+import java.util.Date;
+
 /**
  *
  * @author admin
@@ -20,6 +22,7 @@ public class Product1 {
     private Category category;
     private ProductDetail detail;
     private String status;
+    private Date date;
     public Product1() {
     }
 
@@ -40,9 +43,27 @@ public class Product1 {
         this.brand = brand;
         this.status = status;
     }
+    public Product1(int Product_id, int Quantity, String Product_name, String Product_img, User user, Brand brand, String status,Date date) {
+        this.product_id = Product_id;
+        this.quantity = Quantity;
+        this.product_name = Product_name;
+        this.product_img = Product_img;
+        this.user = user;
+        this.brand = brand;
+        this.status = status;
+        this.date = date;
+    }
 
     public int getProduct_id() {
         return product_id;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public void setProduct_id(int Product_id) {

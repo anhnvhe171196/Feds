@@ -317,6 +317,13 @@
                                                                 <dd class="col-9">${product.price.dateEnd}</dd>
                                                             </div>
                                                         </c:if>
+                                                        <c:if test="${not empty product.date}">
+                                                            <div class="row w-100">
+
+                                                                <dt class="col-3">Import Date:</dt>
+                                                                <dd class="col-9">${product.date}</dd>
+                                                            </div>
+                                                        </c:if>
                                                         <c:if test="${not empty product.price.sale}">
                                                             <div class="row w-100">
 
