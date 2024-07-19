@@ -261,7 +261,7 @@
                                                 </form>
                                                 <div class="row w-100">
                                                     <dt class="col-6"><button class="btn btn-primary" type="submit" form="UpdateImg">Tải lên hình ảnh mới</button></dt>
-                                                    <dd class="col-6"><button type="submit" class="btn btn-primary" form="UpdateForm" onclick="confirmSubmit()">Enter</button></dd>
+                                                    <dd class="col-6"><button type="button" class="btn btn-primary" form="UpdateForm" onclick="confirmSubmit()">Enter</button></dd>
                                                 </div>
 
                                             </aside>
@@ -347,6 +347,10 @@
                                                     <div class="row w-100">
                                                         <dt class="col-3">Date End:</dt>
                                                         <dd class="col-9"><input type="date" name="dateEnd" value="${product.price.dateEnd}" class="form-control" required/></dd>
+                                                    </div>
+                                                    <div class="row w-100">
+                                                        <dt class="col-3">Import Date:</dt>
+                                                        <dd class="col-9"><input type="date" id="importDate" name="importDate" value="${product.date}" class="form-control" required/></dd>
                                                     </div>
                                                     <div class="row w-100">
                                                         <dt class="col-3">Sale:</dt>
@@ -447,7 +451,7 @@
         });
 
         function confirmSubmit() {
-            if (checkInput()) {
+            if (checkInput() === true) {
                 document.getElementById('UpdateForm').submit();
             }
         }
@@ -462,10 +466,10 @@
             if (productName === "") {
                 alert('Vui lòng nhập tên!');
             }
-            if (productPrice ==="") { // Kiểm tra xem có phải là số hợp lệ hay không
+            if (productPrice === "") { // Kiểm tra xem có phải là số hợp lệ hay không
                 alert('Vui lòng nhập Giá!');
             }
-            if (productQuantity ==="") { // Kiểm tra xem có phải là số hợp lệ hay không
+            if (productQuantity === "") { // Kiểm tra xem có phải là số hợp lệ hay không
                 alert('Vui lòng nhập Số lượng!');
             }
             if (dateStart === "") {
@@ -476,10 +480,11 @@
             }
             if (dateStart > dateEnd) {
                 alert('Ngày kết thúc phải lớn hơn Ngày bắt đầu');
-                dateStart = "";
-                dateEnd = "";
+                return false;
             }
+            return true;
         }
+
 
 
     </script>
