@@ -123,40 +123,40 @@
                     <i class="fa fa-bars"></i>
                 </a>
                 <form class="d-none d-md-flex ms-4" action="marketingCustomerList" method="get"> 
-                    <input class="form-control border-0" type="search" placeholder="Search" name="search">&nbsp;&nbsp;
+                    <input class="form-control border-0" type="search" placeholder="Search" name="search" value="${search}">&nbsp;&nbsp;
                     <select name="SearchBy" class="btn btn-primary">
-                        <option value="User">Tên</option>
-                        <option value="Email">Email</option>
-                        <option value="Phone">Phone</option>
-                    </select> &nbsp;&nbsp;
-                    <button type="submit" class="btn btn-primary" >Enter</button> 
-                </form> 
-                <div class="navbar-nav align-items-center ms-auto">
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Tin nhắn</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                        <option value="User" <c:if test="${SearchBy == 'User'}">selected</c:if>>Tên</option>
+                        <option value="Email" <c:if test="${SearchBy == 'Email'}">selected</c:if>>Email</option>
+                        <option value="Phone" <c:if test="${SearchBy == 'Phone'}">selected</c:if>>Phone</option>
+                        </select> &nbsp;&nbsp;
+                        <button type="submit" class="btn btn-primary" >Enter</button> 
+                    </form> 
+                    <div class="navbar-nav align-items-center ms-auto">
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                <i class="fa fa-envelope me-lg-2"></i>
+                                <span class="d-none d-lg-inline-flex">Tin nhắn</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
 
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">Xem tất cả tin nhắn</a>
+                                <hr class="dropdown-divider">
+                                <a href="#" class="dropdown-item text-center">Xem tất cả tin nhắn</a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-bell me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Thông báo</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                <i class="fa fa-bell me-lg-2"></i>
+                                <span class="d-none d-lg-inline-flex">Thông báo</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
 
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">Xem tất cả thông báo</a>
+                                <hr class="dropdown-divider">
+                                <a href="#" class="dropdown-item text-center">Xem tất cả thông báo</a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="images/${sessionScope.account.avarta}" alt="" style="width: 40px; height: 40px;">
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                <img class="rounded-circle me-lg-2" src="images/${sessionScope.account.avarta}" alt="" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">${sessionScope.account.user_name}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">

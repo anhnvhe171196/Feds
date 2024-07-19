@@ -183,8 +183,6 @@
                                         <input type="hidden" name="action" value="search">
                                         <input class="form-control border-0" type="search" name="value" placeholder="Tìm kiếm" value="${requestScope.value}">
                                     </form>
-
-                                    <h2 style="color: red">${requestScope.error}</h2>
                                     <button class="btn btn-outline-primary m-2"><a href="/Feds/contactListContactController?action=showAll">Xem Tất Cả</a></button>
                                 </div>
                             </div>

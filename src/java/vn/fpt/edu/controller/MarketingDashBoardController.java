@@ -82,14 +82,17 @@ public class MarketingDashBoardController extends HttpServlet {
 
         List<String> username = new ArrayList<>();
         List<Integer> userPayment = new ArrayList<>();
+        List<String> userEmail = new ArrayList<>();
 
         for (User user : UserPaymentList) {
             username.add(user.getUser_name());
             userPayment.add(user.getPayment());
+            userEmail.add(user.getEmail());
         }
 
         session.setAttribute("Uquantity", Uquantity);
         session.setAttribute("username", username);
+        session.setAttribute("userEmail", userEmail);
         session.setAttribute("userPayment", userPayment);
 
         //chart 3

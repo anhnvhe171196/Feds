@@ -78,22 +78,20 @@ public class Data_MarketingDashboard_DAO extends DBContext {
     public List<User> getMostPaymentUser(int numberOfTop) {
         List<User> list = new ArrayList<>();
         String sql = "SELECT TOP (?)\n"
-                + "                    u.User_name,\n"
-                + "				SUM(b.Total_price) AS Pay\n"
-                + "                FROM\n"
-                + "                    [User] u\n"
-                + "                INNER JOIN\n"
-                + "                    Bill b ON u.User_Id = b.User_id\n"
-                + "				INNER JOIN\n"
-                + "					[Order] o ON o.Bill_id = b.Bill_Id\n"
-                + "                WHERE\n"
-                + "				b.Status = 'Hoàn Thành'\n"
-                + "                GROUP BY\n"
-                + "                    u.User_name,\n"
-                + "					u.User_Id,\n"
-                + "					b.Bill_Id\n"
-                + "                ORDER BY\n"
-                + "                    Pay DESC;";
+                + "    u.User_name,\n"
+                + "	u.Email,\n"
+                + "    SUM(b.Total_price) AS Pay\n"
+                + "FROM\n"
+                + "    [User] u\n"
+                + "INNER JOIN\n"
+                + "    Bill b ON u.User_Id = b.User_Id\n"
+                + "WHERE\n"
+                + "    b.Status = N'Hoàn Thành'\n"
+                + "GROUP BY\n"
+                + "    u.User_name,\n"
+                + "	u.Email\n"
+                + "ORDER BY\n"
+                + "    Pay DESC; ";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
 
@@ -102,8 +100,9 @@ public class Data_MarketingDashboard_DAO extends DBContext {
             while (rs.next()) {
 
                 User user = new User();
-                user.setUser_name(rs.getString(1).trim());
-                user.setPayment(rs.getInt(2));
+                user.setUser_name(rs.getString("User_name"));
+                user.setPayment(rs.getInt("Pay"));
+                user.setEmail(rs.getString("Email"));
                 list.add(user);
 
             }
@@ -344,7 +343,7 @@ public class Data_MarketingDashboard_DAO extends DBContext {
 
     public Product1 getProductById(int productId) {
         Product1 product = null;
-        String sql = "SELECT p.Product_id, p.Quantity, p.Product_name, p.Product_img, p.Brand_id,p.Status AS PStatus, "
+        String sql = "SELECT p.Product_id, p.Quantity, p.Product_name, p.Product_img, p.Brand_id,p.Status AS PStatus,p.[Date], "
                 + "       pc.Category_name, pd.RAM, pd.ROM, pd.Size, pd.Battery, pd.Weight, pd.Color, pd.Decription, "
                 + "       pd.CPU, pd.Wattage, pd.Status, pr.Price, pr.Date_start, pr.Date_end, pr.Sale, "
                 + "       b.Brand_Name "
@@ -363,6 +362,7 @@ public class Data_MarketingDashboard_DAO extends DBContext {
                 product.setProduct_id(rs.getInt("Product_id"));
                 product.setQuantity(rs.getInt("Quantity"));
                 product.setStatus(rs.getString("PStatus"));
+                product.setDate(rs.getDate("Date"));
                 product.setProduct_name(rs.getString("Product_name"));
                 product.setProduct_img(rs.getString("Product_img"));
                 // Thiết lập các thuộc tính khác của Product1 tương tự như trên
@@ -621,14 +621,15 @@ public class Data_MarketingDashboard_DAO extends DBContext {
     }
 
     public boolean updateProduct(Product1 product) {
-        String sql = "UPDATE Product SET Quantity = ?, Product_name = ?, Product_img = ?, [Status]=? WHERE Product_id = ?";
+        String sql = "UPDATE Product SET Quantity = ?, Product_name = ?, Product_img = ?, [Status]=?, [Date]=? WHERE Product_id = ?";
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, product.getQuantity());
             st.setString(2, product.getProduct_name());
             st.setString(3, product.getProduct_img());
             st.setString(4, product.getStatus());
-            st.setInt(5, product.getProduct_id());
+            st.setInt(6, product.getProduct_id());
+            st.setDate(5, new java.sql.Date(product.getDate().getTime()));
 
             int rowsAffected = st.executeUpdate();
             return rowsAffected > 0;
@@ -778,7 +779,7 @@ public class Data_MarketingDashboard_DAO extends DBContext {
     }
 
     public boolean AddProduct(Product1 product, User user) {
-        String sql = "INSERT INTO Product (Quantity, Product_name, Product_img,[User_Id], Brand_id,[Status]) VALUES (?, ?, ?, ?, ?,?)";
+        String sql = "INSERT INTO Product (Quantity, Product_name, Product_img,[User_Id], Brand_id,[Status],[Date]) VALUES (?, ?, ?, ?, ?,?,?)";
         try (PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) { // Sử dụng Statement.RETURN_GENERATED_KEYS
             st.setInt(1, product.getQuantity());
             st.setString(2, product.getProduct_name());
@@ -786,6 +787,7 @@ public class Data_MarketingDashboard_DAO extends DBContext {
             st.setInt(4, user.getUser_Id());
             st.setInt(5, product.getBrand().getBrandId());
             st.setString(6, product.getStatus());
+            st.setDate(7, new java.sql.Date(product.getDate().getTime()));
 
             int rowsAffected = st.executeUpdate();
             if (rowsAffected > 0) {

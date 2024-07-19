@@ -17,6 +17,8 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import vn.fpt.edu.dals.Data_MarketingDashboard_DAO;
 import vn.fpt.edu.models.Price;
@@ -93,7 +95,8 @@ public class MarketingUpdateProduct extends HttpServlet {
         String productName = request.getParameter("product_name");
         String productImg = request.getParameter("product_img");
         String Pstatus = request.getParameter("Pstatus");
-        if (Pstatus == null ) {
+
+        if (Pstatus == null) {
             Pstatus = "Deleted"; // Thay đổi trạng thái thành Deleted
         }
         String ram = request.getParameter("ram");
@@ -107,11 +110,16 @@ public class MarketingUpdateProduct extends HttpServlet {
         String wattage = request.getParameter("wattage");
         String status = request.getParameter("status");
         String priceString = request.getParameter("price");
-        priceString = priceString.replace(" VND", ""); // Loại bỏ " VND"
-        double price = Double.parseDouble(priceString.replace(",", ""));
+        double price = Double.parseDouble(priceString.replace(".", ""));
         String dateStartString = request.getParameter("dateStart");
         String dateEndString = request.getParameter("dateEnd");
-
+        String dateString = request.getParameter("importDate");
+        Date date = null;
+        if (dateString != null && !dateString.isEmpty()) {
+            date = java.sql.Date.valueOf(dateString);
+        } else {
+            date = java.sql.Date.valueOf(LocalDate.now());
+        }
         Date dateStart = null;
         Date dateEnd = null;
 
@@ -124,7 +132,7 @@ public class MarketingUpdateProduct extends HttpServlet {
         }
         int sale = Integer.parseInt(request.getParameter("sale"));
 
-        Product1 product = new Product1(productId, quantity, productName, productImg, null, null, Pstatus);
+        Product1 product = new Product1(productId, quantity, productName, productImg, null, null, Pstatus, date);
         ProductDetail detail = new ProductDetail(ram, rom, size, battery, weight, color, decription, cpu, wattage, status, product);
         Price priceObj = new Price(price, dateStart, dateEnd, sale, product);
 

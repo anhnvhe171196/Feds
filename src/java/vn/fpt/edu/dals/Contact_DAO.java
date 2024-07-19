@@ -75,7 +75,7 @@ public class Contact_DAO extends DBContext {
             st.setInt(2, numOfContact);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Contact u = new Contact(rs.getString("Contact_id"),rs.getString("UserName"), rs.getString("Email"), rs.getString("Subject"),
+                Contact u = new Contact(rs.getString("Contact_id"), rs.getString("UserName"), rs.getString("Email"), rs.getString("Subject"),
                         rs.getString("Phone"),
                         rs.getString("Message"), rs.getString("Date"), rs.getString("Status"));
                 list.add(u);
@@ -109,19 +109,27 @@ public class Contact_DAO extends DBContext {
 
         try {
 
-            String sql = "SELECT TOP (1000) \n"
-                    + "c.Contact_id\n"
-                    + ",u.[User_name] AS [UserName]\n"
-                    + "      ,c.[Email]\n"
-                    + "      ,[Subject]\n"
-                    + "      ,[Phone]\n"
-                    + "      ,[Message]\n"
-                    + "      ,[Date]\n"
-                    + "      ,[Status]\n"
-                    + "  FROM Contact c\n"
-                    + "  JOIN \n"
-                    + "      [User] AS u ON c.[User_Id] = u.[User_id]\n"
-                    + "  WHERE  c.Email LIKE ? OR U.User_name LIKE ?  and [Status] != N'Đã gửi' ";
+            String sql = """
+                         SELECT c.Contact_id,
+                                 c.[User_Id],
+                                 c.Email,
+                                 c.Phone,
+                                 c.Subject,
+                                 c.Message,
+                                 c.Date,
+                                 c.Status,
+                                 CASE 
+                                     WHEN c.[User_Id] IS NULL THEN c.[Name]
+                                     ELSE COALESCE(u.[User_name], 'Unknown')
+                                 END AS [Username]
+                         FROM 
+                                 Contact AS c
+                             LEFT JOIN 
+                                 [User] AS u ON c.[User_id] = u.[User_id]
+                             
+                         WHERE c.Email LIKE ? OR u.User_name LIKE ?
+                         ORDER BY 
+                                 c.[Contact_id] desc """;
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, "%" + value + "%");
             ps.setString(2, "%" + value + "%");
@@ -165,7 +173,7 @@ public class Contact_DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Contact c = new Contact(rs.getString("Contact_id"),rs.getString("UserName"), rs.getString("Email"), rs.getString("Subject"),
+                Contact c = new Contact(rs.getString("Contact_id"), rs.getString("UserName"), rs.getString("Email"), rs.getString("Subject"),
                         rs.getString("Phone"),
                         rs.getString("Message"), rs.getString("Date"), rs.getString("Status"));
                 list.add(c);
@@ -185,13 +193,11 @@ public class Contact_DAO extends DBContext {
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, contact_id);
-            
+
             st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    
-        
 
 }

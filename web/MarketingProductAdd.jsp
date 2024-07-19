@@ -315,6 +315,7 @@
                                                             <h6 class="title text-dark" >Ngày kết thúc:</h6>                                                                
                                                             <input type="date" name="dateEnd"  class="form-control" required/>
                                                             <label style="color: red; display: none;" id="dateEndError">*Vui lòng chọn Ngày kết thúc</label>
+                                                            <label style="color: red; display: none;" id="dateValidError">*Ngày kết thúc phải lớn hơn Ngày bắt đầu</label>
                                                         </div>
                                                         <div class="mb-3">
                                                             <h6 class="title text-dark" >Sale:</h6>                                                                
@@ -470,47 +471,54 @@
 
             function checkInput() {
                 var productName = document.getElementsByName("product_name")[0].value.trim();
-                var productPrice = parseFloat(document.getElementsByName("price")[0].value); // Chuyển đổi sang số
-                var productQuantity = parseInt(document.getElementsByName("quantity")[0].value); // Chuyển đổi sang số
-                var productSale = parseFloat(document.getElementsByName("sale")[0].value); // Chuyển đổi sang số
+                var productPrice = document.getElementsByName("price")[0].value; // Chuyển đổi sang số
+                var productQuantity = document.getElementsByName("quantity")[0].value; // Chuyển đổi sang số
                 var dateStart = document.getElementsByName("dateStart")[0].value;
                 var dateEnd = document.getElementsByName("dateEnd")[0].value;
 
                 if (productName === "") {
                     document.getElementById("productNameError").style.display = "block";
+                    return false;
+
                 } else {
                     document.getElementById("productNameError").style.display = "none";
                 }
-                if (isNaN(productPrice)) { // Kiểm tra xem có phải là số hợp lệ hay không
+                if (productPrice === "") { // Kiểm tra xem có phải là số hợp lệ hay không
                     document.getElementById("productPriceError").style.display = "block";
+                    return false;
+
                 } else {
                     document.getElementById("productPriceError").style.display = "none";
                 }
-                if (isNaN(productQuantity)) { // Kiểm tra xem có phải là số hợp lệ hay không
+                if (productQuantity === "") { // Kiểm tra xem có phải là số hợp lệ hay không
                     document.getElementById("productQuantityError").style.display = "block";
+                    return false;
+
                 } else {
                     document.getElementById("productQuantityError").style.display = "none";
                 }
-                if (productSale < 0 || productSale > 100 || isNaN(productSale)) { // Kiểm tra xem có phải là số hợp lệ hay không
-                    document.getElementById("productSaleError").style.display = "block";
-                } else {
-                    document.getElementById("productSaleError").style.display = "none";
-                }
                 if (dateStart === "") {
                     document.getElementById("dateStartError").style.display = "block";
+                    return false;
+
                 } else {
                     document.getElementById("dateStartError").style.display = "none";
                 }
                 if (dateEnd === "") {
                     document.getElementById("dateEndError").style.display = "block";
+                    return false;
+
                 } else {
                     document.getElementById("dateEndError").style.display = "none";
                 }
                 if (dateStart > dateEnd) {
-                    alert('Ngày kết thúc phải lớn hơn Ngày bắt đầu');
-                    dateStart = "";
-                    dateEnd = "";
+                    document.getElementById("dateValidError").style.display = "block";
+                    return false;
+                } else {
+                    document.getElementById("dateValidError").style.display = "none";
+
                 }
+                return true;
             }
 
             document.getElementById('Pstatus').addEventListener('change', function () {
