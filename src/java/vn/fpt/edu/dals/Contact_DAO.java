@@ -127,7 +127,7 @@ public class Contact_DAO extends DBContext {
                              LEFT JOIN 
                                  [User] AS u ON c.[User_id] = u.[User_id]
                              
-                         WHERE c.Email LIKE ? OR u.User_name LIKE ?
+                         WHERE c.Email LIKE ? OR c.Phone LIKE ?
                          ORDER BY 
                                  c.[Contact_id] desc """;
             PreparedStatement ps = connection.prepareStatement(sql);
