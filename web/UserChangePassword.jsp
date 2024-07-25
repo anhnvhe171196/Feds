@@ -66,7 +66,7 @@
                                     <div class="tab-content">
                                         <div id="tab1" class="tab-pane fade in active">
                                             <c:if test="${account.phone_number != null}">
-                                                <form action="verifyPhoneController">
+                                                <form id="phoneVerificationForm" action="verifyPhoneController">
                                                     <div class="mb-3">
                                                         <label class="small mb-1" for="inputEmailAddress">Email address</label>
                                                         <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" name="email" value="${account.email}" readonly="">
@@ -80,29 +80,9 @@
 
                                                     </div>
                                                     <!-- Save changes button-->
-                                                    <button class="btn btn-primary" type="submit">Lấy mã xác nhận</button>
+                                                    <button class="btn btn-primary" type="button" onclick="submitForm()">Lấy mã xác nhận</button>
 
                                                 </form>
-                                                <c:if test="${sessionScope.verificationCode != null}">
-                                                    <form action="verifyPhoneController" method="post">
-                                                        <div class="row gx-3 mb-3">
-                                                            <div class="col-md-12">
-                                                                <label class="small mb-1" for="inputPhone">Mã xác nhận</label>
-                                                                <input id="confirm-password-field" type="text" class="form-control" name="verify" required placeholder="Nhập mã xác nhận">
-                                                            </div>
-                                                            <!-- Form Group (phone number)-->
-                                                            <div class="col-md-6">
-                                                                <label class="small mb-1" for="inputPhone">Mật khẩu mới</label>
-                                                                <input id="password-field" type="password" class="form-control" minlength="8" maxlength="20" name="password" placeholder="Nhập mật khẩu mới" required>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label class="small mb-1" for="inputPhone">Xác nhận mật khẩu mới</label>
-                                                                <input id="confirm-password-field" type="password" class="form-control" name="confirmPassword" placeholder="Xác nhận mật khẩu mới" required>
-                                                            </div>
-                                                        </div>
-                                                        <button class="btn btn-primary" type="submit">Lưu thay đổi</button>
-                                                    </form>
-                                                </c:if>
                                             </c:if>
                                             <c:if test="${account.phone_number == null}">
                                                 <h1 style="text-align: center; color: red; margin: 100px">Bạn chưa có số điện thoại vui lòng nhập số điện thoại</h1>
@@ -154,5 +134,65 @@
         <script src="js1/nouislider.min.js"></script>
         <script src="js1/jquery.zoom.min.js"></script>
         <script src="js1/main.js"></script>
+        <script>
+                                                        function submitForm() {
+                                                            // Lấy thông tin form
+                                                            var form = $('#phoneVerificationForm');
+                                                            var formData = form.serialize();
+
+                                                            // Gửi AJAX request
+                                                            $.ajax({
+                                                                url: form.attr('action'),
+                                                                type: 'GET',
+                                                                data: formData,
+                                                                success: function (response) {
+                                                                    // Xử lý khi thành công
+                                                                    $('#emailModal').modal('show');
+                                                                },
+                                                                error: function (xhr, status, error) {
+                                                                    // Xử lý khi có lỗi
+                                                                    console.error('Error:', error);
+                                                                }
+                                                            });
+                                                        }
+        </script>
+        <!-- Button trigger modal -->
+        <div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="emailModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="emailModalLabel">Đổi mật khẩu</h5>
+                    </div>
+                    <form action="verifyPhoneController" method="post">
+                        <div class="modal-body">
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-12">
+                                    <label class="small mb-1" for="inputFirstName">Mã xác nhận</label>
+                                    <input type="hidden" value="${account.phone_number}" name="mobile">
+                                    <input class="form-control" id="inputFirstName" type="text" placeholder="Nhập mã xác nhận từ số điện thoại của bạn" name="verify" required>
+                                </div>
+                            </div>
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputFirstName">Mật khẩu mới</label>
+                                    <input id="password-field" type="password" class="form-control" minlength="8" maxlength="20" name="password" placeholder="Nhập mật khẩu mới" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputFirstName">Xác nhận mật khẩu</label>
+                                    <input id="confirm-password-field" type="password" class="form-control" name="confirmPassword" placeholder="Xác nhận mật khẩu mới" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Xác nhận</button>
+                        </div>
+                    </form>
+                </div>
+            </div>  
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-z7KtEPOlBst76BUE91AyV2Zhkhqz/qWuifpbLk72s3gWRCCj/NxDsE4/lBdWI5Lg" crossorigin="anonymous"></script>
     </body>
 </html>
+
+
+

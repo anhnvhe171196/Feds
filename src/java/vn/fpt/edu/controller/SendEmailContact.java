@@ -179,7 +179,6 @@ public class SendEmailContact extends HttpServlet {
             Contact_DAO c = new Contact_DAO();
             c.upDateRely(contact_id);
             // Chuyển hướng người dùng sau khi gửi email thành công
-            request.setAttribute("error", "Gửi tin nhắn thành công !!!");
             response.sendRedirect("contactListContactController");
             
         } catch (MessagingException mex) {

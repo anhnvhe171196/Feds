@@ -303,19 +303,58 @@
                         <div class="col-lg-6 mb-4">
 
                             <!-- Project Card Example -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Category Stock</h6>
-                                </div>
-                                <div class="card-body">
-                                    <%
-                                        HashMap<Category, Integer> cateWithStock = (HashMap)request.getAttribute("CateWithStock");
-                                        for(Category c : cateWithStock.keySet()) {
-                                    %>
-                                    <h4 class="small font-weight-bold" style="color: black"><%=c.getCategory_name()%> <span class="float-right" style="color: gray"><%=cateWithStock.get(c)%> Items</span></h4>
-                                    <% } %>
-                                </div>
-                            </div>
+                           <div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Category Stock</h6>
+    </div>
+    <div class="card-body">
+        <div class="list-group">
+            <%
+                HashMap<Category, Integer> cateWithStock = (HashMap)request.getAttribute("CateWithStock");
+                for(Category c : cateWithStock.keySet()) {
+            %>
+            <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span class="category-name"><%=c.getCategory_name()%></span>
+                <span class="badge badge-primary badge-pill"><%=cateWithStock.get(c)%> Items</span>
+            </div>
+            <% } %>
+        </div>
+    </div>
+</div>
+    <style>
+    .card-header {
+        background-color: #4e73df;
+        color: #fff;
+    }
+
+    .card-body {
+        background-color: #f8f9fc;
+    }
+
+    .list-group-item {
+        border: 1px solid #e3e6f0;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        padding: 15px;
+        background-color: #fff;
+        transition: all 0.3s ease;
+    }
+
+    .list-group-item:hover {
+        background-color: #f1f1f1;
+    }
+
+    .category-name {
+        font-weight: bold;
+        color: #333;
+    }
+
+    .badge-primary {
+        background-color: #4e73df;
+    }
+</style>
+    
+
 
                         </div>
 
@@ -324,18 +363,57 @@
 
                             <!-- Project Card Example -->
                             <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Category Types</h6>
-                                </div>
-                                <div class="card-body">
-                                    <%
-                                        HashMap<Category, Integer> CateWithCount = (HashMap)request.getAttribute("CateWithCount");
-                                        for(Category c : CateWithCount.keySet()) {
-                                    %>
-                                    <h4 class="small font-weight-bold" style="color: black"><%=c.getCategory_name()%> <span class="float-right" style="color: gray"><%=CateWithCount.get(c)%> Types</span></h4>
-                                    <% } %>
-                                </div>
-                            </div>
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Category Types</h6>
+    </div>
+    <div class="card-body">
+        <div class="list-group">
+            <%
+                HashMap<Category, Integer> CateWithCount = (HashMap)request.getAttribute("CateWithCount");
+                for(Category c : CateWithCount.keySet()) {
+            %>
+            <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span class="category-name"><%=c.getCategory_name()%></span>
+                <span class="badge badge-primary badge-pill"><%=CateWithCount.get(c)%> Types</span>
+            </div>
+            <% } %>
+        </div>
+    </div>
+</div>
+        <style>
+    .card-header {
+        background-color: #4e73df;
+        color: #fff;
+    }
+
+    .card-body {
+        background-color: #f8f9fc;
+    }
+
+    .list-group-item {
+        border: 1px solid #e3e6f0;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        padding: 15px;
+        background-color: #fff;
+        transition: all 0.3s ease;
+    }
+
+    .list-group-item:hover {
+        background-color: #f1f1f1;
+    }
+
+    .category-name {
+        font-weight: bold;
+        color: #333;
+    }
+
+    .badge-primary {
+        background-color: #4e73df;
+    }
+</style>
+
+
 
                         </div>
                     </div>
