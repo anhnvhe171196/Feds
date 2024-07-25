@@ -67,7 +67,7 @@
             .feedback-info {
                 display: flex;
                 flex-direction: column;
-                flex-grow: 1;
+                flex-grow: 1;   
             }
 
             .info-row {
