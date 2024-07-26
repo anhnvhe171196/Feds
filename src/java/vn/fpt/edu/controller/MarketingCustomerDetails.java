@@ -85,7 +85,7 @@ public class MarketingCustomerDetails extends HttpServlet {
             for (Order order : orders) {
                 Product1 p = dt.getProductById(order.getProduct_id());
                 if (p != null) {
-                    UserDetails1 ud = new UserDetails1(p, order.getOrder_quantity());
+                    UserDetails1 ud = new UserDetails1(p, order.getOrder_quantity(),order.getStatus());
                     product.add(ud);
                 }
             }

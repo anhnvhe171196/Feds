@@ -11,12 +11,14 @@ import java.util.Date;
  * @author Trong
  */
 public class Order {
+
     private int Order_id;
     private int Product_id;
     private int Order_quantity;
     private int Bill_id;
     private Date Real_time_price;
     private String Payment;
+    private String Status;
 
     public Order() {
     }
@@ -28,6 +30,23 @@ public class Order {
         this.Bill_id = Bill_id;
         this.Real_time_price = Real_time_price;
         this.Payment = Payment;
+    }
+    public Order(int Order_id, int Product_id, int Order_quantity, int Bill_id, Date Real_time_price, String Payment,String Status) {
+        this.Order_id = Order_id;
+        this.Product_id = Product_id;
+        this.Order_quantity = Order_quantity;
+        this.Bill_id = Bill_id;
+        this.Real_time_price = Real_time_price;
+        this.Payment = Payment;
+        this.Status = Status;
+    }
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String Status) {
+        this.Status = Status;
     }
 
     public int getOrder_id() {
@@ -77,6 +96,5 @@ public class Order {
     public void setPayment(String Payment) {
         this.Payment = Payment;
     }
-    
-    
+
 }

@@ -97,7 +97,7 @@
             <div class="sidebar pe-4 pb-3">
                 <nav class="navbar bg-light navbar-light">
                     <a href="home" class="navbar-brand mx-4 mb-3">
-                        <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Marketing</h3>
+                        <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>${sessionScope.account.role.roleName}</h3>
                     </a>
                     <div class="d-flex align-items-center ms-4 mb-4">
                         <div class="position-relative">
@@ -106,7 +106,7 @@
                         </div>
                         <div class="ms-3">
                             <h6 class="mb-0">${sessionScope.account.user_name}</h6>
-                            <span>Marketing</span>
+                            <span>${sessionScope.account.role.roleName}</span>
                         </div>
                     </div>
                     <div class="navbar-nav w-100">

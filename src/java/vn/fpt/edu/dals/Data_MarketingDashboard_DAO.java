@@ -532,18 +532,28 @@ public class Data_MarketingDashboard_DAO extends DBContext {
         int CompletedOrder = getCompletedOrderByUserId(userId);
         int Order_id = getTotalOrderByUserId(userId);
         List<Order> products = new ArrayList<>();
-        String sql = "SELECT u.User_Id, u.Password, u.User_name, u.Email, u.Phone_number,\n"
-                + "		r.Role_id, r.Role_Name, u.Avarta, u.isBanned, u.gender,\n"
-                + "		o.[Order_id], o.[Product_id], o.[Order_quantity], b.[Bill_id], o.[Real_time_price], o.[Payment],\n"
-                + "		b.Total_price,o.Order_id\n"
-                + "FROM [dbo].[User] u\n"
-                + "LEFT JOIN Bill b ON u.User_Id = b.User_id \n"
-                + "LEFT JOIN [Order] o ON b.Bill_Id = o.Bill_id\n"
-                + "JOIN [dbo].[Role] r ON u.Role_id = r.Role_id\n"
-                + "WHERE u.User_Id = ?\n"
-                + "GROUP BY u.User_Id, u.Password, u.User_name, u.Email, u.Phone_number,\n"
-                + "		r.Role_id, r.Role_Name, u.Avarta, u.isBanned, u.gender,b.Total_price,o.Order_id,\n"
-                + "        o.Product_id, o.Order_quantity,b.Bill_id, o.Real_time_price, o.Payment;";
+        String sql = "SELECT \n"
+                + "    u.User_Id, u.Password, u.User_name, u.Email, u.Phone_number,\n"
+                + "    r.Role_id, r.Role_Name, u.Avarta, u.isBanned, u.gender,\n"
+                + "    o.[Order_id], o.[Product_id], o.[Order_quantity], b.[Bill_id], \n"
+                + "	o.[Real_time_price], o.[Payment], b.Total_price, o.Order_id,\n"
+                + "	b.Status\n"
+                + "FROM \n"
+                + "    [dbo].[User] u\n"
+                + "LEFT JOIN \n"
+                + "    Bill b ON u.User_Id = b.User_id \n"
+                + "LEFT JOIN \n"
+                + "    [Order] o ON b.Bill_Id = o.Bill_id\n"
+                + "JOIN \n"
+                + "    [dbo].[Role] r ON u.Role_id = r.Role_id\n"
+                + "WHERE \n"
+                + "    u.User_Id = ?\n"
+                + "GROUP BY \n"
+                + "    u.User_Id, u.Password, u.User_name, u.Email, u.Phone_number,\n"
+                + "    r.Role_id, r.Role_Name, u.Avarta, u.isBanned, \n"
+                + "    u.gender,b.Total_price, o.Order_id,o.Product_id, \n"
+                + "	o.Order_quantity,b.Bill_id, o.Real_time_price, \n"
+                + "    o.Payment,b.Status;";
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, userId);
@@ -566,8 +576,9 @@ public class Data_MarketingDashboard_DAO extends DBContext {
                     Date Real_time_price = rs.getDate("Real_time_price");
                     String Payment = rs.getString("Payment");
                     int orderQuantity = rs.getInt("Order_quantity");
+                    String Status = rs.getString("Status");
 
-                    Order order = new Order(orderId, productId, orderQuantity, BillId, Real_time_price, Payment);
+                    Order order = new Order(orderId, productId, orderQuantity, BillId, Real_time_price, Payment,Status);
                     products.add(order);
 
                 } while (rs.next());
@@ -575,7 +586,7 @@ public class Data_MarketingDashboard_DAO extends DBContext {
                 Role role = new Role(roleId, roleName);
                 user = new User(userId, password, userName, email, phoneNumber, role, avatar, isBanned, gender);
 
-                UD = new UserDetails(totalPrice, user, Order_id,CompletedOrder, products);
+                UD = new UserDetails(totalPrice, user, Order_id, CompletedOrder, products);
             }
         } catch (SQLException e) {
             System.out.println(e);

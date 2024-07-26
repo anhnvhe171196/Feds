@@ -59,6 +59,8 @@
                                                     </c:if>
                                                     <c:if test="${sessionScope.account != null && sessionScope.account.role.id == 1}">
                                                     <li><a href="${pageContext.request.contextPath}/admin/dashboard">Admin Dashboard</a></li>
+                                                    <li><a href="${pageContext.request.contextPath}/marketingDashBoard">Marketing Dashboard</a></li>
+                                                    <li><a href="${pageContext.request.contextPath}/saleDashboard">Sale Dashboard</a></li>
                                                     </c:if>
                                                     <c:if test="${sessionScope.account != null && sessionScope.account.role.id == 3}">
                                                     <li><a href="${pageContext.request.contextPath}/saleDashboard">Quản Lý Bán Hàng</a></li>

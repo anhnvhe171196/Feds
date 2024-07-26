@@ -124,7 +124,7 @@
             <div class="sidebar pe-4 pb-3">
                 <nav class="navbar bg-light navbar-light">
                     <a href="home" class="navbar-brand mx-4 mb-3">
-                        <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Marketing</h3>
+                        <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>${sessionScope.account.role.roleName}</h3>
                     </a>
                     <div class="d-flex align-items-center ms-4 mb-4">
                         <div class="position-relative">
@@ -134,7 +134,7 @@
                         <div class="ms-3">
                             <h6 class="mb-0">${sessionScope.account.user_name}</h6>
 
-                            <span>Marketing</span>
+                            <span>${sessionScope.account.role.roleName}</span>
                         </div>
                     </div>
                     <div class="navbar-nav w-100">
@@ -292,18 +292,18 @@
                                                 <div class="mb-3">
                                                     <h6>Giá: </h6>
                                                     <input type="numb" name="price" value="<fmt:formatNumber value="${product.price.price}"/>" class="form-control" required/>
+                                                    <hr/>
+                                                    <h6>Số sản phẩm còn lại:</h6>
+                                                    <input type="number" name="quantity" value="${product.quantity}" class="form-control" min="0"/>
                                                 </div>
                                                 <hr/>
                                                 <h6>Mô tả:</h6>
                                                 <textarea name="decription" class="form-control" style="height: 200px ; overflow: auto">${product.detail.decription}</textarea>
                                                 <hr/>
-                                                <a href="#" id="show-more-details">Show more Details</a>
+                                                <a href="#" id="show-more-details">Mở rộng</a>
                                                 <hr/>
                                                 <div class="row" id="product-details" style="display: none;">
-                                                    <div class="row w-100">
-                                                        <dt class="col-3">Quantity</dt>
-                                                        <dd class="col-9"><input type="number" name="quantity" value="${product.quantity}" class="form-control" min="0"/></dd>
-                                                    </div>
+
                                                     <div class="row w-100">
                                                         <dt class="col-3">Ram</dt>
                                                         <dd class="col-9"><input type="text" name="ram" value="${product.detail.ram}" class="form-control" /></dd>
@@ -417,10 +417,10 @@
         showMoreButton.addEventListener("click", function () {
             if (detailsDiv.style.display === "none") {
                 detailsDiv.style.display = "block";
-                showMoreButton.textContent = "Hide Details"; // Thay đổi nội dung nút
+                showMoreButton.textContent = "Thu nhỏ"; // Thay đổi nội dung nút
             } else {
                 detailsDiv.style.display = "none";
-                showMoreButton.textContent = "Show more Details"; // Thay đổi nội dung nút
+                showMoreButton.textContent = "Mở rộng"; // Thay đổi nội dung nút
             }
         });
         function checkFileExtension() {
@@ -493,7 +493,7 @@
                 alert('Ngày kết thúc phải lớn hơn Ngày bắt đầu');
                 return false;
             }
-            if(sale < 0 || sale > 100){
+            if (sale < 0 || sale > 100) {
                 alert('Sale không được lớn hơn 100% và nhở hơn 0%');
                 return false;
             }
