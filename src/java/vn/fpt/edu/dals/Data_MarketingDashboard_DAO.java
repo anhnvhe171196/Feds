@@ -585,9 +585,18 @@ public class Data_MarketingDashboard_DAO extends DBContext {
 
     public double getTotalPriceByUserId(int userId) {
         double totalPrice = 0.0;
-        String sql = "SELECT SUM(Total_price) AS TotalPrice\n"
-                + "FROM [Feds].[dbo].[Bill]\n"
-                + "WHERE User_id = ?;";
+        String sql = 
+//                "SELECT SUM(Total_price) AS TotalPrice\n"
+//                + "FROM [Feds].[dbo].[Bill]\n"
+//                + "WHERE User_id = ?;";
+        "SELECT \n"
+                + "SUM(b.Total_price) AS TotalPrice\n"
+                + "FROM\n"
+                + "    [User] u\n"
+                + "INNER JOIN\n"
+                + "    Bill b ON u.User_Id = b.User_Id\n"
+                + "WHERE\n"
+                + "    b.Status = N'Hoàn Thành' AND u.User_Id = ? \n";
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, userId);
