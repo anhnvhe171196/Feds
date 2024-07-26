@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import vn.fpt.edu.dals.Data_MarketingDashboard_DAO;
 import vn.fpt.edu.dals.Product_DAO;
+import vn.fpt.edu.models.Bill2;
 import vn.fpt.edu.models.Order;
 import vn.fpt.edu.models.Product1;
 import vn.fpt.edu.models.User;
@@ -84,8 +85,9 @@ public class MarketingCustomerDetails extends HttpServlet {
         if (u.getTotalOrders() != 0) {
             for (Order order : orders) {
                 Product1 p = dt.getProductById(order.getProduct_id());
+                Bill2 bill = new Bill2(order.getBill_id());
                 if (p != null) {
-                    UserDetails1 ud = new UserDetails1(p, order.getOrder_quantity(),order.getStatus());
+                    UserDetails1 ud = new UserDetails1(p, order.getOrder_quantity(),order.getStatus(),bill);
                     product.add(ud);
                 }
             }

@@ -280,16 +280,25 @@
 
                                                         <div class="row" id="product-details1" style="display: none;">
                                                             <div class="row w-100">
-                                                                <dt class="col-2">Id</dt>
+                                                                <dt class="col-2">Bill Id</dt>
                                                                 <dt class="col-4">Tên</dt>
-                                                                <dt class="col-3">Số lượng</dt>
+                                                                <dt class="col-2">Số lượng</dt>
                                                                 <dt class="col-3">Trạng thái</dt>
-                                                            </div>                                                                
+                                                            </div>
+
+                                                            <c:set var="previousBillId" value="" />
+
                                                             <c:forEach items="${product}" var="product">
-                                                                <div class="row w-100">
-                                                                    <dd class="col-2">${product.product.product_id}</dd>
-                                                                    <dd class="col-4">${product.product.product_name}</dd>
-                                                                    <dd class="col-3">${product.orderQuantity}</dd>
+                                                                <c:if test="${not empty previousBillId and previousBillId != product.bill.getBill_id()}">
+                                                                    <hr/>
+                                                                </c:if>
+
+                                                                <c:set var="previousBillId" value="${product.bill.getBill_id()}" />
+
+                                                                <div class="row w-100" >
+                                                                    <dd class="col-2">${product.bill.getBill_id()}</dd>
+                                                                    <dd class="col-4" onclick="ProductDetail(${product.product.product_id})">${product.product.product_name}</dd>
+                                                                    <dd class="col-2">${product.orderQuantity}</dd>
                                                                     <dd class="col-3" 
                                                                         style="<c:choose>
                                                                             <c:when test="${product.status == 'Hoàn Thành'}">
@@ -379,6 +388,11 @@
                     showMoreButton1.textContent = "Hiển thị sản phẩm đã mua"; // Thay đổi nội dung nút
                 }
             });
+            function ProductDetail(id) {
+                let url = "marketingProductDetails?id=" + id;
+
+                window.location.href = url;
+            }
         </script>
 
 

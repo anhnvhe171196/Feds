@@ -383,10 +383,10 @@
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
         <script>
-                                                    $('.sidebar-toggler').click(function () {
-                                                        $('.sidebar, .content').toggleClass("open");
-                                                        return false;
-                                                    });
+            $('.sidebar-toggler').click(function () {
+                $('.sidebar, .content').toggleClass("open");
+                 return false;
+             });
         </script>
         <script>
             let a = parseInt(localStorage.getItem('a')) || 0;
