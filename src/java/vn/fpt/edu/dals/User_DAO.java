@@ -59,7 +59,7 @@ public class User_DAO extends DBContext {
         return list;
     }
 
-    public void insertCustomer(User u) {
+    public boolean insertCustomer(User u) {
         String sql = "INSERT INTO [dbo].[User]\n"
                 + "           ([Password]\n"
                 + "           ,[User_name]\n"
@@ -71,6 +71,13 @@ public class User_DAO extends DBContext {
                 + "     VALUES\n"
                 + "           (?, ?, ?, ?, ?, ?, ?)";
         try {
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM [User] WHERE [User_name] = ? OR [Email] = ?");
+            ps.setString(1, u.getUser_name());
+            ps.setString(2, u.getEmail());
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                return false;
+            }
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, u.getPassword());
             st.setString(2, u.getUser_name());
@@ -80,8 +87,10 @@ public class User_DAO extends DBContext {
             st.setString(6, u.getAvarta());
             st.setInt(7, u.isGender() ? 1 : 0);
             st.executeUpdate();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
     }
 
