@@ -38,47 +38,95 @@
         <!-- Template Stylesheet -->
         <link href="css/stylesale.css" rel="stylesheet">
         <style>
-            #dropdownMenuButton {
-                display: block;
-                color: #757575;
-                background-color: #fff;
-                background-clip: padding-box;
+            .feedback-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .feedback-item {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                max-width: 1000px;
+                background-color: #f8f9fa;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                margin-bottom: 20px;
+            }
+
+            .feedback-item img {
+                max-width: 350px;
+                height: auto;
+                border-radius: 10px;
+                margin-right: 20px;
+            }
+
+            .feedback-info {
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;   
+            }
+
+            .info-row {
+                display: flex;
+                margin-bottom: 10px;
+            }
+
+            .info-row h6 {
+                margin: 0;
+                font-size: 16px;
+                width: 200px;
+            }
+
+            .info-row p {
+                margin: 0;
+                font-size: 16px;
+                flex-grow: 1;
+            }
+
+            .feedback-comment {
+                width: 100%;
+                margin-top: 20px;
+            }
+
+            .feedback-comment h6 {
+                font-size: 16px;
+                margin-bottom: 10px;
+            }
+
+            .feedback-comment textarea {
+                width: 100%;
+                height: 150px;
+                font-size: 16px;
+                padding: 10px;
                 border-radius: 5px;
-                border: 10px black;
-            }
-            .btn-sm1 {
-                padding: 0.3rem 0.3rem; /* Điều chỉnh padding cho nút */
-                font-size: 0.8rem; /* Điều chỉnh kích thước font cho nút */
-                line-height: 1; /* Điều chỉnh chiều cao dòng cho nút */
+                border: 1px solid #ddd;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             }
 
-            .dropdown-menu .dropdown-item {
-                border-bottom: 1px solid #ddd;
-                transition: border-color 0.3s ease;
+            .update-status {
+                display: flex;
+                justify-content: flex-end;
+                margin-top: 20px;
             }
 
-            .dropdown-menu .dropdown-item:hover {
-                border-color: #333;
-            }
-
-            #clock{
-                margin-left: 20px;
-                font-weight: 600;
-                color: rgb(0, 0, 0);
-                font-size: 13px;
-            }
-            .print-file{
-                background: #bfbeef!important;
-                color: #03009a!important;
+            .update-status button {
+                background: #bfbeef;
+                color: #03009a;
                 width: 139px;
                 height: 35px;
                 border-radius: 7px;
                 font-size: 16px;
-
+                border: none;
+                cursor: pointer;
+                transition: background 0.3s ease;
             }
 
-            .info-row h6 {
-                text-align: left; /* Ensure all text within customer-info is left-aligned */
+            .update-status button:hover {
+                background: #9f9fed;
             }
         </style>
     </head>
@@ -111,7 +159,7 @@
                         </div>
                     </div>
                     <div class="navbar-nav w-100">
-                         <a href="/Feds/saleDashboard" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Tổng quát</a>
+                        <a href="/Feds/saleDashboard" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Tổng quát</a>
                         <a href="/Feds/orderListBillController" class="nav-item nav-link "><i class="fa fa-table me-2"></i>Đơn hàng</a>
                         <a href="/Feds/feedbackListFeedbackController" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Đánh giá</a> 
                         <a href="/Feds/contactListContactController" class="nav-item nav-link"><i class="far fa-file-alt me-2 "></i>Liên hệ</a> 
@@ -137,18 +185,18 @@
 
 
                 <div class="nav-item dropdown">
-                   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="images/${sessionScope.account.avarta}" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">${sessionScope.account.user_name}</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="userProfile" class="dropdown-item">My Profile</a>
-                            <a href="home" class="dropdown-item">Home Page</a>
-                            <c:choose>
-                                <c:when test="${ not empty sessionScope.account}"><a href="${pageContext.request.contextPath}/userLogout" class="dropdown-item">Logout</a></c:when>
-                                <c:otherwise><a href="${pageContext.request.contextPath}/login" class="dropdown-item">Logout</a></c:otherwise>
-                            </c:choose>
-                        </div>
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                        <img class="rounded-circle me-lg-2" src="images/${sessionScope.account.avarta}" alt="" style="width: 40px; height: 40px;">
+                        <span class="d-none d-lg-inline-flex">${sessionScope.account.user_name}</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                        <a href="userProfile" class="dropdown-item">My Profile</a>
+                        <a href="home" class="dropdown-item">Home Page</a>
+                        <c:choose>
+                            <c:when test="${ not empty sessionScope.account}"><a href="${pageContext.request.contextPath}/userLogout" class="dropdown-item">Logout</a></c:when>
+                            <c:otherwise><a href="${pageContext.request.contextPath}/login" class="dropdown-item">Logout</a></c:otherwise>
+                        </c:choose>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -161,53 +209,59 @@
                 <div class="d-flex align-items-center justify-content-between mb-4" >
 
 
-                    <form action="feedbackDetailFeedbackController" method="post" style=" display: flex; align-items: center;">
-                        <div style="margin-right: 5px; margin-left: 15px; margin-top: 1rem; color: red; font-weight: bold">Trạng thái:</div>
-                        <input type="hidden" style="margin-left: 5px" name="id" value="${sessionScope.feedbackId}"/>
-                        <select name="status" onchange="this.form.submit()" class="border-0" style="width: 100px; color: #000000ad; padding: 6px 0px; border-radius: 5px; padding-left: 7px; margin-top: 1rem"/>
-                        <option ${sessionScope.status == "Hiện"?"selected":""} value="Hiện">Hiện</option>
-                        <option ${sessionScope.status == "Ẩn"?"selected":""} value="Ẩn">Ẩn</option>
-                        </select>
-                    </form>
-
                     <div style="margin-right: 20px; margin-top: 1rem"><a class="btn btn-outline-success m-2" style="width: 100px" href="/Feds/feedbackListFeedbackController">Quay lại</a></div>
                 </div>
 
 
 
 
+                <!-- Feedback Details Start -->
 
-                <div class="table-responsive">
-                    <table class="table text-start align-middle table-bordered table-hover mb-0" id="sampleTable">
-                        <thead>
-                            <tr class="text-dark">
-                                <th scope="col">Ngày đánh giá</th>
-                                <th scope="col">Tên Sản Phẩm</th>
-                                <th scope="col" width="200px">Ảnh Đánh giá</th>
-                                <th scope="col" width="400px">Nội dung đánh giá</th>
-                                <th scope="col" width="150px">Khách hàng</th>
-                                <th scope="col" width="200px">Thông tin khách hàng</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                <div class="feedback-container">
+                    <c:forEach items="${sessionScope.feedbackDetail}" var="fbd">
+                        <div class="feedback-item">
+                            <img src="images/${fbd.img}" alt="Feedback Image">
+                            <div class="feedback-info" style="margin-left:150px">
+                                <div class="info-row" > 
+                                    <h6>Ngày đánh giá:</h6>
+                                    <p>${fbd.date}</p>
+                                </div>
+                                <div class="info-row">
+                                    <h6>Tên Sản Phẩm:</h6>
+                                    <p>${fbd.product_name}</p>
+                                </div>
+                                <div class="info-row">
+                                    <h6>Khách hàng:</h6>
+                                    <p>${fbd.userName}</p>
+                                </div>
+                                <div class="info-row">
+                                    <h6>Thông tin khách hàng:</h6>
+                                    <p>${fbd.phone_number}<br>${fbd.email}</p>
+                                </div>
+                                <div class="feedback-comment">
+                                    <h6>Nội dung đánh giá:</h6>
+                                    <textarea readonly>${fbd.comment}</textarea>
+                                </div>
+                                <form action="feedbackDetailFeedbackController" method="post" style=" display: flex; align-items: center;">
+                                <div style="margin-right: 5px; margin-left: 15px; margin-top: 1rem; color: #00000030; font-weight: bold; margin-right: 20px">Trạng thái:</div>
+                                <input type="hidden" style="margin-left: 5px" name="id" value="${sessionScope.feedbackId}"/>
+                                <select name="status" onchange="this.form.submit()" class="border-0" style="width: 100px; color: #000000ad; padding: 6px 0px; border-radius: 5px; padding-left: 7px; margin-top: 1rem"/>
+                                <option ${sessionScope.status == "Hiện"?"selected":""} value="Hiện">Hiện</option>
+                                <option ${sessionScope.status == "Ẩn"?"selected":""} value="Ẩn">Ẩn</option>
+                                </select>
+                            </form>
+                            </div>
+                            
+                        </div>
 
-                            <c:forEach items="${sessionScope.feedbackDetail}" var="fbd"> 
-                                <tr>
-                                    <td>${fbd.date}</td>
-                                    <td>${fbd.product_name}</td>
-                                    <td><img src="images/${fbd.img}" alt="" width="195px"></td>
-                                    <td>${fbd.comment}</td>
-                                    <td>${fbd.userName}</td>
-                                    <td>
-                                        ${fbd.phone_number}<br>
-                                        ${fbd.email}
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
+
+                    </c:forEach>
                 </div>
+
+                <!-- Feedback Details End -->
+
             </div>
+
         </div>
     </div>
     <!-- Recent Sales End -->
@@ -254,35 +308,35 @@
 <!-- Template Javascript -->
 <script src="js/mainsale.js"></script>
 <script>
-                        $('#sampleTable').DataTable();
-                        function time() {
-                            var today = new Date();
-                            var weekday = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
-                            var day = weekday[today.getDay()];
-                            var dd = today.getDate();
-                            var mm = today.getMonth() + 1;
-                            var yyyy = today.getFullYear();
-                            var h = today.getHours();
-                            var m = today.getMinutes();
-                            var s = today.getSeconds();
-                            m = checkTime(m);
-                            s = checkTime(s);
-                            var nowTime = h + " giờ " + m + " phút " + s + " giây";
-                            if (dd < 10)
-                                dd = '0' + dd;
-                            if (mm < 10)
-                                mm = '0' + mm;
-                            var todayString = day + ', ' + dd + '/' + mm + '/' + yyyy;
-                            var tmp = '<span class="date"> ' + todayString + ' - ' + nowTime + '</span>';
-                            document.getElementById("clock").innerHTML = tmp;
-                            setTimeout(time, 1000);
-                        }
+                                    $('#sampleTable').DataTable();
+                                    function time() {
+                                        var today = new Date();
+                                        var weekday = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
+                                        var day = weekday[today.getDay()];
+                                        var dd = today.getDate();
+                                        var mm = today.getMonth() + 1;
+                                        var yyyy = today.getFullYear();
+                                        var h = today.getHours();
+                                        var m = today.getMinutes();
+                                        var s = today.getSeconds();
+                                        m = checkTime(m);
+                                        s = checkTime(s);
+                                        var nowTime = h + " giờ " + m + " phút " + s + " giây";
+                                        if (dd < 10)
+                                            dd = '0' + dd;
+                                        if (mm < 10)
+                                            mm = '0' + mm;
+                                        var todayString = day + ', ' + dd + '/' + mm + '/' + yyyy;
+                                        var tmp = '<span class="date"> ' + todayString + ' - ' + nowTime + '</span>';
+                                        document.getElementById("clock").innerHTML = tmp;
+                                        setTimeout(time, 1000);
+                                    }
 
-                        function checkTime(i) {
-                            if (i < 10)
-                                i = "0" + i;
-                            return i;
-                        }
+                                    function checkTime(i) {
+                                        if (i < 10)
+                                            i = "0" + i;
+                                        return i;
+                                    }
 
 </script>
 

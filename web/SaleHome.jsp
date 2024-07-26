@@ -103,7 +103,11 @@
                 width: 100% !important;
                 height: auto !important;
             }
-
+            
+            
+        /* Adjust the size of the canvas */
+        
+    
         </style>
     </head>
 
@@ -126,12 +130,11 @@
                     </a>
                     <div class="d-flex align-items-center ms-4 mb-4">
                         <div class="position-relative">
-                           <img class="rounded-circle" src="images/${sessionScope.account.avarta}" alt="" style="width: 40px; height: 40px;">
+                            <img class="rounded-circle" src="images/${sessionScope.account.avarta}" alt="" style="width: 40px; height: 40px;">
                             <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                         </div>
                         <div class="ms-3">
                             <h6 class="mb-0">${sessionScope.account.user_name}</h6>
-                            <span>Saler</span>
                         </div>
                     </div>
                     <div class="navbar-nav w-100">
@@ -331,13 +334,12 @@
             <!-- Sum Revenue By Day Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
-                    <form action="sumRevenue" method="get" >
+                    <form action="sumRevenue" method="get">
                         <div class="col-sm-12 col-xl-12">
                             <div class="bg-light text-center rounded p-4">
                                 <div class="d-flex align-items-center justify-content-between mb-4">
                                     <h6 class="mb-0">Doanh thu</h6>
                                     <div class="d-flex">
-
                                         <div class="me-2">
                                             <label for="start-date-priority" class="form-label">Ngày bắt đầu:</label>
                                             <input type="date" id="start-date-priority" value="${sessionScope.startDatechart3}" class="form-control" name="startdate">
@@ -369,7 +371,7 @@
                 <div class="bg-light text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <h6 class="mb-0">Đơn hàng hôm nay</h6>
-                        <a href="/orderListBillController">Tất cả</a>
+                        <a class="btn btn-outline-info m-2" href="/orderListBillController">Tất cả</a>
                     </div>
                     <div class="table-responsive">
                         <table class="table text-start align-middle table-bordered table-hover mb-0">

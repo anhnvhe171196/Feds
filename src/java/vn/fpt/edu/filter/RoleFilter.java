@@ -121,6 +121,7 @@ public class RoleFilter implements Filter {
                     || url.equals("/marketingDashBoard") ||url.equals("/marketingProductList") ||url.equals("/marketingProductUpdate") ||url.equals("/marketingCustomerList") 
                     ||url.equals("/marketingCustomerDetail") ||url.equals("/marketingAddProduct")
                     
+                    || url.equals("/contract") || url.equals("/addBill") || url.equals("/complete") || url.equals("/cancelcart") || url.equals("/viewmyorder")
                     ){
                 res.sendRedirect("home");
             }
