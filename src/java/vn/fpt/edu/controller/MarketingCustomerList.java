@@ -68,8 +68,11 @@ public class MarketingCustomerList extends HttpServlet {
         HttpSession session = request.getSession();
         Data_MarketingDashboard_DAO dt = new Data_MarketingDashboard_DAO();
         User_DAO ud = new User_DAO();
-
-        int count = ud.getTotalNumberOfUsers();
+        
+        String search = request.getParameter("search");
+        String SearchBy = request.getParameter("SearchBy");
+        
+        int count = ud.Paging(search, SearchBy);
         int endPage = count / 10;
         if (count % 10 != 0) {
             endPage++;
@@ -88,9 +91,6 @@ public class MarketingCustomerList extends HttpServlet {
         } else {
             session.setAttribute("sortBy", sortBy);
         }
-        String search = request.getParameter("search");
-        String SearchBy = request.getParameter("SearchBy");
-        
 
         List<User> users;
         if (search != null && !search.isEmpty()) {

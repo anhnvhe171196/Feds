@@ -699,6 +699,29 @@ public class Product_DAO extends DBContext {
         return totalNumberOfProducts;
     }
 
+    public int Paging(String search) {
+        int Page = 0;
+        String sql = "SELECT count([Product_id]) AS TotalCount FROM Product";
+        if (search != null && !search.isEmpty()) {
+            sql += " WHERE [Product_name] LIKE ?";
+        }
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            if (search != null && !search.isEmpty()) {
+                st.setString(1, "%" + search + "%");
+            }
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                Page = rs.getInt("TotalCount");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return Page;
+    }
+
     public Product1 getProductById(int id) {
         String sql = "SELECT [Product_id]\n"
                 + "      ,[Quantity]\n"

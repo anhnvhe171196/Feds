@@ -221,6 +221,10 @@
                                                             Tổng số đơn hàng:
                                                             <span class="h5" style="color: #1aa6ff">${totalOrders}</span>
                                                         </div>
+                                                        <div class="mb-3">
+                                                            Tổng số đơn hàng đã thanh toán:
+                                                            <span class="h5" style="color: #1aa6ff">${CompletedOrders}</span>
+                                                        </div>
 
                                                         <hr/>
                                                         <a href="#" id="show-more-details">Show more Details</a>

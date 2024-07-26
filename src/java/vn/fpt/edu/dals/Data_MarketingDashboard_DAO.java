@@ -4,7 +4,6 @@
  */
 package vn.fpt.edu.dals;
 
-import vn.fpt.edu.models.Bill1;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -530,6 +529,7 @@ public class Data_MarketingDashboard_DAO extends DBContext {
         UserDetails UD = null;
         User user = null;
         double totalPrice = getTotalPriceByUserId(userId);
+        int CompletedOrder = getCompletedOrderByUserId(userId);
         int Order_id = getTotalOrderByUserId(userId);
         List<Order> products = new ArrayList<>();
         String sql = "SELECT u.User_Id, u.Password, u.User_name, u.Email, u.Phone_number,\n"
@@ -575,7 +575,7 @@ public class Data_MarketingDashboard_DAO extends DBContext {
                 Role role = new Role(roleId, roleName);
                 user = new User(userId, password, userName, email, phoneNumber, role, avatar, isBanned, gender);
 
-                UD = new UserDetails(totalPrice, user, Order_id, products);
+                UD = new UserDetails(totalPrice, user, Order_id,CompletedOrder, products);
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -585,11 +585,11 @@ public class Data_MarketingDashboard_DAO extends DBContext {
 
     public double getTotalPriceByUserId(int userId) {
         double totalPrice = 0.0;
-        String sql = 
-//                "SELECT SUM(Total_price) AS TotalPrice\n"
-//                + "FROM [Feds].[dbo].[Bill]\n"
-//                + "WHERE User_id = ?;";
-        "SELECT \n"
+        String sql
+                = //                "SELECT SUM(Total_price) AS TotalPrice\n"
+                //                + "FROM [Feds].[dbo].[Bill]\n"
+                //                + "WHERE User_id = ?;";
+                "SELECT \n"
                 + "SUM(b.Total_price) AS TotalPrice\n"
                 + "FROM\n"
                 + "    [User] u\n"
@@ -612,10 +612,13 @@ public class Data_MarketingDashboard_DAO extends DBContext {
 
     public int getTotalOrderByUserId(int userId) {
         int totalOrder = 0;
-        String sql = "SELECT COUNT(o.[Order_id]) AS TotalOrders\n"
-                + "FROM [Feds].[dbo].[Order] o\n"
-                + "JOIN [Feds].[dbo].[Bill] b ON o.[Bill_id] = b.[Bill_Id]\n"
-                + "WHERE b.[User_id] = ?;";
+        String sql = "SELECT \n"
+                + "    COUNT([Bill_Id]) AS TotalOrders,\n"
+                + "    SUM(CASE WHEN [Status] = N'Hoàn thành' THEN 1 ELSE 0 END) AS CompleteOrders\n"
+                + "FROM \n"
+                + "    [Feds].[dbo].[Bill]\n"
+                + "WHERE \n"
+                + "    [User_id] = ?";
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, userId);
@@ -627,6 +630,28 @@ public class Data_MarketingDashboard_DAO extends DBContext {
             System.out.println(e);
         }
         return totalOrder;
+    }
+
+    public int getCompletedOrderByUserId(int userId) {
+        int CompletedOrder = 0;
+        String sql = "SELECT \n"
+                + "    COUNT([Bill_Id]) AS TotalOrders,\n"
+                + "    SUM(CASE WHEN [Status] = N'Hoàn thành' THEN 1 ELSE 0 END) AS CompleteOrders\n"
+                + "FROM \n"
+                + "    [Feds].[dbo].[Bill]\n"
+                + "WHERE \n"
+                + "    [User_id] = ?";
+
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, userId);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                CompletedOrder = rs.getInt("CompleteOrders");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return CompletedOrder;
     }
 
     public boolean updateProduct(Product1 product) {

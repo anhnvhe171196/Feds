@@ -78,12 +78,13 @@ public class MarketingCustomerDetails extends HttpServlet {
         UserDetails u = dt.getUserById(index);
         double totalPrice = u.getTotalPrice();
         int totalOrders = u.getTotalOrders();
+        int CompletedOrders = u.getCompletedOrders();
         List<Order> orders = u.getOrder();
         List<UserDetails1> product = new ArrayList<>();
         if (u.getTotalOrders() != 0) {
             for (Order order : orders) {
                 Product1 p = dt.getProductById(order.getProduct_id());
-                if (p != null) { 
+                if (p != null) {
                     UserDetails1 ud = new UserDetails1(p, order.getOrder_quantity());
                     product.add(ud);
                 }
@@ -91,9 +92,10 @@ public class MarketingCustomerDetails extends HttpServlet {
         }
         // Lưu thông tin vào request
 
-        request.setAttribute("totalPrice",totalPrice );
+        request.setAttribute("totalPrice", totalPrice);
         request.setAttribute("user", u.getUser());
-        request.setAttribute("totalOrders",totalOrders);
+        request.setAttribute("totalOrders", totalOrders);
+        request.setAttribute("CompletedOrders", CompletedOrders);
         request.setAttribute("product", product);
 
         // Chuyển hướng đến file JSP
