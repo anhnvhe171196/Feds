@@ -30,6 +30,7 @@
                 <a class="nav-link" href="userProfile" target="__blank">Hồ sơ cá nhân</a>
                 <a class="nav-link" href="userChangeProfile" target="__blank">Thay đổi hồ sơ cá nhân</a>
                 <a class="nav-link active" href="changePassword" target="__blank">Thay đổi mật khẩu</a>
+                <a class="nav-link" href="viewmyorder" target="__blank">Xem đơn hàng</a>
             </nav>
             <!-- Account page navigation-->
             <c:set value="${sessionScope.account}" var="account"/>

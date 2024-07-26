@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import vn.fpt.edu.dals.Role_DAO;
+import vn.fpt.edu.dals.SettingDAO;
 import vn.fpt.edu.dals.User_DAO;
 import vn.fpt.edu.models.User;
 
@@ -59,6 +60,10 @@ public class UserProfileController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        SettingDAO d = new SettingDAO();
+        HttpSession session = request.getSession();
+        User u = (User)session.getAttribute("account");
+        request.setAttribute("setting", d.getSettingById(u.getRole().getId()));
         request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
     } 
 

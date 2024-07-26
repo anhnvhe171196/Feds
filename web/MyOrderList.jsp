@@ -158,46 +158,53 @@
         <%@include file="component/header.jsp" %>
 
         <div class="container1">
-            <c:forEach items="${sessionScope.billinfo}" var="b">
-                <div class="item">
+            <c:if test="${sessionScope.billinfo != null}">
+                <c:forEach items="${sessionScope.billinfo}" var="b">
+                    <div class="item">
 
-                    <div class="item-header">
-                        <div class="shop-name">
-                            <span>Feds Shop</span>
-                            <!--                        <button>Chat</button>-->
-                            <a href="home"><button>Xem shop</button></a>
-                        </div>
-                        <div class="order-status">
-                            <span>Trạng thái đơn hàng:</span>
-                            <span>${b.getStatus()}</span>
-                        </div>
-                    </div>
-                    <div class="item-content">
-                        <div class="item-image">
-                            <img src="images/${b.product1.getProduct_img()}" alt="Product Image">
-                        </div>
-                        <div class="item-details">
-                            <h3>${b.product1.getProduct_name()}</h3>
-                            <p>Phân loại hàng: ${b.product1.detail.getColor()}</p>
-                            <p>x ${b.order.getOrder_quantity()}</p>
-                            <div class="item-price">
-                                <p class="">Ngày đặt hàng: ${b.getDate()}</p>
-
+                        <div class="item-header">
+                            <div class="shop-name">
+                                <span>Feds Shop</span>
+                                <!--                        <button>Chat</button>-->
+                                <a href="home"><button>Xem shop</button></a>
                             </div>
-                            <div class="total-price">Tổng số tiền: <fmt:formatNumber value="${b.getTotal_price()}" pattern="#,###" />VNĐ</div>
+                            <div class="order-status">
+                                <span>Trạng thái đơn hàng:</span>
+                                <span>${b.getStatus()}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="item-footer">
-                        <a href="cart?billid=${b.getBill_id()}"><button class="buy-again">Mua Lần Nữa</button></a>
-                        <a href="viewMyOrderDetail?billid=${b.getBill_id()}"><button class="view-order">Xem Chi Tiết Đơn Hàng</button></a>
-<!--                        <button class="view-shop">Xem Đánh Giá Shop</button>-->
-                    </div>
+                        <div class="item-content">
+                            <div class="item-image">
+                                <img src="images/${b.product1.getProduct_img()}" alt="Product Image">
+                            </div>
+                            <div class="item-details">
+                                <h3>${b.product1.getProduct_name()}</h3>
+                                <p>Phân loại hàng: ${b.product1.detail.getColor()}</p>
+                                <p>x ${b.order.getOrder_quantity()}</p>
+                                <div class="item-price">
+                                    <p class="">Ngày đặt hàng: ${b.getDate()}</p>
 
-                </div>
-            </c:forEach>
+                                </div>
+                                <div class="total-price">Tổng số tiền: <fmt:formatNumber value="${b.getTotal_price()}" pattern="#,###" />VNĐ</div>
+                            </div>
+                        </div>
+                        <div class="item-footer">
+                            <a href="cart?billid=${b.getBill_id()}"><button class="buy-again">Mua Lần Nữa</button></a>
+                            <a href="viewMyOrderDetail?billid=${b.getBill_id()}"><button class="view-order">Xem Chi Tiết Đơn Hàng</button></a>
+                            <!--                        <button class="view-shop">Xem Đánh Giá Shop</button>-->
+                        </div>
+
+                    </div>
+                </c:forEach>
+            </c:if>
+            <c:if test="${sessionScope.billinfo == null}">
+                <h1 style="    text-align: center;
+                    color: red;
+                    margin: 100px;">Bạn chưa mua bắt kì sản phẩm nào</h1>
+            </c:if>
         </div>
 
-        
+
 
         <%@include file="component/footer.jsp" %>
     </body>

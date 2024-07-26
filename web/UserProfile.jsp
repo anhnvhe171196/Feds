@@ -74,66 +74,17 @@
                                 <th style="text-align: center">Xóa</th>
                                 <th style="text-align: center">Tạo</th>
                             </tr>
-                            <c:if test="${sessionScope.account.role.id == 1}">
-                                <tr>
-                                    <td>Admin</td>
-                                    <td><span class="fa fa-check text-primary"></span></td>
-                                    <td><span class="fa fa-check text-primary"></span></td>
-                                    <td><span class="fa fa-check text-primary"></span></td>
-                                    <td><span class="fa fa-check text-primary"></span></td>
-                                    <td><span class="fa fa-check text-primary"></span></td>
-                                    <td><span class="fa fa-check text-primary"></span></td>
-                                    <td><span class="fa fa-check text-primary"></span></td>
-                                </tr>
-                            </c:if> 
-                            <c:if test="${sessionScope.account.role.id == 2}">
-                                <tr>
-                                    <td>Sale Manager</td>
-                                    <td><span class="fa fa-check text-primary"></span></td>
-                                    <td><span class="fa fa-check text-primary"></span></td>
-                                    <td><span class="fa fa-check text-primary"></span></td>
-                                    <td><span class="fa fa-check text-primary"></span></td>
-                                    <td><span class="fa fa-check text-primary"></span></td>
-                                    <td><span class="fa fa-check text-primary"></span></td>
-                                    <td><span class="fa fa-check text-primary"></span></td>
-                                </tr>
-                            </c:if> 
-                            <c:if test="${sessionScope.account.role.id == 3}">
-                                <tr>
-                                    <td>Sale</td>
-                                    <td><span class="fa fa-check text-primary"></span></td>
-                                    <td><span class="fa fa-check text-primary"></span></td>
-                                    <td><span class="fa fa-check text-primary"></span></td>
-                                    <td><span class="fa fa-check text-primary"></span></td>
-                                    <td><span class="fa fa-check text-primary"></span></td>
-                                    <td><span class="fa fa-check text-primary"></span></td>
-                                    <td><span class="fa fa-times text-light"></span></td>
-                                </tr>
-                            </c:if> 
-                            <c:if test="${sessionScope.account.role.id == 4}">
-                                <tr>
-                                    <td>Order Processor</td>
-                                    <td><span class="fa fa-check text-primary"></span></td>
-                                    <td><span class="fa fa-check text-primary"></span></td>
-                                    <td><span class="fa fa-check text-primary"></span></td>
-                                    <td><span class="fa fa-check text-primary"></span></td>
-                                    <td><span class="fa fa-check text-primary"></span></td>
-                                    <td><span class="fa fa-times text-light"></span></td>
-                                    <td><span class="fa fa-times text-light"></span></td>
-                                </tr>
-                            </c:if> 
-                            <c:if test="${sessionScope.account.role.id == 5}">
-                                <tr>
-                                    <td>Customer</td>
-                                    <td><span class="fa fa-check text-primary"></span></td>
-                                    <td><span class="fa fa-check text-primary"></span></td>
-                                    <td><span class="fa fa-check text-primary"></span></td>
-                                    <td><span class="fa fa-times text-light"></span></td>
-                                    <td><span class="fa fa-times text-light"></span></td>
-                                    <td><span class="fa fa-times text-light"></span></td>
-                                    <td><span class="fa fa-times text-light"></span></td>
-                                </tr>
-                            </c:if> 
+                            <tr>
+                                <td>${sessionScope.account.role.roleName}</td>
+                                <td><span class="${requestScope.setting.view?"fa fa-check text-primary":"fa fa-times text-light"}"></span></td>
+                                <td><span class="${requestScope.setting.buy?"fa fa-check text-primary":"fa fa-times text-light"}"></span></td>
+                                <td><span class="${requestScope.setting.feedback?"fa fa-check text-primary":"fa fa-times text-light"}"></span></td>
+                                <td><span class="${requestScope.setting.sell?"fa fa-check text-primary":"fa fa-times text-light"}"></span></td>
+                                <td><span class="${requestScope.setting.edit?"fa fa-check text-primary":"fa fa-times text-light"}"></span></td>
+                                <td><span class="${requestScope.setting.delete?"fa fa-check text-primary":"fa fa-times text-light"}"></span></td>
+                                <td><span class="${requestScope.setting.create?"fa fa-check text-primary":"fa fa-times text-light"}"></span></td>
+                            </tr>
+
                         </tbody>
                     </table>
                 </div>

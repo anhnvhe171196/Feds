@@ -91,9 +91,14 @@ public class ContractCartController extends HttpServlet {
                 listItem = cart.getCartbyUserId(0);
                 request.setAttribute("totalMoney", cart.getTotalMoney(0));
             }
-            request.setAttribute("user", user.getCustomerByID(u));
-            request.setAttribute("cart", listItem);
-            request.getRequestDispatcher("ContractCart.jsp").forward(request, response);
+            if (listItem.isEmpty()) {
+                request.setAttribute("error", "Bạn chưa có bất kì sản phẩm nào trong giỏ hàng cả!!!");
+                request.getRequestDispatcher("CartDetail.jsp").forward(request, response);
+            } else {
+                request.setAttribute("user", user.getCustomerByID(u));
+                request.setAttribute("cart", listItem);
+                request.getRequestDispatcher("ContractCart.jsp").forward(request, response);
+            }
         }
     }
 

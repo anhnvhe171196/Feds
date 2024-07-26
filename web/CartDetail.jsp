@@ -29,7 +29,10 @@
                     <div class="col-lg-9">
                         <div class="card border shadow-0">
                             <div class="m-4">
-                                <h4 class="card-title mb-4">ĐƠN HÀNG CỦA BẠN</h4>
+                                <h4 class="card-title mb-4">ĐƠN HÀNG CỦA BẠN </h4>
+                                <c:if test="${requestScope.error != null}">
+                                    <h4 style="color: #D10024" class="card-title mb-4">${requestScope.error} </h4>
+                                </c:if>
                                 <div class="row gy-3 mb-4">
                                     <c:set var="cartItems" value="${requestScope.cart}"/>
                                     <c:forEach items="${cartItems}" var="i"> 
@@ -48,14 +51,14 @@
                                         <div class="col-lg-2 col-sm-6 col-6 d-flex flex-row flex-lg-column flex-xl-row text-nowrap">
                                             <div class="">
                                                 <div class="col">
-                                                    
+
                                                     <a href="process?num=-1&pid=${i.product.getProduct_id()}"><button class="btn btn-outline-link m-2" style="font-size: 20px">-</button></a>
-                                                    
+
                                                     <a  style="width: 100px;" class="border">${i.quantity}</a>
-                                                    
-                                                        <a href="process?num=1&pid=${i.product.getProduct_id()}"><button class="btn btn-outline-link m-2" style="font-size: 20px">+</button></a>
-                                                    
-                                                    
+
+                                                    <a href="process?num=1&pid=${i.product.getProduct_id()}"><button class="btn btn-outline-link m-2" style="font-size: 20px">+</button></a>
+
+
                                                 </div>
                                             </div>
                                             <div class="">

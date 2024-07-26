@@ -63,6 +63,7 @@
                                                     <c:if test="${sessionScope.account != null && sessionScope.account.role.id == 3}">
                                                     <li><a href="${pageContext.request.contextPath}/saleDashboard">Quản Lý Bán Hàng</a></li>
                                                     </c:if>
+                                                <li><a href="viewmyorder">Lịch sử giao dịch</a></li>
                                                 <li><a href="${pageContext.request.contextPath}/changePassword">Thay đổi mật khẩu</a></li>
                                                 <li><a href="${pageContext.request.contextPath}/userLogout">Đăng xuất</a></li>
                                             </ul>

@@ -258,7 +258,7 @@ public class Bill_DAO extends DBContext {
         double sumOfDoneBill = 0;
         String sql = "SELECT SUM(Total_price)\n"
                 + "FROM Bill\n"
-                + "WHERE User_id = ? and Status != N'Hoàn Thành';";
+                + "WHERE User_id = ? and Status = N'Hoàn Thành';";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);

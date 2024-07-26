@@ -201,145 +201,145 @@
                             <button type="submit" class="btn btn-primary btn-block" style="background-color: #D10024; border-color: #D10024">ĐẶT HÀNG VÀ THANH TOÁN</button>
 
                         </form>
-<!--                        <form action="vnpay" id="frmCreateOrder" method="post" class="checkout">
-                            <div class="woocommerce">
-                                <div id="customer_details" class="col2-set">
-                                    <div class="col-1" style="margin: 0px 30px 0px 0px">
-                                        <h3>Receiver information</h3>
-                                        <div class="woocommerce-billing-fields">
-                                            <p id="billing_first_name_field" class="form-row form-row-first validate-required">
-                                                <label class="" for="billing_first_name">First Name 
-                                                </label>
-                                                <input type="text" value="${ckDetail.getFirstname()}" id="firstname" name="firstname" class="input-text" required>
-                                            </p>
-                                            <p id="billing_last_name_field" class="form-row form-row-last validate-required">
-                                                <label class="" for="billing_last_name">Last Name 
-                                                </label>
-                                                <input type="text" value="${ckDetail.getLastname()}" id="lastname" name="lastname" class="input-text" required>
-                                            </p>
-                                            <p id="billing_phone_field" class="form-row form-row-last validate-required validate-phone">
-                                                <label class="" for="billing_phone">Phone <abbr title="required" class="required">*</abbr>
-                                                </label>
-                                                <input type="text" value="${ckDetail.getMobile()}" placeholder="Mobile" id="mobile" name="mobile" class="input-text " required>
-                                            </p>
-                                            <p id="order_comments_field" class="form-row notes">
-                                                <label class="" for="order_comments">Order Notes</label>
-                                                <textarea cols="5" rows="2" placeholder="Notes about your order, e.g. special notes for delivery." id="order_comments" class="input-text " name="content"></textarea>
-                                            </p>
-                                            <div class="clear"></div>
-                                        </div>
-                                    </div>
+                        <!--                        <form action="vnpay" id="frmCreateOrder" method="post" class="checkout">
+                                                    <div class="woocommerce">
+                                                        <div id="customer_details" class="col2-set">
+                                                            <div class="col-1" style="margin: 0px 30px 0px 0px">
+                                                                <h3>Receiver information</h3>
+                                                                <div class="woocommerce-billing-fields">
+                                                                    <p id="billing_first_name_field" class="form-row form-row-first validate-required">
+                                                                        <label class="" for="billing_first_name">First Name 
+                                                                        </label>
+                                                                        <input type="text" value="${ckDetail.getFirstname()}" id="firstname" name="firstname" class="input-text" required>
+                                                                    </p>
+                                                                    <p id="billing_last_name_field" class="form-row form-row-last validate-required">
+                                                                        <label class="" for="billing_last_name">Last Name 
+                                                                        </label>
+                                                                        <input type="text" value="${ckDetail.getLastname()}" id="lastname" name="lastname" class="input-text" required>
+                                                                    </p>
+                                                                    <p id="billing_phone_field" class="form-row form-row-last validate-required validate-phone">
+                                                                        <label class="" for="billing_phone">Phone <abbr title="required" class="required">*</abbr>
+                                                                        </label>
+                                                                        <input type="text" value="${ckDetail.getMobile()}" placeholder="Mobile" id="mobile" name="mobile" class="input-text " required>
+                                                                    </p>
+                                                                    <p id="order_comments_field" class="form-row notes">
+                                                                        <label class="" for="order_comments">Order Notes</label>
+                                                                        <textarea cols="5" rows="2" placeholder="Notes about your order, e.g. special notes for delivery." id="order_comments" class="input-text " name="content"></textarea>
+                                                                    </p>
+                                                                    <div class="clear"></div>
+                                                                </div>
+                                                            </div>
+                        
+                                                            <div class="col-1">
+                                                                <h3>Delivery information</h3>
+                                                                <div class="address-field">
+                                                                    <p id="billing_address_1_field" class="form-row form-row-wide address-field validate-required">
+                                                                        <label class="" for="billing_address_1">Address <abbr title="required" class="required">*</abbr>
+                                                                        </label>
+                                                                        <input type="text" value="${ckDetail.getLine1()}" placeholder="Street" id="line1" name="line1" class="input-text " required>
+                                                                    </p>
+                                                                    <p id="billing_address_2_field" class="form-row form-row-wide address-field">
+                                                                        <input type="text" value="${ckDetail.getLine2()}" placeholder="Town" id="line2" name="line2" class="input-text ">
+                                                                    </p>
+                                                                    <p id="billing_state_field" class="form-row form-row-first address-field validate-state" data-o_class="form-row form-row-first address-field validate-state">
+                                                                        <label class="" for="billing_state">City</label>
+                                                                        <input type="text" id="city" name="city" placeholder="City" value="${ckDetail.getCity()}" class="input-text " required>
+                                                                    </p>
+                                                                    <p id="billing_city_field" class="form-row form-row-wide address-field validate-required" data-o_class="form-row form-row-wide address-field validate-required">
+                                                                        <label class="" for="billing_city">Province/State <abbr title="required" class="required">*</abbr>
+                                                                        </label>
+                                                                        <input type="text" value="${ckDetail.getProvince()}" placeholder="Province/State" id="province" name="province" class="input-text " required>
+                                                                    </p>
+                                                                    <div class="clear"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                        
+                                                        <h3 id="order_review_heading">Payment details</h3>
+                                                        <div id="order_review" style="position: relative">
+                                                            <table class="shop_table">
+                                                                <tbody>
+                        <c:forEach items="${oiList}" var="item">
+                            <tr class="cart_item">
+                                <td class="product-name">
+                            ${item.getProName()} <strong class="product-quantity">× ${item.getQuantity()}</strong> </td>
+                        <td class="product-total">
+                            <span class="amount">
+                            <fmt:setLocale value = "vi_VN"/>
+                            <fmt:formatNumber value ="${item.getOrderItemTotal()}" type = "currency"/>
+                        </span> 
+                    </td>
+                </tr>
+                        </c:forEach>
+                    </tbody>
+                    <tfoot>
+                        <tr class="discount">
+                            <th>Discount</th>
+                            <td><span class="amount">1%</span</td>
+                        </tr>
+                        <tr class="cart-subtotal">
+                            <th>Subtotal</th>
+                            <td>
+                                <span class="amount">
+                        <fmt:setLocale value = "vi_VN"/>
+                        <fmt:formatNumber value = "0" type = "currency"/>
+                    </span>
+                </td>
+            </tr>
+            <tr class="tax">
+                <th>Tax</th>
+                <td>
+                    <span class="amount">
+                        <fmt:setLocale value = "vi_VN"/>
+                        <fmt:formatNumber value = "1" type = "currency"/>
+                    </span
+                </td>
+            </tr>
+            <tr class="shipping">
+                <th>Shipping</th>
+                <td>
+                    <span class="amount">
+                        <fmt:setLocale value = "vi_VN"/>
+                        <fmt:formatNumber value = "2" type = "currency"/>
+                    </span>
+                </td>
+            </tr>
+            <tr class="order-grandTotal">
+                <th>Grand Total</th>
+                <td>
+                    <strong>
+                        <span class="amount">
+                        <fmt:setLocale value = "vi_VN"/>
+                        <fmt:formatNumber value = "230000" type = "currency"/>
+                        <input type='number' name="amount" value="230000" hidden>
+                    </span>
+                </strong>
+            </td>
+        </tr>
+    </tfoot>
+</table>
 
-                                    <div class="col-1">
-                                        <h3>Delivery information</h3>
-                                        <div class="address-field">
-                                            <p id="billing_address_1_field" class="form-row form-row-wide address-field validate-required">
-                                                <label class="" for="billing_address_1">Address <abbr title="required" class="required">*</abbr>
-                                                </label>
-                                                <input type="text" value="${ckDetail.getLine1()}" placeholder="Street" id="line1" name="line1" class="input-text " required>
-                                            </p>
-                                            <p id="billing_address_2_field" class="form-row form-row-wide address-field">
-                                                <input type="text" value="${ckDetail.getLine2()}" placeholder="Town" id="line2" name="line2" class="input-text ">
-                                            </p>
-                                            <p id="billing_state_field" class="form-row form-row-first address-field validate-state" data-o_class="form-row form-row-first address-field validate-state">
-                                                <label class="" for="billing_state">City</label>
-                                                <input type="text" id="city" name="city" placeholder="City" value="${ckDetail.getCity()}" class="input-text " required>
-                                            </p>
-                                            <p id="billing_city_field" class="form-row form-row-wide address-field validate-required" data-o_class="form-row form-row-wide address-field validate-required">
-                                                <label class="" for="billing_city">Province/State <abbr title="required" class="required">*</abbr>
-                                                </label>
-                                                <input type="text" value="${ckDetail.getProvince()}" placeholder="Province/State" id="province" name="province" class="input-text " required>
-                                            </p>
-                                            <div class="clear"></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <h3 id="order_review_heading">Payment details</h3>
-                                <div id="order_review" style="position: relative">
-                                    <table class="shop_table">
-                                        <tbody>
-                                            <c:forEach items="${oiList}" var="item">
-                                                <tr class="cart_item">
-                                                    <td class="product-name">
-                                                        ${item.getProName()} <strong class="product-quantity">× ${item.getQuantity()}</strong> </td>
-                                                    <td class="product-total">
-                                                        <span class="amount">
-                                                            <fmt:setLocale value = "vi_VN"/>
-                                                            <fmt:formatNumber value ="${item.getOrderItemTotal()}" type = "currency"/>
-                                                        </span> 
-                                                    </td>
-                                                </tr>
-                                            </c:forEach>
-                                        </tbody>
-                                        <tfoot>
-                                            <tr class="discount">
-                                                <th>Discount</th>
-                                                <td><span class="amount">1%</span</td>
-                                            </tr>
-                                            <tr class="cart-subtotal">
-                                                <th>Subtotal</th>
-                                                <td>
-                                                    <span class="amount">
-                                                        <fmt:setLocale value = "vi_VN"/>
-                                                        <fmt:formatNumber value = "0" type = "currency"/>
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            <tr class="tax">
-                                                <th>Tax</th>
-                                                <td>
-                                                    <span class="amount">
-                                                        <fmt:setLocale value = "vi_VN"/>
-                                                        <fmt:formatNumber value = "1" type = "currency"/>
-                                                    </span
-                                                </td>
-                                            </tr>
-                                            <tr class="shipping">
-                                                <th>Shipping</th>
-                                                <td>
-                                                    <span class="amount">
-                                                        <fmt:setLocale value = "vi_VN"/>
-                                                        <fmt:formatNumber value = "2" type = "currency"/>
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            <tr class="order-grandTotal">
-                                                <th>Grand Total</th>
-                                                <td>
-                                                    <strong>
-                                                        <span class="amount">
-                                                            <fmt:setLocale value = "vi_VN"/>
-                                                            <fmt:formatNumber value = "230000" type = "currency"/>
-                                                            <input type='number' name="amount" value="230000" hidden>
-                                                        </span>
-                                                    </strong>
-                                                </td>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-
-                                    <div id="payment">
-                                        <ul class="payment_methods methods">
-                                            <li class="payment_method_cheque">
-                                                <input type="radio" data-order_button_text="" value="cash" name="paymentMethod" class="input-radio" id="payment_method_cheque">
-                                                <label for="payment_method_cheque">Cash </label>
-                                            </li>
-                                            <li class="payment_method_paypal">
-                                                <input name="bankCode" value="" hidden>
-                                                <input type="radio" data-order_button_text="" value="vnpay" name=   "paymentMethod" class="input-radio" id="payment_method_paypal">
-                                                <label for="payment_method_paypal">VNPAY </label>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="form-row place-order">
-                                        <a style="padding: 10px 20px; margin-right: 20px; border: 1px solid darkorange; text-transform: uppercase" href="order/drop&${ckDetail.getOrderId()}" id="drop_order" class="button alt">Drop order</a>
-                                        <button type="submit" onclick="submitCheckout()" id="place_order" class="button alt" ${(ckDetail.getCountryId() == "")?'disabled':''}>Place order</button>
-                                        <input value="${ckDetail.getOrderId()}" name="orderId" hidden>
-                                    </div>
-                                </div>
-                            </div> 
-                        </form> -->
+<div id="payment">
+    <ul class="payment_methods methods">
+        <li class="payment_method_cheque">
+            <input type="radio" data-order_button_text="" value="cash" name="paymentMethod" class="input-radio" id="payment_method_cheque">
+            <label for="payment_method_cheque">Cash </label>
+        </li>
+        <li class="payment_method_paypal">
+            <input name="bankCode" value="" hidden>
+            <input type="radio" data-order_button_text="" value="vnpay" name=   "paymentMethod" class="input-radio" id="payment_method_paypal">
+            <label for="payment_method_paypal">VNPAY </label>
+        </li>
+    </ul>
+</div>
+<div class="form-row place-order">
+    <a style="padding: 10px 20px; margin-right: 20px; border: 1px solid darkorange; text-transform: uppercase" href="order/drop&${ckDetail.getOrderId()}" id="drop_order" class="button alt">Drop order</a>
+    <button type="submit" onclick="submitCheckout()" id="place_order" class="button alt" ${(ckDetail.getCountryId() == "")?'disabled':''}>Place order</button>
+    <input value="${ckDetail.getOrderId()}" name="orderId" hidden>
+</div>
+</div>
+</div> 
+</form> -->
                     </div>
                 </div>
 
@@ -372,10 +372,6 @@
                                 <p>Phí giao hàng</p>
                                 <p>Miễn phí</p>
                             </div>
-                            <div class="d-flex justify-content-between">
-                                <p>Giảm giá (0%)</p>
-                                <p><fmt:formatNumber value="${totalMoney * 0/100}" pattern="#,###" />VNĐ</p>
-                            </div>
                             <hr>
                             <div class="d-flex justify-content-between">
                                 <h5>Tổng cộng</h5>
@@ -394,218 +390,98 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script src="https://esgoo.net/scripts/jquery.js"></script>
         <script>
-                                            $(document).ready(function () {
-                                                // Fetch provinces
-                                                $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm', function (data_tinh) {
-                                                    if (data_tinh.error == 0) {
-                                                        $.each(data_tinh.data, function (key_tinh, val_tinh) {
-                                                            $("#tinh").append('<option value="' + val_tinh.id + '">' + val_tinh.full_name + '</option>');
-                                                        });
-                                                        $("#tinh").change(function (e) {
-                                                            var idtinh = $(this).val();
-                                                            $("#hidden_tinh").val($("#tinh option:selected").text());
-                                                            // Fetch districts
-                                                            $.getJSON('https://esgoo.net/api-tinhthanh/2/' + idtinh + '.htm', function (data_quan) {
-                                                                if (data_quan.error == 0) {
-                                                                    $("#quan").html('<option value="0">Quận Huyện</option>');
-                                                                    $("#phuong").html('<option value="0">Phường Xã</option>');
-                                                                    $.each(data_quan.data, function (key_quan, val_quan) {
-                                                                        $("#quan").append('<option value="' + val_quan.id + '">' + val_quan.full_name + '</option>');
-                                                                    });
-                                                                    // Fetch wards
-                                                                    $("#quan").change(function (e) {
-                                                                        var idquan = $(this).val();
-                                                                        $("#hidden_quan").val($("#quan option:selected").text());
-                                                                        $.getJSON('https://esgoo.net/api-tinhthanh/3/' + idquan + '.htm', function (data_phuong) {
-                                                                            if (data_phuong.error == 0) {
-                                                                                $("#phuong").html('<option value="0">Phường Xã</option>');
-                                                                                $.each(data_phuong.data, function (key_phuong, val_phuong) {
-                                                                                    $("#phuong").append('<option value="' + val_phuong.id + '">' + val_phuong.full_name + '</option>');
-                                                                                });
-                                                                                $("#phuong").change(function (e) {
-                                                                                    $("#hidden_phuong").val($("#phuong option:selected").text());
-                                                                                });
-                                                                            }
-                                                                        });
-                                                                    });
-                                                                }
-                                                            });
-                                                        });
-                                                    }
+            document.getElementById('frmCreateOrder').addEventListener('submit', function (event) {
+                var tinh = document.getElementById('tinh').value;
+                var quan = document.getElementById('quan').value;
+                var phuong = document.getElementById('phuong').value;
+
+                if (tinh === '0' || quan === '0' || phuong === '0') {
+                    event.preventDefault(); // Ngăn chặn gửi form
+                    alert('Vui lòng chọn tất cả các trường Tỉnh, Quận, Phường trước khi mua hàng.');
+                } else {
+                    // Gán giá trị đã chọn vào các hidden input
+                    document.getElementById('hidden_tinh').value = document.getElementById('tinh').options[document.getElementById('tinh').selectedIndex].text;
+                    document.getElementById('hidden_quan').value = document.getElementById('quan').options[document.getElementById('quan').selectedIndex].text;
+                    document.getElementById('hidden_phuong').value = document.getElementById('phuong').options[document.getElementById('phuong').selectedIndex].text;
+                }
+            });
+        </script>
+        <script>
+            $(document).ready(function () {
+                // Fetch provinces
+                $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm', function (data_tinh) {
+                    if (data_tinh.error == 0) {
+                        $.each(data_tinh.data, function (key_tinh, val_tinh) {
+                            $("#tinh").append('<option value="' + val_tinh.id + '">' + val_tinh.full_name + '</option>');
+                        });
+                        $("#tinh").change(function (e) {
+                            var idtinh = $(this).val();
+                            $("#hidden_tinh").val($("#tinh option:selected").text());
+                            // Fetch districts
+                            $.getJSON('https://esgoo.net/api-tinhthanh/2/' + idtinh + '.htm', function (data_quan) {
+                                if (data_quan.error == 0) {
+                                    $("#quan").html('<option value="0">Quận Huyện</option>');
+                                    $("#phuong").html('<option value="0">Phường Xã</option>');
+                                    $.each(data_quan.data, function (key_quan, val_quan) {
+                                        $("#quan").append('<option value="' + val_quan.id + '">' + val_quan.full_name + '</option>');
+                                    });
+                                    // Fetch wards
+                                    $("#quan").change(function (e) {
+                                        var idquan = $(this).val();
+                                        $("#hidden_quan").val($("#quan option:selected").text());
+                                        $.getJSON('https://esgoo.net/api-tinhthanh/3/' + idquan + '.htm', function (data_phuong) {
+                                            if (data_phuong.error == 0) {
+                                                $("#phuong").html('<option value="0">Phường Xã</option>');
+                                                $.each(data_phuong.data, function (key_phuong, val_phuong) {
+                                                    $("#phuong").append('<option value="' + val_phuong.id + '">' + val_phuong.full_name + '</option>');
                                                 });
-                                            });
+                                                $("#phuong").change(function (e) {
+                                                    $("#hidden_phuong").val($("#phuong option:selected").text());
+                                                });
+                                            }
+                                        });
+                                    });
+                                }
+                            });
+                        });
+                    }
+                });
+            });
         </script>
         <script type="text/javascript">
-                                                function submitCheckout() {
-                                                    var a = document.getElementById("firstname").value;
-                                                    var b = document.getElementById("lastname").value;
-                                                    var c = document.getElementById("mobile").value;
-                                                    var d = document.getElementById("line1").value;
-                                                    var e = document.getElementById("city").value;
-                                                    var f = document.getElementById("province").value;
-                                                    if (a !== "" && b !== "" && c !== "" && d !== "" && e !== "" && f !== "") {
-                                                        var postData = $("#frmCreateOrder").serialize();
-                                                        var submitUrl = $("#frmCreateOrder").attr("action");
-                                                        $.ajax({
-                                                            type: "POST",
-                                                            url: submitUrl,
-                                                            data: postData,
-                                                            dataType: 'JSON',
-                                                            success: function (x) {
-                                                                if (x.code === '00') {
-                                                                    if (window.vnpay) {
-                                                                        vnpay.open({width: 768, height: 600, url: x.data});
-                                                                    } else {
-                                                                        location.href = x.data;
-                                                                    }
-                                                                    return false;
-                                                                } else {
-                                                                    alert(x.Message);
-                                                                }
-                                                            }
-                                                        });
-                                                    }
-                                                    return false;
-                                                }
-        </script>     
-<!--        <form action="vnpay" id="frmCreateOrder" method="post" class="checkout">
-                            <div class="woocommerce">
-                                <div id="customer_details" class="col2-set">
-                                    <div class="col-1" style="margin: 0px 30px 0px 0px">
-                                        <h3>Receiver information</h3>
-                                        <div class="woocommerce-billing-fields">
-                                            <p id="billing_first_name_field" class="form-row form-row-first validate-required">
-                                                <label class="" for="billing_first_name">First Name 
-                                                </label>
-                                                <input type="text" value="${ckDetail.getFirstname()}" id="firstname" name="firstname" class="input-text" required>
-                                            </p>
-                                            <p id="billing_last_name_field" class="form-row form-row-last validate-required">
-                                                <label class="" for="billing_last_name">Last Name 
-                                                </label>
-                                                <input type="text" value="${ckDetail.getLastname()}" id="lastname" name="lastname" class="input-text" required>
-                                            </p>
-                                            <p id="billing_phone_field" class="form-row form-row-last validate-required validate-phone">
-                                                <label class="" for="billing_phone">Phone <abbr title="required" class="required">*</abbr>
-                                                </label>
-                                                <input type="text" value="${ckDetail.getMobile()}" placeholder="Mobile" id="mobile" name="mobile" class="input-text " required>
-                                            </p>
-                                            <p id="order_comments_field" class="form-row notes">
-                                                <label class="" for="order_comments">Order Notes</label>
-                                                <textarea cols="5" rows="2" placeholder="Notes about your order, e.g. special notes for delivery." id="order_comments" class="input-text " name="content"></textarea>
-                                            </p>
-                                            <div class="clear"></div>
-                                        </div>
-                                    </div>
+            function submitCheckout() {
+                var a = document.getElementById("firstname").value;
+                var b = document.getElementById("lastname").value;
+                var c = document.getElementById("mobile").value;
+                var d = document.getElementById("line1").value;
+                var e = document.getElementById("city").value;
+                var f = document.getElementById("province").value;
+                if (a !== "" && b !== "" && c !== "" && d !== "" && e !== "" && f !== "") {
+                    var postData = $("#frmCreateOrder").serialize();
+                    var submitUrl = $("#frmCreateOrder").attr("action");
+                    $.ajax({
+                        type: "POST",
+                        url: submitUrl,
+                        data: postData,
+                        dataType: 'JSON',
+                        success: function (x) {
+                            if (x.code === '00') {
+                                if (window.vnpay) {
+                                    vnpay.open({width: 768, height: 600, url: x.data});
+                                } else {
+                                    location.href = x.data;
+                                }
+                                return false;
+                            } else {
+                                alert(x.Message);
+                            }
+                        }
+                    });
+                }
+                return false;
+            }
+        </script>    
 
-                                    <div class="col-1">
-                                        <h3>Delivery information</h3>
-                                        <div class="address-field">
-                                            <p id="billing_address_1_field" class="form-row form-row-wide address-field validate-required">
-                                                <label class="" for="billing_address_1">Address <abbr title="required" class="required">*</abbr>
-                                                </label>
-                                                <input type="text" value="${ckDetail.getLine1()}" placeholder="Street" id="line1" name="line1" class="input-text " required>
-                                            </p>
-                                            <p id="billing_address_2_field" class="form-row form-row-wide address-field">
-                                                <input type="text" value="${ckDetail.getLine2()}" placeholder="Town" id="line2" name="line2" class="input-text ">
-                                            </p>
-                                            <p id="billing_state_field" class="form-row form-row-first address-field validate-state" data-o_class="form-row form-row-first address-field validate-state">
-                                                <label class="" for="billing_state">City</label>
-                                                <input type="text" id="city" name="city" placeholder="City" value="${ckDetail.getCity()}" class="input-text " required>
-                                            </p>
-                                            <p id="billing_city_field" class="form-row form-row-wide address-field validate-required" data-o_class="form-row form-row-wide address-field validate-required">
-                                                <label class="" for="billing_city">Province/State <abbr title="required" class="required">*</abbr>
-                                                </label>
-                                                <input type="text" value="${ckDetail.getProvince()}" placeholder="Province/State" id="province" name="province" class="input-text " required>
-                                            </p>
-                                            <div class="clear"></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <h3 id="order_review_heading">Payment details</h3>
-                                <div id="order_review" style="position: relative">
-                                    <table class="shop_table">
-                                        <tbody>
-                                            <c:forEach items="${oiList}" var="item">
-                                                <tr class="cart_item">
-                                                    <td class="product-name">
-                                                        ${item.getProName()} <strong class="product-quantity">× ${item.getQuantity()}</strong> </td>
-                                                    <td class="product-total">
-                                                        <span class="amount">
-                                                            <fmt:setLocale value = "vi_VN"/>
-                                                            <fmt:formatNumber value ="${item.getOrderItemTotal()}" type = "currency"/>
-                                                        </span> 
-                                                    </td>
-                                                </tr>
-                                            </c:forEach>
-                                        </tbody>
-                                        <tfoot>
-                                            <tr class="discount">
-                                                <th>Discount</th>
-                                                <td><span class="amount">1%</span</td>
-                                            </tr>
-                                            <tr class="cart-subtotal">
-                                                <th>Subtotal</th>
-                                                <td>
-                                                    <span class="amount">
-                                                        <fmt:setLocale value = "vi_VN"/>
-                                                        <fmt:formatNumber value = "0" type = "currency"/>
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            <tr class="tax">
-                                                <th>Tax</th>
-                                                <td>
-                                                    <span class="amount">
-                                                        <fmt:setLocale value = "vi_VN"/>
-                                                        <fmt:formatNumber value = "1" type = "currency"/>
-                                                    </span
-                                                </td>
-                                            </tr>
-                                            <tr class="shipping">
-                                                <th>Shipping</th>
-                                                <td>
-                                                    <span class="amount">
-                                                        <fmt:setLocale value = "vi_VN"/>
-                                                        <fmt:formatNumber value = "2" type = "currency"/>
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            <tr class="order-grandTotal">
-                                                <th>Grand Total</th>
-                                                <td>
-                                                    <strong>
-                                                        <span class="amount">
-                                                            <fmt:setLocale value = "vi_VN"/>
-                                                            <fmt:formatNumber value = "230000" type = "currency"/>
-                                                            <input type='number' name="amount" value="230000" hidden>
-                                                        </span>
-                                                    </strong>
-                                                </td>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-
-                                    <div id="payment">
-                                        <ul class="payment_methods methods">
-                                            <li class="payment_method_cheque">
-                                                <input type="radio" data-order_button_text="" value="cash" name="paymentMethod" class="input-radio" id="payment_method_cheque">
-                                                <label for="payment_method_cheque">Cash </label>
-                                            </li>
-                                            <li class="payment_method_paypal">
-                                                <input name="bankCode" value="" hidden>
-                                                <input type="radio" data-order_button_text="" value="vnpay" name=   "paymentMethod" class="input-radio" id="payment_method_paypal">
-                                                <label for="payment_method_paypal">VNPAY </label>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="form-row place-order">
-                                        <a style="padding: 10px 20px; margin-right: 20px; border: 1px solid darkorange; text-transform: uppercase" href="order/drop&${ckDetail.getOrderId()}" id="drop_order" class="button alt">Drop order</a>
-                                        <button type="submit" onclick="submitCheckout()" id="place_order" class="button alt" ${(ckDetail.getCountryId() == "")?'disabled':''}>Place order</button>
-                                        <input value="${ckDetail.getOrderId()}" name="orderId" hidden>
-                                    </div>
-                                </div>
-                            </div> 
-                        </form>      -->
     </body>
+
 </html>
