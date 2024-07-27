@@ -339,7 +339,7 @@
 
 
 
-                                                <h4 class="product-price"><fmt:formatNumber value="${p.getPrice()}" pattern="#,###"/> VNĐ <del class="product-old-price">$990.00</del></h4>
+                                                <h4 class="product-price"><fmt:formatNumber value="${p.getPrice()}" pattern="#,###"/> VNĐ </h4>
 
                                             </div>
                                         </div>
@@ -359,7 +359,7 @@
                                             <div class="product-body">
                                                 <p class="product-category">${mtb.getCategory_name()}</p>
                                                 <h3 class="product-name"><a href="product?pid=${mtb.getProduct_id()}">${mtb.getProduct_name()}</a></h3>
-                                                <h4 class="product-price"><fmt:formatNumber value="${mtb.getPrice()}" pattern="#,###"/>VNĐ <del class="product-old-price">$990.00</del></h4>
+                                                <h4 class="product-price"><fmt:formatNumber value="${mtb.getPrice()}" pattern="#,###"/>VNĐ </h4>
                                             </div>
                                         </div>
                                     </c:if>
@@ -391,7 +391,7 @@
 
 
 
-                                                <h4 class="product-price"><fmt:formatNumber value="${t.getPrice()}" pattern="#,###"/> VNĐ<del class="product-old-price">$990.00</del></h4>
+                                                <h4 class="product-price"><fmt:formatNumber value="${t.getPrice()}" pattern="#,###"/> VNĐ</h4>
 
                                             </div>
                                         </div>
@@ -411,7 +411,7 @@
                                             <div class="product-body">
                                                 <p class="product-category">${ml.getCategory_name()}</p>
                                                 <h3 class="product-name"><a href="product?pid=${ml.getProduct_id()}">${ml.getProduct_name()}</a></h3>
-                                                <h4 class="product-price"><fmt:formatNumber value="${ml.getPrice()}" pattern="#,###"/>VNĐ <del class="product-old-price">$990.00</del></h4>
+                                                <h4 class="product-price"><fmt:formatNumber value="${ml.getPrice()}" pattern="#,###"/>VNĐ </h4>
                                             </div>
                                         </div>
                                         <!-- /product widget -->   
@@ -443,7 +443,7 @@
                                             <div class="product-body">
                                                 <p class="product-category">${hdd.getCategory_name()}</p>
                                                 <h3 class="product-name"><a href="product?pid=${hdd.getProduct_id()}">${hdd.getProduct_name()}</a></h3>
-                                                <h4 class="product-price"><fmt:formatNumber value="${hdd.getPrice()}" pattern="#,###"/>VNĐ <del class="product-old-price">$990.00</del></h4>
+                                                <h4 class="product-price"><fmt:formatNumber value="${hdd.getPrice()}" pattern="#,###"/>VNĐ </h4>
                                             </div>
                                         </div>
                                         <!-- /product widget -->  
@@ -462,7 +462,7 @@
                                             <div class="product-body">
                                                 <p class="product-category">${hc.getCategory_name()}</p>
                                                 <h3 class="product-name"><a href="product?pid=${hc.getProduct_id()}">${hc.getProduct_name()}</a></h3>
-                                                <h4 class="product-price"><fmt:formatNumber value="${hc.getPrice()}" pattern="#,###"/>VNĐ <del class="product-old-price">$990.00</del></h4>
+                                                <h4 class="product-price"><fmt:formatNumber value="${hc.getPrice()}" pattern="#,###"/>VNĐ </h4>
                                             </div>
                                         </div>
                                         <!-- /product widget -->

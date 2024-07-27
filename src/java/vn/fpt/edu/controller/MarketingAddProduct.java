@@ -137,15 +137,35 @@ public class MarketingAddProduct extends HttpServlet {
                 Pstatus = "active"; // Thay đổi trạng thái thành Deleted
             }
             String ram = request.getParameter("ram");
+            ram = (ram == null || ram.trim().isEmpty()) ? null : ram;
+
             String rom = request.getParameter("rom");
+            rom = (rom == null || rom.trim().isEmpty()) ? null : rom;
+
             String size = request.getParameter("size");
+            size = (size == null || size.trim().isEmpty()) ? null : size;
+
             String battery = request.getParameter("battery");
+            battery = (battery == null || battery.trim().isEmpty()) ? null : battery;
+
             String weight = request.getParameter("weight");
+            weight = (weight == null || weight.trim().isEmpty()) ? null : weight;
+
             String color = request.getParameter("color");
+            color = (color == null || color.trim().isEmpty()) ? null : color;
+
             String decription = request.getParameter("decription");
+            decription = (decription == null || decription.trim().isEmpty()) ? null : decription;
+
             String cpu = request.getParameter("cpu");
+            cpu = (cpu == null || cpu.trim().isEmpty()) ? null : cpu;
+
             String wattage = request.getParameter("wattage");
+            wattage = (wattage == null || wattage.trim().isEmpty()) ? null : wattage;
+
             String status = request.getParameter("status");
+            status = (status == null || status.trim().isEmpty()) ? null : status;
+
             String priceString = request.getParameter("price");
             priceString = priceString.replace(" VND", ""); // Loại bỏ " VND"
             double price = Double.parseDouble(priceString.replace(",", ""));

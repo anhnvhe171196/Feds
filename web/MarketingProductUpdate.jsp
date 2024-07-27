@@ -174,28 +174,7 @@
                     <button type="submit" class="btn btn-primary" >Enter</button> 
                 </form> 
                 <div class="navbar-nav align-items-center ms-auto">
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Tin nhắn</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">Xem tất cả tin nhắn</a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-bell me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Thông báo</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">Xem tất cả thông báo</a>
-                        </div>
-                    </div>
+                    
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="images/${sessionScope.account.avarta}" alt="" style="width: 40px; height: 40px;">
@@ -291,7 +270,7 @@
                                                 <hr/>
                                                 <div class="mb-3">
                                                     <h6>Giá: </h6>
-                                                    <input type="numb" name="price" value="<fmt:formatNumber value="${product.price.price}"/>" class="form-control" required/>
+                                                    <input type="numb" name="price" value="<fmt:formatNumber value="${product.price.price}" pattern="#,###"/>" class="form-control" required/>
                                                     <hr/>
                                                     <h6>Số sản phẩm còn lại:</h6>
                                                     <input type="number" name="quantity" value="${product.quantity}" class="form-control" min="0"/>
