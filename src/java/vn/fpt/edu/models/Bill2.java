@@ -11,6 +11,7 @@ import java.util.Date;
  * @author admin
  */
 public class Bill2 {
+
     private int Bill_id;
     private double Total_price;
     private Date Date;
@@ -22,9 +23,12 @@ public class Bill2 {
     private User user;
     private Order order;
     private Product1 product1;
-    
 
     public Bill2() {
+    }
+
+    public Bill2(int Bill_id) {
+        this.Bill_id=Bill_id;
     }
 
     public Bill2(int Bill_id, double Total_price, Date Date, String Address, String Status, String Province, String District, String Country, User user, Order order, Product1 product1) {
@@ -56,7 +60,6 @@ public class Bill2 {
     public void setOrder(Order order) {
         this.order = order;
     }
-
 
     public String getProvince() {
         return Province;
@@ -129,5 +132,5 @@ public class Bill2 {
     public void setUser(User user) {
         this.user = user;
     }
-    
+
 }

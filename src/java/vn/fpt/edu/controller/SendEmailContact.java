@@ -85,7 +85,7 @@ public class SendEmailContact extends HttpServlet {
         String email = request.getParameter("email");
         int contact_id = Integer.parseInt(request.getParameter("contact_id"));
         String subject1 = request.getParameter("subject");
-        String message1 = request.getParameter("message1");
+        String message1 = request.getParameter("message");
         // Cấu hình thông tin email
         String host = "smtp.gmail.com";
         String port = "587";

@@ -42,7 +42,7 @@ public class DashboardController extends HttpServlet {
         request.setAttribute("trendDone", trendDone);
         
         request.setAttribute("Revenues", bDAO.totalRevenue()); 
-        HashMap<String, Integer> h = bDAO.totalRevenueByCate();
+        HashMap<String, Long> h = bDAO.totalRevenueByCate();
         request.setAttribute("RevenueCate", h); 
         Category_DAO cDAO = new Category_DAO();
         request.setAttribute("CateWithStock", cDAO.getAllCateWithStock()); 

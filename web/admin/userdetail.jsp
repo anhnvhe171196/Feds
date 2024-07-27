@@ -213,7 +213,7 @@
         </div>
     </div>
         <button class='btn-success' style='background-color: #ef233c; border-color: #000000;' id='update-user'>UPDATE USER DETAIL</button>
-        <button class="btn-success" onclick="AddNew()" style='margin-top: 10px'>Add New User</button>
+        <button class="btn-success" onclick="window.location.href='users'" style='margin-top: 10px'>Back</button>
 </div>
                         </div>
                     </div>

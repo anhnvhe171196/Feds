@@ -76,15 +76,15 @@ public class Bill_DAO extends DBContext {
         return numOfBill;
     }
 
-    public int totalRevenue() {
-        int total = 0;
+    public long totalRevenue() {
+        long total = 0;
         String sql = "SELECT SUM(Total_price) as Total FROM Bill WHERE Status = 'Hoàn Thành'";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
 
-                total = rs.getInt("Total");
+                total = rs.getLong("Total");
 
             }
         } catch (SQLException e) {
@@ -93,16 +93,22 @@ public class Bill_DAO extends DBContext {
         return total;
     }
 
-    public HashMap<String, Integer> totalRevenueByCate() {
-        HashMap<String, Integer> total = new HashMap();
-        String sql = "SELECT SUM(Total_price) as Total, Product_Category.Category_name FROM Bill join [Order] on [Order].Bill_id = Bill.Bill_Id join Product on Product.Product_id = [Order].Product_id join Brandd on Brandd.Brand_Id = Product.Brand_id join Product_Category on Product_Category.Category_id = Brandd.Category_id WHERE [Bill].[Status] = 'Hoàn Thành' GROUP BY Product_Category.Category_name";
+    public HashMap<String, Long> totalRevenueByCate() {
+        HashMap<String, Long> total = new HashMap();
+        String sql = "SELECT * FROM [Product_Category]";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-
-                total.put(rs.getString("Category_name"), rs.getInt("Total"));
-
+                PreparedStatement ps = connection.prepareStatement("SELECT ((SELECT Price.Price - Price.Price * (Price.Sale / 100.0 * ISNULL((SELECT 1 WHERE [Order].Real_time_price >= Price.Date_start AND [Order].Real_time_price <= Price.Date_end), 0)) FROM Price WHERE Product_id = [Order].Product_id) * [Order].Order_quantity) as Total FROM [Order] join Product on Product.Product_id = [Order].Product_id join Brandd on Brandd.Brand_Id = Product.Brand_id WHERE Brandd.Category_id = ?");
+                ps.setInt(1, rs.getInt("Category_id"));
+                String name = rs.getString("Category_name");
+                long totalVal = 0;
+                ResultSet prs = ps.executeQuery();
+                while(prs.next()) {
+                    totalVal += prs.getLong("Total");
+                }
+                total.put(name, totalVal);
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -119,7 +125,7 @@ public class Bill_DAO extends DBContext {
                 + "    [Feds].[dbo].[Bill]\n"
                 + "WHERE\n"
                 + "    Date BETWEEN ? AND ?\n"
-                + "    AND Status = 'Hoàn Thành'\n"
+                + "    AND Status = N'Hoàn Thành'\n"
                 + "GROUP BY\n"
                 + "    Date\n"
                 + "ORDER BY\n"

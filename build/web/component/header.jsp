@@ -43,7 +43,7 @@
                                 <a href="${pageContext.request.contextPath}/login">
                                     <i class="fa fa-user-o" style="color: red"></i>
                                 </a>
-                                <a href="${pageContext.request.contextPath}/login"><button class="menu-button" >Login</button></a>
+                                <a href="${pageContext.request.contextPath}/login"><button class="menu-button" >Đăng nhập</button></a>
                             </c:if>
                             <c:if test="${sessionScope.account != null}">
                                 <a class="fa" href="${pageContext.request.contextPath}/userProfile"><img style="width: 23px;border-radius: 20px;" src="${pageContext.request.contextPath}/images/${sessionScope.account.avarta}" alt="alt"/></a>
@@ -59,6 +59,8 @@
                                                     </c:if>
                                                     <c:if test="${sessionScope.account != null && sessionScope.account.role.id == 1}">
                                                     <li><a href="${pageContext.request.contextPath}/admin/dashboard">Admin Dashboard</a></li>
+                                                    <li><a href="${pageContext.request.contextPath}/marketingDashBoard">Marketing Dashboard</a></li>
+                                                    <li><a href="${pageContext.request.contextPath}/saleDashboard">Sale Dashboard</a></li>
                                                     </c:if>
                                                     <c:if test="${sessionScope.account != null && sessionScope.account.role.id == 3}">
                                                     <li><a href="${pageContext.request.contextPath}/saleDashboard">Quản Lý Bán Hàng</a></li>
@@ -93,7 +95,7 @@
                         <div class="col-md-2">  
                             <div class="header-logo">
                                 <a href="${pageContext.request.contextPath}/home" class="logo">
-                                    <img style="width: 50%;border-radius: 100px;" src="${pageContext.request.contextPath}/images/logo.jpg" alt="alt"/>
+                                    <img style="width: 50%;border-radius: 100px;" src="${pageContext.request.contextPath}/images/logo_2.jpg" alt="alt"/>
                                 </a>
                             </div>
                         </div>

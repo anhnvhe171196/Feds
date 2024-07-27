@@ -77,7 +77,7 @@
             <div class="sidebar pe-4 pb-3">
                 <nav class="navbar bg-light navbar-light">
                     <a href="home" class="navbar-brand mx-4 mb-3">
-                        <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Marketing</h3>
+                        <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>${sessionScope.account.role.roleName}</h3>
                     </a>
                     <div class="d-flex align-items-center ms-4 mb-4">
                         <div class="position-relative">
@@ -87,7 +87,7 @@
                         <div class="ms-3">
                             <h6 class="mb-0">${sessionScope.account.user_name}</h6>
 
-                            <span>Marketing</span>
+                            <span>${sessionScope.account.role.roleName}</span>
                         </div>
                     </div>
                     <div class="navbar-nav w-100">
@@ -231,12 +231,49 @@
                                                     </div>
 
                                                     <hr/>
+                                                    <div>
+                                                        <h6 style="display: inline; color: #757575;">Số sản phẩm còn lại:</h6>
+                                                        <span class="h5" style="color: #1aa6ff; display: inline;">${product.quantity}</span>
+                                                    </div>
+
+                                                    <hr/>
                                                     <h6>Mô tả:</h6>
                                                     <c:if test="${not empty product.detail.decription}">
                                                         <dd class="col-9" >${product.detail.decription}</dd>
                                                     </c:if>
                                                     <hr/>
-                                                    <a href="#" id="show-more-details">Show more Details</a>
+                                                    
+                                                    <c:if test="${not empty product.price.dateStart}">
+                                                        <div class="row w-100">
+
+                                                            <dt class="col-4">Ngày bắt đầu sale:</dt>
+                                                            <dd class="col-8">${product.price.dateStart}</dd>
+                                                        </div>
+                                                    </c:if>
+                                                    <c:if test="${not empty product.price.dateEnd}">
+                                                        <div class="row w-100">
+
+                                                            <dt class="col-4">Ngày kết thúc sale:</dt>
+                                                            <dd class="col-8">${product.price.dateEnd}</dd>
+                                                        </div>
+                                                    </c:if>
+                                                    <c:if test="${not empty product.date}">
+                                                        <div class="row w-100">
+
+                                                            <dt class="col-4">Ngày nhập hàng:</dt>
+                                                            <dd class="col-8">${product.date}</dd>
+                                                        </div>
+                                                    </c:if>
+                                                    <c:if test="${not empty product.price.sale}">
+                                                        <div class="row w-100">
+
+                                                            <dt class="col-4">Sale:</dt>
+                                                            <dd class="col-8">${product.price.sale} %</dd>
+                                                        </div>
+                                                    </c:if>
+
+                                                    <hr/>
+                                                    <a href="#" id="show-more-details">Mở rộng</a>
                                                     <hr/>
 
                                                     <div class="row" id="product-details" style="display: none;">
@@ -303,34 +340,7 @@
                                                                 <dd class="col-9">${product.detail.status}</dd>
                                                             </div>
                                                         </c:if>
-                                                        <c:if test="${not empty product.price.dateStart}">
-                                                            <div class="row w-100">
 
-                                                                <dt class="col-3">Date start:</dt>
-                                                                <dd class="col-9">${product.price.dateStart}</dd>
-                                                            </div>
-                                                        </c:if>
-                                                        <c:if test="${not empty product.price.dateEnd}">
-                                                            <div class="row w-100">
-
-                                                                <dt class="col-3">Date End:</dt>
-                                                                <dd class="col-9">${product.price.dateEnd}</dd>
-                                                            </div>
-                                                        </c:if>
-                                                        <c:if test="${not empty product.date}">
-                                                            <div class="row w-100">
-
-                                                                <dt class="col-3">Import Date:</dt>
-                                                                <dd class="col-9">${product.date}</dd>
-                                                            </div>
-                                                        </c:if>
-                                                        <c:if test="${not empty product.price.sale}">
-                                                            <div class="row w-100">
-
-                                                                <dt class="col-3">Sale:</dt>
-                                                                <dd class="col-9">${product.price.sale} %</dd>
-                                                            </div>
-                                                        </c:if>
                                                         <hr/>
 
                                                     </div>
@@ -384,10 +394,10 @@
             showMoreButton.addEventListener("click", function () {
                 if (detailsDiv.style.display === "none") {
                     detailsDiv.style.display = "block";
-                    showMoreButton.textContent = "Hide Details"; // Thay đổi nội dung nút
+                    showMoreButton.textContent = "Thu nhỏ"; // Thay đổi nội dung nút
                 } else {
                     detailsDiv.style.display = "none";
-                    showMoreButton.textContent = "Show more Details"; // Thay đổi nội dung nút
+                    showMoreButton.textContent = "Mở rộng"; // Thay đổi nội dung nút
                 }
             });
 

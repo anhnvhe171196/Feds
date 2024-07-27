@@ -220,7 +220,7 @@
                 <div class="feedback-container">
                     <c:forEach items="${sessionScope.feedbackDetail}" var="fbd">
                         <div class="feedback-item">
-                            <img src="images/${fbd.img}" alt="Feedback Image">
+                            <img src="imgFeedBack/${fbd.img}" alt="Feedback Image">
                             <div class="feedback-info" style="margin-left:150px">
                                 <div class="info-row" > 
                                     <h6>Ngày đánh giá:</h6>

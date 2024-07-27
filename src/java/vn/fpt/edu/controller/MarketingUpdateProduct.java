@@ -110,7 +110,7 @@ public class MarketingUpdateProduct extends HttpServlet {
         String wattage = request.getParameter("wattage");
         String status = request.getParameter("status");
         String priceString = request.getParameter("price");
-        double price = Double.parseDouble(priceString.replace(".", ""));
+        double price = Double.parseDouble(priceString.replace(",", ""));
         String dateStartString = request.getParameter("dateStart");
         String dateEndString = request.getParameter("dateEnd");
         String dateString = request.getParameter("importDate");

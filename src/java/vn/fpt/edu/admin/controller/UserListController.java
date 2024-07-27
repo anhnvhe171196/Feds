@@ -165,8 +165,9 @@ public class UserListController extends HttpServlet {
       u.setRole(r);
       u.setAvarta("");
       u.setGender(gender.equals("Female"));
-      dao.insertCustomer(u);
+      boolean check = dao.insertCustomer(u);
       response.sendRedirect("users");
+      if(check) {
       String host = "smtp.gmail.com";
       String port = "587";
       String fromAddress = "anhnvhe171196@fpt.edu.vn";
@@ -192,6 +193,7 @@ public class UserListController extends HttpServlet {
         message.setContent(messageContent, "text/html");
         Transport.send((Message)message);
       } catch (Exception exception) {}
+      }
     }}
 
 }

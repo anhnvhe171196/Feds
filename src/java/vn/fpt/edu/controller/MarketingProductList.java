@@ -65,12 +65,12 @@ public class MarketingProductList extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
-
+        String search = request.getParameter("search");
+        
         HttpSession session = request.getSession();
         Data_MarketingDashboard_DAO dt = new Data_MarketingDashboard_DAO();
         Product_DAO pd = new Product_DAO();
-
-        int count = pd.getTotalNumberOfProducts();
+        int count = pd.Paging(search);
         int endPage = count / 10;
         if (count % 10 != 0) {
             endPage++;
@@ -82,7 +82,7 @@ public class MarketingProductList extends HttpServlet {
         }
         int index = Integer.parseInt(indexPage);
 
-        String search = request.getParameter("search");
+
         String sortBy = request.getParameter("sortBy");
         String sortOrder = request.getParameter("sortOrder");
         if (sortBy == null) {

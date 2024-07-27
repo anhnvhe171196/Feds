@@ -123,6 +123,8 @@ public class AddCartByView extends HttpServlet {
         } else {
             price = pd1.getPrice();
         }
+        System.out.println("txt");
+        System.out.println(txt);
         if (txt.isEmpty()) {
             txt = userId + ":" + id + ":" + num + ":" + price;
         } else {

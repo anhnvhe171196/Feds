@@ -47,75 +47,17 @@ public class UserRegisterController extends HttpServlet {
             request.getRequestDispatcher("UserRegister.jsp").forward(request, response);
         } else {
             String phoneNumber = request.getParameter("phoneNumber");
-            String gender = request.getParameter("gender") == null ? "male" : request.getParameter("gender");
+            String gender = request.getParameter("gender");
+            boolean check = false;
+            if(gender.equalsIgnoreCase("male")){
+                check = true;
+            }
             Role_DAO rd = new Role_DAO();
             Role r = rd.getRoleById(5);
-            User c = new User(0, pass, username1, email, phoneNumber, r, "9-anh-dai-dien-trang-inkythuatso-03-15-27-03.jpg", false, gender.equals("female"));
+            User c = new User(0, pass, username1, email, phoneNumber, r, "9-anh-dai-dien-trang-inkythuatso-03-15-27-03.jpg", false, check);
             cd.insertCustomer(c);
-            // Cấu hình thông tin email
-            String host = "smtp.gmail.com";
-            String port = "587";
-            final String username = "anhnvhe171196@fpt.edu.vn";
-            final String password = "cpautzrmivqsxoiu";
-            String fromAddress = "anhnvhe171196@fpt.edu.vn";
-            String toAddress = email;
-            String subject = "Subject of the email";
-            String messageContent = "<!DOCTYPE html>\n"
-                    + "<html lang=\"en\">\n"
-                    + "\n"
-                    + "<head>\n"
-                    + "  <meta charset=\"utf-8\">\n"
-                    + "  <meta content=\"width=device-width, initial-scale=1.0\" name=\"viewport\">\n"
-                    + "</head>\n"
-                    + "\n"
-                    + "<body>\n"
-                    + "  <div style=\"text-align: center;\">\n"
-                    + "      <h1 style=\"color: red;\">Fed Shop</h1>\n"
-                    + "      <h2>Thank you for registering for a Fed Shop account</h2>\n"
-                    + "  </div>\n"
-                    + "</body>\n"
-                    + "\n"
-                    + "</html>";
-
-            // Cấu hình Jakarta Mail
-            Properties properties = new Properties();
-            properties.put("mail.smtp.host", host);
-            properties.put("mail.smtp.port", port);
-            properties.put("mail.smtp.auth", "true");
-            properties.put("mail.smtp.starttls.enable", "true");
-            properties.put("mail.smtp.starttls.required", "true");
-
-            // Xây dựng đối tượng Session để xác thực và kết nối đến SMTP server
-            Session session = Session.getInstance(properties, new Authenticator() {
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication(username, password);
-                }
-            });
-
-            try {
-                // Tạo đối tượng MimeMessage
-                MimeMessage message = new MimeMessage(session);
-
-                // Thiết lập thông tin người gửi
-                message.setFrom(new InternetAddress(fromAddress));
-
-                // Thiết lập thông tin người nhận
-                message.addRecipient(Message.RecipientType.TO, new InternetAddress(toAddress));
-
-                // Thiết lập tiêu đề và nội dung email
-                message.setSubject(subject);
-                message.setContent(messageContent, "text/html");
-                // Gửi email
-                Transport.send(message);
-
-                // Chuyển hướng người dùng sau khi gửi email thành công
-                request.setAttribute("error", "Đã đăng kí thành công!!!");
-                request.getRequestDispatcher("UserLogin.jsp").forward(request, response);
-            } catch (MessagingException mex) {
-                // Xử lý lỗi nếu có
-                mex.printStackTrace();
-                response.sendRedirect("register");
-            }
+            request.setAttribute("error", "Đã đăng kí thành công!!!");
+            request.getRequestDispatcher("UserLogin.jsp").forward(request, response);
         }
     }
 }

@@ -188,7 +188,7 @@ public class Feedback_DAO extends DBContext {
         int avg = 0;
         String sql = "select count(f.Comment)\n"
                 + "from FeedBack as f\n"
-                + "where Product_id = ?";
+                + "where Product_id = ? and Status = N'Hiện'";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
@@ -233,7 +233,7 @@ public class Feedback_DAO extends DBContext {
     public int totalPageOfFeedBackByProductID(int pageIndex, int pageNumber, int productId) {
         int avg = 0;
         String sql = "DECLARE @NumberOfPages INT;\n"
-                + "EXEC TotalPageOfFeedBack @PageIndex = ?, @PageNumber = ?, @ProductID = ?,\n"
+                + "EXEC TotalPageOfFeedBack2 @PageIndex = ?, @PageNumber = ?, @ProductID = ?,\n"
                 + " @NumberOfPages = @NumberOfPages OUTPUT;";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -253,7 +253,7 @@ public class Feedback_DAO extends DBContext {
 
     public List<FeedBack> feedBacksByProductIDSQL(int pageIndex, int pageNumber, int productId) {
         List<FeedBack> list = new ArrayList<>();
-        String sql = "exec PagingOfFeedBack ?, ?, ?";
+        String sql = "exec PagingOfFeedBack1 ?, ?, ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, pageIndex);
@@ -277,7 +277,7 @@ public class Feedback_DAO extends DBContext {
         int avg = 0;
         String sql = "SELECT count(Rating)\n"
                 + "  FROM [dbo].[FeedBack]\n"
-                + "  where Rating = ? and Product_id = ?";
+                + "  where Rating = ? and Product_id = ? and Status = N'Hiện'";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, rating);
@@ -303,7 +303,7 @@ public class Feedback_DAO extends DBContext {
                 + "           ,[Img]\n"
                 + "           ,[Status])\n"
                 + "     VALUES\n"
-                + "           (?, ?, GETDATE(), ?, ?, ?, 'Hiện')";
+                + "           (?, ?, GETDATE(), ?, ?, ?, N'Hiện')";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, productId);
@@ -319,7 +319,7 @@ public class Feedback_DAO extends DBContext {
 
     public List<Feedback1> getAllFeedbackPagingSQL(int pageIndex, int numOfFeedback) {
         List<Feedback1> list = new ArrayList<>();
-        String sql = "exec PagingFeedback ?,?"; 
+        String sql = "exec PagingFeedback2 ?,?"; 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, pageIndex);

@@ -236,33 +236,35 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Trending Overview</h6>
+                                    <h6 class="m-0 font-weight-bold">Trending Overview</h6>
                                     <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in text-center"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <label for="start-date">Start Date:</label>
-                                            <input type="date" id="start-date">
-                                            <label for="end-date">End Date:</label>
-                                            <input type="date" id="end-date">
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#" id="update-chart">Update Chart</a>
+                                        <div class="d-flex">
+                                        <div class="me-2">
+                                            <label for="start-date-priority" class="form-label">Start date:</label>
+                                            <input type="date" id="start-date" class="form-control" name="startdate">
+                                            <small id="startdate-error" class="text-danger"></small>
                                         </div>
+                                        <div class="me-2" style="margin-left: 5px">
+                                            <label for="end-date-priority" class="form-label">End date:</label>
+                                            <input type="date" id="end-date" class="form-control" name="enddate">
+                                            <small id="enddate-error" class="text-danger"></small>
+                                        </div>
+                                        <div style="margin-left: 5px">
+                                            <a class="dropdown-item" href="#" id="update-chart" style=" background-color: white; margin-top: 30px; font-weight: bold">View</a>
+                                        </div>
+                                    </div>
                                     </div>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
+                                        <canvas width="800" height="320" id="myAreaChart"></canvas>
                                     </div>
                                 </div>
                             </div>
                         </div>
 <%
-    HashMap<String, Integer> revCate = (HashMap)request.getAttribute("RevenueCate");
+    HashMap<String, Long> revCate = (HashMap)request.getAttribute("RevenueCate");
 %>
                         <!-- Pie Chart -->
                         <div class="col-xl-4 col-lg-5">
@@ -270,7 +272,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                                    <h6 class="m-0 font-weight-bold">Revenue Sources</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
@@ -305,7 +307,7 @@
                             <!-- Project Card Example -->
                            <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Category Stock</h6>
+        <h6 class="m-0 font-weight-bold" style="">Category Stock</h6>
     </div>
     <div class="card-body">
         <div class="list-group">
@@ -364,7 +366,8 @@
                             <!-- Project Card Example -->
                             <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Category Types</h6>
+        <h6 class="m-0 font-weight-bold">Category Types</h6>
+        
     </div>
     <div class="card-body">
         <div class="list-group">
@@ -537,6 +540,7 @@ let ordersTrendChart = new Chart(ctx, {
     },
     options: {
         responsive: true,
+        maintainAspectRatio: false,
         scales: {
             x: {
                 title: {
@@ -548,6 +552,10 @@ let ordersTrendChart = new Chart(ctx, {
                 title: {
                     display: true,
                     text: 'Order Count'
+                },
+                beginAtZero: true,
+                ticks: {
+                    stepSize: 1 // Set the step size for the y-axis
                 }
             }
         }
@@ -557,15 +565,25 @@ function filterTrendData(startDate, endDate) {
     const filteredLabels = [];
     const filteredSuccess = [];
     const filteredAll = [];
-
-    for (const date in trendData) {
+        
+let sortedKeys = Object.keys(trendData).sort((a, b) => {
+    // Convert date strings into Date objects for comparison
+    let dateA = new Date(a);
+    let dateB = new Date(b);
+    return dateA - dateB;
+});
+let count = 0;
+    for (const i in sortedKeys) {
+        const date = sortedKeys[i];
         if (date >= startDate && date <= endDate) {
             filteredLabels.push(date);
             filteredSuccess.push(trendData[date].success);
             filteredAll.push(trendData[date].all);
+            count++;
+            if(count >= 10) break;
         }
     }
-
+    //console.log(filteredLabels);
     return { labels: filteredLabels, success: filteredSuccess, all: filteredAll };
 }
 function updateChart(startDate, endDate) {
@@ -574,7 +592,12 @@ function updateChart(startDate, endDate) {
     ordersTrendChart.data.labels = filteredData.labels;
     ordersTrendChart.data.datasets[0].data = filteredData.success;
     ordersTrendChart.data.datasets[1].data = filteredData.all;
+    const startDateEle = document.getElementById('start-date');
+    const endDateEle = document.getElementById('end-date');
+    startDateEle.value = startDate;
+    endDateEle.value = endDate;
     ordersTrendChart.update();
+    
 }
 document.getElementById('update-chart').addEventListener('click', () => {
     event.preventDefault();

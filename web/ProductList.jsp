@@ -594,6 +594,7 @@
     });
     const size = await resp.json();
     document.getElementsByClassName("qty")[0].innerHTML = size["Size"];
+    alert("Add Product Successfully!");
     
                                                     }, 0);
                                                 }

@@ -287,14 +287,24 @@ public class Product_DAO extends DBContext {
 
     public List<Product> getSellingProduct() {
         List<Product> list = new ArrayList<>();
-        String sql = "select p.Product_img, pc.Category_name, p.Product_name, pr.Price, p.Product_id, SUM(o.Order_quantity) AS Total_Products\n"
-                + "from Product p\n"
-                + "Inner Join [Order] o on o.Product_id = p.Product_id\n"
-                + "Inner Join Brandd b on b.Brand_Id = p.Brand_id\n"
-                + "Inner Join Product_Category pc on pc.Category_id = b.Category_id\n"
-                + "Join Price pr on p.Product_id = pr.Product_id\n"
-                + "Group by p.Product_img, pc.Category_name, p.Product_name, pr.Price, p.Product_id\n"
-                + "Order by Total_Products DESC";
+        String sql = "SELECT p.Product_img, \n"
+                + "       pc.Category_name, \n"
+                + "       p.Product_name, \n"
+                + "       pr.Price, \n"
+                + "       p.Product_id, \n"
+                + "       SUM(o.Order_quantity) AS Total_Products\n"
+                + "FROM Product p\n"
+                + "INNER JOIN [Order] o ON o.Product_id = p.Product_id\n"
+                + "INNER JOIN Brandd b ON b.Brand_Id = p.Brand_id\n"
+                + "INNER JOIN Product_Category pc ON pc.Category_id = b.Category_id\n"
+                + "JOIN Price pr ON p.Product_id = pr.Product_id\n"
+                + "where p.Status = 'active'\n"
+                + "GROUP BY p.Product_img, \n"
+                + "         pc.Category_name, \n"
+                + "         p.Product_name, \n"
+                + "         pr.Price, \n"
+                + "         p.Product_id\n"
+                + "ORDER BY Total_Products DESC;";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -332,7 +342,7 @@ public class Product_DAO extends DBContext {
                          Product_Category pc ON br.Category_id = pc.Category_id
                      WHERE
                          b.Date BETWEEN ? AND ?
-                         AND b.Status = 'Ho\u00e0n Th\u00e0nh'
+                         AND b.Status = N'Hoàn thành'
                      GROUP BY
                          pc.Category_name,
                          p.Product_id,
@@ -436,7 +446,7 @@ public class Product_DAO extends DBContext {
                 + "Inner join Brandd b on b.Brand_Id = p.Brand_id\n"
                 + "Inner Join Product_Category pc on pc.Category_id = b.Category_id\n"
                 + "Join Price pr on p.Product_id = pr.Product_id\n"
-                + "where pr.Price between 1000000 AND 5000000\n"
+                + "where pr.Price between 1000000 AND 5000000 and p.Status = 'active'\n"
                 + "and pc.Category_id = 1\n"
                 + "Order by Price ";
         try {
@@ -466,7 +476,7 @@ public class Product_DAO extends DBContext {
                 + "Inner Join Product_Category pc on pc.Category_id = b.Category_id\n"
                 + "Join Product_Detail pd on pd.Product_id = p.Product_id\n"
                 + "Join Price pr on pr.Product_id = p.Product_id\n"
-                + "where pc.Category_id = 4 and pr.Price between 12000000 and 30000000 Order by Price";
+                + "where pc.Category_id = 4 and pr.Price between 12000000 and 30000000 and p.Status = 'active' Order by Price";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -555,7 +565,7 @@ public class Product_DAO extends DBContext {
                 + "Inner Join Brandd b on b.Brand_Id = p.Brand_id\n"
                 + "Inner Join Product_Category pc on pc.Category_id = b.Category_id\n"
                 + "Join Price pr on pr.Product_id = p.Product_id\n"
-                + "WHERE p.Date BETWEEN '2024-01-01' AND '2024-12-31'\n"
+                + "WHERE p.Date BETWEEN '2024-01-01' AND '2024-12-31' and p.Status = 'active'\n"
                 + "Order by p.Date desc";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -582,7 +592,7 @@ public class Product_DAO extends DBContext {
                 + "Inner Join Brandd b on b.Brand_Id = p.Brand_id\n"
                 + "Inner Join Product_Category pc on pc.Category_id = b.Category_id\n"
                 + "Join Price pr on pr.Product_id = p.Product_id\n"
-                + "WHERE pc.Category_id = 10\n"
+                + "WHERE pc.Category_id = 10 and p.Status = 'active'\n"
                 + "Order by p.Date desc";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -609,7 +619,7 @@ public class Product_DAO extends DBContext {
                 + "Inner Join Brandd b on b.Brand_Id = p.Brand_id\n"
                 + "Inner Join Product_Category pc on pc.Category_id = b.Category_id\n"
                 + "Join Price pr on pr.Product_id = p.Product_id\n"
-                + "WHERE pc.Category_id = 3\n"
+                + "WHERE pc.Category_id = 3 and p.Status = 'active'\n"
                 + "Order by p.Quantity desc";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -636,8 +646,8 @@ public class Product_DAO extends DBContext {
                 + "Inner Join Brandd b on b.Brand_Id = p.Brand_id\n"
                 + "Inner Join Product_Category pc on pc.Category_id = b.Category_id\n"
                 + "Join Price pr on pr.Product_id = p.Product_id\n"
-                + "WHERE pc.Category_id = 8 and pr.Price between 1000000 and 4000000\n"
-                + "Order by pr.Price desc";
+                + "WHERE pc.Category_id = 8 and pr.Price between 1000000 and 4000000 and p.Status = 'active'\n"
+                + "Order by pr.Price desc"; 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -663,7 +673,7 @@ public class Product_DAO extends DBContext {
                 + "Inner Join Brandd b on b.Brand_Id = p.Brand_id\n"
                 + "Inner Join Product_Category pc on pc.Category_id = b.Category_id\n"
                 + "Join Price pr on pr.Product_id = p.Product_id\n"
-                + "WHERE pc.Category_id = 9 \n"
+                + "WHERE pc.Category_id = 9 and p.Status = 'active'\n"
                 + "Order by pr.Price";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -699,6 +709,29 @@ public class Product_DAO extends DBContext {
         return totalNumberOfProducts;
     }
 
+    public int Paging(String search) {
+        int Page = 0;
+        String sql = "SELECT count([Product_id]) AS TotalCount FROM Product";
+        if (search != null && !search.isEmpty()) {
+            sql += " WHERE [Product_name] LIKE ?";
+        }
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            if (search != null && !search.isEmpty()) {
+                st.setString(1, "%" + search + "%");
+            }
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                Page = rs.getInt("TotalCount");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return Page;
+    }
+
     public Product1 getProductById(int id) {
         String sql = "SELECT [Product_id]\n"
                 + "      ,[Quantity]\n"
@@ -729,7 +762,7 @@ public class Product_DAO extends DBContext {
         List<Product> list = new ArrayList<>();
         String sql = "select p.Product_id, p.Product_img, p.Product_name, p.Quantity, pr.Price, pd.Battery, pd.Color\n"
                 + "From Product p, Price pr, Product_Detail pd\n"
-                + "where p.Product_id = pr.Product_id and p.Product_id = pd.Product_id";
+                + "where p.Product_id = pr.Product_id and p.Product_id = pd.Product_id and p.Status = 'active'";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();

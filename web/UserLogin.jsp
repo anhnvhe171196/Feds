@@ -38,7 +38,7 @@
                 <div class="wrap-login100">
                     <form class="login100-form validate-form" action="login" method="post" id="form">
                         <div>
-                            <a href="home"><img src="images/logo.jpg" alt="Feds Logo" style="max-width: 100px; max-height: 100px; display: block; margin: 0 auto; border-radius: 40%;"></a>
+                            <a href="home"><img src="images/logo_2.jpg" alt="Feds Logo" style="max-width: 100px; max-height: 100px; display: block; margin: 0 auto; border-radius: 40%;"></a>
                         </div>
                         <span class="login100-form-title p-b-43">
                             Welcome to FedShop
@@ -54,20 +54,17 @@
                         <div class="form-group">
                             <input id="password-field" type="password" class="form-control" name="password" required>
                             <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                            <label for="password" class="form-label">Password</label>
+                            <label for="password" class="form-label">Mật khẩu</label>
                         </div>
 
                         <div class="flex-sb-m w-full p-t-3 p-b-32">
                             <div class="contact100-form-checkbox">
-                                <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-                                <label class="label-checkbox100" for="ckb1">
-                                    Remember me
-                                </label>
+                                
                             </div>
 
                             <div>
                                 <a href="forgotpass" class="txt1">
-                                    Forgot Password?
+                                    Quên Mật khẩu?
                                 </a>
                             </div>
                         </div>
@@ -81,14 +78,14 @@
                             <input type="submit" class="form-control btn btn-primary submit px-3">
                         </div>
 
-                        <p class="w-100 text-center">&mdash; Do not have account? &mdash;</p>
+                        <p class="w-100 text-center">&mdash; Bạn chưa có tài khoản? &mdash;</p>
                         <div class="form-group" style="text-align: center;background-color: white; border-radius: 100px; border: 1px black groove;">
-                            <a href="register"><div style="display: inline-block;font-weight: 400;white-space: nowrap;vertical-align: middle; padding: 10px 0px "> Register</div></a>
+                            <a href="register"><div style="display: inline-block;font-weight: 400;white-space: nowrap;vertical-align: middle; padding: 10px 0px "> Đăng kí</div></a>
                         </div>
 
                         <div class="text-center p-t-10 p-b-20">
                             <span class="txt2">
-                                or sign up using
+                                Đăng nhập bằng google
                             </span>
                         </div>
 

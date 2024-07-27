@@ -71,11 +71,11 @@
                                 <a class="review-link" href="#">${requestScope.totalFeedback} Review(s) | Thêm đánh giá của bạn</a>
                             </div>
                             <div>
-                                <c:if test="${requestScope.dateTest == 1}">
+                                <c:if test="${requestScope.dateTest == 1 and price.sale > 1}">
                                     <h3 class="product-price"><fmt:formatNumber value="${price.price - price.price * price.sale / 100}" pattern="#,###"/>VNĐ &nbsp;<del class="product-old-price"><fmt:formatNumber value="${price.price}" pattern="#,###"/>VNĐ</del></h3>
                                     <span class="product-available">Giảm giá ${price.sale}%</span>
                                 </c:if>
-                                <c:if test="${requestScope.dateTest == 2}">    
+                                <c:if test="${requestScope.dateTest == 2 || price.sale == 0}">    
                                     <h3 class="product-price"><fmt:formatNumber value="${price.price}" pattern="#,###"/>VNĐ</h3>
                                 </c:if>
                             </div>
@@ -134,6 +134,10 @@
                                         <td>${product.status}</td>
                                     </tr>
                                 </c:if>
+                                    <tr>
+                                        <td style="padding-right: 80px;padding-bottom: 5px;font-weight: bold;">Số lượng sản phẩm còn lại trong kho</td>
+                                        <td>${requestScope.product.product.quantity}</td>
+                                    </tr>
                             </table>
 
                             <div class="add-to-cart">
@@ -153,7 +157,7 @@
 
                             </div>
                             <ul class="product-links">
-                                <li>Category:</li>
+                                <li>Loại sản phẩm:</li>
                                 <li><a href="ListProduct?cateid=${requestScope.product.product.brand.category.category_id}">${requestScope.product.product.brand.category.category_name}</a></li>
                                 <li>${requestScope.product.product.brand.brandName}</li>
                             </ul>
@@ -167,8 +171,8 @@
                     <div id="product-tab">
                         <!-- product tab nav -->
                         <ul class="tab-nav">
-                            <li class="${requestScope.page != 1 ? '' : 'active'}"><a data-toggle="tab" href="#tab1">Description</a></li>
-                            <li class="${requestScope.page != 1 ? 'active' : ''}"><a data-toggle="tab" href="#tab3">Reviews (${requestScope.totalFeedback})</a></li>
+                            <li class="${requestScope.page != 1 ? '' : 'active'}"><a data-toggle="tab" href="#tab1">Chi tiết sản phẩm</a></li>
+                            <li class="${requestScope.page != 1 ? 'active' : ''}"><a data-toggle="tab" href="#tab3">Review (${requestScope.totalFeedback})</a></li>
                         </ul>
                         <!-- /product tab nav -->
 
@@ -383,7 +387,7 @@
 
                 <div class="col-md-12">
                     <div class="section-title text-center">
-                        <h3 class="title">Related Products</h3>
+                        <h3 class="title">Các loại sản phẩm liên quan</h3>
                     </div>
                 </div>
 

@@ -19,7 +19,7 @@ import vn.fpt.edu.models.Role;
  * @author admin
  */
 public class User_DAO extends DBContext {
-    
+
     public void banUser(int id, boolean banned) {
         String sql = "UPDATE [User] SET [isBanned] = " + (banned ? 1 : 0)
                 + "\n WHERE User_Id = " + id;
@@ -59,7 +59,7 @@ public class User_DAO extends DBContext {
         return list;
     }
 
-    public void insertCustomer(User u) {
+    public boolean insertCustomer(User u) {
         String sql = "INSERT INTO [dbo].[User]\n"
                 + "           ([Password]\n"
                 + "           ,[User_name]\n"
@@ -71,6 +71,13 @@ public class User_DAO extends DBContext {
                 + "     VALUES\n"
                 + "           (?, ?, ?, ?, ?, ?, ?)";
         try {
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM [User] WHERE [User_name] = ? OR [Email] = ?");
+            ps.setString(1, u.getUser_name());
+            ps.setString(2, u.getEmail());
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                return false;
+            }
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, u.getPassword());
             st.setString(2, u.getUser_name());
@@ -80,11 +87,13 @@ public class User_DAO extends DBContext {
             st.setString(6, u.getAvarta());
             st.setInt(7, u.isGender() ? 1 : 0);
             st.executeUpdate();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
     }
-    
+
     public void updateUser(int id, boolean isBanned, int roleId) {
         String sql = "UPDATE [dbo].[User]\n"
                 + "           SET [Role_id] = ?\n"
@@ -111,7 +120,7 @@ public class User_DAO extends DBContext {
                 + "           ,[Avarta]\n"
                 + "           ,[gender])\n"
                 + "     VALUES\n"
-                + "           (?, ?, ?, ?, ?, ?, 0)";
+                + "           (?, ?, ?, ?, ?, ?, 1)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, pass);
@@ -289,6 +298,33 @@ public class User_DAO extends DBContext {
         return totalNumberOfUsers;
     }
 
+    public int Paging(String search, String searchBy) {
+        int totalNumberOfUsers = 0;
+        String sql = "SELECT COUNT([User_Id]) AS TotalCount FROM [User] u";
+        if (search != null && !search.isEmpty()) {
+            if ("User".equals(searchBy)) {
+                sql += " WHERE u.[User_name] LIKE ?";
+            } else if ("Email".equals(searchBy)) {
+                sql += " WHERE u.[Email] LIKE ?";
+            } else if ("Phone".equals(searchBy)) {
+                sql += " WHERE u.[Phone_number] LIKE ?";
+            }
+        }
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            if (search != null && !search.isEmpty()) {
+                st.setString(1, "%" + search + "%");
+            }
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                totalNumberOfUsers = rs.getInt("TotalCount");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return totalNumberOfUsers;
+    }
 
     public User getCustomerByID(User u) {
         String spl = "select User_Id, User_name, Email, Phone_number\n"
@@ -311,9 +347,8 @@ public class User_DAO extends DBContext {
         }
         return user;
     }
-    
-      
-        public List<User> getUserSort(String sortBy, int page) {
+
+    public List<User> getUserSort(String sortBy, int page) {
         List<User> list = new ArrayList<>();
         String sql = "SELECT [User_Id]\n"
                 + "	  ,[Password]\n"
@@ -325,7 +360,7 @@ public class User_DAO extends DBContext {
                 + "      ,[isBanned]\n"
                 + "      ,[gender]\n"
                 + "  FROM [Feds].[dbo].[User] WHERE Role_id != 1\n";
-        switch(sortBy) {
+        switch (sortBy) {
             case "ID":
                 sql += " ORDER BY [User_Id]";
                 break;
@@ -342,7 +377,7 @@ public class User_DAO extends DBContext {
                 sql += " ORDER BY [Phone_number]";
                 break;
         }
-         sql += " OFFSET " + (page-1)*9 + " ROWS FETCH NEXT 9 ROWS ONLY;";
+        sql += " OFFSET " + (page - 1) * 9 + " ROWS FETCH NEXT 9 ROWS ONLY;";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -357,8 +392,8 @@ public class User_DAO extends DBContext {
         }
         return list;
     }
-      
-       public int getUserCount() {
+
+    public int getUserCount() {
         int total = 0;
         String sql = "SELECT Count([User_Id]) as Total\n"
                 + "  FROM [Feds].[dbo].[User] WHERE Role_id != 1\n";
@@ -373,7 +408,7 @@ public class User_DAO extends DBContext {
         }
         return total;
     }
-    
+
     public List<User> getUserPage(int page) {
         List<User> list = new ArrayList<>();
         String sql = "SELECT [User_Id]\n"
@@ -385,7 +420,7 @@ public class User_DAO extends DBContext {
                 + "      ,[Avarta]\n"
                 + "      ,[isBanned]\n"
                 + "      ,[gender]\n"
-                + "  FROM [Feds].[dbo].[User] WHERE Role_id != 1 ORDER BY [User_Id] OFFSET " + (page-1)*9 + " ROWS FETCH NEXT 9 ROWS ONLY;";
+                + "  FROM [Feds].[dbo].[User] WHERE Role_id != 1 ORDER BY [User_Id] OFFSET " + (page - 1) * 9 + " ROWS FETCH NEXT 9 ROWS ONLY;";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -400,20 +435,20 @@ public class User_DAO extends DBContext {
         }
         return list;
     }
-    
-     public int getUserSearchCount(String search, String SearchBy) {
+
+    public int getUserSearchCount(String search, String SearchBy) {
         int total = 0;
         String sql = "SELECT Count([User_Id]) as Total\n"
                 + "  FROM [Feds].[dbo].[User]\n";
-        switch(SearchBy) {
+        switch (SearchBy) {
             case "name":
-                sql += " WHERE [User_name] LIKE '%"+search+"%'";
+                sql += " WHERE [User_name] LIKE '%" + search + "%'";
                 break;
             case "email":
-                sql += " WHERE [Email] LIKE '%"+search+"%'";
+                sql += " WHERE [Email] LIKE '%" + search + "%'";
                 break;
             case "mobile":
-                sql += " WHERE [Phone_number] LIKE '%"+search+"%'";
+                sql += " WHERE [Phone_number] LIKE '%" + search + "%'";
                 break;
         }
         sql += " AND Role_id != 1";
@@ -428,8 +463,8 @@ public class User_DAO extends DBContext {
         }
         return total;
     }
-    
-        public List<User> getUserSearch(String search, String SearchBy, int page) {
+
+    public List<User> getUserSearch(String search, String SearchBy, int page) {
         List<User> list = new ArrayList<>();
         String sql = "SELECT [User_Id]\n"
                 + "	  ,[Password]\n"
@@ -441,19 +476,19 @@ public class User_DAO extends DBContext {
                 + "      ,[isBanned]\n"
                 + "      ,[gender]\n"
                 + "  FROM [Feds].[dbo].[User]\n";
-        switch(SearchBy) {
+        switch (SearchBy) {
             case "name":
-                sql += " WHERE [User_name] LIKE '%"+search+"%'";
+                sql += " WHERE [User_name] LIKE '%" + search + "%'";
                 break;
             case "email":
-                sql += " WHERE [Email] LIKE '%"+search+"%'";
+                sql += " WHERE [Email] LIKE '%" + search + "%'";
                 break;
             case "mobile":
-                sql += " WHERE [Phone_number] LIKE '%"+search+"%'";
+                sql += " WHERE [Phone_number] LIKE '%" + search + "%'";
                 break;
         }
         sql += " AND Role_id != 1";
-        sql += " ORDER BY [User_Id] OFFSET " + (page-1)*9 + " ROWS FETCH NEXT 9 ROWS ONLY;";
+        sql += " ORDER BY [User_Id] OFFSET " + (page - 1) * 9 + " ROWS FETCH NEXT 9 ROWS ONLY;";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -468,9 +503,8 @@ public class User_DAO extends DBContext {
         }
         return list;
     }
-     
-     
-      public List<User> getUserSearchAndSort(String search, String SearchBy, String SortBy, int page) {
+
+    public List<User> getUserSearchAndSort(String search, String SearchBy, String SortBy, int page) {
         List<User> list = new ArrayList<>();
         String sql = "SELECT [User_Id]\n"
                 + "	  ,[Password]\n"
@@ -482,19 +516,19 @@ public class User_DAO extends DBContext {
                 + "      ,[isBanned]\n"
                 + "      ,[gender]\n"
                 + "  FROM [Feds].[dbo].[User]\n";
-        switch(SearchBy) {
+        switch (SearchBy) {
             case "name":
-                sql += " WHERE [User_name] LIKE '%"+search+"%'";
+                sql += " WHERE [User_name] LIKE '%" + search + "%'";
                 break;
             case "email":
-                sql += " WHERE [Email] LIKE '%"+search+"%'";
+                sql += " WHERE [Email] LIKE '%" + search + "%'";
                 break;
             case "mobile":
-                sql += " WHERE [Phone_number] LIKE '%"+search+"%'";
+                sql += " WHERE [Phone_number] LIKE '%" + search + "%'";
                 break;
         }
         sql += " AND Role_id != 1";
-        switch(SortBy) {
+        switch (SortBy) {
             case "id":
                 sql += " ORDER BY [User_Id]";
                 break;
@@ -511,7 +545,7 @@ public class User_DAO extends DBContext {
                 sql += " ORDER BY [Phone_number]";
                 break;
         }
-        sql += " OFFSET " + (page-1)*9 + " ROWS FETCH NEXT 9 ROWS ONLY;";
+        sql += " OFFSET " + (page - 1) * 9 + " ROWS FETCH NEXT 9 ROWS ONLY;";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -526,7 +560,7 @@ public class User_DAO extends DBContext {
         }
         return list;
     }
-      
+
     public int newlyRegistered() {
         int total = 0;
         String sql = "SELECT Count(User_Id) as Total FROM [User] WHERE CreateAt >= getdate() - 7";

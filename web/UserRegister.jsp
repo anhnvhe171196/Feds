@@ -38,7 +38,7 @@
                 <div class="wrap-login100">
                     <form class="login100-form validate-form" action="register" method="post" onsubmit="return validatePasswords()">
                         <div>
-                            <a href="home"><img src="images/logo.jpg" alt="Feds Logo" style="max-width: 100px; max-height: 100px; display: block; margin: 0 auto; border-radius: 40%;"></a>
+                            <a href="home"><img src="images/logo_2.jpg" alt="Feds Logo" style="max-width: 100px; max-height: 100px; display: block; margin: 0 auto; border-radius: 40%;"></a>
                         </div>
                         <span class="login100-form-title p-b-43">
                             Welcome to FedShop
@@ -48,21 +48,21 @@
                         </c:if>
 
                         <div class="form-group">
-                            <input type="text" class="form-control" name="username" required>
-                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" minlength="6" name="username" required>
+                            <label for="username" class="form-label">Họ và tên</label>
                         </div>
 
                         <div class="form-group password-group">
                             <div class="form-group">
                                 <input id="password-field" type="password" class="form-control" minlength="8" maxlength="20" name="password" required>
                                 <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                                <label for="password" class="form-label">Password</label>
+                                <label for="password" class="form-label">Mật khẩu</label>
                             </div>
                             <div>&nbsp;&nbsp;&nbsp;</div>
                             <div class="form-group">
                                 <input id="confirm-password-field" type="password" class="form-control" name="confirmPassword" required>
                                 <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                <label for="confirmPassword" class="form-label">Xác nhận mật khẩu</label>
                             </div>
                         </div>
                         <div style="color: #00000063 ;margin-bottom: 20px; margin-top: -25px; font-size: 13px; margin-left: 15px">Mật khẩu từ 8 - 20 kí tự</div>
@@ -75,35 +75,35 @@
 
                         <div class="form-group">
                             <input id="phone-number" class="form-control" name="phoneNumber" pattern="[0]{1}[3,5,7,8,9]{1}[0-9]{8}" required>
-                            <label for="phoneNumber" class="form-label">Phone Number</label>
+                            <label for="phoneNumber" class="form-label">Số điện thoại</label>
                             <small style="color: #00000063 ; margin-left: 15px ">Format: 09XXXXXXXX</small>
                         </div>
                         <div class="form-group">
-                            <label style="position: absolute; top: 0%; transform: translateY(-50%); padding: 0 5px; transition: all 0.2s; pointer-events: none; color: #999; background:transparent;">Gender</label>
+                            <label style="position: absolute; top: 0%; transform: translateY(-50%); padding: 0 5px; transition: all 0.2s; pointer-events: none; color: #999; background:transparent;">Giới tính</label>
 
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <input type="radio" id="male" name="gender" value="male" required style="margin-top: 20px;"> 
-                                        <label for="male" class="form-label" style="margin-top: 25px; margin-left: 10px;background: transparent">Male</label>
+                                        <input type="radio" checked="" id="male" name="gender" value="male" required style="margin-top: 20px;"> 
+                                        <label for="male" class="form-label" style="margin-top: 25px; margin-left: 10px;background: transparent">Nam</label>
                                     </div>
                                     <div class="col-md-4">
                                         <input type="radio" id="female" name="gender" value="female" required style="margin-top: 20px;">
-                                        <label for="female" class="form-label" style="margin-top: 25px; margin-left: 10px;background: transparent">Female</label>
+                                        <label for="female" class="form-label" style="margin-top: 25px; margin-left: 10px;background: transparent">Nữ</label>
                                     </div>
                                 </div>
                             </div>                          
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="form-control btn btn-primary submit px-3">Register</button>
+                            <button type="submit" class="form-control btn btn-primary submit px-3">Đăng kí</button>
                         </div>
-                        <p class="w-100 text-center">&mdash; Have account? &mdash;</p>
+                        <p class="w-100 text-center">&mdash; Bạn đã có tài khoản? &mdash;</p>
                         <div class="form-group">
-                            <button id="signInButton" class="form-control btn btn-primary1 submit px-3" style="border: 2px solid #00000034;">Sign in</button>
+                            <button id="signInButton" class="form-control btn btn-primary1 submit px-3" style="border: 2px solid #00000034;">Đăng nhập</button>
                         </div>
                         <div class="text-center p-t-10 p-b-20">
                             <span class="txt2">
-                                or sign up using
+                                Hoặc đăng kí bằng email
                             </span>
                         </div>
 

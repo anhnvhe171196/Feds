@@ -124,7 +124,7 @@
             <div class="sidebar pe-4 pb-3">
                 <nav class="navbar bg-light navbar-light">
                     <a href="home" class="navbar-brand mx-4 mb-3">
-                        <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Marketing</h3>
+                        <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>${sessionScope.account.role.roleName}</h3>
                     </a>
                     <div class="d-flex align-items-center ms-4 mb-4">
                         <div class="position-relative">
@@ -134,7 +134,7 @@
                         <div class="ms-3">
                             <h6 class="mb-0">${sessionScope.account.user_name}</h6>
 
-                            <span>Marketing</span>
+                            <span>${sessionScope.account.role.roleName}</span>
                         </div>
                     </div>
                     <div class="navbar-nav w-100">
@@ -279,7 +279,7 @@
                                                         </div>
                                                         <hr/>
                                                         <div class="mb-3">
-                                                            <h6 class="title text-dark" >Quantity:</h6>                                                                
+                                                            <h6 class="title text-dark" >Số lượng:</h6>                                                                
                                                             <input type="number" name="quantity" placeholder="Vui lòng nhập Số lượng > 0" class="form-control" min="1" required />
                                                             <label style="color: red; display: none;" id="productQuantityError">*Vui lòng nhập Số lượng</label>
                                                         </div>
@@ -306,13 +306,13 @@
                                                         </div>
                                                         <hr/>
                                                         <div class="mb-3">
-                                                            <h6 class="title text-dark" >Ngày bắt đầu:</h6>                                                                
+                                                            <h6 class="title text-dark" >Ngày bắt đầu sale:</h6>                                                                
                                                             <input type="date" name="dateStart"  class="form-control" required/>
                                                             <label style="color: red; display: none;" id="dateStartError">*Vui lòng chọn Ngày bắt đầu</label>
                                                         </div>
                                                         <hr/>
                                                         <div class="mb-3">
-                                                            <h6 class="title text-dark" >Ngày kết thúc:</h6>                                                                
+                                                            <h6 class="title text-dark" >Ngày kết thúc sale:</h6>                                                                
                                                             <input type="date" name="dateEnd"  class="form-control" required/>
                                                             <label style="color: red; display: none;" id="dateEndError">*Vui lòng chọn Ngày kết thúc</label>
                                                             <label style="color: red; display: none;" id="dateValidError">*Ngày kết thúc phải lớn hơn Ngày bắt đầu</label>
@@ -324,7 +324,7 @@
                                                         </div>
                                                         <hr/>
 
-                                                        <a href="#" id="show-more-details">Show more Details</a>
+                                                        <a href="#" id="show-more-details">Mở rộng</a>
                                                         <hr/>
                                                         <div class="row" id="product-details" style="display: none;">                                                                
                                                             <div class="row w-100">
@@ -426,10 +426,10 @@
             showMoreButton.addEventListener("click", function () {
                 if (detailsDiv.style.display === "none") {
                     detailsDiv.style.display = "block";
-                    showMoreButton.textContent = "Hide Details"; // Thay đổi nội dung nút
+                    showMoreButton.textContent = "Thu nhỏ"; // Thay đổi nội dung nút
                 } else {
                     detailsDiv.style.display = "none";
-                    showMoreButton.textContent = "Show more Details"; // Thay đổi nội dung nút
+                    showMoreButton.textContent = "Mở rộng"; // Thay đổi nội dung nút
                 }
             });
             function checkFileExtension() {
